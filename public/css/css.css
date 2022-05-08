@@ -1,0 +1,15 @@
+.bg-white{--tw-bg-opacity:1;background-color:rgba(255,255,255,var(--tw-bg-opacity))}
+.group-hover\:bg-white{--tw-bg-opacity:1;background-color:rgba(255,255,255,var(--tw-bg-opacity))}
+.focus-within\:bg-white:focus-within{--tw-bg-opacity:1;background-color:rgba(255,255,255,var(--tw-bg-opacity))}
+.hover\:bg-white:hover{--tw-bg-opacity:1;background-color:rgba(255,255,255,var(--tw-bg-opacity))}
+
+.symbol-required {
+    color: #e20c0c;
+}
+.errors-text {
+    display: block;
+    font-size: 0.7em;
+    line-height: 0.5rem;
+    margin-left: 0.5rem;
+    color: #e20c0c;
+}
