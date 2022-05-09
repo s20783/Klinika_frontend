@@ -1,6 +1,8 @@
 import {useParams} from "react-router";
 import React from "react";
 import {Link} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import {loginCall} from "../../api/authApiCalls";
 
 class Login extends React.Component {
     constructor(props) {
@@ -33,38 +35,42 @@ class Login extends React.Component {
         })
     }
 
-    // handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     const isValid = this.validateForm()
-    //     if (isValid) {
-    //         const user = this.state.user
-    //         let response;
-    //         loginCall(user)
-    //             .then(res => {
-    //                 response = res
-    //                 return res.json()
-    //             })
-    //             .then(
-    //                 (data) => {
-    //                     if (response.status === 200) {
-    //                         if (data.token) {
-    //                             const userString = JSON.stringify(data)
-    //                             this.props.handleLogin(userString)
-    //                         }
-    //                     }
-    //                     else if (response.status === 401) {
-    //                         console.log(401)
-    //                         this.state({message: data.message})
-    //                     }
-    //                 },
-    //                 (error) => {
-    //                     this.setState({
-    //                         isLoaded: true,
-    //                         error
-    //                     })
-    //                 })
-    //     }
-    // }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const isValid = this.validateForm()
+        if (isValid) {
+            const user = this.state.user
+            console.log(user)
+            let response
+            loginCall(user)
+                 .then(res => {
+                     response = res
+                     return res.json()
+                 })
+                 .then(
+                     (data) => {
+                         if (response.status === 200) {
+                             if (data.Token) {
+                                 console.log(data.Token)
+                                 console.log(data.RefreshToken)
+                                 const userString = JSON.stringify(data)
+                                 //this.props.handleLogin(userString)
+                                 //this.props.history.goBack();
+                            }
+                        }
+                        else if (response.status === 401) {
+                            console.log(401)
+                            this.state({message: data.message})
+                        }
+                    },
+                    (error) => {
+                        this.setState({
+                            isLoaded: true,
+                            error
+                        })
+                    })
+        }
+    }
 
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
@@ -109,6 +115,7 @@ class Login extends React.Component {
 
     render() {
         return (
+            <body>
             <main>
                 {/*<div className="relative bg-white">
                     <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
@@ -130,7 +137,7 @@ class Login extends React.Component {
                     <div className="bg-white max-w-lg mx-auto p-6 md:p-8 my-8 rounded-lg shadow-2xl">
                         <div className=" mx-10">
                             <p className="text-center text-4xl">Witamy w Klinice PetMed!</p>
-                            <form className="flex flex-col pt-5 md:pt-6" onSubmit="">
+                            <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
 
                                 <div className=" py-1">
                                     <label htmlFor="logowanie" className="text-lg font-bold text-3xl">Logowanie</label>
@@ -161,16 +168,18 @@ class Login extends React.Component {
                     </div>
                 </div>
             </main>
+            </body>
         )
     }
 }
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
+    //const params2 = useHistory();
     return (
         <WrappedComponent
             {...props}
             params={params}
+            //params2={params2}
         />
     );
 };
