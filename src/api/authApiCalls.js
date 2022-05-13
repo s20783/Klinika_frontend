@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:36989/api/Test'
+const baseURL = 'http://localhost:36989/api/Konto'
 
 export function loginCall(user) {
     const url = `${baseURL}/login`

@@ -3,6 +3,8 @@ import {useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {loginCall} from "../../api/authApiCalls";
 import {registerCall} from "../../api/kontoApiCalls";
+import {ValidateEmail} from "../helpers/ValidateEmail";
+import {ValidateHaslo} from "../helpers/ValidateHaslo";
 
 class Register extends React.Component{
     constructor(props) {
@@ -14,7 +16,6 @@ class Register extends React.Component{
                 Nazwa_uzytkownika: '',
                 Email: '',
                 Numer_telefonu: '',
-                Data_urodzenia: '',
                 Haslo: '',
                 Haslo2: ''
             },
@@ -24,7 +25,6 @@ class Register extends React.Component{
                 Nazwa_uzytkownika: '',
                 Email: '',
                 Numer_telefonu: '',
-                Data_urodzenia: '',
                 Haslo: '',
                 Haslo2: ''
             },
@@ -79,7 +79,6 @@ class Register extends React.Component{
     }
 
     validateField = (fieldName, fieldValue) => {
-        const {t} = this.props;
         let errorMessage = '';
         if (fieldName === 'Imie') {
             if (!fieldValue) {
@@ -97,7 +96,7 @@ class Register extends React.Component{
             }
         }
         if (fieldName === 'Email') {
-            if(!fieldValue.includes("@") || !fieldValue.includes(".")){
+            if(!ValidateEmail(fieldValue)){
                 errorMessage = "Niepoprawny format"
             }
             if (!fieldValue) {
@@ -112,22 +111,17 @@ class Register extends React.Component{
                 errorMessage = "Pole wymagane"
             }
         }
-        if (fieldName === 'Data_urodzenia') {
-            if (!fieldValue) {
-                errorMessage = "Pole wymagane"
-            }
-        }
         if (fieldName === 'Haslo') {
-            if(fieldValue.length < 2){
-                errorMessage = "Pole wymaga minimum 2 znaków"
+            if(!ValidateHaslo(fieldValue)){
+                errorMessage = "Pole wymaga minimum 3 znaków, jednej wielkiej litery i cyfry"
             }
             if (!fieldValue) {
                 errorMessage = "Pole wymagane"
             }
         }
         if (fieldName === 'Haslo2') {
-            if(fieldValue.length < 2){
-                errorMessage = "Pole wymaga minimum 2 znaków"
+            if(!ValidateHaslo(fieldValue)){
+                errorMessage = "Pole wymaga minimum 3 znaków, jednej wielkiej litery i cyfry"
             }
             if (!fieldValue) {
                 errorMessage = "Pole wymagane"
@@ -175,19 +169,21 @@ class Register extends React.Component{
                                 </div>
 
 
-                                <div className="grid grid-cols-2 gap-4">
+                                {/*<div className="grid grid-cols-2 gap-4">*/}
                                     <div className="my-3 pt-3  rounded bg-gray-200">
                                         <input type="text" name="Imie" id="Imie" placeholder="Imię *" onChange={this.handleChange}
                                                className={this.state.errors.Imie ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                    : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                     </div>
+                                    <span id="errorImie" className="errors-text">{this.state.errors.Imie}</span>
 
                                     <div className="my-3 pt-3  rounded bg-gray-200">
                                         <input type="text" name="Nazwisko" id="Nazwisko" placeholder="Nazwisko *" onChange={this.handleChange}
                                                className={this.state.errors.Nazwisko ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                    : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                     </div>
-                                </div>
+                                    <span id="errorNazwisko" className="errors-text">{this.state.errors.Nazwisko}</span>
+                                {/*</div>*/}
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
                                     <input type="text" name="Nazwa_uzytkownika" id="Nazwa_uzytkownika" placeholder="Nazwa użytkownika *" onChange={this.handleChange}
@@ -210,12 +206,12 @@ class Register extends React.Component{
                                 </div>
                                 <span id="errorLogin" className="errors-text">{this.state.errors.Numer_telefonu}</span>
 
-                                <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input datepicker type="text" id="Data_urodzenia" name="Data_urodzenia" placeholder="Data urodzenia *" onChange={this.handleChange}
-                                           className={this.state.errors.Data_urodzenia ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
-                                               : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
-                                </div>
-                                <span id="errorLogin" className="errors-text">{this.state.errors.Data_urodzenia}</span>
+                                {/*<div className="my-3 pt-3  rounded bg-gray-200">*/}
+                                {/*    <input datepicker type="text" id="Data_urodzenia" name="Data_urodzenia" placeholder="Data urodzenia *" onChange={this.handleChange}*/}
+                                {/*           className={this.state.errors.Data_urodzenia ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'*/}
+                                {/*               : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>*/}
+                                {/*</div>*/}
+                                {/*<span id="errorLogin" className="errors-text">{this.state.errors.Data_urodzenia}</span>*/}
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
                                     <input type="password" id="Haslo" name="Haslo" placeholder="Hasło *" onChange={this.handleChange}

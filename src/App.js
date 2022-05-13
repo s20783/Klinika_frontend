@@ -5,11 +5,12 @@ import {
     Routes,
     Route, BrowserRouter
 } from "react-router-dom";
-import React from "react";
+import React from 'react';
 import Kontakt from "./components/other/Kontakt";
 import Login from "./components/other/Login";
 import Register from "./components/other/Register";
 import {getCurrentUser} from "./components/other/authHelper";
+import {useNavigate} from "react-router";
 
 class App extends React.Component {
     constructor(props) {
@@ -18,10 +19,12 @@ class App extends React.Component {
             user: undefined,
             prevPath: ''
         }
+
     }
 
     handleLogin = (user) => {
         localStorage.setItem("user", user)
+        //localStorage.setItem("refreshToken", refresh)
         this.setState({user: user})
     }
 
@@ -34,15 +37,15 @@ class App extends React.Component {
         const currentUser = getCurrentUser()
         this.setState({user: currentUser})
     }
+
     render() {
         return (
             <BrowserRouter>
-
-                <Navigation/>
+                <Navigation handleLogout={this.handleLogout}/>
                 <Routes>
                     <Route path="/" element={<MainPage/>}/>
                     <Route path="/kontakt" element={<Kontakt/>}/>
-                    <Route handleLogin={this.handleLogin} path="/login" element={<Login/>}/>
+                    <Route path="/login" element={<Login handleLogin={this.handleLogin}/>}/>
                     <Route path="/register" element={<Register/>}/>
                 </Routes>
                 <Footer/>

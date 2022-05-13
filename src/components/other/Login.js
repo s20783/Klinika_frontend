@@ -1,7 +1,6 @@
-import {useParams} from "react-router";
+import {Navigate, useNavigate, useParams} from "react-router";
 import React from "react";
 import {Link} from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import {loginCall} from "../../api/authApiCalls";
 
 class Login extends React.Component {
@@ -9,11 +8,11 @@ class Login extends React.Component {
         super(props);
         this.state = {
             user: {
-                Login: '',
+                NazwaUzytkownika: '',
                 Haslo: ''
             },
             errors: {
-                Login: '',
+                NazwaUzytkownika: '',
                 Haslo: ''
             },
             error: ''
@@ -36,6 +35,7 @@ class Login extends React.Component {
     }
 
     handleSubmit = (event) => {
+        const { navigate } = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
@@ -51,31 +51,39 @@ class Login extends React.Component {
                      (data) => {
                          if (response.status === 200) {
                              if (data.Token) {
-                                 console.log(data.Token)
-                                 console.log(data.RefreshToken)
+                                 console.log(data)
                                  const userString = JSON.stringify(data)
-                                 //this.props.handleLogin(userString)
+                                 this.props.handleLogin(userString)
+
+                                 navigate("/", { replace: true });
+
+                                 //this.props.navigate('/')
                                  //this.props.history.goBack();
                             }
                         }
                         else if (response.status === 401) {
-                            console.log(401)
+                            console.log(401);
+                            console.log(response);
+                            console.log(data);
                             this.state({message: data.message})
+                        } else {
+                            console.log(response.status);
+                            console.log(data);
+                            console.log(response);
                         }
                     },
                     (error) => {
                         this.setState({
                             isLoaded: true,
-                            error
+                            error: error
                         })
                     })
         }
     }
 
     validateField = (fieldName, fieldValue) => {
-        const {t} = this.props;
         let errorMessage = '';
-        if (fieldName === 'Login') {
+        if (fieldName === 'NazwaUzytkownika') {
             if (!fieldValue) {
                 errorMessage = "Pole wymagane"
             }
@@ -114,8 +122,8 @@ class Login extends React.Component {
     }
 
     render() {
+
         return (
-            <body>
             <main>
                 {/*<div className="relative bg-white">
                     <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
@@ -144,11 +152,11 @@ class Login extends React.Component {
                                 </div>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" id="Login" name="Login" placeholder="E-mail lub nazwa uzytkownika" onChange={this.handleChange}
-                                           className={this.state.errors.Login ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
+                                    <input type="text" id="NazwaUzytkownika" name="NazwaUzytkownika" placeholder="Nazwa uzytkownika" onChange={this.handleChange}
+                                           className={this.state.errors.NazwaUzytkownika ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
-                                <span id="errorLogin" className="errors-text">{this.state.errors.Login}</span>
+                                <span id="errorLogin" className="errors-text">{this.state.errors.NazwaUzytkownika}</span>
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
                                     <input type="password" id="Haslo" name="Haslo" placeholder="Hasło" onChange={this.handleChange}
@@ -168,20 +176,23 @@ class Login extends React.Component {
                     </div>
                 </div>
             </main>
-            </body>
         )
     }
 }
+
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-    //const params2 = useHistory();
     return (
         <WrappedComponent
             {...props}
             params={params}
-            //params2={params2}
         />
     );
 };
 
-export default withRouter(Login);
+const withNavigate = Component => props => {
+    const navigate = useNavigate();
+    return <Component {...props} navigate={navigate} />;
+};
+
+export default  withNavigate(withRouter(Login));

@@ -1,4 +1,5 @@
 export function getCurrentUser(){
+    //console.log(localStorage.getItem('user'))
     return JSON.parse(localStorage.getItem('user'));
 }
 
@@ -10,15 +11,15 @@ export function getImie(){
         return undefined
     }
 }
-
-export function getNazwisko(){
-    const user = getCurrentUser()
-    if(user){
-        return user.Nazwisko
-    } else {
-        return undefined
-    }
-}
+//
+// export function getNazwisko(){
+//     const user = getCurrentUser()
+//     if(user){
+//         return user.Nazwisko
+//     } else {
+//         return undefined
+//     }
+// }
 
 export function isAuthenticated() {
     const user = getCurrentUser()
