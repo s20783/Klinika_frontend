@@ -10,6 +10,7 @@ import Kontakt from "./components/other/Kontakt";
 import Login from "./components/other/Login";
 import Register from "./components/other/Register";
 import {getCurrentUser} from "./components/other/authHelper";
+import Konto from "./components/konto/Konto";
 import {useNavigate} from "react-router";
 
 class App extends React.Component {
@@ -47,6 +48,8 @@ class App extends React.Component {
                     <Route path="/kontakt" element={<Kontakt/>}/>
                     <Route path="/login" element={<Login handleLogin={this.handleLogin}/>}/>
                     <Route path="/register" element={<Register/>}/>
+
+                    <Route path="/konto" element={<Konto/>}/>
                 </Routes>
                 <Footer/>
 

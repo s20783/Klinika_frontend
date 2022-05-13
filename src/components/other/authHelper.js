@@ -1,5 +1,5 @@
 export function getCurrentUser(){
-    //console.log(localStorage.getItem('user'))
+    // console.log(JSON.parse(localStorage.getItem('user')))
     return JSON.parse(localStorage.getItem('user'));
 }
 
@@ -30,6 +30,18 @@ export function isAuthenticated() {
     }
 }
 
+export function isKlient() {
+    const user = getCurrentUser()
+    if(user) {
+        if(user.Rola === 'user'){
+            return true;
+        }
+        return false;
+    } else {
+        return false
+    }
+}
+
 // export function isAuthenticated2(id) {
 //     const user = getCurrentUser()
 //     if(!user) {
@@ -40,27 +52,16 @@ export function isAuthenticated() {
 //         return true
 //     }
 // }
-//
-// export function isKapitan(id) {
-//     const user = getCurrentUser()
-//     if(!user) {
-//         return false
-//     }else if(user.Rola === 'Admin'){
-//         return true
-//     } else if(user.Kapitan == id) {
-//         return true
-//     }
-// }
-//
-// export function isAdmin() {
-//     const user = getCurrentUser()
-//     if(user) {
-//         if(user.Rola === 'A') {
-//             return true
-//         } else {
-//             return false
-//         }
-//     } else {
-//         return false
-//     }
-// }
+
+export function isAdmin() {
+    const user = getCurrentUser()
+    if(user) {
+        if(user.Rola === 'admin') {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+}

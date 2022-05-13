@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {getImie, isAuthenticated} from "../other/authHelper";
+import {getImie, isAdmin, isAuthenticated, isKlient} from "../other/authHelper";
 import {useNavigate, useParams} from "react-router";
 
 class Navigation extends React.Component {
@@ -111,12 +111,16 @@ class Navigation extends React.Component {
                             <div className="relative">
                                 {/*Item active: "text-gray-900", Item inactive: "text-gray-500"*/}
                                 <NavLink to="/"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400"> Strona
-                                    główna </NavLink>
+                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Strona
+                                    główna</NavLink>
                                 <NavLink to="/kontakt"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400"> Kontakt </NavLink>
-                                {isAuthenticated() && <NavLink to="/umowWizyte"
-                                                               className="text-base px-5 font-medium text-gray-500 hover:text-blue-400"> Umów wizytę </NavLink>}
+                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Kontakt</NavLink>
+                                {isKlient() && <NavLink to="/umowWizyte"
+                                                               className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Umów wizytę</NavLink>}
+                                {isAdmin() && <NavLink to="/klienci"
+                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Klienci</NavLink>}
+                                {isAdmin() && <NavLink to="/weterynarze"
+                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Weterynarze</NavLink>}
                                 {/*'Solutions' flyout menu, show/hide based on flyout menu state.*/}
                             </div>
                         </nav>

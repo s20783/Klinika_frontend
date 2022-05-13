@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer(){
     return(
-        <footer className="p-4 mt- bg-white rounded-lg shadow md:px-6 md:py-0 dark:bg-gray-800">
+        <footer className="p-4 mt- bg-white shadow md:px-6 md:py-0 dark:bg-gray-800">
             <hr className="my-2  border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4"/>
             <div className="  max-w-lg mx-auto flex justify-center mb-2  text-black">
                 <Link to="#" className="hover:text-blue-400">PL</Link>

@@ -15,7 +15,8 @@ class Login extends React.Component {
                 NazwaUzytkownika: '',
                 Haslo: ''
             },
-            error: ''
+            error: '',
+            message: ''
         }
     }
 
@@ -56,25 +57,22 @@ class Login extends React.Component {
                                  this.props.handleLogin(userString)
 
                                  navigate("/", { replace: true });
-
-                                 //this.props.navigate('/')
-                                 //this.props.history.goBack();
                             }
                         }
                         else if (response.status === 401) {
-                            console.log(401);
-                            console.log(response);
-                            console.log(data);
-                            this.state({message: data.message})
+                             console.log(data)
+                             this.setState({
+                                 message: data.message
+                             })
                         } else {
-                            console.log(response.status);
-                            console.log(data);
-                            console.log(response);
+                             console.log(data)
+                             this.setState({
+                                 message: data.message
+                             })
                         }
                     },
                     (error) => {
                         this.setState({
-                            isLoaded: true,
                             error: error
                         })
                     })
@@ -122,29 +120,12 @@ class Login extends React.Component {
     }
 
     render() {
-
         return (
             <main>
-                {/*<div className="relative bg-white">
-                    <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
-                        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-                            <div className="py-6 px-5 space-y-6">
-                                <div>
-                                    <Link to="#" className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-400"> Zaloguj
-                                        się </Link>
-                                    <p className="mt-6 text-center text-base font-medium text-gray-500">Nie masz konta?</p>
-                                        <Link to="/register" className="text-blue-400 hover:text-blue-400"> Zarejestruj się tutaj. </Link>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*/}
-
                 <div className="w-full flex flex-wrap ">
-                    <div className="bg-white max-w-lg mx-auto p-6 md:p-8 my-8 rounded-lg shadow-2xl">
-                        <div className=" mx-10">
-                            <p className="text-center text-4xl">Witamy w Klinice PetMed!</p>
+                    <div className="bg-white max-w-lg mx-auto p-6 md:p-8 my-10 rounded-lg shadow-2xl">
+                        <div className="mx-10">
+                            <p className="text-center text-4xl">Witamy w Klinice PetMed</p>
                             <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
 
                                 <div className=" py-1">
@@ -165,9 +146,15 @@ class Login extends React.Component {
                                 </div>
                                 <span id="errorHaslo" className="errors-text">{this.state.errors.Haslo}</span>
 
+                                <span id="error" className="errors-text2">{this.state.message}</span>
+
                                 <input type="submit" value="Zaloguj się"
                                        className="bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
                             </form>
+
+                            <div className="text-center pt-3">
+                                <p><Link to="#" className="underline font-semibold">Nie pamiętam hasła</Link></p>
+                            </div>
 
                             <div className="text-center pt-12 pb-12">
                                 <p>Nie masz konta? <Link to="/register" className="underline font-semibold">Zarejestruj się tutaj.</Link></p>
