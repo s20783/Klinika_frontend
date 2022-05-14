@@ -30,7 +30,7 @@ class Navigation extends React.Component {
                     <div className="relative text-sm">
 
                         <button id="userButton"
-                                className="flex items-center mr-3 shadow bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-sm md:text-base font-bold py-2 px-4 rounded">
+                                className="flex items-center shadow bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-sm md:text-base font-bold py-2 px-4 rounded">
 
                             <div className="flex items-center text-sm">
                                 <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -85,7 +85,7 @@ class Navigation extends React.Component {
             </>
         return (
             <div className="relative bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="p-4 mt- md:px-6 md:py-0">
                     <div
                         className="flex justify-between items-center border-b-2 border-gray-400 py-6  md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -102,7 +102,7 @@ class Navigation extends React.Component {
                                 {/*Heroicon name: outline/menu*/}
                                 <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M4 6h16M4 12h16M4 18h16"/>
                                 </svg>
                             </button>
@@ -121,6 +121,10 @@ class Navigation extends React.Component {
                                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Klienci</NavLink>}
                                 {isAdmin() && <NavLink to="/weterynarze"
                                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Weterynarze</NavLink>}
+                                {isAdmin() && <NavLink to="/uslugi"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Usługi</NavLink>}
+                                {isAdmin() && <NavLink to="/leki"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Leki</NavLink>}
                                 {/*'Solutions' flyout menu, show/hide based on flyout menu state.*/}
                             </div>
                         </nav>

@@ -12,6 +12,7 @@ import Register from "./components/other/Register";
 import {getCurrentUser} from "./components/other/authHelper";
 import Konto from "./components/konto/Konto";
 import {useNavigate} from "react-router";
+import LekList from "./components/lek/LekList";
 
 class App extends React.Component {
     constructor(props) {
@@ -50,6 +51,8 @@ class App extends React.Component {
                     <Route path="/register" element={<Register/>}/>
 
                     <Route path="/konto" element={<Konto/>}/>
+
+                    <Route path="/leki" element={<LekList/>}/>
                 </Routes>
                 <Footer/>
 

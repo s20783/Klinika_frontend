@@ -29,6 +29,7 @@ class Register extends React.Component {
             },
             error: '',
             redirect: false,
+            message: ''
         }
     }
 
@@ -65,11 +66,15 @@ class Register extends React.Component {
                         console.log(response.status)
                         if(response.status === 200) {
                             this.setState({redirect: true})
-                            return res.json()
                         }
+                        return res.json()
                     })
                     .then(
                         (data) => {
+                            console.log(data)
+                            this.setState({
+                                message: data.message
+                            })
                             if (response.status === 500) {
                                 for (const i in data) {
                                     const errorItem = data[i]
@@ -270,7 +275,7 @@ class Register extends React.Component {
                                 <span id="errorHaslo2" className="errors-text">{this.state.errors.Haslo2}</span>
 
                                 <span className="text-gray-400">* - wymagane</span>
-                                <span id="error" className="errors-text">{this.state.error}</span>
+                                <span id="error" className="errors-text2">{this.state.message}</span>
                                 <input type="submit" value="Zarejestruj się"
                                        className="modal-open bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
                             </form>
