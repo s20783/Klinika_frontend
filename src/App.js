@@ -13,6 +13,7 @@ import {getCurrentUser} from "./components/other/authHelper";
 import Konto from "./components/konto/Konto";
 import {useNavigate} from "react-router";
 import LekList from "./components/lek/LekList";
+import LekDetailsList from "./components/lek/LekDetailsList";
 
 class App extends React.Component {
     constructor(props) {
@@ -53,6 +54,7 @@ class App extends React.Component {
                     <Route path="/konto" element={<Konto/>}/>
 
                     <Route path="/leki" element={<LekList/>}/>
+                    <Route path="/leki/:IdLek" element={<LekDetailsList/>}/>
                 </Routes>
                 <Footer/>
 

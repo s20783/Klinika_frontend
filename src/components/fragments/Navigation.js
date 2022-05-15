@@ -61,11 +61,11 @@ class Navigation extends React.Component {
                         <div id="userMenu"
                              className="bg-white rounded shadow-md mt-2 mr-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
                             <ul className="list-reset">
-                                <li><a href="#"
+                                <li><Link to="#"
                                        className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">Moje
-                                    konto</a></li>
-                                <li><a href="#"
-                                       className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">Powiadomienia</a>
+                                    konto</Link></li>
+                                <li><Link to="#"
+                                       className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">Powiadomienia</Link>
                                 </li>
                                 <li>
                                     <hr className="border-t mx-2 border-gray-400"/>
@@ -102,7 +102,7 @@ class Navigation extends React.Component {
                                 {/*Heroicon name: outline/menu*/}
                                 <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2"
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                           d="M4 6h16M4 12h16M4 18h16"/>
                                 </svg>
                             </button>
@@ -121,10 +121,14 @@ class Navigation extends React.Component {
                                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Klienci</NavLink>}
                                 {isAdmin() && <NavLink to="/weterynarze"
                                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Weterynarze</NavLink>}
+                                {isAdmin() && <NavLink to="/pacjenci"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Pacjenci</NavLink>}
                                 {isAdmin() && <NavLink to="/uslugi"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Usługi</NavLink>}
                                 {isAdmin() && <NavLink to="/leki"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Leki</NavLink>}
+                                {/*{isAdmin() && <NavLink to="/szczepienia"*/}
+                                {/*                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Szczepienia</NavLink>}*/}
                                 {/*'Solutions' flyout menu, show/hide based on flyout menu state.*/}
                             </div>
                         </nav>

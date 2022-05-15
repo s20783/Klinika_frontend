@@ -21,3 +21,82 @@
     margin-left: 0.5rem;
     color: #e20c0c;
 }
+
+.table-list {
+    /*width: fit-content;*/
+    border-collapse: collapse;
+    color:#2c3e50;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+.table-list,
+.table-list th,
+.table-list td {
+    /*width: max-content;*/
+    border: 1px solid #bdc3c7;
+    text-align: center;
+}
+.list-actions {
+    margin: 0;
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+}
+.list-actions li {
+    display: inline-block;
+}
+
+.table-list th,
+.table-list td {
+    padding: 0.6rem 0.5rem;
+}
+.table-list th {
+    background-color: #81c1ed;
+}
+
+.table-list tbody tr:nth-child(odd) {
+    background-color: #eeeeee;
+}
+.table-list tbody tr:nth-child(even) {
+    background-color: #e2e2e2;
+}
+.list-actions-button-delete,
+.list-actions-button-details,
+.list-actions-button-edit {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    /*margin-top: 0.1rem;*/
+    margin-bottom: 0.1rem;
+    display: inline-block;
+    width: 100px;
+    padding: 0.5rem 0.5rem;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+.list-actions-button-details {
+    background-color: #3a9ee1;
+}
+.list-actions-button-details:hover {
+    background-color: #59b6f4;
+}
+.list-actions-button-edit ,
+.form-button-edit{
+    background-color: #f5a01b;
+}
+.list-actions-button-edit:hover,
+.form-button-edit:hover{
+    background-color: #f7d239;
+}
+.list-actions-button-delete,
+.form-button-cancel{
+    background-color: #e91e1e;
+}
+.list-actions-button-delete:hover,
+.form-button-cancel:hover{
+    background-color: #f44141;
+}
