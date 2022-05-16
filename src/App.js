@@ -14,6 +14,7 @@ import Konto from "./components/konto/Konto";
 import {useNavigate} from "react-router";
 import LekList from "./components/lek/LekList";
 import LekDetailsList from "./components/lek/LekDetailsList";
+import PacjentList from "./components/pacjent/PacjentList";
 
 class App extends React.Component {
     constructor(props) {
@@ -55,6 +56,8 @@ class App extends React.Component {
 
                     <Route path="/leki" element={<LekList/>}/>
                     <Route path="/leki/:IdLek" element={<LekDetailsList/>}/>
+
+                    <Route path="/pacjenci" element={<PacjentList/>}/>
                 </Routes>
                 <Footer/>
 

@@ -71,8 +71,8 @@ class Navigation extends React.Component {
                                     <hr className="border-t mx-2 border-gray-400"/>
                                 </li>
                                 <li><a onClick={this.props.handleLogout}
-                                       className="px-4 py-2 block text-blue-400 font-bold hover:bg-blue-400 hover:text-white no-underline hover:no-underline">Wyloguj
-                                    się</a></li>
+                                       className="px-4 py-2 block text-blue-400 font-bold hover:bg-blue-400 hover:text-white no-underline hover:no-underline">
+                                    Wyloguj się</a></li>
                             </ul>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 import React from "react";
-import {getLekList} from "../../api/LekApiCalls";
-import LekListTable from "./LekListTable";
+import {getPacjentList} from "../../api/PacjentApiCalls";
+import PacjentListTable from "./PacjentListTable";
+import {useNavigate} from "react-router";
 
 class PacjentList extends React.Component {
     constructor(props) {
@@ -10,27 +11,35 @@ class PacjentList extends React.Component {
             isLoaded: false,
             pacjenci: [],
             notice: ''
+
         }
     }
 
     componentDidMount() {
-        // getLekList()
-        //     .then(res => res.json())
-        //     .then(
-        //         (data) => {
-        //             console.log(data)
-        //             this.setState({
-        //                 isLoaded: true,
-        //                 pacjenci: data
-        //             });
-        //         },
-        //         (error) => {
-        //             this.setState({
-        //                 isLoaded: true,
-        //                 error
-        //             });
-        //         }
-        //     )
+        const { navigate } = this.props;
+        getPacjentList()
+            .then(res => {
+                console.log(res.status)
+                if(res.status === 401) {
+                    console.log('Potrzebny aktualny access token')
+                    navigate("/", { replace: true });
+                }
+                return res.json()
+            })
+            .then(
+                (data) => {
+                    this.setState({
+                        isLoaded: true,
+                        pacjenci: data
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
     }
 
     render() {
@@ -42,8 +51,8 @@ class PacjentList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <p>Ładowanie zakończone</p>
-            //content = <LekListTable pacjenci={pacjenci}/>
+            //content = <p>Ładowanie zakończone</p>
+            content = <PacjentListTable pacjenci={pacjenci}/>
         }
 
         return (
@@ -61,4 +70,9 @@ class PacjentList extends React.Component {
     }
 }
 
-export default PacjentList;
+const withNavigate = Component => props => {
+    const navigate = useNavigate();
+    return <Component {...props} navigate={navigate} />;
+};
+
+export default withNavigate(PacjentList);
