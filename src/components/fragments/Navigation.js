@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
 import {getImie, isAdmin, isAuthenticated, isKlient} from "../other/authHelper";
+import {check} from "../other/UserMenu"
 import {useNavigate, useParams} from "react-router";
 
 class Navigation extends React.Component {
@@ -16,14 +17,6 @@ class Navigation extends React.Component {
         const { navigate } = this.props;
         const loginLogoutButton = isAuthenticated() ?
             <div className="pr-0 flex justify-end">
-
-                {/*testowe*/}
-                <div className="relative">
-                    <Link to="/konto"  className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-blue-400">
-                        Moje konto</Link>
-                    <button onClick={() => { this.props.handleLogout(); navigate("/", { replace: true }); }} className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-blue-400">
-                        Wyloguj</button>
-                </div>
 
                 <div className="flex relative inline-block float-right">
 
@@ -61,7 +54,7 @@ class Navigation extends React.Component {
                         <div id="userMenu"
                              className="bg-white rounded shadow-md mt-2 mr-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
                             <ul className="list-reset">
-                                <li><Link to="#"
+                                <li><Link to="/konto"
                                        className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">Moje
                                     konto</Link></li>
                                 <li><Link to="#"
@@ -70,7 +63,8 @@ class Navigation extends React.Component {
                                 <li>
                                     <hr className="border-t mx-2 border-gray-400"/>
                                 </li>
-                                <li><a onClick={this.props.handleLogout}
+                                <li>
+                                <a onClick={() => { this.props.handleLogout(); navigate("/", { replace: true }); }}
                                        className="px-4 py-2 block text-blue-400 font-bold hover:bg-blue-400 hover:text-white no-underline hover:no-underline">
                                     Wyloguj się</a></li>
                             </ul>
@@ -137,10 +131,13 @@ class Navigation extends React.Component {
                         </div>
                     </div>
                 </div>
+
+
             </div>
         )
     }
 }
+
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
