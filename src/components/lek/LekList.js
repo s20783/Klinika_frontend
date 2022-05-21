@@ -48,14 +48,16 @@ class LekList extends React.Component {
 
         return (
             <main>
-                <section className="bg-gray-100 border-b">
-                    <div className="container max-w-5xl mx-auto m-0">
+              <section class="bg-gray-100 border-b  ">
+                <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2 py-8">
+                    <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+
                         <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
                             Leki</h2>
-                        <p>Lista dostępnych leków</p>
                         {content}
                     </div>
-                </section>
+                  </div>
+              </section>
             </main>
         )
     }

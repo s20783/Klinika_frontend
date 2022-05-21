@@ -61,7 +61,6 @@ class PacjentList extends React.Component {
                     <div className="container max-w-5xl mx-auto m-0">
                         <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
                             Pacjenci</h2>
-                        <p>Lista pacjentów</p>
                         {content}
                     </div>
                 </section>
