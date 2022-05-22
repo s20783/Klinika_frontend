@@ -15,6 +15,7 @@ import {useNavigate} from "react-router";
 import LekList from "./components/lek/LekList";
 import LekDetailsList from "./components/lek/LekDetailsList";
 import PacjentList from "./components/pacjent/PacjentList";
+import KlientList from "./components/klient/KlientList";
 
 class App extends React.Component {
     constructor(props) {
@@ -51,6 +52,8 @@ class App extends React.Component {
                     <Route path="/kontakt" element={<Kontakt/>}/>
                     <Route path="/login" element={<Login handleLogin={this.handleLogin}/>}/>
                     <Route path="/register" element={<Register/>}/>
+
+                    <Route path="/klienci" element={<KlientList/>}/>
 
                     <Route path="/konto" element={<Konto/>}/>
 

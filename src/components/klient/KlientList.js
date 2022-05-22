@@ -1,23 +1,22 @@
 import React from "react";
-import {getPacjentList} from "../../api/PacjentApiCalls";
-import PacjentListTable from "./PacjentListTable";
 import {useNavigate} from "react-router";
+import {getKlientList} from "../../api/KlientApiCalls";
+import KlientListTable from "./KlientListTable";
 
-class PacjentList extends React.Component {
+class KlientList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             error: '',
             isLoaded: false,
-            pacjenci: [],
+            klienci: [],
             notice: ''
-
         }
     }
 
     componentDidMount() {
         const {navigate} = this.props;
-        getPacjentList()
+        getKlientList()
             .then(res => {
                 console.log(res.status)
                 if (res.status === 401) {
@@ -30,7 +29,7 @@ class PacjentList extends React.Component {
                 (data) => {
                     this.setState({
                         isLoaded: true,
-                        pacjenci: data
+                        klienci: data
                     });
                 },
                 (error) => {
@@ -43,7 +42,7 @@ class PacjentList extends React.Component {
     }
 
     render() {
-        const {error, isLoaded, pacjenci} = this.state
+        const {error, isLoaded, klienci} = this.state
         let content;
 
         if (error) {
@@ -51,8 +50,7 @@ class PacjentList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
-            content = <PacjentListTable pacjenci={pacjenci}/>
+            content = <KlientListTable klienci={klienci}/>
         }
 
         return (
@@ -61,8 +59,8 @@ class PacjentList extends React.Component {
                     <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                            Pacjenci</h2>
-                        {content}
+                                Klienci</h2>
+                            {content}
                         </div>
                     </div>
                 </section>
@@ -76,4 +74,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withNavigate(PacjentList);
+export default withNavigate(KlientList);

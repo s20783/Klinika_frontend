@@ -2,9 +2,9 @@ import {Link} from "react-router-dom";
 import React, {useState} from 'react';
 
 
-function LekListTable(props) {
+function KlientListTable(props) {
     // const { t } = useTranslation();
-    const list = props.leki
+    const list = props.klienci
     const [filteredData, setFilteredData] = useState(list);
     const [wordEntered, setWordEntered] = useState("");
 
@@ -12,7 +12,7 @@ function LekListTable(props) {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
         const newFilter = list.filter((value) => {
-            return value.Nazwa.toLowerCase().includes(searchWord.toLowerCase());
+            return value.Nazwisko.toLowerCase().includes(searchWord.toLowerCase());
         });
 
         if (searchWord == "") {
@@ -52,22 +52,24 @@ function LekListTable(props) {
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="px-6 py-3">Nazwa</th>
-                    <th scope="col" className="px-6 py-3">Ilość</th>
-                    <th scope="col" className="px-6 py-3">Jednostka miary</th>
+                    <th scope="col" className="px-6 py-3">Imię</th>
+                    <th scope="col" className="px-6 py-3">Nazwisko</th>
+                    <th scope="col" className="px-6 py-3">Numer telefonu</th>
+                    <th scope="col" className="px-6 py-3">Email</th>
                     <th scope="col" className="px-6 py-3"/>
                 </tr>
                 </thead>
                 <tbody>
-                {filteredData.map(lek => (
-                    <tr key={lek.IdLek} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
-                        <td scope="col" className="px-6 py-2">{lek.Nazwa}</td>
-                        <td scope="col" className="px-6 py-2">{lek.Ilosc}</td>
-                        <td scope="col" className="px-6 py-2">{lek.JednostkaMiary}</td>
+                {filteredData.map(klient => (
+                    <tr key={klient.IdOsoba} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
+                        <td scope="col" className="px-6 py-2">{klient.Imie}</td>
+                        <td scope="col" className="px-6 py-2">{klient.Nazwisko}</td>
+                        <td scope="col" className="px-6 py-2">{klient.NumerTelefonu}</td>
+                        <td scope="col" className="px-6 py-2">{klient.Email}</td>
                         <td scope="col" className="px-6 py-2">
                             <div className="list-actions">
                                 <div className="flex">
-                                    <Link to={`/leki/${lek.IdLek}`} className="list-actions-button-details flex-1">
+                                    <Link to={`/klienci/${klient.IdOsoba}`} className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-details flex-1"
                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="#000000" viewBox="0 0 256 256">
@@ -96,4 +98,4 @@ function LekListTable(props) {
     )
 }
 
-export default LekListTable
+export default KlientListTable

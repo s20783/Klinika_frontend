@@ -1,3 +1,5 @@
+import {getCurrentUser} from "../components/other/authHelper";
+
 const baseURL = 'http://localhost:36989/api/Klient'
 
 export function registerCall(user) {
@@ -11,4 +13,21 @@ export function registerCall(user) {
         body: userString
     }
     return fetch(url, options);
+}
+
+export function getKlientList(){
+    const user = getCurrentUser()
+    let token
+    if(user && user.Token) {
+        token = user.Token
+    }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+    const promise = fetch(baseURL, options);
+    return promise;
 }

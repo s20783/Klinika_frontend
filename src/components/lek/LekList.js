@@ -1,6 +1,7 @@
 import React from "react";
 import {getLekList} from "../../api/LekApiCalls";
 import LekListTable from "./LekListTable";
+import {useNavigate} from "react-router";
 
 class LekList extends React.Component {
     constructor(props) {
@@ -14,8 +15,16 @@ class LekList extends React.Component {
     }
 
     componentDidMount() {
+        const {navigate} = this.props;
         getLekList()
-            .then(res => res.json())
+            .then(res => {
+                console.log(res.status)
+                if (res.status === 401) {
+                    console.log('Potrzebny aktualny access token')
+                    navigate("/", {replace: true});
+                }
+                return res.json()
+            })
             .then(
                 (data) => {
                     console.log(data)
@@ -42,25 +51,28 @@ class LekList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
             content = <LekListTable leki={leki}/>
         }
 
         return (
             <main>
-              <section class="bg-gray-100 border-b  ">
-                <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2 py-8">
-                    <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-                        <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                            Leki</h2>
-                        {content}
+                <section className="bg-gray-100 border-b  ">
+                    <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
+                        <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+                            <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
+                                Leki</h2>
+                            {content}
+                        </div>
                     </div>
-                  </div>
-              </section>
+                </section>
             </main>
         )
     }
 }
 
-export default LekList;
+const withNavigate = Component => props => {
+    const navigate = useNavigate();
+    return <Component {...props} navigate={navigate}/>;
+};
+
+export default withNavigate(LekList);
