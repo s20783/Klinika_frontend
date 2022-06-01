@@ -1,9 +1,7 @@
 import {Link} from "react-router-dom";
 import React from "react";
 import {getImie} from "../other/authHelper";
-import {getLekList} from "../../api/LekApiCalls";
 import {getKontoData} from "../../api/authApiCalls";
-import LekListTable from "../lek/LekListTable";
 
 class Konto extends React.Component {
     constructor(props) {
@@ -74,7 +72,7 @@ class Konto extends React.Component {
                            </a>
                        </li>
                           <li class="py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent">
-                            <a href="#" class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
+                            <a href="/wizyty" class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
                                 <span class="pb-1 md:pb-0 text-sm">Wizyty</span>
                             </a>
                          </li>

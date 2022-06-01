@@ -28,6 +28,7 @@ class PacjentList extends React.Component {
             })
             .then(
                 (data) => {
+
                     this.setState({
                         isLoaded: true,
                         pacjenci: data
