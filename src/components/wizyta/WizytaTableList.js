@@ -1,10 +1,9 @@
 import {Link} from "react-router-dom";
 import {isWeterynarz} from "../other/authHelper";
 
-function VisitListTable(props) {
+function WizytaTableList(props) {
     // const { t } = useTranslation();
     const list = props.wizyty
-
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -107,4 +106,4 @@ function VisitListTable(props) {
     )
 }
 
-export default VisitListTable
+export default WizytaTableList

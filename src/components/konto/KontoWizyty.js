@@ -3,7 +3,7 @@ import React from "react";
 import {getImie} from "../other/authHelper";
 import {getKontoData} from "../../api/authApiCalls";
 import {getVisitList} from "../../api/WizytaApiCalls";
-import WizytaListTable from "../wizyta/WizytaTableList";
+import WizytaTableList from "../wizyta/WizytaTableList";
 
 
 class KontoWizyty extends React.Component {
@@ -58,7 +58,7 @@ class KontoWizyty extends React.Component {
             content = <p>Ładowanie...</p>
         } else {
             //content = <p>Ładowanie zakończone</p>
-            content = <WizytaListTable wizyty={wizyty}/>
+            content = <WizytaTableList wizyty={wizyty}/>
         }
 
 
