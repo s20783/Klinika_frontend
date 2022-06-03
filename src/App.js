@@ -18,6 +18,7 @@ import PacjentList from "./components/pacjent/PacjentList";
 import KlientList from "./components/klient/KlientList";
 import KontoWizyty from "./components/konto/KontoWizyty";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
+import WeterynarzList from "./components/weterynarz/WeterynarzList";
 
 class App extends React.Component {
     constructor(props) {
@@ -57,10 +58,12 @@ class App extends React.Component {
 
                     <Route path="/klienci" element={<KlientList/>}/>
 
+                    <Route path="/weterynarze" element={<WeterynarzList/>}/>
+
                     <Route path="/konto" element={<Konto/>}/>
 
                     <Route path="/wizyty" element={<KontoWizyty/>}/>
-                    <Route path="/umowienieWizyty" element={<UmowienieWizyty/>}/>
+                    <Route path="/umowWizyte" element={<UmowienieWizyty/>}/>
 
                     <Route path="/leki" element={<LekList/>}/>
                     <Route path="/leki/:IdLek" element={<LekDetailsList/>}/>

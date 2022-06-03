@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import {isWeterynarz} from "../other/authHelper";
 
 function VisitListTable(props) {
     // const { t } = useTranslation();
@@ -9,7 +10,7 @@ function VisitListTable(props) {
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div className="flex flex-row-reverse pb-3">
 
-              <Link to="/umowienieWizyty">
+              <Link to="/umowWizyte">
                  <button class="shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                     Umów wizytę
                  </button>
@@ -41,7 +42,7 @@ function VisitListTable(props) {
                         <td scope="col" className="px-6 py-1">
                             <div className="list-actions">
                                 <div className=" flex">
-                                    <Link to={`/pacjenci/${x.IdPacjent}`} className="list-actions-button-details flex-1">
+                                    <Link to={`/wizyty/${x.IdWizyta}`} className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-details flex-1"
                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="#000000" viewBox="0 0 256 256">
@@ -59,7 +60,8 @@ function VisitListTable(props) {
                                                     r="12"></circle>
                                         </svg>
                                     </Link>
-                                    <Link to={`/pacjenci/edit/${x.IdPacjent}`} className="list-actions-button-details flex-1">
+                                    {isWeterynarz() && <Link to={`/wizyty/edit/${x.IdWizyta}`}
+                                                             className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-edit flex-1"
                                              xmlns="http://www.w3.org/2000/svg"
                                              width="20" height="20" fill="#000000" viewBox="0 0 256 256">
@@ -78,6 +80,7 @@ function VisitListTable(props) {
                                                       stroke-linejoin="round" stroke-width="16"></polyline>
                                         </svg>
                                     </Link>
+                                    }
 
                                 </div>
                                 {/*<li><Link to={`/leki/${lek.Idlek}`}*/}
