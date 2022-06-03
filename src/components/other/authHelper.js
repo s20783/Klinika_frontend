@@ -42,18 +42,6 @@ export function isKlient() {
     }
 }
 
-export function isWeterynarz() {
-    const user = getCurrentUser()
-    if(user) {
-        if(user.Rola === 'weterynarz'){
-            return true;
-        }
-        return false;
-    } else {
-        return false
-    }
-}
-
 // export function isAuthenticated2(id) {
 //     const user = getCurrentUser()
 //     if(!user) {

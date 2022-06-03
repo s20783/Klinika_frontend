@@ -1,130 +1,43 @@
 import {Link} from "react-router-dom";
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import {useParams} from "react-router";
 
 
-class UmowienieWizytyForm extends React.Component {
-    constructor(props) {
-        super(props);
-        // const { t } = useTranslation();
-        //const [value, onChange] = useState(new Date());
+function UmowienieWizytyForm(props) {
+    // const { t } = useTranslation();
+    const list = props.pacjenci
 
-        this.state = {
-            data: {
-                Pacjent: '',
-                // Kalendarz: ''
-            },
-            errors: {
-                Pacjent: '',
-                // Kalendarz: ''
-            },
-            list: this.props.pacjenci,
-            value: new Date()
-        }
-    }
+  const [value, onChange] = useState(new Date());
 
-    handleChange = (event) => {
-        const {name, value} = event.target
-        const data = {...this.state.data}
-        data[name] = value
+    return (
 
-        const errorMessage = this.validateField(name, value)
-        const errors = {...this.state.errors}
-        errors[name] = errorMessage
-
-        this.setState({
-            data: data,
-            errors: errors
-        })
-    }
-
-    validateField = (fieldName, fieldValue) => {
-        let errorMessage = '';
-        if (fieldName === 'Pacjent') {
-            if (!fieldValue) {
-                errorMessage = `Pole wymagane`
-            }
-        }
-        return errorMessage
-    }
-
-    validateForm = () => {
-        const data = this.state.data
-        const errors = this.state.errors
-        for (const fieldName in data) {
-            const fieldValue = data[fieldName]
-            const errorMessage = this.validateField(fieldName, fieldValue)
-            errors[fieldName] = errorMessage
-        }
-        this.setState({
-            errors: errors
-        })
-        return !this.hasErrors();
-    }
-
-    hasErrors = () => {
-        const errors = this.state.errors
-        for (const errorField in this.state.errors) {
-            if (errors[errorField].length > 0) {
-                return true
-            }
-        }
-        return false
-    }
-
-    render() {
-        const {list, value} = this.state
-        return (
-            <div
-                className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                <section class="bg-white-100 border-b  mb-7">
-                    {/*<div class="container max-w-5xl mx-auto ">*/}
-                    <div class=" md:flex mb-6 mt-4">
-                        {/*<div class="md:w-1/5">*/}
-                        <label className="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-7" htmlFor="Pacjent">
-                            {/*<label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-2" for="my-select">*/}
-                            Pacjent
-                        </label>
-                        {/*</div>*/}
-                        <div class="md:w-3/5">
-
-                            <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
-                                    className={this.state.errors.Pacjent ? "form-select block w-full focus:bg-white" : "form-select block w-full focus:bg-white"}>
-                                <option value="" >Wybierz pacjenta</option>
-                                {
-                                    list.map(pacjent => (
-                                        <option value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
-                                    ))}
-                                <option value="0">inny</option>
-                            </select>
+                <div className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    <section class="bg-white-100 border-b  mb-7">
+                        <div class="container max-w-5xl mx-auto ">
+                              <div class=" md:flex mb-6 mt-4">
+                                   <div class="md:w-1/5">
+                                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-2" for="my-select">
+                                              Wybierz pacjenta
+                                         </label>
+                                   </div>
+                                   <div class="md:w-3/5">
+                                      <select name="" class="form-select block w-full focus:bg-white" id="my-select">
+                                           <option value="" label="inny"></option>
+                                              {
+                                              list.map(pacjent => (
+                                                <option value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
+                                                ))}
+                                      </select>
+                                   </div>
+                              </div>
                         </div>
-                        <span id="errorPacjent" className="errors-text2">{this.state.errors.Pacjent}</span>
-                    </div>
-                    {/*</div>*/}
-                </section>
-                <label class="block text-gray-600 font-bold md:text-left mb-6 " for="my-select">
-                    Wybierz termin
-                </label>
-                <Calendar
-                    // onChange={onChange}
-                    value={value}/>
-
-                <input type="submit" className="" value={pageButton}/>
-                <Link to={`/klub_zawodnik`} className="form-button-cancel">{t('form.actions.return')}</Link>
-            </div>
-        )
-    }
+                    </section>
+                    <label class="block text-gray-600 font-bold md:text-left mb-6 " for="my-select">
+                        Wybierz termin
+                    </label>
+                    <Calendar onChange={onChange} value={value} />
+                </div>
+  )
 }
 
-// const withRouter = WrappedComponent => props => {
-//     const params = useParams();
-//     return (
-//         <WrappedComponent
-//             {...props}
-//             params={params}
-//         />
-//     );
-// };
-
-export default (UmowienieWizytyForm)
+export default UmowienieWizytyForm
