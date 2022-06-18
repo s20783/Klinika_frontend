@@ -80,7 +80,6 @@ function WizytaTableList(props) {
                                         </svg>
                                     </Link>
                                     }
-
                                 </div>
                                 {/*<li><Link to={`/leki/${lek.Idlek}`}*/}
                                 {/*          className="list-actions-button-edit"*/}

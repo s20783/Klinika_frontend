@@ -85,7 +85,11 @@ class Navigation extends React.Component {
                         <div className="flex justify-start lg:w-0 lg:flex-1">
                             <Link to="/">
                                 <span className="sr-only">Workflow</span>
-                                <img className="h-12 w-auto sm:h-14" src="/images/logo.png" alt=""/>
+                                <img
+                                    className="h-12 w-auto sm:h-14"
+                                    src="/images/logo.png"
+                                    alt="logo"
+                                />
                             </Link>
                         </div>
                         <div className="-mr-2 -my-2 md:hidden">

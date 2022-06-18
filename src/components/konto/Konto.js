@@ -72,12 +72,12 @@ class Konto extends React.Component {
                                 </a>
                             </li>
                             <li class="py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent">
-                                <a href="/wizyty" class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
+                                <a href="/mojeWizyty" class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
                                     <span class="pb-1 md:pb-0 text-sm">Wizyty</span>
                                 </a>
                             </li>
                             <li class="py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent">
-                                <a href="#" class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
+                                <a href="/moiPacjenci" class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
                                     <span class="pb-1 md:pb-0 text-sm">Zwierzęta</span>
                                 </a>
                             </li>
@@ -101,7 +101,6 @@ class Konto extends React.Component {
                 </div>
 
 
-
                 <div class="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <section class="bg-white-100 border-b  ">
                         <div class="container max-w-5xl mx-auto m-0">
@@ -111,6 +110,16 @@ class Konto extends React.Component {
 
                             <div className="w-full mb-4">
                                 <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"/>
+                            </div>
+
+                            <div className="relative hidden w-11 h-18 mr-3 rounded-full md:block">
+                                <img
+                                    className="object-cover w-full h-full rounded-full"
+                                    src="/images/avatar_photo.jpg"
+                                    alt="avatar_logo"
+                                    loading="lazy"
+                                />
+                                <div className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"/>
                             </div>
 
                             <div className="flex flex-wrap">

@@ -13,14 +13,15 @@ class UmowienieWizytyForm extends React.Component {
         // const { t } = useTranslation();
         //const [value, onChange] = useState(new Date());
 
-
         this.state = {
             data: {
                 Pacjent: '',
+                Notatka: ''
                 // Kalendarz: ''
             },
             errors: {
                 Pacjent: '',
+                Notatka: ''
                 // Kalendarz: ''
             },
             list: this.props.pacjenci,
@@ -52,6 +53,11 @@ class UmowienieWizytyForm extends React.Component {
         if (fieldName === 'Pacjent') {
             if (!fieldValue) {
                 errorMessage = `Pole wymagane`
+            }
+        }
+        if (fieldName === 'Notatka') {
+            if (fieldValue.length > 300) {
+                errorMessage = `Pole może zawierać maksymalnie 300 znaków`
             }
         }
         return errorMessage
@@ -157,12 +163,13 @@ class UmowienieWizytyForm extends React.Component {
                   { <Time showTime={this.state.harmonogram.length} date={harmonogram}/>}
                  </div>
             </section>
-             <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " for="my-select">
+             <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka" >
                  Dodaj opis
              </label>
             <div class="md:w-3/4 mt-5">
-                <textarea class="form-textarea block w-full focus:bg-white " id="my-textarea"  rows="6"></textarea>
+                <textarea class="form-textarea block w-full focus:bg-white " id="Notatka" name="Notatka" rows="5" onChange={this.handleChange}/>
             </div>
+                <span id="errorOpis" className="errors-text2">{this.state.errors.Notatka}</span>
 
                 <div className=" md:flex mb-6 mt-4 ">
                     <div className="flex pb-3">

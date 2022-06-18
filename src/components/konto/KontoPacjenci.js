@@ -1,10 +1,10 @@
-import {Link} from "react-router-dom";
 import React from "react";
 import {getVisitList} from "../../api/WizytaApiCalls";
-import WizytaTableList from "../wizyta/WizytaTableList";
+import PacjentKlientListTable from "../pacjent/PacjentKlientListTable";
+import {getKlientPacjentList} from "../../api/PacjentApiCalls";
 
 
-class KontoWizyty extends React.Component {
+class KontoPacjenci extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,14 +12,14 @@ class KontoWizyty extends React.Component {
             error: '',
             message: '',
             user: '',
-            wizyty: [],
+            pacjenci: [],
             notice: ''
         }
     }
 
     componentDidMount() {
         const {navigate} = this.props;
-        getVisitList()
+        getKlientPacjentList()
             .then(res => {
                 console.log(res.status)
                 if (res.status === 401) {
@@ -33,7 +33,7 @@ class KontoWizyty extends React.Component {
                     console.log(data)
                     this.setState({
                         isLoaded: true,
-                        wizyty: data
+                        pacjenci: data
                     });
                 },
                 (error) => {
@@ -47,7 +47,7 @@ class KontoWizyty extends React.Component {
 
     render() {
 
-        const {error, isLoaded, wizyty} = this.state
+        const {error, isLoaded, pacjenci} = this.state
         let content;
 
         if (error) {
@@ -56,7 +56,7 @@ class KontoWizyty extends React.Component {
             content = <p>Ładowanie...</p>
         } else {
             //content = <p>Ładowanie zakończone</p>
-            content = <WizytaTableList wizyty={wizyty}/>
+            content = <PacjentKlientListTable pacjenci={pacjenci}/>
         }
 
 
@@ -79,21 +79,21 @@ class KontoWizyty extends React.Component {
                         <ul class="list-reset">
                             <li class="py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent">
                                 <a href="/konto"
-                                   class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
+                                   class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-blue-400">
                                     <span class="pb-1 md:pb-0 text-sm">Moje dane</span>
                                 </a>
                             </li>
                             <li class="py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent">
-                                <a href=""
-                                   class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:border-blue-400 lg:hover:border-blue-400">
-                                    <span class="pb-1 md:pb-0 text-sm text-gray-900 font-bold">Wizyty</span>
+                                <a href="/mojeWizyty"
+                                   class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
+                                    <span class="pb-1 md:pb-0 text-sm">Wizyty</span>
                                 </a>
                             </li>
 
                             <li class="py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent">
-                                <a href="/moiPacjenci"
-                                   class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400">
-                                    <span class="pb-1 md:pb-0 text-sm">Zwierzęta</span>
+                                <a href=""
+                                   class="block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:border-blue-400 lg:hover:border-gray-400">
+                                    <span class="pb-1 md:pb-0 text-sm text-gray-900 font-bold">Zwierzęta</span>
                                 </a>
                             </li>
                             <li class="py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent">
@@ -132,22 +132,18 @@ class KontoWizyty extends React.Component {
                             <div className="flex flex-wrap">
                                 <div className="w-5/6 p-6">
                                     <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
-                                        Wizyty
+                                        Zwierzęta
                                     </h3>
                                     {content}
                                     <br/>
                                 </div>
                             </div>
-
                         </div>
                     </section>
                 </div>
-
             </div>
         )
     }
-
-
 }
 
 // const withRouter = WrappedComponent => props => {
@@ -160,4 +156,4 @@ class KontoWizyty extends React.Component {
 //     );
 // };
 
-export default KontoWizyty;
+export default KontoPacjenci;
