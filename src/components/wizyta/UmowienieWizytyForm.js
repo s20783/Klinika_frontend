@@ -2,6 +2,9 @@ import {Link} from "react-router-dom";
 import React, {useState} from 'react';
 import Calendar from 'react-calendar';
 import {useNavigate, useParams} from "react-router";
+import Time from "../other/Time";
+import dayjs from 'dayjs';
+import {getHarmonogram} from "../../api/HarmonogramApiCalls";
 
 
 class UmowienieWizytyForm extends React.Component {
@@ -9,6 +12,7 @@ class UmowienieWizytyForm extends React.Component {
         super(props);
         // const { t } = useTranslation();
         //const [value, onChange] = useState(new Date());
+
 
         this.state = {
             data: {
@@ -20,9 +24,13 @@ class UmowienieWizytyForm extends React.Component {
                 // Kalendarz: ''
             },
             list: this.props.pacjenci,
-            value: new Date()
+            date: new Date(),
+            harmonogram:[],
+            day:''
         }
     }
+
+
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -73,9 +81,41 @@ class UmowienieWizytyForm extends React.Component {
         return false
     }
 
+    onChange = (date) => {
+         this.setState({ selectedDate: date });
+         console.log(dayjs(date).format('YYYY-MM-DD'));
+
+         const {navigate} = this.props;
+                     getHarmonogram(dayjs(date).format('YYYY-MM-DD'))
+                         .then(res => {
+                             if (res.status === 401) {
+                                 console.log('Potrzebny aktualny access token')
+                                 navigate("/", {replace: true});
+                             }
+                             return res.json()
+                         })
+                         .then(
+                             (data) => {
+                                 console.log(data)
+                                 this.setState({
+                                     isLoaded: true,
+                                     harmonogram: data
+                                 });
+                             },
+                             (error) => {
+                                 this.setState({
+                                     isLoaded: true,
+                                     error
+                                 });
+                             }
+                         )
+       }
+
+
     render() {
         const {navigate} = this.props
-        const {list, value} = this.state
+        const {list, value, date,harmonogram} = this.state
+
         return (
             <div
                 className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -105,13 +145,24 @@ class UmowienieWizytyForm extends React.Component {
                     </div>
                     {/*</div>*/}
                 </section>
-                <label class="block text-gray-600 font-bold md:text-left mb-6 " for="my-select">
+            <section class="bg-white-100 border-b mt-7">
+                <label class="block  text-gray-600 font-bold md:text-left mb-6 " for="my-select">
                     Wybierz termin
                 </label>
-                <Calendar
-                    // onChange={onChange}
-                    value={value}/>
-
+                <Calendar className="mb-7"
+                    value={this.state.date}
+                    onClickDay={this.onChange}
+                    />
+                 <div>
+                  { <Time showTime={this.state.harmonogram.length} date={harmonogram}/>}
+                 </div>
+            </section>
+             <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " for="my-select">
+                 Dodaj opis
+             </label>
+            <div class="md:w-3/4 mt-5">
+                <textarea class="form-textarea block w-full focus:bg-white " id="my-textarea"  rows="6"></textarea>
+            </div>
 
                 <div className=" md:flex mb-6 mt-4 ">
                     <div className="flex pb-3">
