@@ -4,8 +4,8 @@ import Calendar from 'react-calendar';
 import {useNavigate, useParams} from "react-router";
 import Time from "../other/Time";
 import dayjs from 'dayjs';
+import PotwierdzenieUmowieniaWizyty from './PotwierdzenieUmowieniaWizyty.js'
 import {getHarmonogram} from "../../api/HarmonogramApiCalls";
-
 
 class UmowienieWizytyForm extends React.Component {
     constructor(props) {
@@ -79,6 +79,7 @@ class UmowienieWizytyForm extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
+        console.log(errors.Notatka+"aaaaaaaaaaa")
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -86,6 +87,8 @@ class UmowienieWizytyForm extends React.Component {
         }
         return false
     }
+
+
 
     onChange = (date) => {
          this.setState({ selectedDate: date });
@@ -120,11 +123,11 @@ class UmowienieWizytyForm extends React.Component {
 
     render() {
         const {navigate} = this.props
-        const {list, value, date,harmonogram} = this.state
+        const {list, value, date, harmonogram} = this.state
 
         return (
-            <div
-                className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+            <div className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+               <form onSubmit={this.handleSubmit}>
                 <section class="bg-white-100 border-b  mb-7">
                     {/*<div class="container max-w-5xl mx-auto ">*/}
                     <div class=" md:flex mb-6 mt-4">
@@ -178,14 +181,15 @@ class UmowienieWizytyForm extends React.Component {
                                 type="button">
                             Powrót
                         </button>
-
-                        <button onClick={this.validateForm}
-                                className="shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                        <button type="submit"  onClick={this.validateForm}
+                                className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                 type="button">
                             Dalej
                         </button>
                     </div>
                 </div>
+                </form>
+
             </div>
         )
     }

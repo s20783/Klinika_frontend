@@ -1,19 +1,10 @@
 import React from 'react'
-import {useState} from 'react';
 import Calendar from 'react-calendar';
 
 function Times(props) {
-    const [event, setEvent] = useState(null)
-    const [info, setInfo] = useState(false)
-
-    function displayInfo(e) {
-        setInfo(true);
-        setEvent(e.target.innerText);
-    }
 
     function getHour(date) {
         const hour = date.toString().split('T');
-
         return hour[1].replace(':00', '');
     }
 
@@ -25,7 +16,7 @@ function Times(props) {
                     return (
                         <div>
                             <button className="bg-purple-400 hover:bg-green-400 text-white py-1 px-3 rounded"
-                                    onClick={(e) => displayInfo(e)}>{getHour(times.Data)} {times.Weterynarz}
+                                    >{getHour(times.Data)} {times.Weterynarz}
                             </button>
                         </div>
                     )
