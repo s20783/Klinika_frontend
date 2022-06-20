@@ -7,7 +7,7 @@ function Time(props) {
 
     return (
         <div>
-            {props.showTime ? <Times date={props.date}/> : null}
+            {props.showTime ? <Times date={props.date} timeChange={props.timeChange} /> : null}
         </div>
     )
 }
