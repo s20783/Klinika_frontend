@@ -4,9 +4,10 @@ import React, {useState} from "react";
 
 function PotwierdzenieUmowieniaWizyty(props) {
     // const { t } = useTranslation();
-    const info = props.pacjenci
+    const info = props.termin
     const [filteredData, setFilteredData] = useState(info);
     const [wordEntered, setWordEntered] = useState("");
+
 
 
     return (
@@ -20,14 +21,15 @@ function PotwierdzenieUmowieniaWizyty(props) {
                             </div>
 
                             <p class="text-2xl">Potwierdzenie umówienia wizyty.</p>
-                            <p class="text-2xl font-bold">Termin: </p>
-                            <p class="text-2xl font-bold">Weterynarz: </p>
+                            <p class="text-2xl font-bold">Termin: {props.termin} </p>
                             <img src="/images/gti.png"></img>
 
 
                             <div class="flex justify-end pt-2">
+                              <Link to="/mojeWizyty">
                                 <button class="px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">Powrót
                                 </button>
+                              </Link>
                             </div>
                         </div>
                     </div>

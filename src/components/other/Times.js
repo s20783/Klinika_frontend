@@ -13,7 +13,7 @@ function Times(props) {
                 {props.date.map(times => (
                     <div key={times.Id_Harmonogram}>
                         <label className="bg-purple-400 hover:bg-green-400 text-white py-1 px-3 rounded"
-                            onClick={() => props.timeChange(times.IdHarmonogram)}>
+                            onClick={() => props.timeChange(times.IdHarmonogram, times.Data)}>
                             {getHour(times.Data)} {times.Weterynarz}
                         </label>
                     </div>

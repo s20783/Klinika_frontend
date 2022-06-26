@@ -33,7 +33,7 @@ function WizytaTableList(props) {
                         key={x.IdWizyta}>
 
                         <td scope="col" className="px-6 py-2">{x.Data}</td>
-                        <td scope="col" className="px-6 py-2">{x.Pacjent}</td>
+                        <td scope="col" className="px-6 py-2">{x.Pacjent }</td>
                         <td scope="col" className="px-6 py-2">{x.Weterynarz}</td>
                         <td scope="col" className="px-6 py-2">{x.Status}</td>
                         <td scope="col" className="px-6 py-2">{x.CzyOplacona ? "tak" : "nie"}</td>

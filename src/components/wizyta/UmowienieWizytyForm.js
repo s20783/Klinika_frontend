@@ -6,6 +6,7 @@ import Time from "../other/Time";
 import dayjs from 'dayjs';
 import PotwierdzenieUmowieniaWizyty from './PotwierdzenieUmowieniaWizyty.js'
 import {getHarmonogram} from "../../api/HarmonogramApiCalls";
+import {updateVisit} from "../../api/WizytaApiCalls";
 
 class UmowienieWizytyForm extends React.Component {
     constructor(props) {
@@ -17,12 +18,12 @@ class UmowienieWizytyForm extends React.Component {
             data: {
                 Pacjent: '',
                 Notatka: '',
-                Termin: ''
-                // Kalendarz: ''
+                Termin: '',
+                Data: ''
             },
             errors: {
                 Pacjent: '',
-                Notatka: ''
+                Data: ''
                 // Kalendarz: ''
             },
             list: this.props.pacjenci,
@@ -55,6 +56,11 @@ class UmowienieWizytyForm extends React.Component {
                 errorMessage = `Pole wymagane`
             }
         }
+        if (fieldName === 'Data') {
+                    if (!fieldValue) {
+                        errorMessage = `Pole wymagane`
+                    }
+                }
         if (fieldName === 'Notatka') {
             if (fieldValue.length > 300) {
                 errorMessage = `Pole może zawierać maksymalnie 300 znaków`
@@ -64,17 +70,56 @@ class UmowienieWizytyForm extends React.Component {
     }
 
     validateForm = () => {
-        const data = this.state.data
-        const errors = this.state.errors
+        const data = {...this.state.data}
+        const errors = {...this.state.errors}
         for (const fieldName in data) {
             const fieldValue = data[fieldName]
             const errorMessage = this.validateField(fieldName, fieldValue)
             errors[fieldName] = errorMessage
         }
+
         this.setState({
             errors: errors
         })
-        return !this.hasErrors();
+
+         if(!this.hasErrors()){
+            console.log(data)
+            this.updateVisit(data)
+         }
+    }
+
+    updateVisit = (data) => {
+            const { navigate } = this.props;
+                let response
+
+                       updateVisit(data["Termin"], data["Pacjent"], data["Notatka"])
+                             .then(res => {
+                                 response = res
+                                 return res.json()
+
+                             })
+                             .then(
+                                 (data1) => {
+                                     if (response.status === 200) {
+                                             console.log(data["Data"]+'aaaaaaaaaa')
+                                             navigate("/potwierdzenieWizyty", { replace: true , termin: data["Data"]});
+
+                                    }
+                                    else if (response.status === 404) {
+                                         console.log(data)
+
+                                    } else {
+                                         console.log(data)
+                                         this.setState({
+                                             message: data.message
+                                         })
+                                    }
+                                },
+                                (error) => {
+                                    this.setState({
+                                        error: error
+                                    })
+                                })
     }
 
     hasErrors = () => {
@@ -103,7 +148,11 @@ class UmowienieWizytyForm extends React.Component {
             })
             .then(
                 (data) => {
-                    console.log(data)
+                    const data1 = {...this.state.data}
+                            data1["Data"] = ''
+                            this.setState({
+                                data: data1
+                            })
                     this.setState({
                         isLoaded: true,
                         harmonogram: data
@@ -118,18 +167,29 @@ class UmowienieWizytyForm extends React.Component {
             )
     }
 
-    handleHarmonogramSelect = (id) => {
+    handleHarmonogramSelect = (id, date) => {
         const data = {...this.state.data}
+        const errors = {...this.state.errors}
+
+        errors["Data"]=''
         data["Termin"] = id
+        data["Data"] = 'Wybrano termin:  '+date.replace('T', ' ').replace(':00', '')
+       this.aaa();
         this.setState({
-            data: data
+            data: data,
+            errors:errors
         })
     }
 
+aaa = () => {
+        const data = {...this.state.data}
 
+        //console.log(data["Data"])
+
+    }
     render() {
         const {navigate} = this.props
-        const {list, value, date, harmonogram} = this.state
+        const {list, value, date, harmonogram, Data} = this.state
 
         return (
             <div
@@ -148,7 +208,7 @@ class UmowienieWizytyForm extends React.Component {
                             <div class="md:w-3/5">
 
                                 <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
-                                        className={this.state.errors.Pacjent ? "form-select block w-full focus:bg-white" : "form-select block w-full focus:bg-white"}>
+                                        className={this.state.errors.Pacjent ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
                                     <option value="">Wybierz pacjenta</option>
                                     {
                                         list.map(pacjent => (
@@ -171,6 +231,10 @@ class UmowienieWizytyForm extends React.Component {
                         />
                         <div >
                             {<Time showTime={this.state.harmonogram.length} date={harmonogram} timeChange={this.handleHarmonogramSelect}/>}
+                            <span id="errorData" className="errors-text2 mb-4">{this.state.errors.Data}</span>
+                            <span id="" className="">{this.state.data.Data}</span>
+
+
                         </div>
                     </section>
                     <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
