@@ -3,10 +3,10 @@ import {getCurrentUser} from "../components/other/authHelper";
 const wizytaURL = 'http://localhost:36989/api/Wizyta/moje_wizyty'
 const postWizytaURL = 'http://localhost:36989/api/Wizyta'
 
-export function getVisitList(){
+export function getVisitList() {
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -20,10 +20,10 @@ export function getVisitList(){
     return promise;
 }
 
-export function updateVisit(idHarmonogram, idPacjent, notatka) {
-const user = getCurrentUser()
+export function postWizyta(idHarmonogram, idPacjent, notatka) {
+    const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const url = `${postWizytaURL}?ID_Harmonogram=${idHarmonogram}&ID_Pacjent=${idPacjent}&Notatka=${notatka}`

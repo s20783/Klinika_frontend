@@ -1,19 +1,17 @@
-import {Link} from "react-router-dom";
+import {createSearchParams, Link} from "react-router-dom";
 import React, {useState} from 'react';
 import Calendar from 'react-calendar';
-import {useNavigate, useParams} from "react-router";
+import {Navigate, useNavigate, useParams} from "react-router";
 import Time from "../other/Time";
 import dayjs from 'dayjs';
-import PotwierdzenieUmowieniaWizyty from './PotwierdzenieUmowieniaWizyty.js'
 import {getHarmonogram} from "../../api/HarmonogramApiCalls";
-import {updateVisit} from "../../api/WizytaApiCalls";
+import {postWizyta} from "../../api/WizytaApiCalls";
+import {postTestApi} from "../../api/TestApiCalls";
 
 class UmowienieWizytyForm extends React.Component {
     constructor(props) {
         super(props);
         // const { t } = useTranslation();
-        //const [value, onChange] = useState(new Date());
-
         this.state = {
             data: {
                 Pacjent: '',
@@ -23,8 +21,8 @@ class UmowienieWizytyForm extends React.Component {
             },
             errors: {
                 Pacjent: '',
+                Notatka: '',
                 Data: ''
-                // Kalendarz: ''
             },
             list: this.props.pacjenci,
             date: new Date(),
@@ -57,10 +55,10 @@ class UmowienieWizytyForm extends React.Component {
             }
         }
         if (fieldName === 'Data') {
-                    if (!fieldValue) {
-                        errorMessage = `Pole wymagane`
-                    }
-                }
+            if (!fieldValue) {
+                errorMessage = `Pole wymagane`
+            }
+        }
         if (fieldName === 'Notatka') {
             if (fieldValue.length > 300) {
                 errorMessage = `Pole może zawierać maksymalnie 300 znaków`
@@ -70,8 +68,8 @@ class UmowienieWizytyForm extends React.Component {
     }
 
     validateForm = () => {
-        const data = {...this.state.data}
-        const errors = {...this.state.errors}
+        const data = this.state.data
+        const errors = this.state.errors
         for (const fieldName in data) {
             const fieldValue = data[fieldName]
             const errorMessage = this.validateField(fieldName, fieldValue)
@@ -81,45 +79,51 @@ class UmowienieWizytyForm extends React.Component {
         this.setState({
             errors: errors
         })
-
-         if(!this.hasErrors()){
-            console.log(data)
-            this.updateVisit(data)
-         }
+        return !this.hasErrors();
     }
 
-    updateVisit = (data) => {
-            const { navigate } = this.props;
-                let response
+    handleSubmit = (event) => {
+        const {navigate} = this.props;
+        const data = {...this.state.data}
 
-                       updateVisit(data["Termin"], data["Pacjent"], data["Notatka"])
-                             .then(res => {
-                                 response = res
-                                 return res.json()
+        event.preventDefault();
+        const isValid = this.validateForm()
+        if (isValid) {
+            let response
+            //postTestApi()
+            postWizyta(data["Termin"], data["Pacjent"], data["Notatka"])
+                .then(res => {
+                    response = res
+                    return res.json()
+                })
+                .then(
+                    (data1) => {
+                        console.log(response.status)
+                        if (response.status === 200) {
+                            console.log(data1)
 
-                             })
-                             .then(
-                                 (data1) => {
-                                     if (response.status === 200) {
-                                             console.log(data["Data"]+'aaaaaaaaaa')
-                                             navigate("/potwierdzenieWizyty", { replace: true , termin: data["Data"]});
-
+                            navigate(
+                                "/potwierdzenieWizyty",
+                                {
+                                    state: {
+                                        Data: data.Data
                                     }
-                                    else if (response.status === 404) {
-                                         console.log(data)
-
-                                    } else {
-                                         console.log(data)
-                                         this.setState({
-                                             message: data.message
-                                         })
-                                    }
-                                },
-                                (error) => {
-                                    this.setState({
-                                        error: error
-                                    })
                                 })
+                        } else if (response.status === 404) {
+                            console.log(data1)
+                        } else {
+                            console.log(data1)
+                            this.setState({
+                                message: data1.message
+                            })
+                        }
+                    },
+                    (error) => {
+                        this.setState({
+                            error: error
+                        })
+                    })
+        }
     }
 
     hasErrors = () => {
@@ -135,7 +139,7 @@ class UmowienieWizytyForm extends React.Component {
 
     onChange = (date) => {
         this.setState({selectedDate: date});
-        console.log(dayjs(date).format('YYYY-MM-DD'));
+        //console.log(dayjs(date).format('YYYY-MM-DD'));
 
         const {navigate} = this.props;
         getHarmonogram(dayjs(date).format('YYYY-MM-DD'))
@@ -148,11 +152,6 @@ class UmowienieWizytyForm extends React.Component {
             })
             .then(
                 (data) => {
-                    const data1 = {...this.state.data}
-                            data1["Data"] = ''
-                            this.setState({
-                                data: data1
-                            })
                     this.setState({
                         isLoaded: true,
                         harmonogram: data
@@ -167,29 +166,22 @@ class UmowienieWizytyForm extends React.Component {
             )
     }
 
-    handleHarmonogramSelect = (id, date) => {
+    handleHarmonogramSelect = (harmonogram) => {
         const data = {...this.state.data}
         const errors = {...this.state.errors}
 
-        errors["Data"]=''
-        data["Termin"] = id
-        data["Data"] = 'Wybrano termin:  '+date.replace('T', ' ').replace(':00', '')
-       this.aaa();
+        errors["Data"] = ''
+        data["Termin"] = harmonogram.IdHarmonogram
+        data["Data"] = harmonogram.Dzien + " " + harmonogram.Data.replace('T', ' ').replace(':00', '')
         this.setState({
             data: data,
-            errors:errors
+            errors: errors
         })
     }
 
-aaa = () => {
-        const data = {...this.state.data}
-
-        //console.log(data["Data"])
-
-    }
     render() {
         const {navigate} = this.props
-        const {list, value, date, harmonogram, Data} = this.state
+        const {list, harmonogram} = this.state
 
         return (
             <div
@@ -229,11 +221,11 @@ aaa = () => {
                                   value={this.state.date}
                                   onClickDay={this.onChange}
                         />
-                        <div >
-                            {<Time showTime={this.state.harmonogram.length} date={harmonogram} timeChange={this.handleHarmonogramSelect}/>}
+                        <div>
+                            {<Time showTime={this.state.harmonogram.length} harmonogram={harmonogram}
+                                   timeChange={this.handleHarmonogramSelect}/>}
                             <span id="errorData" className="errors-text2 mb-4">{this.state.errors.Data}</span>
-                            <span id="" className="">{this.state.data.Data}</span>
-
+                            <span id="" className="">{this.state.data.Data === '' ? '' : 'Wybrano termin:  ' + this.state.data.Data}</span>
 
                         </div>
                     </section>
@@ -253,15 +245,13 @@ aaa = () => {
                                     type="button">
                                 Powrót
                             </button>
-                            <button type="submit" onClick={this.validateForm}
-                                    className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                    type="button">
+                            <button type="submit"
+                                    className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 Dalej
                             </button>
                         </div>
                     </div>
                 </form>
-
             </div>
         )
     }

@@ -1,14 +1,12 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import React, {useState} from "react";
 
 
 function PotwierdzenieUmowieniaWizyty(props) {
     // const { t } = useTranslation();
-    const info = props.termin
-    const [filteredData, setFilteredData] = useState(info);
-    const [wordEntered, setWordEntered] = useState("");
-
-
+    const location = useLocation();
+    const wybranaData = location.state.Data
+    //console.log(wybranaData)
 
     return (
         <main>
@@ -21,15 +19,14 @@ function PotwierdzenieUmowieniaWizyty(props) {
                             </div>
 
                             <p class="text-2xl">Potwierdzenie umówienia wizyty.</p>
-                            <p class="text-2xl font-bold">Termin: {props.termin} </p>
+                            <p class="text-2xl font-bold">Termin: {wybranaData}</p>
                             <img src="/images/gti.png"></img>
 
-
                             <div class="flex justify-end pt-2">
-                              <Link to="/mojeWizyty">
-                                <button class="px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">Powrót
-                                </button>
-                              </Link>
+                                <Link to="/mojeWizyty">
+                                    <button class="px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">Powrót
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
