@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import {isWeterynarz} from "../other/authHelper";
+import {getFormattedDate, getFormattedDateWithHour} from "../other/dateFormat";
 
 function WizytaTableList(props) {
     // const { t } = useTranslation();
@@ -32,7 +33,7 @@ function WizytaTableList(props) {
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                         key={x.IdWizyta}>
 
-                        <td scope="col" className="px-6 py-2">{x.Data}</td>
+                        <td scope="col" className="px-6 py-2">{getFormattedDateWithHour(x.Data)}</td>
                         <td scope="col" className="px-6 py-2">{x.Pacjent }</td>
                         <td scope="col" className="px-6 py-2">{x.Weterynarz}</td>
                         <td scope="col" className="px-6 py-2">{x.Status}</td>

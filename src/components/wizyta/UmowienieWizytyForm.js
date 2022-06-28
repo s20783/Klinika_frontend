@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import {getHarmonogram} from "../../api/HarmonogramApiCalls";
 import {postWizyta} from "../../api/WizytaApiCalls";
 import {postTestApi} from "../../api/TestApiCalls";
+import {getFormattedDateWithHour} from "../other/dateFormat";
 
 class UmowienieWizytyForm extends React.Component {
     constructor(props) {
@@ -172,7 +173,7 @@ class UmowienieWizytyForm extends React.Component {
 
         errors["Data"] = ''
         data["Termin"] = harmonogram.IdHarmonogram
-        data["Data"] = harmonogram.Dzien + " " + harmonogram.Data.replace('T', ' ').replace(':00', '')
+        data["Data"] = harmonogram.Dzien + " " + getFormattedDateWithHour(harmonogram.Data)
         this.setState({
             data: data,
             errors: errors
