@@ -1,12 +1,10 @@
-import {createSearchParams, Link} from "react-router-dom";
-import React, {useState} from 'react';
+import React from 'react';
 import Calendar from 'react-calendar';
-import {Navigate, useNavigate, useParams} from "react-router";
+import {useNavigate} from "react-router";
 import Time from "../other/Time";
 import dayjs from 'dayjs';
 import {getHarmonogram} from "../../api/HarmonogramApiCalls";
 import {postWizyta} from "../../api/WizytaApiCalls";
-import {postTestApi} from "../../api/TestApiCalls";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 
 class UmowienieWizytyForm extends React.Component {
