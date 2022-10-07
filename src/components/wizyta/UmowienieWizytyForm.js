@@ -171,7 +171,7 @@ class UmowienieWizytyForm extends React.Component {
 
         errors["Data"] = ''
         data["Termin"] = harmonogram.IdHarmonogram
-        data["Data"] = harmonogram.Dzien + " " + getFormattedDateWithHour(harmonogram.Data)
+        data["Data"] =  getFormattedDateWithHour(harmonogram.Data)
         this.setState({
             data: data,
             errors: errors
