@@ -1,8 +1,8 @@
 import {Link, useLocation} from "react-router-dom";
-import React, {useState} from "react";
+import React from "react";
 
 
-function PotwierdzenieUmowieniaWizyty(props) {
+function PotwierdzenieUmowieniaWizyty() {
     // const { t } = useTranslation();
     const location = useLocation();
     const wybranaData = location.state.Data

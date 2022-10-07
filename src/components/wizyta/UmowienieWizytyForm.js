@@ -213,7 +213,7 @@ class UmowienieWizytyForm extends React.Component {
                         {/*</div>*/}
                     </section>
                     <section class="bg-white-100 border-b mt-7">
-                        <label class="block  text-gray-600 font-bold md:text-left mb-6 " for="my-select">
+                        <label class="block  text-gray-600 font-bold md:text-left mb-6" form="my-select">
                             Wybierz termin
                         </label>
                         <Calendar className="mb-7"

@@ -2,25 +2,18 @@ import React from 'react';
 import {Link, NavLink} from "react-router-dom";
 import {isAdmin, isAuthenticated, isKlient} from "../other/authHelper";
 import {useNavigate, useParams} from "react-router";
-import Menu from "../other/Menu";
+import DropdownMenu from "./DropdownMenu";
+import {withTranslation} from "react-i18next";
 
 class Navigation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: '',
-            message: ''
-        }
-    }
-
     render() {
+        const {t} = this.props;
         const loginLogoutButton = isAuthenticated() ?
             <div className="pr-0 flex justify-end">
-
                 <div className="flex relative inline-block float-right">
 
                     <div className="relative text-sm">
-                        <Menu logout={this.props.handleLogout} />
+                        <DropdownMenu logout={this.props.handleLogout} />
                     </div>
                 </div>
             </div>
@@ -49,7 +42,6 @@ class Navigation extends React.Component {
                                     className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                                     aria-expanded="false">
                                 <span className="sr-only">Open menu</span>
-                                {/*Heroicon name: outline/menu*/}
                                 <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -59,27 +51,25 @@ class Navigation extends React.Component {
                         </div>
                         <nav className="hidden md:flex space-x-10">
                             <div className="relative">
-                                {/*Item active: "text-gray-900", Item inactive: "text-gray-500"*/}
-                                <NavLink to="/"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Strona
-                                    główna</NavLink>
+                                <NavLink to="/" className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.mainPage')}</NavLink>
                                 <NavLink to="/kontakt"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Kontakt</NavLink>
+                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.contact')}</NavLink>
                                 {isKlient() && <NavLink to="/umowWizyte"
-                                                               className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Umów wizytę</NavLink>}
+                                                               className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.appointment')}</NavLink>}
                                 {isAdmin() && <NavLink to="/klienci"
-                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Klienci</NavLink>}
+                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.clients')}</NavLink>}
                                 {isAdmin() && <NavLink to="/weterynarze"
-                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Weterynarze</NavLink>}
+                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.vets')}</NavLink>}
                                 {isAdmin() && <NavLink to="/pacjenci"
-                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Pacjenci</NavLink>}
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.patients')}</NavLink>}
                                 {isAdmin() && <NavLink to="/uslugi"
-                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Usługi</NavLink>}
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.services')}</NavLink>}
                                 {isAdmin() && <NavLink to="/leki"
-                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Leki</NavLink>}
-                                {/*{isAdmin() && <NavLink to="/szczepienia"*/}
-                                {/*                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">Szczepienia</NavLink>}*/}
-                                {/*'Solutions' flyout menu, show/hide based on flyout menu state.*/}
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.medicines')}</NavLink>}
+                                {isAdmin() && <NavLink to="/szczepionia"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.vaccinations')}</NavLink>}
+                                {isAdmin() && <NavLink to="/harmonogram"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.schedule')}</NavLink>}
                             </div>
                         </nav>
                         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
@@ -87,7 +77,6 @@ class Navigation extends React.Component {
                         </div>
                     </div>
                 </div>
-
 
             </div>
         )
@@ -110,4 +99,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate} />;
 };
 
-export default withNavigate(withRouter(Navigation));
+export default withTranslation() (withNavigate(withRouter(Navigation)));

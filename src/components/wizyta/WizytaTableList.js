@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {isWeterynarz} from "../other/authHelper";
-import {getFormattedDate, getFormattedDateWithHour} from "../other/dateFormat";
+import {getFormattedDateWithHour} from "../other/dateFormat";
 
 function WizytaTableList(props) {
     // const { t } = useTranslation();
@@ -33,13 +33,13 @@ function WizytaTableList(props) {
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                         key={x.IdWizyta}>
 
-                        <td scope="col" className="px-6 py-2">{getFormattedDateWithHour(x.Data)}</td>
-                        <td scope="col" className="px-6 py-2">{x.Pacjent }</td>
-                        <td scope="col" className="px-6 py-2">{x.Weterynarz}</td>
-                        <td scope="col" className="px-6 py-2">{x.Status}</td>
-                        <td scope="col" className="px-6 py-2">{x.CzyOplacona ? "tak" : "nie"}</td>
+                        <td className="px-6 py-2">{getFormattedDateWithHour(x.Data)}</td>
+                        <td className="px-6 py-2">{x.Pacjent }</td>
+                        <td className="px-6 py-2">{x.Weterynarz}</td>
+                        <td className="px-6 py-2">{x.Status}</td>
+                        <td className="px-6 py-2">{x.CzyOplacona ? "tak" : "nie"}</td>
 
-                        <td scope="col" className="px-6 py-1">
+                        <td className="px-6 py-1">
                             <div className="list-actions">
                                 <div className=" flex">
                                     <Link to={`/wizyty/${x.IdWizyta}`} className="list-actions-button-details flex-1">
@@ -50,12 +50,12 @@ function WizytaTableList(props) {
                                             <g className="details-icon-color" opacity="0.1"></g>
                                             <circle className="details-icon-color hover:white-100" cx="128" cy="128"
                                                     r="96"
-                                                    fill="none" stroke="#000000" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="16"></circle>
+                                                    fill="none" stroke="#000000" strokeLinecap="round"
+                                                    strokeLinejoin="round" strokeWidth="16"></circle>
                                             <polyline className="details-icon-color"
                                                       points="120 120 128 120 128 176 136 176" fill="none"
-                                                      stroke="#000000" stroke-linecap="round"
-                                                      stroke-linejoin="round" stroke-width="16"></polyline>
+                                                      stroke="#000000" strokeLinecap="round"
+                                                      strokeLinejoin="round" strokeWidth="16"></polyline>
                                             <circle className="details-icon-color dot" cx="126" cy="84"
                                                     r="12"></circle>
                                         </svg>
@@ -69,15 +69,15 @@ function WizytaTableList(props) {
                                                   fill="none"></rect>
                                             <path className="details-icon-color"
                                                   d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
-                                                  fill="none" stroke="#000000" stroke-linecap="round"
-                                                  stroke-linejoin="round" stroke-width="16"></path>
+                                                  fill="none" stroke="#000000" strokeLinecap="round"
+                                                  strokeLinejoin="round" strokeWidth="16"></path>
                                             <line className="details-icon-color" x1="136" y1="64" x2="192" y2="120"
-                                                  fill="none" stroke="#000000" stroke-linecap="round"
-                                                  stroke-linejoin="round" stroke-width="16"></line>
+                                                  fill="none" stroke="#000000" strokeLinecap="round"
+                                                  strokeLinejoin="round" strokeWidth="16"></line>
                                             <polyline className="details-icon-color"
                                                       points="216 216 96 216 40.509 160.509" fill="none"
-                                                      stroke="#000000" stroke-linecap="round"
-                                                      stroke-linejoin="round" stroke-width="16"></polyline>
+                                                      stroke="#000000" strokeLinecap="round"
+                                                      strokeLinejoin="round" strokeWidth="16"></polyline>
                                         </svg>
                                     </Link>
                                     }

@@ -1,0 +1,24 @@
+{
+	"navigation": {
+		"mainPage": "Strona główna",
+		"contact": "Kontakt",
+		"appointment": "Umów wizytę",
+		"clients": "Klienci",
+		"vets": "Weterynarze",
+		"patients": "Pacjenci",
+		"services": "Usługi",
+		"medicines": "Leki",
+		"vaccinations": "Szczepionki",
+		"schedule": "Harmonogram"
+	},
+	"footer": {
+		"regulations": "Regulamin",
+		"policy": "Polityka prywatności"
+	},
+	"mainPage": {
+		"title": "Witamy w klinice PetMed!"
+	},
+	"contact": {
+		"title": "Kontakt"
+	}
+}

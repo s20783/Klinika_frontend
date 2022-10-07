@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import {getImie} from "./authHelper";
+import {getImie} from "../other/authHelper";
 import Dropdown from "./Dropdown";
 
-function Menu(props) {
+function DropdownMenu(props) {
     const [dropdown, setDropdown] = useState(false);
     let ref = useRef();
 
@@ -32,7 +32,7 @@ function Menu(props) {
     return (
         <div onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}>
-            <button id="userButton"
+            <button id="userMenu"
                     className="flex items-center shadow bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-sm md:text-base font-bold py-2 px-4 rounded"
                     aria-expanded={dropdown ? "true" : "false"}
                     onClick={() => { setDropdown((prev) => !prev)}}>
@@ -52,7 +52,7 @@ function Menu(props) {
                         <p className="text-xs text-gray-600 dark:text-gray-400"/>
                     </div>
                 </div>
-                <svg className="pl-2 h-2 fill-current text-white" version="1.1"
+                <svg className="pl-3 h-3 fill-current text-white" version="1.1"
                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
                      xmlnsXlink="http://www.w3.org/1999/xlink"
                      enableBackground="new 0 0 129 129">
@@ -70,4 +70,4 @@ function Menu(props) {
     );
 }
 
-export default Menu;
+export default DropdownMenu;
