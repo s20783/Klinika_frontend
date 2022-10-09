@@ -11,7 +11,6 @@ import Login from "./components/other/Login";
 import Register from "./components/other/Register";
 import {getCurrentUser} from "./components/other/authHelper";
 import Konto from "./components/konto/Konto";
-import {useNavigate} from "react-router";
 import LekList from "./components/lek/LekList";
 import LekDetailsList from "./components/lek/LekDetailsList";
 import PacjentList from "./components/pacjent/PacjentList";
@@ -21,6 +20,8 @@ import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
 import KontoPacjenci from "./components/konto/KontoPacjenci";
+import Regulamin from "./components/other/Regulamin";
+import PolitykaPrywatnosci from "./components/other/PolitykaPrywatnosci";
 
 class App extends React.Component {
     constructor(props) {
@@ -55,6 +56,9 @@ class App extends React.Component {
                 <Routes>
                     <Route path="/" element={<MainPage/>}/>
                     <Route path="/kontakt" element={<Kontakt/>}/>
+                    <Route path="/regulamin" element={<Regulamin/>}/>
+                    <Route path="/politykaPrywatnosci" element={<PolitykaPrywatnosci/>}/>
+
                     <Route path="/login" element={<Login handleLogin={this.handleLogin}/>}/>
                     <Route path="/register" element={<Register/>}/>
 
@@ -76,7 +80,6 @@ class App extends React.Component {
                     <Route path="/pacjenci" element={<PacjentList/>}/>
                 </Routes>
                 <Footer/>
-
             </BrowserRouter>
         );
     }

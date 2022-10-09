@@ -1,0 +1,24 @@
+{
+	"navigation": {
+		"mainPage": "Main page",
+		"contact": "Contact",
+		"appointment": "Make an appointment",
+		"clients": "Clients",
+		"vets": "Vets",
+		"patients": "Patients",
+		"services": "Services",
+		"medicines": "Medicines",
+		"vaccinations": "Vaccinations",
+		"schedule": "Schedule"
+	},
+	"footer": {
+		"regulations": "Regulations",
+		"policy": "Privacy policy"
+	},
+	"mainPage": {
+		"title": "Welcome to PetMed clinic!"
+	},
+	"contact": {
+		"title": "Contact"
+	}
+}
