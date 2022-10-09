@@ -3,7 +3,7 @@ import React from "react";
 function MainPage() {
     return (
         <main>
-        <section className="bg-gray-100 border-b">
+        <section className="bg-gray-100 ">
             <div className="container max-w-5xl mx-auto m-0">
 
                 <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
@@ -31,7 +31,7 @@ function MainPage() {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap flex-col-reverse sm:flex-row">
+                <div className="flex flex-wrap border-t flex-col-reverse sm:flex-row">
                     <div className="w-full sm:w-1/2 p-6 mt-6">
                         <img src="/images/photo2.jpg"/>
                     </div>
