@@ -16,6 +16,7 @@ import LekDetailsList from "./components/lek/LekDetailsList";
 import PacjentList from "./components/pacjent/PacjentList";
 import KlientList from "./components/klient/KlientList";
 import KontoWizyty from "./components/konto/KontoWizyty";
+import ZmianaHasla from "./components/konto/ZmianaHasla";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
@@ -69,6 +70,7 @@ class App extends React.Component {
                     <Route path="/konto" element={<Konto/>}/>
                     <Route path="/moiPacjenci" element={<KontoPacjenci/>}/>
                     <Route path="/mojeWizyty" element={<KontoWizyty/>}/>
+                    <Route path="/zmianaHasla" element={<ZmianaHasla/>}/>
 
                     <Route path="/umowWizyte" element={<UmowienieWizyty/>}/>
                     <Route path="/potwierdzenieWizyty" element={<PotwierdzenieUmowieniaWizyty/>}/>
