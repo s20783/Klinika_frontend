@@ -95,11 +95,11 @@ class ZmianaHasla extends React.Component {
             }
         }
         if (fieldName === 'NoweHaslo') {
-        const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])");
-            if (!CheckTextRange(fieldValue, 8, 30)) {
-                errorMessage = "To pole wymaga od 8 do 30 znaków"
+            const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])");
+            if (!regex.test(fieldValue)) {
+                errorMessage = "Hasło musi zawierać co najmniej jedną małą litera, dużą litera, cyfrę"
             }
-            if (regex.test(fieldValue)) {
+            if (!CheckTextRange(fieldValue, 8, 30)) {
                 errorMessage = "To pole wymaga od 8 do 30 znaków"
             }
             if (!fieldValue) {
