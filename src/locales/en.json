@@ -15,6 +15,45 @@
 		"regulations": "Regulations",
 		"policy": "Privacy policy"
 	},
+	"validation": {
+		"required": "This field is required",
+		"max30": "This field requires from 2 to 30 characters",
+		"max50": "This field requires from 2 to 50 characters",
+		"from8to50": "This field requires from 8 to 50 characters",
+		"format": "Incorrect format",
+		"password": "Password requires min 8 characters, capital letter and a digit"
+	},
+	"errors": {
+		"Incorrect": "Incorrect password or login",
+		"Not unique": "This username is already taken",
+		"Incorrect password": "Incorrect password"
+	},
+	"login": {
+		"title": "Welcome to PetMed clinic",
+		"signIn": "Sign in",
+		"forgotPassword": "Forgot password?",
+		"register": "Create an account",
+		"text": "Want to sign up?",
+		"fields": {
+			"nazwaUzytkownika": "Username",
+			"haslo": "Password"
+		}
+	},
+	"register": {
+		"title": "Welcome to PetMed clinic",
+		"signUp": "Sign up",
+		"signUpButton": "Sign up",
+		"required": "required",
+		"fields": {
+			"imie": "First name",
+			"nazwisko": "Last name",
+			"email": "Email",
+			"numerTelefonu": "Phone number",
+			"nazwaUzytkownika": "Username",
+			"haslo": "Password",
+			"haslo2": "Password"
+		}
+	},
 	"mainPage": {
 		"title": "Welcome to PetMed clinic!"
 	},

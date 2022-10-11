@@ -3,7 +3,10 @@ import {Navigate, useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {registerCall} from "../../api/KlientApiCalls";
 import {ValidateEmail} from "../helpers/ValidateEmail";
+import {withTranslation} from "react-i18next";
+import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {ValidateHaslo} from "../helpers/ValidateHaslo";
+import {CheckTextRange} from "../helpers/CheckTextRange";
 
 class Register extends React.Component {
     constructor(props) {
@@ -64,7 +67,7 @@ class Register extends React.Component {
                         response = res
                         console.log(response)
                         console.log(response.status)
-                        if(response.status === 200) {
+                        if (response.status === 200) {
                             this.setState({redirect: true})
                         }
                         return res.json()
@@ -89,8 +92,8 @@ class Register extends React.Component {
                                 }
                             }
                             //else {
-                                //navigate("/", { replace: true });
-                                //this.setState({redirect: true})
+                            //navigate("/", { replace: true });
+                            //this.setState({redirect: true})
                             //}
                         },
                         (error) => {
@@ -104,55 +107,74 @@ class Register extends React.Component {
     }
 
     validateField = (fieldName, fieldValue) => {
+        const {t} = this.props;
         let errorMessage = '';
         if (fieldName === 'Imie') {
+            if (!CheckTextRange(fieldValue, 2, 50)) {
+                errorMessage = `${t('validation.max50')}`
+            }
             if (!fieldValue) {
-                errorMessage = "Pole wymagane"
+                errorMessage = `${t('validation.required')}`
             }
         }
         if (fieldName === 'Nazwisko') {
+            if (!CheckTextRange(fieldValue, 2, 50)) {
+                errorMessage = `${t('validation.max50')}`
+            }
             if (!fieldValue) {
-                errorMessage = "Pole wymagane"
+                errorMessage = `${t('validation.required')}`
             }
         }
         if (fieldName === 'NazwaUzytkownika') {
+            if (!CheckTextRange(fieldValue, 2, 50)) {
+                errorMessage = `${t('validation.max50')}`
+            }
             if (!fieldValue) {
-                errorMessage = "Pole wymagane"
+                errorMessage = `${t('validation.required')}`
             }
         }
         if (fieldName === 'Email') {
+            if (!CheckTextRange(fieldValue, 2, 50)) {
+                errorMessage = `${t('validation.max50')}`
+            }
             if (!ValidateEmail(fieldValue)) {
-                errorMessage = "Niepoprawny format"
+                errorMessage = `${t('validation.format')}`
             }
             if (!fieldValue) {
-                errorMessage = "Pole wymagane"
+                errorMessage = `${t('validation.required')}`
             }
         }
         if (fieldName === 'NumerTelefonu') {
-            if (fieldValue.length < 9 || fieldValue.length > 10) {
-                errorMessage = "Pole wymaga od 9 do 10 znaków"
+            if (!ValidateNumerTelefonu(fieldValue)) {
+                errorMessage = `${t('validation.format')}`
             }
             if (!fieldValue) {
-                errorMessage = "Pole wymagane"
+                errorMessage = `${t('validation.required')}`
             }
         }
         if (fieldName === 'Haslo') {
-            // if(!ValidateHaslo(fieldValue)){
-            //     errorMessage = "Pole wymaga minimum 3 znaków, jednej wielkiej litery i cyfry"
-            // }
+            if (!CheckTextRange(fieldValue, 8, 50)) {
+                errorMessage = `${t('validation.from8to50')}`
+            }
+            if (!ValidateHaslo(fieldValue)) {
+                errorMessage = `${t('validation.password')}`
+            }
+
             if (!fieldValue) {
-                errorMessage = "Pole wymagane"
+                errorMessage = `${t('validation.required')}`
             }
         }
         if (fieldName === 'Haslo2') {
-            // if(!ValidateHaslo(fieldValue)){
-            //     errorMessage = "Pole wymaga minimum 3 znaków, jednej wielkiej litery i cyfry"
-            // }
+            if (!CheckTextRange(fieldValue, 8, 50)) {
+                errorMessage = `${t('validation.from8to50')}`
+            }
+            if (!ValidateHaslo(fieldValue)) {
+                errorMessage = `${t('validation.password')}`
+            }
             if (!fieldValue) {
-                errorMessage = "Pole wymagane"
+                errorMessage = `${t('validation.required')}`
             }
         }
-
         return errorMessage
     }
 
@@ -182,6 +204,7 @@ class Register extends React.Component {
 
     render() {
         const {redirect} = this.state
+        const {t} = this.props;
         if (redirect) {
             return (
                 <Navigate to={{
@@ -198,18 +221,17 @@ class Register extends React.Component {
                 <div className="w-full flex flex-wrap">
                     <div className="bg-white max-w-lg mx-auto p-6 md:p-8 my-10 rounded-lg shadow-2xl">
                         <div className="mx-10">
-                            <p className="text-center text-4xl">Witamy w Klinice PetMed</p>
+                            <p className="text-center text-4xl">{t('register.title')}</p>
 
                             <form className="flex flex-col pt-5 md:pt-4" onSubmit={this.handleSubmit}>
                                 <div className=" py-2">
                                     <label htmlFor="Rejestracja"
-                                           className="text-lg font-bold text-3xl">Rejestracja</label>
+                                           className="text-lg font-bold text-3xl">{t('register.signUp')}</label>
                                 </div>
 
 
-                                {/*<div className="grid grid-cols-2 gap-4">*/}
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" name="Imie" id="Imie" placeholder="Imię *"
+                                    <input type="text" name="Imie" id="Imie" placeholder={t('register.fields.imie') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Imie ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -217,17 +239,16 @@ class Register extends React.Component {
                                 <span id="errorImie" className="errors-text">{this.state.errors.Imie}</span>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" name="Nazwisko" id="Nazwisko" placeholder="Nazwisko *"
+                                    <input type="text" name="Nazwisko" id="Nazwisko" placeholder={t('register.fields.nazwisko') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Nazwisko ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errorNazwisko" className="errors-text">{this.state.errors.Nazwisko}</span>
-                                {/*</div>*/}
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" name="NazwaUzytkownika" id="NazwaUzytkownika"
-                                           placeholder="Nazwa użytkownika *" onChange={this.handleChange}
+                                    <input type="text" name="NazwaUzytkownika" id="NazwaUzytkownika" placeholder={t('register.fields.nazwaUzytkownika') + " *"}
+                                           onChange={this.handleChange}
                                            className={this.state.errors.NazwaUzytkownika ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
@@ -235,7 +256,7 @@ class Register extends React.Component {
                                       className="errors-text">{this.state.errors.NazwaUzytkownika}</span>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" id="Email" name="Email" placeholder="E-mail *"
+                                    <input type="text" id="Email" name="Email" placeholder={t('register.fields.email') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Email ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -243,8 +264,8 @@ class Register extends React.Component {
                                 <span id="errorEmail" className="errors-text">{this.state.errors.Email}</span>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="tel" id="NumerTelefonu" name="NumerTelefonu"
-                                           placeholder="Numer telefonu *" onChange={this.handleChange}
+                                    <input type="tel" id="NumerTelefonu" name="NumerTelefonu" placeholder={t('register.fields.numerTelefonu') + " *"}
+                                           onChange={this.handleChange}
                                            className={this.state.errors.NumerTelefonu ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
@@ -259,7 +280,7 @@ class Register extends React.Component {
                                 {/*<span id="errorLogin" className="errors-text">{this.state.errors.Data_urodzenia}</span>*/}
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
-                                    <input type="password" id="Haslo" name="Haslo" placeholder="Hasło *"
+                                    <input type="password" id="Haslo" name="Haslo" placeholder={t('register.fields.haslo') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Haslo ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -267,16 +288,19 @@ class Register extends React.Component {
                                 <span id="errorHaslo" className="errors-text">{this.state.errors.Haslo}</span>
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
-                                    <input type="password" id="Haslo2" name="Haslo2" placeholder="Powtórz Hasło *"
+                                    <input type="password" id="Haslo2" name="Haslo2" placeholder={t('register.fields.haslo2') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Haslo2 ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errorHaslo2" className="errors-text">{this.state.errors.Haslo2}</span>
 
-                                <span className="text-gray-400">* - wymagane</span>
-                                <span id="error" className="errors-text2">{this.state.message}</span>
-                                <input type="submit" value="Zarejestruj się"
+                                <span className="text-gray-400">* - {t('register.required')}</span>
+
+                                {this.state.message !== '' && <span id="error"
+                                                                    className="errors-text2">{t('errors.' + this.state.message)}</span>}
+
+                                <input type="submit" value={t('register.signUpButton')}
                                        className="modal-open bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
                             </form>
                         </div>
@@ -303,4 +327,4 @@ const withRouter = WrappedComponent => props => {
 //     return <Component {...props} navigate={navigate} />;
 // };
 
-export default (withRouter(Register));
+export default withTranslation()(withRouter(Register));
