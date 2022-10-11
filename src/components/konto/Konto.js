@@ -104,30 +104,20 @@ class Konto extends React.Component {
                                 </div>
                             </div>
 
-                            <div className="md:w-2/3 mt-6 mb-4 ">
-                                <div className="mt-2 mb-4">
+                           <div className="md:w-2/3 mt-6 mb-4 ">
+                               <div className="mt-2 mb-4">
+                                   <p className="py-2 text-sm text-gray-600 font-bold">Zarządzanie kontem</p>
                                     <label className="inline-flex items-center mt-4">
-                                        <Link to="#"
-                                              className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                            Zarządzanie kontem
-                                        </Link>
+                                       <Link to="/zmianaHasla"
+                                             className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                             Zmień hasło
+                                       </Link>
                                     </label>
-
-                                    <label className="inline-flex items-center mt-4">
-                                        <Link to="/zmianaHasla"
-                                              className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                            Zmień hasło
-                                        </Link>
-                                    </label>
-
-                                </div>
-                            </div>
-
-
+                               </div>
+                           </div>
                         </div>
                     </section>
                 </div>
-
             </div>
         )
     }
