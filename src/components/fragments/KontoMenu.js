@@ -1,8 +1,10 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {userMenuValues} from "../../values/UserMenuValues";
+import {useTranslation} from "react-i18next";
 
 function KontoMenu() {
+    const {t} = useTranslation();
     return (
         <div className="w-full lg:w-1/6 lg:px-6 text-xl text-gray-800 leading-normal">
             <p className="text-base font-bold py-2 lg:pb-6 text-gray-700">Menu</p>
@@ -25,10 +27,9 @@ function KontoMenu() {
                             isActive ? 'py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent font-bold block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400 lg:border-blue-400' :
                                 'py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400'
                         } to={item.url}>
-                            <span className="pb-1 md:pb-0 text-sm">{item.title}</span>
+                            <span className="pb-1 md:pb-0 text-sm">{t('userMenu.' + item.title)}</span>
                         </NavLink>
                     })}
-
                 </ul>
             </div>
         </div>

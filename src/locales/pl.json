@@ -20,5 +20,15 @@
 	},
 	"contact": {
 		"title": "Kontakt"
+	},
+	"userMenu": {
+		"myAccount": "Moje konto",
+		"notifications": "Powiadomienia",
+		"appointments": "Wizyty",
+		"pets": "Zwierzęta",
+		"prescriptions": "Recepty",
+		"referrals": "Skierowania",
+		"payments": "Opłaty",
+		"logout": "Wyloguj się"
 	}
 }

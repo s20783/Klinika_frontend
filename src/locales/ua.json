@@ -20,5 +20,15 @@
 	},
 	"contact": {
 		"title": "."
+	},
+	"userMenu": {
+		"myAccount": "My account",
+		"notifications": "Notifications",
+		"appointments": "Appointments",
+		"pets": "Pets",
+		"prescriptions": "Prescriptions",
+		"referrals": "Referrals",
+		"payments": "Payments",
+		"logout": "Log out"
 	}
 }

@@ -1,30 +1,30 @@
 export const userMenuValues = [
     {
-        title: 'Moje konto',
+        title: 'myAccount',
         url: '/konto'
     },
     {
-        title: 'Powiadomienia',
+        title: 'notifications',
         url: '/powiadomienia'
     },
     {
-        title: 'Wizyty',
+        title: 'appointments',
         url: '/mojeWizyty'
     },
     {
-        title: 'Zwierzęta',
+        title: 'pets',
         url: '/moiPacjenci'
     },
     {
-        title: 'Recepty',
+        title: 'prescriptions',
         url: '/mojeRecepty'
     },
     {
-        title: 'Skierowania',
+        title: 'referrals',
         url: '/mojeSkierowania'
     },
     {
-        title: 'Opłaty',
+        title: 'payments',
         url: '/mojeOplaty'
-    },
+    }
 ];
