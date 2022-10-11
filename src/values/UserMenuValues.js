@@ -1,4 +1,3 @@
-
 export const userMenuValues = [
     {
         title: 'myAccount',
@@ -12,11 +11,6 @@ export const userMenuValues = [
         title: 'appointments',
         url: '/mojeWizyty'
     },
-    {
-        title: 'pets',
-        url: '/moiPacjenci'
-    },
-
     {
         title: 'payments',
         url: '/mojeOplaty'
