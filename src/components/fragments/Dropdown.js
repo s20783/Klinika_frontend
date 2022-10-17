@@ -10,7 +10,7 @@ function Dropdown(props){
     return (
         <ul className="bg-white rounded shadow-md mt-2 absolute mt-12 top-0 left-0 min-w-full overflow-auto z-30">
             {userMenuValues.map((item) => {
-                return <li><Link to={item.url} className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">{t('userMenu.' + item.title)}</Link></li>;
+                return <li><Link to={item.url} key={item.title} className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">{t('userMenu.' + item.title)}</Link></li>;
             })}
 
             <li>

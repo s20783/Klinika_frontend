@@ -28,6 +28,14 @@
 		"Not unique": "Ta nazwa jest już zajęta",
 		"Incorrect password": "Incorrect password"
 	},
+	"button": {
+		"next": "D...",
+		"back": "P..."
+	},
+	"other": {
+		"yes": "tak",
+		"no": "nie"
+	},
 	"login": {
 		"title": "Welcome to PetMed clinic",
 		"signIn": "Sign in",
@@ -69,5 +77,33 @@
 		"referrals": "Referrals",
 		"payments": "Payments",
 		"logout": "Log out"
+	},
+	"wizyta": {
+		"title": "Wizyty",
+		"makeAnAppointment": "Umówienie wizyty",
+		"thankYou": "Dziękujemy!",
+		"confirmation": "Appointment confirmed.",
+		"date": "Termin",
+		"button": {
+			"appointment": "Umów wizytę"
+		},
+		"status": {
+			"Zaplanowana": "zaplanowana",
+			"Zrealizowana": "zrealizowana",
+			"AnulowanaKlient": "anulowana",
+			"AnulowanaKlinika": "anulowana"
+		},
+		"table": {
+			"date": "data",
+			"patient": "pacjent",
+			"vet": "weterynarz",
+			"status": "status",
+			"isPaid": "czy opłacone"
+		},
+		"field": {
+			"patient": "Pacjent",
+			"date": "Wybierz termin",
+			"description": "Opis"
+		}
 	}
 }

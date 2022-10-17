@@ -1,9 +1,10 @@
 import {Link} from "react-router-dom";
 import {isWeterynarz} from "../other/authHelper";
 import {getFormattedDateWithHour} from "../other/dateFormat";
+import {useTranslation} from "react-i18next";
 
 function WizytaTableList(props) {
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
     const list = props.wizyty
 
     return (
@@ -12,7 +13,7 @@ function WizytaTableList(props) {
 
               <Link to="/umowWizyte">
                  <button class="shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                    Umów wizytę
+                     {t("wizyta.button.appointment")}
                  </button>
               </Link>
 
@@ -20,11 +21,11 @@ function WizytaTableList(props) {
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="px-6 py-3">Data</th>
-                    <th scope="col" className="px-6 py-3">Pacjent</th>
-                    <th scope="col" className="px-6 py-3">Weterynarz</th>
-                    <th scope="col" className="px-6 py-3">Status</th>
-                    <th scope="col" className="px-6 py-3">Czy opłacone</th>
+                    <th scope="col" className="px-6 py-3">{t("wizyta.table.date")}</th>
+                    <th scope="col" className="px-6 py-3">{t("wizyta.table.patient")}</th>
+                    <th scope="col" className="px-6 py-3">{t("wizyta.table.vet")}</th>
+                    <th scope="col" className="px-6 py-3">{t("wizyta.table.status")}</th>
+                    <th scope="col" className="px-6 py-3">{t("wizyta.table.isPaid")}</th>
                     <th scope="col" className="px-6 py-3"/>
                 </tr>
                 </thead>
@@ -33,11 +34,11 @@ function WizytaTableList(props) {
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                         key={x.IdWizyta}>
 
-                        <td className="px-6 py-2">{getFormattedDateWithHour(x.Data)}</td>
-                        <td className="px-6 py-2">{x.Pacjent }</td>
-                        <td className="px-6 py-2">{x.Weterynarz}</td>
-                        <td className="px-6 py-2">{x.Status}</td>
-                        <td className="px-6 py-2">{x.CzyOplacona ? "tak" : "nie"}</td>
+                        <td className="px-6 py-2">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
+                        <td className="px-6 py-2">{x.Pacjent != null ? x.Pacjent : "-"}</td>
+                        <td className="px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-"}</td>
+                        <td className="px-6 py-2">{t("wizyta.status." + x.Status)}</td>
+                        <td className="px-6 py-2">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
 
                         <td className="px-6 py-1">
                             <div className="list-actions">
@@ -82,26 +83,12 @@ function WizytaTableList(props) {
                                     </Link>
                                     }
                                 </div>
-                                {/*<li><Link to={`/leki/${lek.Idlek}`}*/}
-                                {/*          className="list-actions-button-edit"*/}
-                                {/*>Edytuj</Link></li>*/}
-                                {/*<li><Link to={``}*/}
-                                {/*          className="list-actions-button-delete"*/}
-                                {/*>Usuń</Link></li>*/}
                             </div>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-
-            {/*<form className="form">*/}
-            {/*    {isAdmin() &&*/}
-            {/*    <div className="form-buttons">*/}
-            {/*        <Link to={`/kluby/add`} className="form-button-submit">{t('kluby.form.list.btnLabel')}</Link>*/}
-            {/*    </div>*/}
-            {/*    }*/}
-            {/*</form>*/}
         </div>
     )
 }

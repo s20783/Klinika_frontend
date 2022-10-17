@@ -20,19 +20,20 @@ export function getVisitList() {
     return promise;
 }
 
-export function postWizyta(idHarmonogram, idPacjent, notatka) {
+export function postWizyta(data) {
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
         token = user.Token
     }
-    const url = `${postWizytaURL}?ID_Harmonogram=${idHarmonogram}&ID_Pacjent=${idPacjent}&Notatka=${notatka}`
+    const dataString = JSON.stringify(data)
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         },
+        body: dataString
     }
-    return fetch(url, options);
+    return fetch(postWizytaURL, options);
 }

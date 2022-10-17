@@ -2,6 +2,7 @@ import React from "react";
 import {getVisitList} from "../../api/WizytaApiCalls";
 import WizytaTableList from "../wizyta/WizytaTableList";
 import KontoMenu from "../fragments/KontoMenu";
+import {withTranslation} from "react-i18next";
 
 
 class KontoWizyty extends React.Component {
@@ -46,9 +47,9 @@ class KontoWizyty extends React.Component {
     }
 
     render() {
-
         const {error, isLoaded, wizyty} = this.state
         let content;
+        const {t} = this.props;
 
         if (error) {
             content = <p>Błąd: {error.message}</p>
@@ -75,7 +76,7 @@ class KontoWizyty extends React.Component {
                             <div className="flex flex-wrap">
                                 <div className="w-5/6 p-6">
                                     <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
-                                        Wizyty
+                                        {t("wizyta.title")}
                                     </h3>
                                     {content}
                                     <br/>
@@ -99,4 +100,4 @@ class KontoWizyty extends React.Component {
 //     );
 // };
 
-export default KontoWizyty;
+export default withTranslation() (KontoWizyty);
