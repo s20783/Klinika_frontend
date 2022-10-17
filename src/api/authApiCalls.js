@@ -46,14 +46,17 @@ export function getKontoData(){
 }
 export function changePassword(user) {
     const user1 = getCurrentUser()
-    const url = `${baseURL}/password/${user1.Id}`
+    let token = user1.Token;
+    const url = `${baseURL}/password/${JSON.parse(atob(token.split('.')[1])).idUser}`
     const userString = JSON.stringify(user)
     const options = {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+             'Authorization': 'Bearer ' + token
         },
         body: userString
     }
+
     return fetch(url, options);
 }

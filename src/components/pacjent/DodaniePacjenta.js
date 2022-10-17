@@ -1,15 +1,15 @@
 import React from "react";
-import {getKlientPacjentList} from "../../api/PacjentApiCalls";
-import UmowienieWizytyForm from "./UmowienieWizytyForm";
+import {getKlientList} from "../../api/KlientApiCalls";
+import DodaniePacjentaForm from "./DodaniePacjentaForm";
 
 
-class UmowienieWizyty extends React.Component {
+class DodaniePacjenta extends React.Component {
     constructor(props) {
             super(props);
             this.state = {
                 error: '',
                 isLoaded: false,
-                pacjenci: [],
+                klienci: [],
                 notice: ''
             }
         }
@@ -17,7 +17,7 @@ class UmowienieWizyty extends React.Component {
     componentDidMount() {
 
         const {navigate} = this.props;
-                getKlientPacjentList()
+                getKlientList()
                     .then(res => {
                         console.log(res.status)
                         if (res.status === 401) {
@@ -31,7 +31,7 @@ class UmowienieWizyty extends React.Component {
 
                             this.setState({
                                 isLoaded: true,
-                                pacjenci: data
+                                klienci: data
                             });
                         },
                         (error) => {
@@ -44,7 +44,7 @@ class UmowienieWizyty extends React.Component {
     }
 
     render() {
-        const {error, isLoaded, pacjenci} = this.state
+        const {error, isLoaded, klienci} = this.state
                 let content;
 
                 if (error) {
@@ -53,14 +53,14 @@ class UmowienieWizyty extends React.Component {
                     content = <p>Ładowanie...</p>
                 } else {
                     //content = <p>Ładowanie zakończone</p>
-                    content = <UmowienieWizytyForm pacjenci={pacjenci}/>
+                    content = <DodaniePacjentaForm klienci={klienci}/>
                 }
 
 
         return(
         <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
                  <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">Umówienie wizyty</p>
+                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">Dodanie nowego pacjenta</p>
                     <div class="block lg:hidden sticky inset-0">
                        <button id="menu-toggle" class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-500 appearance-none focus:outline-none">
                           <svg class="fill-current h-3 float-right" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -106,4 +106,4 @@ class UmowienieWizyty extends React.Component {
 //     );
 // };
 
-export default UmowienieWizyty;
+export default DodaniePacjenta;

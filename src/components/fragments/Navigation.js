@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {isAdmin, isAuthenticated, isKlient} from "../other/authHelper";
+import {isAdmin, isAuthenticated, isWeterynarz, isKlient} from "../other/authHelper";
 import {useNavigate, useParams} from "react-router";
 import DropdownMenu from "./DropdownMenu";
 import {withTranslation} from "react-i18next";
@@ -56,17 +56,17 @@ class Navigation extends React.Component {
                                          className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.contact')}</NavLink>
                                 {isKlient() && <NavLink to="/umowWizyte"
                                                                className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.appointment')}</NavLink>}
-                                {isAdmin() && <NavLink to="/klienci"
+                                {isAdmin() || isWeterynarz()  && <NavLink to="/klienci"
                                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.clients')}</NavLink>}
                                 {isAdmin() && <NavLink to="/weterynarze"
                                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.vets')}</NavLink>}
-                                {isAdmin() && <NavLink to="/pacjenci"
+                                {isAdmin()  || isWeterynarz() && <NavLink to="/pacjenci"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.patients')}</NavLink>}
-                                {isAdmin() && <NavLink to="/uslugi"
+                                {isAdmin() || isWeterynarz() && <NavLink to="/uslugi"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.services')}</NavLink>}
-                                {isAdmin() && <NavLink to="/leki"
+                                {isAdmin() || isWeterynarz() && <NavLink to="/leki"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.medicines')}</NavLink>}
-                                {isAdmin() && <NavLink to="/szczepionia"
+                                {isAdmin() || isWeterynarz() && <NavLink to="/szczepionia"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.vaccinations')}</NavLink>}
                                 {isAdmin() && <NavLink to="/harmonogram"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.schedule')}</NavLink>}

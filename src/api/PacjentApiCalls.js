@@ -54,3 +54,22 @@ export function getKlientPacjentList(){
     const promise = fetch(url, options);
     return promise;
 }
+export function addPacjent(patient) {
+    const user = getCurrentUser()
+    let token
+    if (user && user.Token) {
+        token = user.Token
+    }
+    const url = `${pacjentURL}`
+    const patientString = JSON.stringify(patient)
+    console.log(patientString)
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                 'Authorization': 'Bearer ' + token
+            },
+            body: patientString
+        }
+    return fetch(url, options);
+}

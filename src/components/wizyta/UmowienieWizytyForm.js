@@ -6,8 +6,6 @@ import dayjs from 'dayjs';
 import {getHarmonogram} from "../../api/HarmonogramApiCalls";
 import {postWizyta} from "../../api/WizytaApiCalls";
 import {getFormattedDateWithHour} from "../other/dateFormat";
-import {isKlient} from "../other/authHelper";
-import {withTranslation} from "react-i18next";
 
 class UmowienieWizytyForm extends React.Component {
     constructor(props) {
@@ -18,14 +16,11 @@ class UmowienieWizytyForm extends React.Component {
                 Pacjent: '',
                 Notatka: '',
                 Termin: '',
-                ID_klient: ''
+                Data: ''
             },
             errors: {
                 Pacjent: '',
                 Notatka: '',
-                Data: ''
-            },
-            wizyta: {
                 Data: ''
             },
             list: this.props.pacjenci,
@@ -89,51 +84,44 @@ class UmowienieWizytyForm extends React.Component {
     handleSubmit = (event) => {
         const {navigate} = this.props;
         const data = {...this.state.data}
-        const wizyta = {...this.state.wizyta}
+
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
             let response
-            const newData = {
-                ID_Harmonogram: data["Termin"],
-                ID_Pacjent: data["Pacjent"],
-                Notatka: data["Notatka"],
-                ID_klient: data["ID_Klient"]
-            }
-            //if(isKlient()) {
-                //postWizyta(data["Termin"], data["Pacjent"], data["Notatka"])
-                postWizyta(newData)
-                    .then(res => {
-                        response = res
-                        return res.json()
-                    })
-                    .then(
-                        (data1) => {
-                            console.log(response)
-                            if (response.status === 200) {
-                                console.log(data1)
-                                navigate(
-                                    "/potwierdzenieWizyty",
-                                    {
-                                        state: {
-                                            Data: wizyta.Data
-                                        }
-                                    })
-                            } else if (response.status === 404) {
-                                console.log(data1)
-                            } else {
-                                console.log(data1)
-                                this.setState({
-                                    message: data1.message
+
+            postWizyta(data["Termin"], data["Pacjent"], data["Notatka"])
+                .then(res => {
+                    response = res
+                    return res.json()
+                })
+                .then(
+                    (data1) => {
+                        console.log(response.status)
+                        if (response.status === 200) {
+                            console.log(data1)
+
+                            navigate(
+                                "/potwierdzenieWizyty",
+                                {
+                                    state: {
+                                        Data: data.Data
+                                    }
                                 })
-                            }
-                        },
-                        (error) => {
+                        } else if (response.status === 404) {
+                            console.log(data1)
+                        } else {
+                            console.log(data1)
                             this.setState({
-                                error: error
+                                message: data1.message
                             })
+                        }
+                    },
+                    (error) => {
+                        this.setState({
+                            error: error
                         })
-            //}
+                    })
         }
     }
 
@@ -150,6 +138,7 @@ class UmowienieWizytyForm extends React.Component {
 
     onChange = (date) => {
         this.setState({selectedDate: date});
+        //console.log(dayjs(date).format('YYYY-MM-DD'));
 
         const {navigate} = this.props;
         getHarmonogram(dayjs(date).format('YYYY-MM-DD'))
@@ -178,14 +167,12 @@ class UmowienieWizytyForm extends React.Component {
 
     handleHarmonogramSelect = (harmonogram) => {
         const data = {...this.state.data}
-        const wizyta = {...this.state.wizyta}
         const errors = {...this.state.errors}
 
         errors["Data"] = ''
         data["Termin"] = harmonogram.IdHarmonogram
-        wizyta["Data"] =  getFormattedDateWithHour(harmonogram.Data)
+        data["Data"] =  getFormattedDateWithHour(harmonogram.Data)
         this.setState({
-            wizyta: wizyta,
             data: data,
             errors: errors
         })
@@ -194,21 +181,17 @@ class UmowienieWizytyForm extends React.Component {
     render() {
         const {navigate} = this.props
         const {list, harmonogram} = this.state
-        const {t} = this.props;
+
         return (
             <div
                 className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                 <form onSubmit={this.handleSubmit}>
                     <section class="bg-white-100 border-b  mb-7">
-                        {/*<div class="container max-w-5xl mx-auto ">*/}
                         <div class=" md:flex mb-6 mt-4">
-                            {/*<div class="md:w-1/5">*/}
-                            <label className="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-7"
+                            <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
                                    htmlFor="Pacjent">
-                                {/*<label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-2" for="my-select">*/}
-                                {t("wizyta.field.patient")}
+                                Pacjent
                             </label>
-                            {/*</div>*/}
                             <div class="md:w-3/5">
 
                                 <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
@@ -223,11 +206,10 @@ class UmowienieWizytyForm extends React.Component {
                             </div>
                             <span id="errorPacjent" className="errors-text2">{this.state.errors.Pacjent}</span>
                         </div>
-                        {/*</div>*/}
                     </section>
                     <section class="bg-white-100 border-b mt-7">
                         <label class="block  text-gray-600 font-bold md:text-left mb-6" form="my-select">
-                            {t("wizyta.field.date")}
+                            Wybierz termin
                         </label>
                         <Calendar className="mb-7"
                                   value={this.state.date}
@@ -237,12 +219,12 @@ class UmowienieWizytyForm extends React.Component {
                             {<Time showTime={this.state.harmonogram.length} harmonogram={harmonogram}
                                    timeChange={this.handleHarmonogramSelect}/>}
                             <span id="errorData" className="errors-text2 mb-4">{this.state.errors.Data}</span>
-                            <span id="" className="">{this.state.wizyta.Data === '' ? '' : 'Wybrano termin:  ' + this.state.wizyta.Data}</span>
+                            <span id="" className="">{this.state.date === '' ? '' : 'Wybrano termin:  ' + this.state.date}</span>
 
                         </div>
                     </section>
                     <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
-                        {t("wizyta.field.description")}
+                        Dodaj opis
                     </label>
                     <div class="md:w-3/4 mt-5">
                         <textarea class="form-textarea block w-full focus:bg-white " id="Notatka" name="Notatka"
@@ -250,16 +232,16 @@ class UmowienieWizytyForm extends React.Component {
                     </div>
                     <span id="errorOpis" className="errors-text2">{this.state.errors.Notatka}</span>
 
-                    <div className=" md:flex mb-6 mt-4 ">
+                    <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
                                     className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
-                                {t("button.back")}
+                                Powrót
                             </button>
                             <button type="submit"
-                                    className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                {t("button.next")}
+                                    className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                Zatwierdź
                             </button>
                         </div>
                     </div>
@@ -274,4 +256,14 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation() (withNavigate(UmowienieWizytyForm))
+// const withRouter = WrappedComponent => props => {
+//     const params = useParams();
+//     return (
+//         <WrappedComponent
+//             {...props}
+//             params={params}
+//         />
+//     );
+// };
+
+export default withNavigate(UmowienieWizytyForm)

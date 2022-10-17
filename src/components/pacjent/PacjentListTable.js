@@ -45,6 +45,10 @@ function PacjentListTable(props) {
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                onChange={handleFilter} value={wordEntered}
                                placeholder="Wyszukaj"/>
+                        <Link to="/dodajPacjenta"
+                            className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                            <span className="text-xl">+</span> Dodaj pacjenta
+                        </Link>
                     </label>
                 </div>
             </div>
