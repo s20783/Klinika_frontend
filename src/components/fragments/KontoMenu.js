@@ -1,7 +1,8 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {userMenuValues} from "../../values/UserMenuValues";
+import {adminMenuValues, userMenuValues} from "../../values/UserMenuValues";
 import {useTranslation} from "react-i18next";
+import {isAdmin, isKlient, isWeterynarz} from "../other/authHelper";
 
 function KontoMenu() {
     const {t} = useTranslation();
@@ -22,7 +23,16 @@ function KontoMenu() {
                 class="w-full sticky inset-0 hidden h-64 lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20"
                 id="menu-content">
                 <ul className="list-reset">
-                    {userMenuValues.map((item) => {
+                    {(isKlient() || isWeterynarz()) && userMenuValues.map((item) => {
+                        return <NavLink className={({isActive}) =>
+                            isActive ? 'py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent font-bold block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400 lg:border-blue-400' :
+                                'py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400'
+                        } to={item.url}>
+                            <span className="pb-1 md:pb-0 text-sm">{t('userMenu.' + item.title)}</span>
+                        </NavLink>
+                    })}
+
+                    {isAdmin() && adminMenuValues.map((item) => {
                         return <NavLink className={({isActive}) =>
                             isActive ? 'py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent font-bold block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400 lg:border-blue-400' :
                                 'py-2 md:my-0 hover:bg-blue-400 lg:hover:bg-transparent block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400'

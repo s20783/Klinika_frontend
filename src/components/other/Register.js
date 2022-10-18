@@ -153,8 +153,8 @@ class Register extends React.Component {
             }
         }
         if (fieldName === 'Haslo') {
-            if (!CheckTextRange(fieldValue, 8, 50)) {
-                errorMessage = `${t('validation.from8to50')}`
+            if (!CheckTextRange(fieldValue, 8, 30)) {
+                errorMessage = `${t('validation.from8to30')}`
             }
             if (!ValidateHaslo(fieldValue)) {
                 errorMessage = `${t('validation.password')}`
@@ -165,8 +165,8 @@ class Register extends React.Component {
             }
         }
         if (fieldName === 'Haslo2') {
-            if (!CheckTextRange(fieldValue, 8, 50)) {
-                errorMessage = `${t('validation.from8to50')}`
+            if (!CheckTextRange(fieldValue, 8, 30)) {
+                errorMessage = `${t('validation.from8to30')}`
             }
             if (!ValidateHaslo(fieldValue)) {
                 errorMessage = `${t('validation.password')}`

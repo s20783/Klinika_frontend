@@ -20,6 +20,8 @@
 		"max30": "To pole wymaga od 2 do 30 znaków",
 		"max50": "To pole wymaga od 2 do 50 znaków",
 		"from8to50": "This field requires from 8 to 50 characters",
+		"from8to30": "This field requires from 8 to 30 characters",
+		"notSame": "Hasła nie są takie same",
 		"format": "Niepoprawny format",
 		"password": "Pole wymaga minimum 8 znaków, jednej wielkiej litery i cyfry"
 	},
@@ -78,12 +80,24 @@
 		"payments": "Payments",
 		"logout": "Log out"
 	},
+	"konto": {
+		"changePassword": "Change password",
+		"saveChanges": "Save changes",
+		"forgotPassword": "Forgot password?",
+		"field": {
+			"currentPassword": "Current password",
+			"newPassword": "New password",
+			"newPassword2": "New password"
+		}
+	},
 	"wizyta": {
 		"title": "Wizyty",
 		"makeAnAppointment": "Umówienie wizyty",
 		"thankYou": "Dziękujemy!",
 		"confirmation": "Appointment confirmed.",
 		"date": "Termin",
+		"selectPatient": "Wybierz pacjenta",
+		"other": "inny",
 		"button": {
 			"appointment": "Umów wizytę"
 		},

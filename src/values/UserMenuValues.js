@@ -28,3 +28,14 @@ export const userMenuValues = [
         url: '/mojeOplaty'
     }
 ];
+
+export const adminMenuValues = [
+    {
+        title: 'myAccount',
+        url: '/konto'
+    },
+    {
+        title: 'notifications',
+        url: '/powiadomienia'
+    }
+];

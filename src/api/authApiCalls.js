@@ -47,7 +47,7 @@ export function getKontoData(){
 export function changePassword(user) {
     const user1 = getCurrentUser()
     let token = user1.Token;
-    const url = `${baseURL}/password/${JSON.parse(atob(token.split('.')[1])).idUser}`
+    const url = `${baseURL}/password`
     const userString = JSON.stringify(user)
     const options = {
         method: 'PUT',
