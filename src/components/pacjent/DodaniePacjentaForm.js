@@ -7,44 +7,84 @@ import {getHarmonogram} from "../../api/HarmonogramApiCalls";
 import {postWizyta} from "../../api/WizytaApiCalls";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {addPacjent} from "../../api/PacjentApiCalls";
+import {updatePacjent} from "../../api/PacjentApiCalls";
 import {CheckTextRange} from "../helpers/CheckTextRange";
+import {getPacjentDetails1} from "../../api/PacjentApiCalls";
+import formMode from "../helpers/FormMode";
 
 
 class DodaniePacjentaForm extends React.Component {
     constructor(props) {
         super(props);
         // const { t } = useTranslation();
+        const paramsIdPacjent = this.props.idPacjent
+        const currentFormMode = paramsIdPacjent ? formMode.EDIT : formMode.NEW
+
+        console.log(this.props)
         this.state = {
             data: {
-                idOsoba: '',
-                nazwa:'',
-                gatunek:'',
-                rasa:'',
-                waga:'',
-                masc:'',
-                plec:'',
-                dataUrodzenia:'',
-                agresywne:false,
-                ubezplodnienie: false
+                IdOsoba: '',
+                Nazwa:'',
+                Gatunek:'',
+                Rasa:'',
+                Waga: null,
+                Masc:'',
+                Plec:'',
+                DataUrodzenia:'',
+                Agresywne:false,
+                Ubezplodnienie: false
             },
             errors: {
-                idOsoba: '',
-                nazwa:'',
-                gatunek:'',
-                rasa:'',
-                waga:'',
-                masc:'',
-                plec:'',
-                dataUrodzenia:'',
-                agresywne:'',
-                ubezplodnienie: ''
+                IdOsoba: '',
+                Nazwa:'',
+                Gatunek:'',
+                Rasa:'',
+                Waga:'',
+                Masc:'',
+                Plec:'',
+                DataUrodzenia:'',
+                Agresywne:'',
+                Ubezplodnienie: ''
             },
             klienci: this.props.klienci,
-            date: new Date()
+            date: new Date(),
+            idPacjent:paramsIdPacjent,
+            formMode:currentFormMode,
+            message:''
+        }
+    }
+    componentDidMount() {
+
+        if(this.state.idPacjent){
+            getPacjentDetails1(this.state.idPacjent)
+            .then(res => res.json())
+            .then(
+                   (data) => {
+                      console.log(data)
+                      if (data.message) {
+                         this.setState({
+                              notice: data.message
+                         })
+                      } else {
+                         this.setState({
+                              data: data,
+                              notice: null
+                         })
+                      }
+                         this.setState({
+                              isLoaded: true,
+                         })
+                          },
+                   (error) => {
+                      this.setState({
+                          isLoaded: true,
+                          error
+                      })
+                   }
+            );
 
         }
     }
-
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -63,12 +103,12 @@ class DodaniePacjentaForm extends React.Component {
 
     validateField = (fieldName, fieldValue) => {
         let errorMessage = '';
-        if (fieldName === 'idOsoba') {
+        if (fieldName === 'IdOsoba') {
             if (!fieldValue) {
                 errorMessage = `Pole wymagane`
             }
         }
-        if (fieldName === 'nazwa') {
+        if (fieldName === 'Nazwa') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
                 errorMessage = `To pole wymaga od 2 do 50 znaków`
             }
@@ -76,7 +116,7 @@ class DodaniePacjentaForm extends React.Component {
                 errorMessage = `Pole wymagane`
             }
         }
-        if (fieldName === 'gatunek') {
+        if (fieldName === 'Gatunek') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
                 errorMessage = `To pole wymaga od 2 do 50 znaków`
             }
@@ -84,7 +124,7 @@ class DodaniePacjentaForm extends React.Component {
                  errorMessage = `Pole wymagane`
             }
         }
-        if (fieldName === 'rasa') {
+        if (fieldName === 'Rasa') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
                 errorMessage = `To pole wymaga od 2 do 50 znaków`
             }
@@ -92,7 +132,7 @@ class DodaniePacjentaForm extends React.Component {
                 errorMessage = `Pole wymagane`
             }
         }
-        if (fieldName === 'waga') {
+        if (fieldName === 'Waga') {
             if (fieldValue < 0 || fieldValue > 999 ) {
                 errorMessage = `Pole powinno być liczbą z przedziału od 0 do 1000.`
             }
@@ -100,7 +140,7 @@ class DodaniePacjentaForm extends React.Component {
                 errorMessage = `Pole wymagane`
             }
         }
-        if (fieldName === 'masc') {
+        if (fieldName === 'Masc') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
                 errorMessage = `To pole wymaga od 2 do 50 znaków`
             }
@@ -108,7 +148,7 @@ class DodaniePacjentaForm extends React.Component {
                 errorMessage = `Pole wymagane`
             }
         }
-        if (fieldName === 'dataUrodzenia') {
+        if (fieldName === 'DataUrodzenia') {
             if (dayjs(fieldValue).diff(dayjs(new Date()))>0) {
                 errorMessage = `Data nie moze byc z przyszłości`
             }
@@ -116,7 +156,7 @@ class DodaniePacjentaForm extends React.Component {
                 errorMessage = `Pole wymagane`
             }
         }
-        if (fieldName === 'plec') {
+        if (fieldName === 'Plec') {
             if (!fieldValue) {
                 errorMessage = `Pole wymagane`
             }
@@ -127,11 +167,11 @@ class DodaniePacjentaForm extends React.Component {
     onChange = (date) => {
          const data = {...this.state.data}
          console.log(dayjs(date).format() )
-         data['dataUrodzenia'] = dayjs(date).format()
+         data['DataUrodzenia'] = dayjs(date).format()
 
-         const errorMessage = this.validateField('dataUrodzenia', date)
+         const errorMessage = this.validateField('DataUrodzenia', date)
          const errors = {...this.state.errors}
-         errors['dataUrodzenia'] = errorMessage
+         errors['DataUrodzenia'] = errorMessage
 
          this.setState({
             data: data,
@@ -165,17 +205,23 @@ class DodaniePacjentaForm extends React.Component {
     }
 
     handleSubmit = (event) => {
-        const {navigate} = this.props;
-        const data = {...this.state.data}
-        console.log(data)
-
         event.preventDefault();
+        const {navigate} = this.props;
         const isValid = this.validateForm()
+        const dane = {...this.state}
+        let response, promise;
+        console.log(dane.data)
+
         if (isValid) {
-            const patient = this.state.data
-            console.log(patient)
-            let response
-            addPacjent(patient)
+
+            if(dane.formMode === formMode.NEW){
+                promise = addPacjent(dane.data)
+            }
+            else if (dane.formMode === formMode.EDIT){
+                promise = updatePacjent(dane.data, dane.idPacjent)
+            }
+             if (promise) {
+            promise
                 .then(res => {
                     response = res
                     return res.json()
@@ -183,9 +229,10 @@ class DodaniePacjentaForm extends React.Component {
                 })
                 .then(
                     (data) => {
-                        if (response.status === 200) {
+                    console.log(data)
+                        if (response.status === 200 ) {
                             console.log(response.status)
-                            navigate("/moiPacjenci", {replace: true});
+                            navigate("/pacjenci", {replace: true});
 
                         } else if (response.status === 401) {
                             console.log(data)
@@ -204,6 +251,7 @@ class DodaniePacjentaForm extends React.Component {
                             error: error
                         })
                     })
+                }
         }
     }
 
@@ -221,8 +269,7 @@ class DodaniePacjentaForm extends React.Component {
 
     render() {
         const {navigate} = this.props
-        const {klienci} = this.state
-
+        const {klienci, pacjent, data} = this.state
 
         return (
             <div className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -233,17 +280,17 @@ class DodaniePacjentaForm extends React.Component {
                                    Właściciel
                             </label>
                             <div class="md:w-3/5">
-                                <select name="idOsoba" id="Wlasciciel" onChange={this.handleChange}
-                                     className={this.state.errors.idOsoba ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
+                                <select name="IdOsoba" id="Wlasciciel" onChange={this.handleChange}
+                                     className={this.state.errors.IdOsoba ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
                                      <option value="">Wybierz właściciela</option>
                                      {
                                          klienci.map(klient => (
-                                         <option value={klient.IdOsoba}>{klient.IdOsoba} {klient.Imie} {klient.Nazwisko}</option>
+                                         <option selected={this.state.data.IdOsoba === klient.IdOsoba} value={klient.IdOsoba}>{klient.Imie} {klient.Nazwisko}</option>
                                      ))}
                                      <option value="0">inny</option>
                                 </select>
                             </div>
-                            <span id="errorWlasciciel" className="errors-text2 mt-4">{this.state.errors.idOsoba}</span>
+                            <span id="errorWlasciciel" className="errors-text2 mt-4">{this.state.errors.IdOsoba}</span>
                         </div>
                     </section>
 
@@ -253,9 +300,9 @@ class DodaniePacjentaForm extends React.Component {
                                   Nazwa
                              </label>
                              <input class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
-                                 name="nazwa" id="Nazwa"  placeholder="" onChange={this.handleChange}/>
+                                 name="Nazwa" id="Nazwa" type="text" value={this.state.data.Nazwa} onChange={this.handleChange} placeholder="" />
                          </div>
-                         <span id="errorNazwa" className="errors-text2 mb-4 ml-4">{this.state.errors.nazwa}</span>
+                         <span id="errorNazwa" className="errors-text2 mb-4 ml-4">{this.state.errors.Nazwa}</span>
                     </div>
 
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
@@ -264,16 +311,16 @@ class DodaniePacjentaForm extends React.Component {
                                Gatunek
                             </label>
                             <input class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
-                            name="gatunek" id="Gatunek" type="text" placeholder="" onChange={this.handleChange}/>
-                            <span id="errorGatunek" className="errors-text2 mb-4 ">{this.state.errors.gatunek}</span>
+                            name="Gatunek" id="Gatunek" type="text"  value={this.state.data.Gatunek} placeholder="" onChange={this.handleChange}/>
+                            <span id="errorGatunek" className="errors-text2 mb-4 ">{this.state.errors.Gatunek}</span>
                         </div>
                         <div class="w-full md:w-2/6 px-3 ml-8">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2" for="grid-last-name">
                                 Rasa
                             </label>
                             <input class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            name="rasa" id="Rasa" type="text" placeholder="" onChange={this.handleChange}/>
-                            <span id="errorRasa" className="errors-text2 mb-4 ">{this.state.errors.rasa}</span>
+                            name="Rasa" id="Rasa" type="text"  value={this.state.data.Rasa} placeholder="" onChange={this.handleChange}/>
+                            <span id="errorRasa" className="errors-text2 mb-4 ">{this.state.errors.Rasa}</span>
                         </div>
                     </div>
 
@@ -283,8 +330,8 @@ class DodaniePacjentaForm extends React.Component {
                                 Waga
                             </label>
                             <input class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            name="waga" id="Waga" step="0.01" type="number" placeholder="" onChange={this.handleChange}/>
-                            <span id="errorWaga" className="errors-text2 mb-4 ">{this.state.errors.waga}</span>
+                            name="Waga" id="Waga" step="0.01" type="number" value={this.state.data.Waga} onChange={this.handleChange} placeholder="" />
+                            <span id="errorWaga" className="errors-text2 mb-4 ">{this.state.errors.Waga}</span>
 
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
@@ -292,8 +339,8 @@ class DodaniePacjentaForm extends React.Component {
                                 Maść
                             </label>
                             <input class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            name="masc" id="Masc" type="text" placeholder="" onChange={this.handleChange}/>
-                            <span id="errorMasc" className="errors-text2 mb-4 ">{this.state.errors.masc}</span>
+                            name="Masc" id="Masc" type="text"value={this.state.data.Masc} placeholder="" onChange={this.handleChange}/>
+                            <span id="errorMasc" className="errors-text2 mb-4 ">{this.state.errors.Masc}</span>
                         </div>
                     </div>
 
@@ -303,14 +350,14 @@ class DodaniePacjentaForm extends React.Component {
                                 Data urodzenia
                             </label>
                             <Calendar className="mb-7 calendarForm"
-                                value={this.state.date}
+                                value={ this.state.date}
                                 onClickDay={this.onChange}
                             />
                            <span id="" className="">
-                                 {this.state.data.dataUrodzenia === '' || this.state.errors.dataUrodzenia != '' ?
-                                 '' : 'Wybrano datę:  ' + dayjs(this.state.data.dataUrodzenia).format('YYYY-MM-DD')}</span>
+                                 {this.state.data.DataUrodzenia === '' || this.state.errors.DataUrodzenia != '' ?
+                                 '' : 'Wybrano datę:  ' + dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')}</span>
                             <span id="errorData" className="errors-text2 mb-4">
-                                {this.state.errors.dataUrodzenia}
+                                {this.state.errors.DataUrodzenia}
                             </span>
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 mt-6 ml-2 md:mb-0">
@@ -319,11 +366,13 @@ class DodaniePacjentaForm extends React.Component {
                                     Płeć
                                 </label>
                                 <label class="inline-flex  items-center">
-                                    <input name="plec" id="Plec" type="radio" class="form-radio text-indigo-600"  value="M" onChange={this.handleChange}/>
+                                    <input name="Plec" id="Plec" type="radio" checked={this.state.data.Plec==="M"} class="form-radio text-indigo-600"
+                                    value="M" onChange={this.handleChange}/>
                                     <span class="ml-2">Samiec</span>
                                 </label>
                                 <label class="inline-flex items-center  ml-4 mb-4">
-                                    <input name="plec" id="Plec" type="radio" class="form-radio"  value="F" onChange={this.handleChange}/>
+                                    <input name="Plec" id="Plec" type="radio" class="form-radio" checked={this.state.data.Plec==="F"}
+                                     value="F" onChange={this.handleChange}/>
                                     <span class="ml-2">Samica</span>
                                 </label>
                             <span id="errorPlec" className="errors-text2 mb-3 ">{this.state.errors.Plec}</span>
@@ -332,13 +381,13 @@ class DodaniePacjentaForm extends React.Component {
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
                                     Czy ubezpłodniony?
                                 </label>
-                                <input type="checkbox"  name="ubezplodnienie" class="form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
+                                <input type="checkbox"  name="Ubezplodnienie" checked={this.state.data.Ubezplodnienie===true} class="form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
                             </div>
                             <div className="border-b mb-6">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
                                     Czy agresywny?
                                 </label>
-                                <input type="checkbox" value="1" name="agresywne" class=" form-checkbox  mb-8  text-blue-600" onChange={this.onChange1}/>
+                                <input type="checkbox" value="1" name="Agresywne" checked={this.state.data.Agresywne===true}class=" form-checkbox  mb-8  text-blue-600" onChange={this.onChange1}/>
                             </div>
                         </div>
                     </div>

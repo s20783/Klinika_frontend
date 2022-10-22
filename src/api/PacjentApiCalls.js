@@ -36,6 +36,23 @@ export function getPacjentDetails(Id){
     const promise = fetch(url, options);
     return promise;
 }
+export function getPacjentDetails1(Id){
+    const url = `${pacjentURL}/details/${Id}`;
+    const user = getCurrentUser()
+    let token
+    if(user && user.Token) {
+        token = user.Token
+    }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+    const promise = fetch(url, options);
+    return promise;
+}
 
 export function getKlientPacjentList(){
     const url = `${pacjentURL}/klient`;
@@ -65,6 +82,25 @@ export function addPacjent(patient) {
     console.log(patientString)
         const options = {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                 'Authorization': 'Bearer ' + token
+            },
+            body: patientString
+        }
+    return fetch(url, options);
+}
+export function updatePacjent(patient, idPacjent) {
+    const user = getCurrentUser()
+    let token
+    if (user && user.Token) {
+        token = user.Token
+    }
+    const url = `${pacjentURL}/${idPacjent}`
+    const patientString = JSON.stringify(patient)
+    console.log(patientString)
+        const options = {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                  'Authorization': 'Bearer ' + token

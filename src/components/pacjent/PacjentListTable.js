@@ -94,7 +94,7 @@ function PacjentListTable(props) {
                                                     r="12"></circle>
                                         </svg>
                                     </Link>
-                                    <Link to={`/pacjenci/edit/${x.IdPacjent}`} className="list-actions-button-details flex-1">
+                                    <Link to={`/pacjenci/edycjaPacjenta/${x.IdPacjent}`} className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-edit flex-1"
                                              xmlns="http://www.w3.org/2000/svg"
                                              width="20" height="20" fill="#000000" viewBox="0 0 256 256">

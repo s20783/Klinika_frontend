@@ -14,7 +14,7 @@ import Konto from "./components/konto/Konto";
 import LekList from "./components/lek/LekList";
 import LekDetailsList from "./components/lek/LekDetailsList";
 import PacjentList from "./components/pacjent/PacjentList";
-import DodaniePacjenta from "./components/pacjent/DodaniePacjenta";
+import FormularzPacjenta from "./components/pacjent/FormularzPacjenta";
 import KlientList from "./components/klient/KlientList";
 import KontoWizyty from "./components/konto/KontoWizyty";
 import ZmianaHasla from "./components/konto/ZmianaHasla";
@@ -81,7 +81,9 @@ class App extends React.Component {
                     <Route path="/leki/:IdLek" element={<LekDetailsList/>}/>
 
                     <Route path="/pacjenci" element={<PacjentList/>}/>
-                    <Route path="/dodajPacjenta" element={<DodaniePacjenta/>}/>
+                    <Route path="/dodajPacjenta" element={<FormularzPacjenta/>}/>
+                    <Route path="pacjenci/edycjaPacjenta/:idPacjent" element={<FormularzPacjenta/>}/>
+
                 </Routes>
                 <Footer/>
             </BrowserRouter>
