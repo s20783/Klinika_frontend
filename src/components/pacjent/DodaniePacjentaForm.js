@@ -93,8 +93,8 @@ class DodaniePacjentaForm extends React.Component {
             }
         }
         if (fieldName === 'waga') {
-            if (fieldValue<0) {
-                errorMessage = `Pole powinno być liczbą większą od 0.`
+            if (fieldValue < 0 || fieldValue > 999 ) {
+                errorMessage = `Pole powinno być liczbą z przedziału od 0 do 1000.`
             }
             if (!fieldValue) {
                 errorMessage = `Pole wymagane`
