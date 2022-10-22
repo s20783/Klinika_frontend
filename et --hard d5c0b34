@@ -1,0 +1,39 @@
+[33md5c0b34[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: rebase (finish): returning to refs/heads/main
+[33md5c0b34[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: rebase (start): checkout d5c0b34f0b24984e9933783f7d57f5a96f984df9
+[33mbbb3797[m HEAD@{2}: commit: zmiana hasła + dodanie pacjenta
+[33md5c0b34[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{3}: commit: zmiana hasła + dodanie pacjenta
+[33m43f430f[m HEAD@{4}: rebase (finish): returning to refs/heads/main
+[33m43f430f[m HEAD@{5}: rebase (start): checkout origin/main
+[33m8b9b967[m HEAD@{6}: rebase (continue) (finish): returning to refs/heads/main
+[33m8b9b967[m HEAD@{7}: rebase (continue): zmiana hasła + dodanie pacjenta
+[33mfed10c1[m HEAD@{8}: rebase (start): checkout origin/main
+[33me480b8e[m HEAD@{9}: commit: zmiana hasła + dodanie pacjenta
+[33m8bb0de9[m HEAD@{10}: merge origin/main: Fast-forward
+[33m9b3ea1b[m HEAD@{11}: commit: regex
+[33mcac9adc[m HEAD@{12}: commit: zmiana hasła, konto
+[33m80ea033[m HEAD@{13}: commit: zmiana hasła, konto
+[33mbef482b[m HEAD@{14}: rebase (continue) (finish): returning to refs/heads/main
+[33mbef482b[m HEAD@{15}: rebase (continue): zmiana hasła
+[33mec10514[m HEAD@{16}: rebase (start): checkout origin/main
+[33m6fcde6f[m HEAD@{17}: commit: zmiana hasła
+[33mc842366[m HEAD@{18}: commit: zmiana hasla 1 + w moje konto mała zmiana
+[33m372fa69[m HEAD@{19}: commit: moje konto i kontakt
+[33mf84f06f[m HEAD@{20}: commit: kontakt
+[33m891af8a[m HEAD@{21}: commit (merge): Merge remote-tracking branch 'origin/main'
+[33m14649b9[m HEAD@{22}: commit: kontakt
+[33mdc1312b[m HEAD@{23}: commit: potwierdzenie umówienia wizyty1
+[33m0f50fb9[m HEAD@{24}: merge origin/main: Fast-forward
+[33m7a677e2[m HEAD@{25}: merge origin/main: Fast-forward
+[33mbd1167f[m HEAD@{26}: commit: potwierdzenie umówienia wizyty1
+[33m1a52579[m HEAD@{27}: merge origin/main: Fast-forward
+[33m85b11e2[m HEAD@{28}: commit: potwierdzenie umówienia wizyty
+[33m7d61098[m HEAD@{29}: merge origin/main: Fast-forward
+[33mf9ade8e[m HEAD@{30}: commit: umowienie wizyty
+[33m0821273[m HEAD@{31}: merge origin/main: Fast-forward
+[33m5a6e82b[m HEAD@{32}: commit: umowienie wizyty
+[33m635abc7[m HEAD@{33}: commit: umowienie wizyty
+[33m8671a2f[m HEAD@{34}: commit: poprawa konto
+[33m6397d97[m HEAD@{35}: merge origin/main: Fast-forward
+[33m516caa3[m HEAD@{36}: commit: userMenu
+[33m4ca8ef3[m HEAD@{37}: commit: userMenu
+[33m47473a1[m HEAD@{38}: clone: from https://github.com/s20783/PRO_FRONTEND.git
