@@ -4,11 +4,12 @@ import {getFormattedDate} from "../other/dateFormat";
 
 function LekDetailsListTable(props) {
     // const { t } = useTranslation();
-    const list = props.leki
-    const [filteredData, setFilteredData] = useState(list);
-    const [wordEntered, setWordEntered] = useState("");
+    const data = props.leki
+    const list = data.LekList;
+    /*    const [filteredData, setFilteredData] = useState(list);
+        const [wordEntered, setWordEntered] = useState("");*/
 
-    const handleFilter = (event) => {
+    /*const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
         const newFilter = list.filter((value) => {
@@ -26,28 +27,30 @@ function LekDetailsListTable(props) {
     const clearInput = () => {
         setFilteredData([]);
         setWordEntered("");
-    };
+    };*/
+
     return (
         <>
-            <p>Informacje o leku: <strong>{list[0].Nazwa} ({list[0].JednostkaMiary})</strong></p>
+            <p>Lek: <strong>{data.Nazwa} ({data.JednostkaMiary})</strong></p>
+            <p>Choroby: {data.Choroby.map(choroba => (<strong>{choroba.Nazwa + " "}</strong>))}</p>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="p-4">
                     <label htmlFor="table-search" className="sr-only">Search</label>
                     <div className="relative mt-1">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                            {/*<svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd"
                                       d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                       clip-rule="evenodd"></path>
-                            </svg>
+                            </svg>*/}
                         </div>
-                        <label htmlFor="search">
+                        {/*<label htmlFor="search">
                             <input type="text" id="search"
                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    onChange={handleFilter} value={wordEntered}
                                    placeholder="Wyszukaj"/>
-                        </label>
+                        </label>*/}
                     </div>
                 </div>
                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
@@ -55,23 +58,26 @@ function LekDetailsListTable(props) {
                     <tr>
                         <th scope="col" className="px-6 py-3">Ilość</th>
                         <th scope="col" className="px-6 py-3">Data ważności</th>
-                        <th scope="col" className="px-6 py-3">Choroby</th>
+                        {/*<th scope="col" className="px-6 py-3">Choroby</th>*/}
                         <th scope="col" className="px-6 py-3"/>
                     </tr>
                     </thead>
                     <tbody>
-                    {filteredData.map(lek => (
-                        <tr key={lek.IdStanLeku} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
+                    {list.map(lek => (
+                        <tr key={lek.IdStanLeku}
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
                             <td scope="col" className="px-6 py-2">{lek.Ilosc}</td>
-                            <td scope="col" className="px-6 py-2">{lek.DataWaznosci ? getFormattedDate(lek.DataWaznosci) : "-"}</td>
-                            <td scope="col" className="px-6 py-2">{lek.Choroby.map(c => (
+                            <td scope="col"
+                                className="px-6 py-2">{lek.DataWaznosci ? getFormattedDate(lek.DataWaznosci) : "-"}</td>
+                            {/*<td scope="col" className="px-6 py-2">{lek.Choroby.map(c => (
                                 c.Nazwa + ' '))
-                            }</td>
+                            }</td>*/}
 
                             <td scope="col" className="px-6 py-1">
                                 <div className="list-actions">
                                     <div className="flex">
-                                        <Link to={`/leki/magazyn/${lek.IdLek}`} className="list-actions-button-details flex-1">
+                                        <Link to={`/leki/magazyn/${lek.IdLek}`}
+                                              className="list-actions-button-details flex-1">
                                             <svg className="list-actions-button-details flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#000000" viewBox="0 0 256 256">
@@ -89,11 +95,13 @@ function LekDetailsListTable(props) {
                                                         r="12"></circle>
                                             </svg>
                                         </Link>
-                                        <Link to={`/leki/edit/${lek.IdLek}`} className="list-actions-button-details flex-1">
+                                        <Link to={`/leki/magazyn/edit/${lek.IdLek}`}
+                                              className="list-actions-button-details flex-1">
                                             <svg className="list-actions-button-edit flex-1"
                                                  xmlns="http://www.w3.org/2000/svg"
                                                  width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                                                <rect className="details-icon-color" width="256" height="256" fill="none"/>
+                                                <rect className="details-icon-color" width="256" height="256"
+                                                      fill="none"/>
                                                 <path className="details-icon-color"
                                                       d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
                                                       fill="none" stroke="#000000" stroke-linecap="round"
@@ -107,7 +115,7 @@ function LekDetailsListTable(props) {
                                                           stroke-linejoin="round" stroke-width="16"></polyline>
                                             </svg>
                                         </Link>
-                                        <Link to={`/leki/delete/${lek.IdLek}`}
+                                        <Link to={`/leki/magazyn/delete/${lek.IdLek}`}
                                               className="list-actions-button-details flex-1">
                                             <svg className="list-actions-button-delete flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -142,13 +150,16 @@ function LekDetailsListTable(props) {
                     </tbody>
                 </table>
 
-                {/*<form className="form">*/}
-                {/*    {isAdmin() &&*/}
-                {/*    <div className="form-buttons">*/}
-                {/*        <Link to={`/kluby/add`} className="form-button-submit">{t('kluby.form.list.btnLabel')}</Link>*/}
-                {/*    </div>*/}
-                {/*    }*/}
-                {/*</form>*/}
+            </div>
+            <div className=" md:flex mb-6 mt-8 ">
+                <button type="submit"
+                        className=" ml-4 shadow bg-yellow-400 hover:bg-white  hover:text-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                    Edytuj
+                </button>
+                <button type="submit"
+                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                    Dodaj lek w magazynie
+                </button>
             </div>
         </>
     )

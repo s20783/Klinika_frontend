@@ -21,7 +21,7 @@ class LekDetailsList extends React.Component {
             .then(res => res.json())
             .then(
                 (data) => {
-                    console.log(data[0])
+                    console.log(data)
                     this.setState({
                         isLoaded: true,
                         leki: data
@@ -55,7 +55,7 @@ class LekDetailsList extends React.Component {
                     <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                                Leki</h2>
+                                Informacje o leku</h2>
                             {content}
                         </div>
                     </div>
