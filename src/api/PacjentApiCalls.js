@@ -109,3 +109,20 @@ export function updatePacjent(patient, idPacjent) {
         }
     return fetch(url, options);
 }
+
+export function deletePacjent(idPacjent){
+    const user = getCurrentUser()
+    let token
+    if (user && user.Token) {
+        token = user.Token
+    }
+    const url = `${pacjentURL}/${idPacjent}`
+    const options = {
+        method: 'DELETE',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+    }
+    return fetch(url,options)
+}

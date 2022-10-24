@@ -9,12 +9,14 @@ import React from 'react';
 import Kontakt from "./components/other/Kontakt";
 import Login from "./components/other/Login";
 import Register from "./components/other/Register";
+import AfterRegister from "./components/other/AfterRegister";
 import {getCurrentUser} from "./components/other/authHelper";
 import Konto from "./components/konto/Konto";
 import LekList from "./components/lek/LekList";
 import LekDetailsList from "./components/lek/LekDetailsList";
 import PacjentList from "./components/pacjent/PacjentList";
 import FormularzPacjenta from "./components/pacjent/FormularzPacjenta";
+import UsunieciePacjenta from "./components/pacjent/UsunieciePacjenta";
 import KlientList from "./components/klient/KlientList";
 import KontoWizyty from "./components/konto/KontoWizyty";
 import ZmianaHasla from "./components/konto/ZmianaHasla";
@@ -63,6 +65,7 @@ class App extends React.Component {
 
                     <Route path="/login" element={<Login handleLogin={this.handleLogin}/>}/>
                     <Route path="/register" element={<Register/>}/>
+                    <Route path="/afterRegister" element={<AfterRegister/>}/>
 
                     <Route path="/klienci" element={<KlientList/>}/>
 
@@ -82,7 +85,8 @@ class App extends React.Component {
 
                     <Route path="/pacjenci" element={<PacjentList/>}/>
                     <Route path="/dodajPacjenta" element={<FormularzPacjenta/>}/>
-                    <Route path="pacjenci/edycjaPacjenta/:idPacjent" element={<FormularzPacjenta/>}/>
+                    <Route path="/pacjenci/edycjaPacjenta/:idPacjent" element={<FormularzPacjenta/>}/>
+                    <Route path="/pacjenci/delete/:idPacjent" element={<UsunieciePacjenta/>}/>
 
                 </Routes>
                 <Footer/>

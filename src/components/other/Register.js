@@ -52,7 +52,7 @@ class Register extends React.Component {
     }
 
     handleSubmit = (event) => {
-        //const { navigate } = this.props;
+        const { navigate } = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
@@ -91,10 +91,10 @@ class Register extends React.Component {
                                     })
                                 }
                             }
-                            //else {
-                            //navigate("/", { replace: true });
-                            //this.setState({redirect: true})
-                            //}
+                           //else {
+                           //this.setState({redirect: true})
+                           //this.setState({redirect: true})
+                           //}
                         },
                         (error) => {
                             this.setState({
@@ -207,12 +207,10 @@ class Register extends React.Component {
         const {t} = this.props;
         if (redirect) {
             return (
-                <Navigate to={{
-                    pathname: "/",
-                    state: {
-                        //notice: notice
-                    }
-                }}/>
+                <Navigate to=
+                     {'/afterRegister'}
+                    state={"gg"}
+                 />
             )
         }
 
@@ -322,9 +320,9 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-// const withNavigate = Component => props => {
-//     const navigate = useNavigate();
-//     return <Component {...props} navigate={navigate} />;
-// };
+ const withNavigate = Component => props => {
+     const navigate = useNavigate();
+     return <Component {...props} navigate={navigate} />;
+ };
 
 export default withTranslation()(withRouter(Register));

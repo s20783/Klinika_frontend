@@ -152,7 +152,7 @@ class ZmianaHasla extends React.Component {
                 <div className="w-full flex flex-wrap ">
                     <div className="bg-white max-w-2lx mx-auto p-6 md:p-8 my-10 rounded-lg shadow-2xl">
                         <div className="mx-8 my-10">
-                            <p className="text-center mx-48 font-bold text-4xl">{t("konto.changePassword")}</p>
+                            <p className="text-center mx-48 mb-6 font-bold text-4xl">{t("konto.changePassword")}</p>
                             <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
