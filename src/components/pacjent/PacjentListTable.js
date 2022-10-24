@@ -76,7 +76,7 @@ function PacjentListTable(props) {
                         <td scope="col" className="px-6 py-1">
                             <div className="list-actions">
                                 <div className=" flex">
-                                    <Link to={`/pacjenci/${x.IdPacjent}`} className="list-actions-button-details flex-1">
+                                    <Link to={`/pacjenci/details/${x.IdPacjent}`} className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-details flex-1"
                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="#000000" viewBox="0 0 256 256">
