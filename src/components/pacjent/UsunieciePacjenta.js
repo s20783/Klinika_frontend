@@ -4,6 +4,7 @@ import DodaniePacjentaForm from "./DodaniePacjentaForm";
 import formMode from "../helpers/FormMode";
 import {useParams,useNavigate} from "react-router";
 import {Link} from "react-router-dom";
+import {withTranslation} from "react-i18next";
 
 class UsunieciePacjenta extends React.Component {
     constructor(props) {
@@ -56,6 +57,7 @@ class UsunieciePacjenta extends React.Component {
 
     render() {
         const {error, isLoaded, idPacjent} = this.state
+        const {t} = this.props;
 
         return(
           <body class="bg-gray-200 flex items-center justify-center h-screen">
@@ -65,13 +67,13 @@ class UsunieciePacjenta extends React.Component {
 
               <div class="modal-content py-9 px-5">
 
-                <p class="text-4xl mb-2 text-center font-bold">Czy na pewno chcesz usunąc pacjenta?</p>
+                <p class="text-4xl mb-2 text-center font-bold">{t('pacjent.deletingPatient')}</p>
                 <img src="/images/znakZapytaniaPies.png"/>
 
                 <div class="flex justify-end pt-2">
                 <Link to="/pacjenci">
-                  <button  class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">Powrót</button></Link>
-                  <button  onClick={() => deletePacjent(idPacjent)} class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">Usuń pacjenta</button>
+                  <button  class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button></Link>
+                  <button  onClick={() => deletePacjent(idPacjent)} class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('pacjent.deletePatient')}</button>
                 </div>
 
               </div>
@@ -97,4 +99,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withRouter(withNavigate(UsunieciePacjenta));
+export default withTranslation() (withRouter(withNavigate(UsunieciePacjenta)));

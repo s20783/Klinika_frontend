@@ -32,11 +32,13 @@
 	},
 	"button": {
 		"next": "Next",
-		"back": "Back"
+		"back": "Back",
+		"confirm": "Confirm"
 	},
 	"other": {
 		"yes": "yes",
-		"no": "no"
+		"no": "no",
+		"search": "Search"
 	},
 	"login": {
 		"title": "Welcome to PetMed clinic",
@@ -81,6 +83,9 @@
 		"logout": "Log out"
 	},
 	"konto": {
+		"myAccount": "My account",
+		"contactDetails": "Contact details",
+		"accountManagement": "Account management",
 		"changePassword": "Change password",
 		"saveChanges": "Save changes",
 		"forgotPassword": "Forgot password?",
@@ -118,6 +123,36 @@
 			"patient": "Patient",
 			"date": "Select date",
 			"description": "Add description"
+		}
+	},
+	"pacjent": {
+		"title": "Patients",
+		"addNewPatient": "Adding new patient",
+		"editPatient": "Editing patient",
+		"detailsPatient": "Patient details",
+		"selectOwner": "Select owner",
+		"deletingPatient": "Are you sure you want to delete the patient?",
+		"deletePatient": "Delete patient",
+		"other": "inny",
+		"button": {
+			"addPatient": "Add patient"
+		},
+		"gender": {
+			"male": "Male",
+			"female": "Female"
+		},
+		"fields": {
+			"owner": "Owner",
+			"name": "Name",
+			"species": "Species",
+			"breed": "Breed",
+			"weight": "Weight",
+			"color": "Color",
+			"birthdate": "Birthdate",
+			"gender": "Sex",
+			"infertile": "Infertile?",
+			"aggressive": "Aggressive?"
+
 		}
 	}
 }

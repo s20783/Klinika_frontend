@@ -2,6 +2,7 @@ import React from "react";
 import {getPacjentList} from "../../api/PacjentApiCalls";
 import PacjentListTable from "./PacjentListTable";
 import {useNavigate} from "react-router";
+import {withTranslation} from "react-i18next";
 
 class PacjentList extends React.Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class PacjentList extends React.Component {
 
     render() {
         const {error, isLoaded, pacjenci} = this.state
+        const {t} = this.props;
         let content;
 
         if (error) {
@@ -62,7 +64,7 @@ class PacjentList extends React.Component {
                     <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                            Pacjenci</h2>
+                            {t('pacjent.title')}</h2>
                         {content}
                         </div>
                     </div>
@@ -77,4 +79,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withNavigate(PacjentList);
+export default withTranslation() (withNavigate(PacjentList));

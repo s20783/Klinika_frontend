@@ -1,8 +1,9 @@
 import {Link} from "react-router-dom";
 import React, {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 function PacjentListTable(props) {
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
     const list = props.pacjenci
     const [filteredData, setFilteredData] = useState(list);
     const [wordEntered, setWordEntered] = useState("");
@@ -44,10 +45,10 @@ function PacjentListTable(props) {
                         <input type="text" id="search"
                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                onChange={handleFilter} value={wordEntered}
-                               placeholder="Wyszukaj"/>
+                               placeholder={t('other.search')}/>
                         <Link to="/dodajPacjenta"
                             className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                            <span className="text-xl">+</span> Dodaj pacjenta
+                            <span className="text-xl">+</span> {t('pacjent.button.addPatient')}
                         </Link>
                     </label>
                 </div>
@@ -55,11 +56,11 @@ function PacjentListTable(props) {
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="px-6 py-3">Nazwa</th>
-                    <th scope="col" className="px-6 py-3">Gatunek</th>
-                    <th scope="col" className="px-6 py-3">Rasa</th>
-                    <th scope="col" className="px-6 py-3">Właściciel</th>
-                    <th scope="col" className="px-6 py-3"/>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.name')}</th>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.species')}</th>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.breed')}</th>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.color')}</th>
+                    <th scope="col" className="px-6 uppercase py-3"/>
                 </tr>
                 </thead>
                 <tbody>

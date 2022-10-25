@@ -1,7 +1,9 @@
 import {Link} from "react-router-dom";
+import {withTranslation} from "react-i18next";
 
 function PacjentKlientListTable(props) {
     const list = props.pacjenci
+    const {t} = this.props;
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -17,11 +19,11 @@ function PacjentKlientListTable(props) {
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="px-6 py-3">Nazwa</th>
-                    <th scope="col" className="px-6 py-3">Gatunek</th>
-                    <th scope="col" className="px-6 py-3">Rasa</th>
-                    <th scope="col" className="px-6 py-3">Maść</th>
-                    <th scope="col" className="px-6 py-3"/>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.name')}</th>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.species')}</th>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.breed')}</th>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.color')}</th>
+                    <th scope="col" className="px-6 uppercase py-3"/>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,4 +66,4 @@ function PacjentKlientListTable(props) {
     )
 }
 
-export default PacjentKlientListTable
+export default withTranslation() (PacjentKlientListTable)

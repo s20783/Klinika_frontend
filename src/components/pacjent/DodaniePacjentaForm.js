@@ -11,12 +11,12 @@ import {updatePacjent} from "../../api/PacjentApiCalls";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {getPacjentDetails1} from "../../api/PacjentApiCalls";
 import formMode from "../helpers/FormMode";
+import {withTranslation} from "react-i18next";
 
 
 class DodaniePacjentaForm extends React.Component {
     constructor(props) {
         super(props);
-        // const { t } = useTranslation();
         const paramsIdPacjent = this.props.idPacjent
         const currentFormMode = paramsIdPacjent ? formMode.EDIT : formMode.NEW
 
@@ -270,24 +270,26 @@ class DodaniePacjentaForm extends React.Component {
     render() {
         const {navigate} = this.props
         const {klienci, pacjent, data} = this.state
-
+        const {t} = this.props;
+        const { i18n } = this.props;
+        let language = i18n.language
+        console.log(language)
         return (
             <div className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                  <form onSubmit={this.handleSubmit} className="w-full max-w">
                     <section class="bg-white-100 border-b  mb-5">
                         <div class=" md:flex mb-6 mt-4">
                             <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7" htmlFor="Wlasciciel">
-                                   Właściciel
+                                   {t('pacjent.fields.owner')}
                             </label>
                             <div class="md:w-3/5">
                                 <select name="IdOsoba" id="Wlasciciel" onChange={this.handleChange}
                                      className={this.state.errors.IdOsoba ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
-                                     <option value="">Wybierz właściciela</option>
+                                     <option value="">{t('pacjent.selectOwner')}</option>
                                      {
                                          klienci.map(klient => (
                                          <option selected={this.state.data.IdOsoba === klient.IdOsoba} value={klient.IdOsoba}>{klient.Imie} {klient.Nazwisko}</option>
                                      ))}
-                                     <option value="0">inny</option>
                                 </select>
                             </div>
                             <span id="errorWlasciciel" className="errors-text2 mt-4">{this.state.errors.IdOsoba}</span>
@@ -297,7 +299,7 @@ class DodaniePacjentaForm extends React.Component {
                     <div class="flex flex-wrap -mx-3 mb-4 border-b">
                          <div class="w-full px-3">
                              <label class="block tracking-wide text-gray-600 text-s font-bold mb-2" >
-                                  Nazwa
+                                  {t('pacjent.fields.name')}
                              </label>
                              <input class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
                                  name="Nazwa" id="Nazwa" type="text" value={this.state.data.Nazwa} onChange={this.handleChange} placeholder="" />
@@ -308,7 +310,7 @@ class DodaniePacjentaForm extends React.Component {
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-2/6 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2" >
-                               Gatunek
+                               {t('pacjent.fields.species')}
                             </label>
                             <input class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
                             name="Gatunek" id="Gatunek" type="text"  value={this.state.data.Gatunek} placeholder="" onChange={this.handleChange}/>
@@ -316,7 +318,7 @@ class DodaniePacjentaForm extends React.Component {
                         </div>
                         <div class="w-full md:w-2/6 px-3 ml-8">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2" for="grid-last-name">
-                                Rasa
+                                {t('pacjent.fields.breed')}
                             </label>
                             <input class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             name="Rasa" id="Rasa" type="text"  value={this.state.data.Rasa} placeholder="" onChange={this.handleChange}/>
@@ -327,7 +329,7 @@ class DodaniePacjentaForm extends React.Component {
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                Waga
+                                {t('pacjent.fields.weight')}
                             </label>
                             <input class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             name="Waga" id="Waga" step="0.01" type="number" value={this.state.data.Waga} onChange={this.handleChange} placeholder="" />
@@ -336,7 +338,7 @@ class DodaniePacjentaForm extends React.Component {
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                Maść
+                                {t('pacjent.fields.color')}
                             </label>
                             <input class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             name="Masc" id="Masc" type="text"value={this.state.data.Masc} placeholder="" onChange={this.handleChange}/>
@@ -347,11 +349,12 @@ class DodaniePacjentaForm extends React.Component {
                     <div class="flex flex-wrap -mx-3 mb-6 ">
                         <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                Data urodzenia
+                                {t('pacjent.fields.birthdate')}
                             </label>
                             <Calendar className="mb-7 calendarForm"
                                 value={ this.state.date}
                                 onClickDay={this.onChange}
+                                locale={language}
                             />
                            <span id="" className="">
                                  {this.state.data.DataUrodzenia === '' || this.state.errors.DataUrodzenia != '' ?
@@ -363,29 +366,29 @@ class DodaniePacjentaForm extends React.Component {
                         <div class="w-full md:w-1/3 px-3 mb-6 mt-6 ml-2 md:mb-0">
                             <div className="border-b mb-4">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                    Płeć
+                                    {t('pacjent.fields.gender')}
                                 </label>
                                 <label class="inline-flex  items-center">
                                     <input name="Plec" id="Plec" type="radio" checked={this.state.data.Plec==="M"} class="form-radio text-indigo-600"
                                     value="M" onChange={this.handleChange}/>
-                                    <span class="ml-2">Samiec</span>
+                                    <span class="ml-2">{t('pacjent.gender.male')}</span>
                                 </label>
                                 <label class="inline-flex items-center  ml-4 mb-4">
                                     <input name="Plec" id="Plec" type="radio" class="form-radio" checked={this.state.data.Plec==="F"}
                                      value="F" onChange={this.handleChange}/>
-                                    <span class="ml-2">Samica</span>
+                                    <span class="ml-2">{t('pacjent.gender.female')}</span>
                                 </label>
                             <span id="errorPlec" className="errors-text2 mb-3 ">{this.state.errors.Plec}</span>
                             </div>
                             <div className="border-b mb-6">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                    Czy ubezpłodniony?
+                                    {t('pacjent.fields.infertile')}
                                 </label>
                                 <input type="checkbox"  name="Ubezplodnienie" checked={this.state.data.Ubezplodnienie===true} class="form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
                             </div>
                             <div className="border-b mb-6">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                    Czy agresywny?
+                                    {t('pacjent.fields.aggressive')}
                                 </label>
                                 <input type="checkbox" value="1" name="Agresywne" checked={this.state.data.Agresywne===true}class=" form-checkbox  mb-8  text-blue-600" onChange={this.onChange1}/>
                             </div>
@@ -396,11 +399,11 @@ class DodaniePacjentaForm extends React.Component {
                             <button onClick={() => navigate(-1)}
                                     className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
-                                Powrót
+                                {t('button.back')}
                             </button>
                             <button type="submit"
                                     className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                Zatwierdź
+                                {t('button.confirm')}
                             </button>
                         </div>
                     </div>
@@ -425,4 +428,4 @@ const withNavigate = Component => props => {
 //     );
 // };
 
-export default withNavigate(DodaniePacjentaForm)
+export default  withTranslation() (withNavigate(DodaniePacjentaForm));

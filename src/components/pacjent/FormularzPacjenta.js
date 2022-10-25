@@ -4,6 +4,7 @@ import {getPacjentDetails1} from "../../api/PacjentApiCalls";
 import DodaniePacjentaForm from "./DodaniePacjentaForm";
 import formMode from "../helpers/FormMode";
 import {useParams} from "react-router";
+import {withTranslation} from "react-i18next";
 
 class FormularzPacjenta extends React.Component {
     constructor(props) {
@@ -51,20 +52,16 @@ class FormularzPacjenta extends React.Component {
 
 
     componentDidMount() {
-                this.fetchClientList()
-
-        const currentFormMode = this.state.formMode
-                if (currentFormMode === formMode.EDIT) {
-                    //this..fetchAnimalDetails()
-
-                }
+          this.fetchClientList()
 
     }
 
     render() {
-        const {error, isLoaded, klienci, notice,data, idPacjent} = this.state
-                let content;
-                console.log(idPacjent)
+        const {error, isLoaded, klienci, idPacjent} = this.state
+        let content;
+        const {t} = this.props;
+        console.log(idPacjent)
+
                 if (error) {
                     content = <p>Błąd: {error.message}</p>
                 } else if (!isLoaded) {
@@ -74,7 +71,7 @@ class FormularzPacjenta extends React.Component {
                     content = <DodaniePacjentaForm klienci={klienci} idPacjent={idPacjent}/>
                 }
 
-        const pageTitle = this.state.formMode === formMode.NEW ? "Dodanie dowego pacjenta" : "Edycja pacjenta"
+        const pageTitle = this.state.formMode === formMode.NEW ? t('pacjent.addNewPatient') : t('pacjent.editPatient')
 
         return(
         <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
@@ -105,4 +102,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withRouter(FormularzPacjenta);
+export default  withTranslation() (withRouter(FormularzPacjenta));

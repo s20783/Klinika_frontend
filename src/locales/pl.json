@@ -32,11 +32,13 @@
 	},
 	"button": {
 		"next": "Dalej",
-		"back": "Powrót"
+		"back": "Powrót",
+		"confirm": "Zatwierdź"
 	},
 	"other": {
 		"yes": "tak",
-		"no": "nie"
+		"no": "nie",
+		"search": "Wyszukaj"
 	},
 	"login": {
 		"title": "Witamy w klinice PetMed",
@@ -81,6 +83,9 @@
 		"logout": "Wyloguj się"
 	},
 	"konto": {
+		"myAccount": "Moje konto",
+		"contactDetails": "Dane kontaktowe",
+		"accountManagement": "Zarządzanie kontem",
 		"changePassword": "Zmiana hasła",
 		"saveChanges": "Zapisz zmiany",
 		"forgotPassword": "Nie pamiętasz hasła?",
@@ -118,6 +123,36 @@
 			"patient": "Pacjent",
 			"date": "Wybierz termin",
 			"description": "Dodaj opis"
+		}
+	},
+	"pacjent": {
+		"title": "Pacjenci",
+		"addNewPateint": "Dodanie nowego pacjenta",
+		"editPatient": "Edycja pacjenta",
+		"detailsPatient": "Szczegóły pacjenta",
+		"selectOwner": "Wybierz właściciela",
+		"deletingPatient": "Czy na pewno chcesz usunąc pacjenta?",
+		"deletePatient": "Usuń pacjenta",
+		"other": "inny",
+		"button": {
+			"addPatient": "Dodaj pacjenta"
+		},
+		"gender": {
+			"male": "Samiec",
+			"female": "Samica"
+		},
+		"fields": {
+			"owner": "Właściciel",
+			"name": "Nazwa",
+			"species": "Gatunek",
+			"breed": "Rasa",
+			"weight": "Waga",
+			"color": "Maść",
+			"birthdate": "Data urodzenia",
+			"gender": "Płeć",
+			"infertile": "Czy ubezpłodniony?",
+			"aggressive": "Czy agresywny?"
+
 		}
 	}
 }
