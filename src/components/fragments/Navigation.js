@@ -70,6 +70,9 @@ class Navigation extends React.Component {
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.vaccinations')}</NavLink>}
                                 {isAdmin() && <NavLink to="/harmonogram"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.schedule')}</NavLink>}
+                                {isAdmin() && <NavLink to="/specjalizacje"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.specializations')}</NavLink>}
+
                             </div>
                         </nav>
                         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">

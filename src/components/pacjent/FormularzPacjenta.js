@@ -1,6 +1,5 @@
 import React from "react";
 import {getKlientList} from "../../api/KlientApiCalls";
-import {getPacjentDetails1} from "../../api/PacjentApiCalls";
 import DodaniePacjentaForm from "./DodaniePacjentaForm";
 import formMode from "../helpers/FormMode";
 import {useParams} from "react-router";
@@ -14,7 +13,6 @@ class FormularzPacjenta extends React.Component {
 
             this.state = {
               klienci: [],
-              pacjent:'',
                 idPacjent: paramsIdPacjent,
                 error: '',
                 isLoaded: false,

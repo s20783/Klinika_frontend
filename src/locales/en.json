@@ -9,7 +9,9 @@
 		"services": "Services",
 		"medicines": "Medicines",
 		"vaccinations": "Vaccinations",
-		"schedule": "Schedule"
+		"schedule": "Schedule",
+		"specializations":"Specializations"
+
 	},
 	"footer": {
 		"regulations": "Regulations",
@@ -131,7 +133,7 @@
 		"editPatient": "Editing patient",
 		"detailsPatient": "Patient details",
 		"selectOwner": "Select owner",
-		"deletingPatient": "Are you sure you want to delete the patient?",
+		"deletingPatient": "Are you sure you want to delete patient?",
 		"deletePatient": "Delete patient",
 		"other": "inny",
 		"button": {
@@ -152,7 +154,21 @@
 			"gender": "Sex",
 			"infertile": "Infertile?",
 			"aggressive": "Aggressive?"
-
+		}
+	},
+	"specjalizacja": {
+		"title": "Specializations",
+		"addNewSpecialization": "Adding new specialization",
+		"editSpecialization": "Edit specialization",
+		"deletingSpecialization": "Are you sure you want to delete specializations?",
+		"deleteSpecialization": "Delete specialization",
+		"addDescription":"Add description . . .",
+		"button": {
+			"addSpecialization": "Add specialization"
+		},
+		"fields": {
+			"name": "Name",
+			"description": "Description"
 		}
 	}
 }

@@ -19,6 +19,9 @@ import FormularzPacjenta from "./components/pacjent/FormularzPacjenta";
 import SzczegolyPacjent from "./components/pacjent/SzczegolyPacjent";
 import UsunieciePacjenta from "./components/pacjent/UsunieciePacjenta";
 import KlientList from "./components/klient/KlientList";
+import SpecjalizacjaList from "./components/specjalizacja/SpecjalizacjaList";
+import FormularzSpecjalizacji from "./components/specjalizacja/FormularzSpecjalizacji";
+import UsuniecieSpecjalizacji from "./components/specjalizacja/UsuniecieSpecjalizacji";
 import KontoWizyty from "./components/konto/KontoWizyty";
 import ZmianaHasla from "./components/konto/ZmianaHasla";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
@@ -71,6 +74,12 @@ class App extends React.Component {
                     <Route path="/klienci" element={<KlientList/>}/>
 
                     <Route path="/weterynarze" element={<WeterynarzList/>}/>
+
+                    <Route path="/specjalizacje" element={<SpecjalizacjaList/>}/>
+                    <Route path="/dodajSpecjalizacje" element={<FormularzSpecjalizacji/>}/>
+                    <Route path="/specjalizacje/edycjaSpecjalizacja/:idSpecjalizacja" element={<FormularzSpecjalizacji/>}/>
+                    <Route path="/specjalizacje/delete/:idSpecjalizacja" element={<UsuniecieSpecjalizacji/>}/>
+
 
                     <Route path="/konto" element={<Konto/>}/>
                     <Route path="/moiPacjenci" element={<KontoPacjenci/>}/>

@@ -1,8 +1,7 @@
 import {getCurrentUser} from "../components/other/authHelper";
-const pacjentURL = 'http://localhost:36989/api/Pacjent';
+const specjalizacjaURL = 'http://localhost:36989/api/Specjalizacja';
 
-
-export function getPacjentList(){
+export function getSpecjalizacjaList(){
     const user = getCurrentUser()
     let token
     if(user && user.Token) {
@@ -15,28 +14,12 @@ export function getPacjentList(){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(pacjentURL, options);
+    const promise = fetch(specjalizacjaURL, options);
     return promise;
 }
 
-export function getPacjentDetails(Id){
-    const url = `${pacjentURL}/${Id}`;
-    const user = getCurrentUser()
-    let token
-    if(user && user.Token) {
-        token = user.Token
-    }
-    const options = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    }
-    return fetch(url, options);
-}
-export function getPacjentDetails1(Id){
-    const url = `${pacjentURL}/details/${Id}`;
+export function getSpecjalizacjaDetails(Id){
+    const url = `${specjalizacjaURL}/details/${Id}`;
     const user = getCurrentUser()
     let token
     if(user && user.Token) {
@@ -52,69 +35,52 @@ export function getPacjentDetails1(Id){
     return fetch(url, options);
 }
 
-export function getKlientPacjentList(){
-    const url = `${pacjentURL}/klient`;
-    const user = getCurrentUser()
-    let token
-    if(user && user.Token) {
-        token = user.Token
-    }
-    const options = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    }
-    const promise = fetch(url, options);
-    return promise;
-}
-export function addPacjent(patient) {
+export function addSpecjalizacja(specjalizacja) {
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
         token = user.Token
     }
-    const url = `${pacjentURL}`
-    const patientString = JSON.stringify(patient)
-    console.log(patientString)
+    const url = `${specjalizacjaURL}`
+    const specjalizacjaString = JSON.stringify(specjalizacja)
+    console.log(specjalizacjaString)
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                  'Authorization': 'Bearer ' + token
             },
-            body: patientString
+            body: specjalizacjaString
         }
     return fetch(url, options);
 }
-export function updatePacjent(patient, idPacjent) {
+export function updateSpecjalizacja(specjalizacja, Id) {
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
         token = user.Token
     }
-    const url = `${pacjentURL}/${idPacjent}`
-    const patientString = JSON.stringify(patient)
-    console.log(patientString)
+    const url = `${specjalizacjaURL}/${Id}`
+    const specjalizacjaString = JSON.stringify(specjalizacja)
+    console.log(specjalizacjaString)
         const options = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                  'Authorization': 'Bearer ' + token
             },
-            body: patientString
+            body: specjalizacjaString
         }
     return fetch(url, options);
 }
 
-export function deletePacjent(idPacjent){
+export function deleteSpecjalizacja(Id){
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
         token = user.Token
     }
-    const url = `${pacjentURL}/${idPacjent}`
+    const url = `${specjalizacjaURL}/${Id}`
     const options = {
         method: 'DELETE',
         headers:{
