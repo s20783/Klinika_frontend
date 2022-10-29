@@ -18,7 +18,7 @@ function PotwierdzenieUmowieniaWizyty() {
                             </div>
 
                             <p class="text-2xl">{t("wizyta.confirmation")}</p>
-                            <p class="text-2xl font-bold">{t("wizyta.date") + ": " + wybranaData}</p>
+                            <p class="text-2xl font-bold">{t("wizyta.date") + ": " + wybranaData.replaceAll("-", ".")}</p>
                             <img src="/images/gti.png"></img>
 
                             <div class="flex justify-end pt-2">

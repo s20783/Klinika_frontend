@@ -1,9 +1,9 @@
 import {Link} from "react-router-dom";
-import {withTranslation} from "react-i18next";
+import {useTranslation, withTranslation} from "react-i18next";
 
 function PacjentKlientListTable(props) {
     const list = props.pacjenci
-    const {t} = this.props;
+    const {t} = useTranslation();
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -66,4 +66,4 @@ function PacjentKlientListTable(props) {
     )
 }
 
-export default withTranslation() (PacjentKlientListTable)
+export default (PacjentKlientListTable)

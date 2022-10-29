@@ -21,6 +21,8 @@
 		"required": "This field is required",
 		"max30": "This field requires from 2 to 30 characters",
 		"max50": "This field requires from 2 to 50 characters",
+		"max300": "This field requires from 2 to 300 characters",
+		"max300nullable": "This field requires max 300 characters",
 		"from8to50": "This field requires from 8 to 50 characters",
 		"from8to30": "This field requires from 8 to 30 characters",
 		"notSame": "Passwords are not the same",
@@ -41,7 +43,16 @@
 		"yes": "yes",
 		"no": "no",
 		"search": "Search",
-		"selectedDate": "Selected date: "
+		"selectedDate": "Selected date: ",
+		"day": {
+			"1": "Monday",
+			"2": "Tuesday",
+			"3": "Wednesday",
+			"4": "Thursday",
+			"5": "Friday",
+			"6": "Saturday",
+			"7": "Sunday"
+		}
 	},
 	"login": {
 		"title": "Welcome to PetMed clinic",

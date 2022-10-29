@@ -21,10 +21,11 @@ class UmowienieWizytyForm extends React.Component {
             errors: {
                 Pacjent: '',
                 Notatka: '',
-                Data: ''
+                Termin: ''
             },
             wizyta: {
-                Data: ''
+                Data: '',
+                Dzien: ''
             },
             list: this.props.pacjenci,
             date: new Date(),
@@ -50,20 +51,21 @@ class UmowienieWizytyForm extends React.Component {
     }
 
     validateField = (fieldName, fieldValue) => {
+        const {t} = this.props;
         let errorMessage = '';
         if (fieldName === 'Pacjent') {
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = `${t('validation.required')}`
             }
         }
-        if (fieldName === 'Data') {
+        if (fieldName === 'Termin') {
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = `${t('validation.required')}`
             }
         }
         if (fieldName === 'Notatka') {
             if (fieldValue.length > 300) {
-                errorMessage = `Pole może zawierać maksymalnie 300 znaków`
+                errorMessage = `${t('validation.max300nullable')}`
             }
         }
         return errorMessage
@@ -87,7 +89,7 @@ class UmowienieWizytyForm extends React.Component {
     handleSubmit = (event) => {
         const {navigate} = this.props;
         const data = {...this.state.data}
-        const wizyta = {...this.props.wizyta}
+        const wizyta = {...this.state.wizyta}
 
         event.preventDefault();
         const isValid = this.validateForm()
@@ -107,8 +109,8 @@ class UmowienieWizytyForm extends React.Component {
                 .then(
                     (data1) => {
                         console.log(response)
-                        if (response.status === 200) {
-                            console.log(data1)
+                        if (response.ok) {
+                            //console.log(this.state.wizyta.Data)
                             navigate(
                                 "/potwierdzenieWizyty",
                                 {
@@ -158,6 +160,7 @@ class UmowienieWizytyForm extends React.Component {
             })
             .then(
                 (data) => {
+                    console.log(data)
                     this.setState({
                         isLoaded: true,
                         harmonogram: data
@@ -180,6 +183,7 @@ class UmowienieWizytyForm extends React.Component {
         errors["Data"] = ''
         data["Termin"] = harmonogram.IdHarmonogram
         wizyta["Data"] =  getFormattedDateWithHour(harmonogram.Data)
+        wizyta["Dzien"] =  harmonogram.Dzien
         this.setState({
             wizyta: wizyta,
             data: data,
@@ -228,8 +232,10 @@ class UmowienieWizytyForm extends React.Component {
                         <div>
                             {<Time showTime={this.state.harmonogram.length} harmonogram={harmonogram}
                                    timeChange={this.handleHarmonogramSelect}/>}
-                            <span id="errorData" className="errors-text2 mb-4">{this.state.errors.Data}</span>
-                            <span id="" className="">{this.state.wizyta.Data === '' ? '' : 't("wizyta.selectedDate")' + this.state.wizyta.Data}</span>
+                            <span id="errorData" className="errors-text2 mb-4">{this.state.errors.Termin}</span>
+                            <span id="" className="">{this.state.wizyta.Data === '' ? '' :
+                                t("wizyta.selectedDate") + this.state.wizyta.Data.replaceAll("-", ".") + " (" + t('other.day.' + this.state.wizyta.Dzien) + ")"}
+                            </span>
 
                         </div>
                     </section>

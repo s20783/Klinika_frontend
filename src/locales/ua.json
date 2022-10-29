@@ -19,6 +19,8 @@
 		"required": "Pole wymagane",
 		"max30": "To pole wymaga od 2 do 30 znaków",
 		"max50": "To pole wymaga od 2 do 50 znaków",
+		"max300": "This field requires max 300 characters",
+		"max300nullable": "This field requires max 300 characters",
 		"from8to50": "This field requires from 8 to 50 characters",
 		"from8to30": "This field requires from 8 to 30 characters",
 		"notSame": "Hasła nie są takie same",
@@ -35,8 +37,19 @@
 		"back": "P..."
 	},
 	"other": {
-		"yes": "tak",
-		"no": "nie"
+		"yes": "yes",
+		"no": "no",
+		"search": "Search",
+		"selectedDate": "Selected date: ",
+		"day": {
+			"1": "Poniedziałek",
+			"2": "Wtorek",
+			"3": "Środa",
+			"4": "Czwartek",
+			"5": "Piątek",
+			"6": "Sobota",
+			"7": "Niedziela"
+		}
 	},
 	"login": {
 		"title": "Welcome to PetMed clinic",
