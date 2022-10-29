@@ -20,6 +20,7 @@
 		"required": "Pole wymagane",
 		"max30": "To pole wymaga od 2 do 30 znaków",
 		"max50": "To pole wymaga od 2 do 50 znaków",
+		"max300": "To pole wymaga od 2 do 300 znaków",
 		"from8to50": "To pole wymaga od 8 do 50 znaków",
 		"from8to30": "To pole wymaga od 8 do 30 znaków",
 		"notSame": "Hasła nie są takie same",
@@ -39,7 +40,8 @@
 	"other": {
 		"yes": "tak",
 		"no": "nie",
-		"search": "Wyszukaj"
+		"search": "Wyszukaj",
+		"selectedDate": "Wybrano date: "
 	},
 	"login": {
 		"title": "Witamy w klinice PetMed",
@@ -103,6 +105,7 @@
 		"confirmation": "Potwierdzenie umówienia wizyty.",
 		"date": "Termin",
 		"selectPatient": "Wybierz pacjenta",
+		"selectedDate": "Wybrano termin: ",
 		"other": "inny",
 		"button": {
 			"appointment": "Umów wizytę"
@@ -128,7 +131,7 @@
 	},
 	"pacjent": {
 		"title": "Pacjenci",
-		"addNewPateint": "Dodanie nowego pacjenta",
+		"addNewPatient": "Adding new patient",
 		"editPatient": "Edycja pacjenta",
 		"detailsPatient": "Szczegóły pacjenta",
 		"selectOwner": "Wybierz właściciela",

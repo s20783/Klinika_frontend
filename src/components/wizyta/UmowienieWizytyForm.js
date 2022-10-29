@@ -229,7 +229,7 @@ class UmowienieWizytyForm extends React.Component {
                             {<Time showTime={this.state.harmonogram.length} harmonogram={harmonogram}
                                    timeChange={this.handleHarmonogramSelect}/>}
                             <span id="errorData" className="errors-text2 mb-4">{this.state.errors.Data}</span>
-                            <span id="" className="">{this.state.wizyta.Data === '' ? '' : 'Wybrano termin:  ' + this.state.wizyta.Data}</span>
+                            <span id="" className="">{this.state.wizyta.Data === '' ? '' : 't("wizyta.selectedDate")' + this.state.wizyta.Data}</span>
 
                         </div>
                     </section>

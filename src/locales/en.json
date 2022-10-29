@@ -40,7 +40,8 @@
 	"other": {
 		"yes": "yes",
 		"no": "no",
-		"search": "Search"
+		"search": "Search",
+		"selectedDate": "Selected date: "
 	},
 	"login": {
 		"title": "Welcome to PetMed clinic",
@@ -103,6 +104,7 @@
 		"thankYou": "Thank you!",
 		"confirmation": "Appointment confirmed.",
 		"date": "Date",
+		"selectedDate": "Selected date: ",
 		"selectPatient": "Select patient",
 		"other": "other",
 		"button": {

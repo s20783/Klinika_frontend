@@ -358,7 +358,7 @@ class DodaniePacjentaForm extends React.Component {
                             />
                            <span id="" className="">
                                  {this.state.data.DataUrodzenia === '' || this.state.errors.DataUrodzenia != '' ?
-                                 '' : 'Wybrano datę:  ' + dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')}</span>
+                                 '' : t('other.selectedDate') + dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')}</span>
                             <span id="errorData" className="errors-text2 mb-4">
                                 {this.state.errors.DataUrodzenia}
                             </span>
