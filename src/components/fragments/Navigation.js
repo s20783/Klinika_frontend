@@ -37,7 +37,7 @@ class Navigation extends React.Component {
                             <Link  to="/">
                                 <img
                                     className=""
-                                    src="/images/logo2.png"
+                                    src="/images/logo.png"
                                     alt="logo"
                                 />
                             </Link>
@@ -64,9 +64,9 @@ class Navigation extends React.Component {
                                 {isAdmin() && <NavLink to="/harmonogram"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.schedule')}</NavLink>}
                                 {isAdmin() && <NavLink to="/specjalizacje"
-                                                       className="text-base px-5 md:flex-1 lg:w-0 font-medium text-gray-500 hover:text-blue-400">{t('navigation.specializations')}</NavLink>}
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.specializations')}</NavLink>}
                         </nav>
-                        <div className=" items-center  justify-end md:flex-1 lg:w-0">
+                        <div className=" items-center  justify-end flex-1 ">
                             {loginLogoutButton}
                         </div>
                     </div>

@@ -61,7 +61,7 @@ class KontoWizyty extends React.Component {
 
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+            <div class="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3">
                 <KontoMenu/>
 
                 <div
