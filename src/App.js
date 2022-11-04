@@ -22,6 +22,9 @@ import KlientList from "./components/klient/KlientList";
 import SpecjalizacjaList from "./components/specjalizacja/SpecjalizacjaList";
 import FormularzSpecjalizacji from "./components/specjalizacja/FormularzSpecjalizacji";
 import UsuniecieSpecjalizacji from "./components/specjalizacja/UsuniecieSpecjalizacji";
+import UslugaList from "./components/usluga/UslugaList";
+import FormularzUslugi from "./components/usluga/FormularzUslugi";
+import UsuniecieUslugi from "./components/usluga/UsuniecieUslugi";
 import KontoWizyty from "./components/konto/KontoWizyty";
 import ZmianaHasla from "./components/konto/ZmianaHasla";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
@@ -80,6 +83,10 @@ class App extends React.Component {
                     <Route path="/specjalizacje/edycjaSpecjalizacja/:idSpecjalizacja" element={<FormularzSpecjalizacji/>}/>
                     <Route path="/specjalizacje/delete/:idSpecjalizacja" element={<UsuniecieSpecjalizacji/>}/>
 
+                    <Route path="/uslugi" element={<UslugaList/>}/>
+                    <Route path="/dodajUsluge" element={<FormularzUslugi/>}/>
+                    <Route path="/uslugi/edycjaUsluga/:idUsluga" element={<FormularzUslugi/>}/>
+                    <Route path="/uslugi/delete/:idUsluga" element={<UsuniecieUslugi/>}/>
 
                     <Route path="/konto" element={<Konto/>}/>
                     <Route path="/moiPacjenci" element={<KontoPacjenci/>}/>

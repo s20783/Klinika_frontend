@@ -84,17 +84,17 @@ class FormularzSpecjalizacji extends React.Component {
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
         let errorMessage = '';
-        if (fieldName === t('validation.max50')) {
+        if (fieldName === 'Nazwa') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
-                errorMessage = `To pole wymaga od 2 do 50 znaków`
+                errorMessage = t('validation.max50')
             }
             if (!fieldValue) {
                 errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'Opis') {
-            if (!CheckTextRange(fieldValue, 2, 300)) {
-                errorMessage = t('validation.max300')
+            if (!CheckTextRange(fieldValue, 0, 300)) {
+                errorMessage = t('validation.max300nullable')
             }
         }
         return errorMessage;

@@ -8,16 +8,17 @@ function WizytaTableList(props) {
     const list = props.wizyty
 
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <div className="flex flex-row-reverse pb-3">
+    <div>
+            <div className="flex justify-end pb-3">
 
               <Link to="/umowWizyte">
                  <button class="shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                      {t("wizyta.button.appointment")}
                  </button>
               </Link>
-
             </div>
+                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -90,6 +91,8 @@ function WizytaTableList(props) {
                 </tbody>
             </table>
         </div>
+                </div>
+
     )
 }
 

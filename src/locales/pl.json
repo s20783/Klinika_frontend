@@ -39,8 +39,8 @@
 		"confirm": "Zatwierdź"
 	},
 	"other": {
-		"yes": "tak",
-		"no": "nie",
+		"yes": "Tak",
+		"no": "Nie",
 		"search": "Wyszukaj",
 		"selectedDate": "Wybrano date: ",
 		"day": {
@@ -180,6 +180,29 @@
 		},
 		"fields": {
 			"name": "Nazwa",
+			"description": "Opis"
+		}
+	},
+	"usluga": {
+		"title": "Usługi",
+		"addNewService": "Dodanie nowej uslugi",
+		"editService": "Edycja uslugi",
+		"deletingService": "Czy na pewno chcesz usunąc usluge?",
+		"deleteService": "Usuń usluge",
+		"addDescription":"Dodaj opis . . .",
+		"button": {
+			"addService": "Dodaj usluge"
+		},
+		"fields": {
+			"name": "Nazwa",
+			"painScale": "Dolegliwość",
+			"painScaleEnum": {
+				"low": "Niska",
+				"medium": "Średnia",
+				"high": "Wysoka"
+			},
+			"price": "Cena",
+			"narcosis": "Czy narkoza?",
 			"description": "Opis"
 		}
 	}

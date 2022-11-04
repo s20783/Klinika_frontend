@@ -29,7 +29,7 @@ function KlientListTable(props) {
     };
 
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div>
             <div className="p-4">
                 <label for="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
@@ -43,12 +43,13 @@ function KlientListTable(props) {
                     </div>
                     <label htmlFor="search">
                         <input type="text" id="search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 sm:w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                onChange={handleFilter} value={wordEntered}
                                placeholder="Wyszukaj"/>
                     </label>
                 </div>
             </div>
+                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -95,6 +96,8 @@ function KlientListTable(props) {
                 </tbody>
             </table>
         </div>
+                </div>
+
     )
 }
 
