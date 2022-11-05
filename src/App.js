@@ -30,6 +30,7 @@ import ZmianaHasla from "./components/konto/ZmianaHasla";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
+import FormularzWeterynarz from "./components/weterynarz/FormularzWeterynarz";
 import KontoPacjenci from "./components/konto/KontoPacjenci";
 import Regulamin from "./components/other/Regulamin";
 import PolitykaPrywatnosci from "./components/other/PolitykaPrywatnosci";
@@ -77,6 +78,7 @@ class App extends React.Component {
                     <Route path="/klienci" element={<KlientList/>}/>
 
                     <Route path="/weterynarze" element={<WeterynarzList/>}/>
+                    <Route path="/dodajWeterynarza" element={<FormularzWeterynarz/>}/>
 
                     <Route path="/specjalizacje" element={<SpecjalizacjaList/>}/>
                     <Route path="/dodajSpecjalizacje" element={<FormularzSpecjalizacji/>}/>

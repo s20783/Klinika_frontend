@@ -2,6 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router";
 import {getWeterynarzList} from "../../api/WeterynarzApiCalls";
 import WeterynarzListTable from "./WeterynarzListTable";
+import {withTranslation} from "react-i18next";
 
 class WeterynarzList extends React.Component {
     constructor(props) {
@@ -44,6 +45,7 @@ class WeterynarzList extends React.Component {
     render() {
         const {error, isLoaded, weterynarze} = this.state
         let content;
+        const {t} = this.props;
 
         if (error) {
             content = <p>Błąd: {error.message}</p>
@@ -59,7 +61,7 @@ class WeterynarzList extends React.Component {
                     <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                                Weterynarze</h2>
+                                {t('weterynarz.title')}</h2>
                             {content}
                         </div>
                     </div>
@@ -74,4 +76,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withNavigate(WeterynarzList);
+export default withTranslation() ( withNavigate(WeterynarzList));

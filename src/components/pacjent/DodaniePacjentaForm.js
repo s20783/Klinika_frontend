@@ -273,7 +273,7 @@ class DodaniePacjentaForm extends React.Component {
         const {t} = this.props;
         const { i18n } = this.props;
         let language = i18n.language
-        console.log(language)
+
         return (
             <div className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                  <form onSubmit={this.handleSubmit} className="w-full max-w">

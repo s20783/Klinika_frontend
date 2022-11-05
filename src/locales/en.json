@@ -23,11 +23,16 @@
 		"max50": "This field requires from 2 to 50 characters",
 		"max300": "This field requires from 2 to 300 characters",
 		"max300nullable": "This field requires max 300 characters",
+		"date": "The date cannot be from the future",
+		"from5to50": "This field requires from 5 to 50 characters",
+		"from6to50": "This field requires from 6 to 50 characters",
 		"from8to50": "This field requires from 8 to 50 characters",
 		"from8to30": "This field requires from 8 to 30 characters",
 		"notSame": "Passwords are not the same",
 		"format": "Incorrect format",
-		"password": "Password requires min 8 characters, capital letter and a digit"
+		"password": "Password requires min 8 characters, capital letter and a digit",
+		"salary": "This field must be a number between 0 and 100 000"
+
 	},
 	"errors": {
 		"Incorrect": "Incorrect password or login",
@@ -167,6 +172,26 @@
 			"gender": "Sex",
 			"infertile": "Infertile?",
 			"aggressive": "Aggressive?"
+		}
+	},
+	"weterynarz": {
+		"title": "Vets",
+		"addNewVet": "Adding New Vet",
+		"editVet": "Editing Vet",
+		"deletingVet": "Are you sure you want to delete vet?",
+		"deleteVet": "Delete Vet",
+		"button": {
+			"addVet": "Add Vet"
+		},
+		"fields": {
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"phoneNumber": "Phone Number",
+			"email": "Email",
+			"login": "Login",
+			"birthDate": "Birth date",
+			"employmentDate": "Employment Date",
+			"salary": "Salary"
 		}
 	},
 	"specjalizacja": {
