@@ -21,7 +21,7 @@ class FormularzWeterynarz extends React.Component {
 
             this.state = {
               data: {
-                  NazwaUzytkownika:'',
+                  Login:'',
                   Imie:'',
                   Nazwisko:'',
                   NumerTelefonu:'',
@@ -29,10 +29,10 @@ class FormularzWeterynarz extends React.Component {
                   Login:'',
                   DataUrodzenia:'',
                   DataZatrudnienia:'',
-                  Pensja:'',
+                  Pensja:null,
               },
               errors: {
-                  NazwaUzytkownika:'',
+                  Login:'',
                   Imie:'',
                   Nazwisko:'',
                   NumerTelefonu:'',
@@ -130,7 +130,7 @@ class FormularzWeterynarz extends React.Component {
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
         let errorMessage = '';
-        if (fieldName === 'NazwaUzytkownika') {
+        if (fieldName === 'Login') {
             if (!CheckTextRange(fieldValue, 5, 50)) {
                 errorMessage = t('validation.from5to50')
             }
@@ -319,9 +319,9 @@ class FormularzWeterynarz extends React.Component {
                                 {t('weterynarz.fields.login')}
                             </label>
                             <div class="md:w-3/5">
-                                 <input class={this.state.errors.NazwaUzytkownika ? "form-textarea block w-full focus:bg-red" : "form-textarea block w-full focus:bg-white"}
-                                 name="NazwaUzytkownika" id="NazwaUzytkownika" type="text" value={this.state.data.NazwaUzytkownika} onChange={this.handleChange} placeholder="" />
-                        <span id="errorNazwaUzytkownika" className="errors-text2  mt-4">{this.state.errors.NazwaUzytkownika}</span>
+                                 <input class={this.state.errors.Login ? "form-textarea block w-full focus:bg-red" : "form-textarea block w-full focus:bg-white"}
+                                 name="Login" id="Login" type="text" value={this.state.data.Login} onChange={this.handleChange} placeholder="" />
+                        <span id="errorLogin" className="errors-text2  mt-4">{this.state.errors.Login}</span>
 
                             </div>
                         </div>
