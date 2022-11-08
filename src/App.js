@@ -31,6 +31,8 @@ import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
 import FormularzWeterynarz from "./components/weterynarz/FormularzWeterynarz";
+import SzczegolyWeterynarza from "./components/weterynarz/SzczegolyWeterynarza";
+import UsuniecieWeterynarza from "./components/weterynarz/UsuniecieWeterynarza";
 import KontoPacjenci from "./components/konto/KontoPacjenci";
 import Regulamin from "./components/other/Regulamin";
 import PolitykaPrywatnosci from "./components/other/PolitykaPrywatnosci";
@@ -78,7 +80,11 @@ class App extends React.Component {
                     <Route path="/klienci" element={<KlientList/>}/>
 
                     <Route path="/weterynarze" element={<WeterynarzList/>}/>
+                    <Route path="/weterynarze/:IdOsoba" element={<SzczegolyWeterynarza/>}/>
                     <Route path="/dodajWeterynarza" element={<FormularzWeterynarz/>}/>
+                    <Route path="/weterynarze/edycjaWeterynarza/:IdOsoba" element={<FormularzWeterynarz/>}/>
+                    <Route path="/dodajWeterynarza" element={<FormularzWeterynarz/>}/>
+                    <Route path="/weterynarze/delete/:IdOsoba" element={<UsuniecieWeterynarza/>}/>
 
                     <Route path="/specjalizacje" element={<SpecjalizacjaList/>}/>
                     <Route path="/dodajSpecjalizacje" element={<FormularzSpecjalizacji/>}/>

@@ -73,7 +73,7 @@ export function updateWeterynarz(weterynarz, Id) {
     return fetch(url, options);
 }
 
-export function deletWeterynarz(Id){
+export function deleteWeterynarz(Id){
     const user = getCurrentUser()
     let token
     if (user && user.Token) {

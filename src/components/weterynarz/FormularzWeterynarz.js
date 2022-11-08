@@ -251,7 +251,9 @@ class FormularzWeterynarz extends React.Component {
                 promise = addWeterynarz(dane.data)
             }
             else if (dane.formMode === formMode.EDIT){
+            console.log(dane.data)
                 promise = updateWeterynarz(dane.data, dane.idWeterynarz)
+
             }
              if (promise) {
             promise
@@ -263,7 +265,8 @@ class FormularzWeterynarz extends React.Component {
                 .then(
                     (data) => {
                     console.log(data)
-                        if (response.status === 200 ) {
+                       console.log(response)
+                        if (response.ok ) {
                             console.log(response.status)
                             navigate("/weterynarze", {replace: true});
 

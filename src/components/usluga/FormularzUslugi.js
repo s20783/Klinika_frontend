@@ -179,7 +179,7 @@ class FormularzUslugi extends React.Component {
                 .then(
                     (data) => {
                     console.log(data)
-                        if (response.status === 200 ) {
+                        if (response < 200 & response < 299) {
                             console.log(response.status)
                             navigate("/uslugi", {replace: true});
 

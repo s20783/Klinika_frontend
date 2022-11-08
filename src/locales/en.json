@@ -178,6 +178,7 @@
 		"title": "Vets",
 		"addNewVet": "Adding New Vet",
 		"editVet": "Editing Vet",
+		"detailsVet": "Vet Details",
 		"deletingVet": "Are you sure you want to delete vet?",
 		"deleteVet": "Delete Vet",
 		"button": {

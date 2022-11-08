@@ -155,7 +155,7 @@ class FormularzSpecjalizacji extends React.Component {
                     (data) => {
                     console.log(data)
                         if (response.status === 200 ) {
-                            console.log(response.status)
+                            console.log(response)
                             navigate("/specjalizacje", {replace: true});
 
                         } else if (response.status === 401) {

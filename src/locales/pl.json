@@ -176,10 +176,12 @@
 		"title": "Weterynarze",
 		"addNewVet": "Dodanie nowego weterynarza",
 		"editVet": "Edycja weterynarza",
+		"detailsVet": "Szczegóły weterynarza",
 		"deletingVet": "Czy na pewno chcesz usunąc weterynarza?",
 		"deleteVet": "Usuń weterynarza",
 		"button": {
-			"addVet": "Dodaj weterynarza"
+			"addVet": "Dodaj weterynarza",
+			"addSpec": "+ Dodaj"
 		},
 		"fields": {
 			"firstName": "Imię",
