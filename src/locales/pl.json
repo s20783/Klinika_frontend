@@ -40,7 +40,8 @@
 	"button": {
 		"next": "Dalej",
 		"back": "Powrót",
-		"confirm": "Zatwierdź"
+		"confirm": "Zatwierdź",
+		"add": "Dodaj"
 	},
 	"other": {
 		"yes": "Tak",

@@ -42,7 +42,8 @@
 	"button": {
 		"next": "Next",
 		"back": "Back",
-		"confirm": "Confirm"
+		"confirm": "Confirm",
+		"add": "Add"
 	},
 	"other": {
 		"yes": "yes",

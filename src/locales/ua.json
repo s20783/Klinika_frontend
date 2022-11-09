@@ -33,8 +33,10 @@
 		"Incorrect password": "Incorrect password"
 	},
 	"button": {
-		"next": "D...",
-		"back": "P..."
+		"next": "Dalej",
+		"back": "Powrót",
+		"confirm": "Zatwierdź",
+		"add": "Dodaj"
 	},
 	"other": {
 		"yes": "yes",
