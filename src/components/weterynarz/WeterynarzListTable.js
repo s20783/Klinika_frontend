@@ -59,22 +59,22 @@ function WeterynarzListTable(props) {
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="px-6 py-3">Imię</th>
-                    <th scope="col" className="px-6 py-3">Nazwisko</th>
-                    <th scope="col" className="px-6 py-3">Numer telefonu</th>
-                    <th scope="col" className="px-6 py-3">Email</th>
-                    <th scope="col" className="px-6 py-3"/>
+                    <th scope="col" className="px-6 py-3 text-center">Imię</th>
+                    <th scope="col" className="px-6 py-3 text-center">Nazwisko</th>
+                    <th scope="col" className="px-6 py-3 text-center">Numer telefonu</th>
+                    <th scope="col" className="px-6 py-3 text-center">Email</th>
+                    <th scope="col" className="px-6 py-3 text-center"/>
                 </tr>
                 </thead>
                 <tbody>
                 {filteredData.map(x => (
                     <tr key={x.IdOsoba} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
-                        <td scope="col" className="px-6 py-2">{x.Imie}</td>
-                        <td scope="col" className="px-6 py-2">{x.Nazwisko}</td>
-                        <td scope="col" className="px-6 py-2">{x.NumerTelefonu}</td>
-                        <td scope="col" className="px-6 py-2">{x.Email}</td>
-                        <td scope="col" className="px-6 py-2">
-                            <div className="list-actions">
+                        <td scope="col" className="px-6 py-2 text-center">{x.Imie}</td>
+                        <td scope="col" className="px-6 py-2 text-center">{x.Nazwisko}</td>
+                        <td scope="col" className="px-6 py-2 text-center">{x.NumerTelefonu}</td>
+                        <td scope="col" className="px-6 py-2 text-center">{x.Email}</td>
+                        <td scope="col" className="px-6 py-2 text-center">
+                            <div className="list-actions text-center">
                                 <div className="flex">
                                     <Link to={`/weterynarze/${x.IdOsoba}`} className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-details flex-1"

@@ -21,23 +21,19 @@ class FormularzWeterynarz extends React.Component {
 
             this.state = {
               data: {
-                  Login:'',
                   Imie:'',
                   Nazwisko:'',
                   NumerTelefonu:'',
                   Email:'',
-                  Login:'',
                   DataUrodzenia:'',
                   DataZatrudnienia:'',
                   Pensja:null,
               },
               errors: {
-                  Login:'',
                   Imie:'',
                   Nazwisko:'',
                   NumerTelefonu:'',
                   Email:'',
-                  Login:'',
                   DataUrodzenia:'',
                   DataZatrudnienia:'',
                   Pensja:'',
@@ -130,14 +126,6 @@ class FormularzWeterynarz extends React.Component {
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
         let errorMessage = '';
-        if (fieldName === 'Login') {
-            if (!CheckTextRange(fieldValue, 5, 50)) {
-                errorMessage = t('validation.from5to50')
-            }
-            if (!fieldValue) {
-                errorMessage = t('validation.required')
-            }
-        }
         if (fieldName === 'Imie') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
                 errorMessage = t('validation.max50')
@@ -315,20 +303,6 @@ class FormularzWeterynarz extends React.Component {
              <div
                 className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                 <form onSubmit={this.handleSubmit}>
-                    <section class="bg-white-100 border-b  mb-7">
-                        <div class=" flex flex-wrap md:flex mb-6 mt-4">
-                            <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
-                                   htmlFor="Nazwa">
-                                {t('weterynarz.fields.login')}
-                            </label>
-                            <div class="md:w-3/5">
-                                 <input class={this.state.errors.Login ? "form-textarea block w-full focus:bg-red" : "form-textarea block w-full focus:bg-white"}
-                                 name="Login" id="Login" type="text" value={this.state.data.Login} onChange={this.handleChange} placeholder="" />
-                        <span id="errorLogin" className="errors-text2  mt-4">{this.state.errors.Login}</span>
-
-                            </div>
-                        </div>
-                    </section>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">

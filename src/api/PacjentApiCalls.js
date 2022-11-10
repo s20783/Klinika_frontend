@@ -1,7 +1,6 @@
 import {getCurrentUser} from "../components/other/authHelper";
 const pacjentURL = 'http://localhost:36989/api/Pacjent';
 
-
 export function getPacjentList(){
     const user = getCurrentUser()
     let token
@@ -54,6 +53,23 @@ export function getPacjentDetails1(Id){
 
 export function getKlientPacjentList(){
     const url = `${pacjentURL}/klient`;
+    const user = getCurrentUser()
+    let token
+    if(user && user.Token) {
+        token = user.Token
+    }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+    const promise = fetch(url, options);
+    return promise;
+}
+export function getKlientPacjentList1(Id){
+    const url = `${pacjentURL}/klient/${Id}`;
     const user = getCurrentUser()
     let token
     if(user && user.Token) {

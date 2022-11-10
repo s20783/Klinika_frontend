@@ -3,6 +3,7 @@ import React from "react";
 import {getImie, getCurrentUser} from "../other/authHelper";
 import {getKontoData} from "../../api/authApiCalls";
 import KontoMenu from "../fragments/KontoMenu";
+import {withTranslation} from "react-i18next";
 
 class Konto extends React.Component {
     constructor(props) {
@@ -38,18 +39,8 @@ class Konto extends React.Component {
 
     render() {
         const {error, isLoaded, user} = this.state
-        let content;
+        const {t} = this.props;
 
-        if (error) {
-            content = <p>Błąd: {error.message}</p>
-        } else if (!isLoaded) {
-            content = <p>Ładowanie...</p>
-        } else {
-            content =
-                <div>
-
-                </div>
-        }
 
         return (
             <div className="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3">
@@ -61,7 +52,7 @@ class Konto extends React.Component {
                     <section className="bg-white-100   ">
                         <div className="container max-w-5xl mx-auto m-0">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                                Moje konto
+                                {t('konto.myAccount')}
                             </h2>
 
                             <div className="w-full mb-4">
@@ -82,7 +73,7 @@ class Konto extends React.Component {
 
                             <div className="md:w-2/3 mt-6 mb-4 border-b">
                                 <div className="mt-2 mb-4">
-                                    <p className="py-2 text-sm text-gray-600 font-bold">Dane kontaktowe</p>
+                                    <p className="py-2 text-sm text-gray-600 font-bold">{t('konto.contactDetails')}</p>
 
                                     <label className="inline-flex items-center mt-4">
                                         <svg className="h-8 w-8 text-black mr-6" viewBox="0 0 24 24" fill="none"
@@ -106,17 +97,19 @@ class Konto extends React.Component {
                                 </div>
                             </div>
 
-                           <div className="md:w-2/3 mt-6 mb-4 ">
                                <div className="mt-2 mb-4">
-                                   <p className="py-2 text-sm text-gray-600 font-bold">Zarządzanie kontem</p>
-                                    <label className="inline-flex items-center mt-4">
+                                   <p className="py-2 text-sm text-gray-600 font-bold">{t('konto.accountManagement')}</p>
+                                    <label className="flex flex-col items-left mt-4">
+                                        <Link to="/zmianaDanychKonta"
+                                              className=" shadow bg-blue-400 w-60 mb-6 hover:bg-white text-center hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                              {t('konto.button.changeContactData')}
+                                        </Link>
                                        <Link to="/zmianaHasla"
-                                             className=" shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                             Zmień hasło
+                                             className=" shadow bg-blue-400 w-36 text-center hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                             {t('konto.button.changePassword')}
                                        </Link>
                                     </label>
                                </div>
-                           </div>
                         </div>
                     </section>
                 </div>
@@ -125,4 +118,4 @@ class Konto extends React.Component {
     }
 }
 
-export default Konto;
+export default  withTranslation() (Konto);

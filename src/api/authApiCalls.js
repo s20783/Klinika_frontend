@@ -60,3 +60,20 @@ export function changePassword(user) {
 
     return fetch(url, options);
 }
+
+export function changeDaneKonta(user) {
+    const user1 = getCurrentUser()
+    let token = user1.Token;
+    const url = `${baseURL}`
+    const userString = JSON.stringify(user)
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+             'Authorization': 'Bearer ' + token
+        },
+        body: userString
+    }
+
+    return fetch(url, options);
+}

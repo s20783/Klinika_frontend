@@ -60,7 +60,7 @@ function PacjentListTable(props) {
                     <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.name')}</th>
                     <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.species')}</th>
                     <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.breed')}</th>
-                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.color')}</th>
+                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.owner')}</th>
                     <th scope="col" className="px-6 uppercase py-3"/>
                 </tr>
                 </thead>

@@ -34,6 +34,7 @@
 	},
 	"errors": {
 		"Incorrect": "Niepoprawne hasło lub login",
+		"Incorrect1": "Niepoprawne hasło",
 		"Not unique": "Ta nazwa jest już zajęta",
 		"Incorrect password": "Niepoprawne hasło"
 	},
@@ -107,6 +108,10 @@
 		"changePassword": "Zmiana hasła",
 		"saveChanges": "Zapisz zmiany",
 		"forgotPassword": "Nie pamiętasz hasła?",
+		"button": {
+			"changeContactData": "Zmień dane kontaktowe",
+			"changePassword" : "Zmień hasło"
+		},
 		"field": {
 			"currentPassword": "Aktualne hasło",
 			"newPassword": "Nowe hasło",
@@ -121,6 +126,8 @@
 		"date": "Termin",
 		"selectPatient": "Wybierz pacjenta",
 		"selectedDate": "Wybrano termin: ",
+		"deletingVisit": "Czy na pewno chcesz usunąc wizyte?",
+		"deleteVisit": "Usuń wizyte",
 		"other": "inny",
 		"button": {
 			"appointment": "Umów wizytę"
@@ -195,6 +202,22 @@
 			"salary": "Pensja"
 		}
 	},
+	"klient": {
+		"title": "Klienci",
+		"addNewClient": "Dodanie nowego klienta",
+		"editClient": "Edycja klienta",
+		"detailsClient": "Szczegóły klienta",
+		"deletingClient": "Czy na pewno chcesz usunąc klienta?",
+		"deleteClient": "Usuń klienta",
+		"fields": {
+			"firstName": "Imię",
+			"lastName": "Nazwisko",
+			"phoneNumber": "Numer telefonu",
+			"email": "Email",
+			"login": "Nazwa użytkownika",
+			"birthDate": "Data urodzenia"
+		}
+	},
 	"specjalizacja": {
 		"title": "Specjalizacje",
 		"addNewSpecialization": "Dodanie nowej specjalizacji",
@@ -202,6 +225,7 @@
 		"deletingSpecialization": "Czy na pewno chcesz usunąc specjalizacje?",
 		"deleteSpecialization": "Usuń specjalizacje",
 		"addDescription":"Dodaj opis . . .",
+		"selectSpecialization": "Wybierz specjalizacje",
 		"button": {
 			"addSpecialization": "Dodaj specjalizacje"
 		},

@@ -19,6 +19,7 @@ import FormularzPacjenta from "./components/pacjent/FormularzPacjenta";
 import SzczegolyPacjent from "./components/pacjent/SzczegolyPacjent";
 import UsunieciePacjenta from "./components/pacjent/UsunieciePacjenta";
 import KlientList from "./components/klient/KlientList";
+import SzczegolyKlienta from "./components/klient/SzczegolyKlienta";
 import SpecjalizacjaList from "./components/specjalizacja/SpecjalizacjaList";
 import FormularzSpecjalizacji from "./components/specjalizacja/FormularzSpecjalizacji";
 import UsuniecieSpecjalizacji from "./components/specjalizacja/UsuniecieSpecjalizacji";
@@ -27,7 +28,9 @@ import FormularzUslugi from "./components/usluga/FormularzUslugi";
 import UsuniecieUslugi from "./components/usluga/UsuniecieUslugi";
 import KontoWizyty from "./components/konto/KontoWizyty";
 import ZmianaHasla from "./components/konto/ZmianaHasla";
+import ZmianaDanychKonta from "./components/konto/ZmianaDanychKonta";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
+import UsuniecieWizyty from "./components/wizyta/UsuniecieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
 import FormularzWeterynarz from "./components/weterynarz/FormularzWeterynarz";
@@ -77,7 +80,9 @@ class App extends React.Component {
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/afterRegister" element={<AfterRegister/>}/>
 
+
                     <Route path="/klienci" element={<KlientList/>}/>
+                    <Route path="/klienci/:IdOsoba" element={<SzczegolyKlienta/>}/>
 
                     <Route path="/weterynarze" element={<WeterynarzList/>}/>
                     <Route path="/weterynarze/:IdOsoba" element={<SzczegolyWeterynarza/>}/>
@@ -100,9 +105,11 @@ class App extends React.Component {
                     <Route path="/moiPacjenci" element={<KontoPacjenci/>}/>
                     <Route path="/mojeWizyty" element={<KontoWizyty/>}/>
                     <Route path="/zmianaHasla" element={<ZmianaHasla/>}/>
+                    <Route path="/zmianaDanychKonta" element={<ZmianaDanychKonta/>}/>
 
                     <Route path="/umowWizyte" element={<UmowienieWizyty/>}/>
                     <Route path="/potwierdzenieWizyty" element={<PotwierdzenieUmowieniaWizyty/>}/>
+                    <Route path="/wizyty/delete/:idWizyta" element={<UsuniecieWizyty/>}/>
 
 
                     <Route path="/leki" element={<LekList/>}/>

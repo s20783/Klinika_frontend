@@ -31,3 +31,20 @@ export function getKlientList(){
     const promise = fetch(baseURL, options);
     return promise;
 }
+
+export function getKlientDetails(Id){
+    const url = `${baseURL}/${Id}`;
+    const user = getCurrentUser()
+    let token
+    if(user && user.Token) {
+        token = user.Token
+    }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+    return fetch(url, options);
+}

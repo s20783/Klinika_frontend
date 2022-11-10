@@ -109,6 +109,10 @@
 		"changePassword": "Change password",
 		"saveChanges": "Save changes",
 		"forgotPassword": "Forgot password?",
+		"button": {
+			"changeContactData": "Change contact details",
+			"changePassword" : "Change password"
+		},
 		"field": {
 			"currentPassword": "Current password",
 			"newPassword": "New password",
@@ -123,6 +127,8 @@
 		"date": "Date",
 		"selectedDate": "Selected date: ",
 		"selectPatient": "Select patient",
+		"deletingVisit": "Are you sure you want to delete visit?",
+		"deleteVisit": "Delete visit",
 		"other": "other",
 		"button": {
 			"appointment": "Make an appointment"
@@ -196,6 +202,22 @@
 			"salary": "Salary"
 		}
 	},
+	"klient": {
+		"title": "Clients",
+		"addNewClient": "Adding New Client",
+		"editClient": "Editing Client",
+		"detailsClient": "Client Details",
+		"deletingClient": "Are you sure you want to delete client?",
+		"deleteClient": "Delete Client",
+		"fields": {
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"phoneNumber": "Phone Number",
+			"email": "Email",
+			"login": "Login",
+			"birthDate": "Birth date"
+		}
+	},
 	"specjalizacja": {
 		"title": "Specializations",
 		"addNewSpecialization": "Adding new specialization",
@@ -203,6 +225,7 @@
 		"deletingSpecialization": "Are you sure you want to delete specializations?",
 		"deleteSpecialization": "Delete specialization",
 		"addDescription":"Add description . . .",
+		"selectSpecialization": "Select specialization",
 		"button": {
 			"addSpecialization": "Add specialization"
 		},
