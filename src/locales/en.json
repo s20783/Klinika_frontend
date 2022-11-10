@@ -109,11 +109,14 @@
 		"changePassword": "Change password",
 		"saveChanges": "Save changes",
 		"forgotPassword": "Forgot password?",
+		"changeData": "Change user data",
+		"login": "Login",
 		"button": {
 			"changeContactData": "Change contact details",
 			"changePassword" : "Change password"
 		},
 		"field": {
+			"typePassword": "Password",
 			"currentPassword": "Current password",
 			"newPassword": "New password",
 			"newPassword2": "New password"

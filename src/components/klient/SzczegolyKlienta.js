@@ -216,11 +216,11 @@ class SzczegolyWeterynarza extends React.Component {
                 {this.state.pacjenci.map(x => (
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                         key={x.IdPacjent}>
-                        <td scope="col" className="px-6 py-2 text-center">{x.Nazwa}</td>
-                        <td scope="col" className="px-6 py-2 text-center">{x.Gatunek}</td>
-                        <td scope="col" className="px-6 py-2 text-center">{x.Rasa}</td>
-                        <td scope="col" className="px-6 py-2 text-center">{x.Plec}</td>
-                        <td scope="col" className="px-6 py-2 text-center">{x.Agrasywne ===true ? "Tak" : "Nie"}</td>
+                        <td className="px-6 py-2 text-center">{x.Nazwa}</td>
+                        <td className="px-6 py-2 text-center">{x.Gatunek}</td>
+                        <td className="px-6 py-2 text-center">{x.Rasa}</td>
+                        <td className="px-6 py-2 text-center">{x.Plec}</td>
+                        <td className="px-6 py-2 text-center">{x.Agresywne ===true ? "Tak" : "Nie"}</td>
                             <div className="list-actions py-2">
                                 <div className=" flex">
                                     <Link to={`/pacjenci/details/${x.IdPacjent}`} className="list-actions-button-details flex-1">
@@ -287,8 +287,6 @@ class SzczegolyWeterynarza extends React.Component {
                                     </Link>
                                 </div>
                             </div>
-
-
                     </tr>
                 ))}
                 </tbody>

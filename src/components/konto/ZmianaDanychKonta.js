@@ -4,12 +4,9 @@ import {useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {useNavigate} from "react-router";
 import dayjs from 'dayjs';
-import {Link} from "react-router-dom";
-import {getFormattedDateWithHour} from "../other/dateFormat";
 import {getKontoData} from "../../api/authApiCalls";
 import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
-import {ValidateHaslo} from "../helpers/ValidateHaslo";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {changeDaneKonta} from "../../api/authApiCalls";
 
@@ -17,8 +14,6 @@ import {changeDaneKonta} from "../../api/authApiCalls";
 class ZmianaDanychKonta extends React.Component {
     constructor(props) {
             super(props);
-            //console.log(this.props.params)
-            //const paramsIdKlient = this.props.params.IdOsoba
             this.state = {
               data: {
                   NazwaUzytkownika:'',
@@ -111,13 +106,9 @@ class ZmianaDanychKonta extends React.Component {
             }
         }
         if (fieldName === 'Haslo') {
-            if (!CheckTextRange(fieldValue, 8, 30)) {
+            if (!CheckTextRange(fieldValue, 5, 30)) {
                 errorMessage = `${t('validation.from8to30')}`
             }
-            if (!ValidateHaslo(fieldValue)) {
-                errorMessage = `${t('validation.password')}`
-            }
-
             if (!fieldValue) {
                 errorMessage = `${t('validation.required')}`
             }
@@ -129,8 +120,6 @@ class ZmianaDanychKonta extends React.Component {
         const { navigate } = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
-                    console.log(isValid)
-
         if (isValid) {
             const data = this.state.data
             console.log(data)
@@ -212,14 +201,11 @@ class ZmianaDanychKonta extends React.Component {
     render() {
         const {t} = this.props;
         const {navigate} = this.props
-        const { i18n } = this.props;
-        let language = i18n.language
-
 
         return(
         <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
                  <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">Zmiana danych konta</p>
+                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('konto.changeData')}</p>
                     <div class="block lg:hidden sticky inset-0">
                        <button id="menu-toggle" class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-500 appearance-none focus:outline-none">
                           <svg class="fill-current h-3 float-right" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -233,7 +219,7 @@ class ZmianaDanychKonta extends React.Component {
                     <div class="flex flex-wrap -mx-3 mb-4 ">
                          <div class="w-full px-3">
                              <label class="block tracking-wide text-gray-600 text-s font-bold mb-2" >
-                                  Nazwa użytkownika
+                                 {t('konto.login')}
                              </label>
                              <input class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
                                  name="NazwaUzytkownika" id="NazwaUzytkownika" type="text" value={this.state.data.NazwaUzytkownika} onChange={this.handleChange} placeholder="" />
@@ -263,7 +249,7 @@ class ZmianaDanychKonta extends React.Component {
                     <div class="flex flex-wrap -mx-3 mb-10 mt-16">
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                Podaj hasło
+                                {t('konto.field.typePassword')}
                             </label>
                             <input class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             name="Haslo" id="Haslo"  type="password" value={this.state.data.Haslo}  placeholder="" onChange={this.handleChange} />
@@ -288,7 +274,6 @@ class ZmianaDanychKonta extends React.Component {
                         </div>
                     </div>
              </form>
-
           </div>
         </div>
         )

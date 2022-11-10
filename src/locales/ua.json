@@ -96,13 +96,23 @@
 		"logout": "Log out"
 	},
 	"konto": {
-		"changePassword": "Change password",
-		"saveChanges": "Save changes",
-		"forgotPassword": "Forgot password?",
+		"myAccount": "Moje konto",
+		"contactDetails": "Dane kontaktowe",
+		"accountManagement": "Zarządzanie kontem",
+		"changePassword": "Zmiana hasła",
+		"saveChanges": "Zapisz zmiany",
+		"forgotPassword": "Nie pamiętasz hasła?",
+		"changeData": "Zmiana danych konta",
+		"login": "Nazwa użytkownika",
+		"button": {
+			"changeContactData": "Zmień dane kontaktowe",
+			"changePassword" : "Zmień hasło"
+		},
 		"field": {
-			"currentPassword": "Current password",
-			"newPassword": "New password",
-			"newPassword2": "New password"
+			"typePassword": "Podaj hasło",
+			"currentPassword": "Aktualne hasło",
+			"newPassword": "Nowe hasło",
+			"newPassword2": "Powtórze hasło"
 		}
 	},
 	"wizyta": {

@@ -108,14 +108,17 @@
 		"changePassword": "Zmiana hasła",
 		"saveChanges": "Zapisz zmiany",
 		"forgotPassword": "Nie pamiętasz hasła?",
+		"changeData": "Zmiana danych konta",
+		"login": "Nazwa użytkownika",
 		"button": {
 			"changeContactData": "Zmień dane kontaktowe",
 			"changePassword" : "Zmień hasło"
 		},
 		"field": {
+			"typePassword": "Podaj hasło",
 			"currentPassword": "Aktualne hasło",
 			"newPassword": "Nowe hasło",
-			"newPassword2": "Powtórze hasło"
+			"newPassword2": "Powtórz hasło"
 		}
 	},
 	"wizyta": {

@@ -96,7 +96,7 @@ class ZmianaHasla extends React.Component {
             if (!ValidateHaslo(fieldValue)) {
                 errorMessage = `${t('validation.password')}`
             }
-            if (!CheckTextRange(fieldValue, 8, 30)) {
+            if (!CheckTextRange(fieldValue, 5, 30)) {
                 errorMessage = `${t('validation.from8to30')}`
             }
             if (!fieldValue) {
@@ -110,7 +110,7 @@ class ZmianaHasla extends React.Component {
             if (fieldValue != user['newHaslo']) {
                 errorMessage = `${t('validation.notSame')}`
             }
-            if (!CheckTextRange(fieldValue, 8, 30)) {
+            if (!CheckTextRange(fieldValue, 5, 30)) {
                 errorMessage = `${t('validation.from8to30')}`
             }
             if (!fieldValue) {
