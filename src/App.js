@@ -69,6 +69,7 @@ class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
+                <div className="block">
                 <Navigation handleLogout={this.handleLogout}/>
                 <Routes>
                     <Route path="/" element={<MainPage/>}/>
@@ -122,6 +123,7 @@ class App extends React.Component {
                     <Route path="/pacjenci/details/:idPacjent" element={<SzczegolyPacjent/>}/>
 
                 </Routes>
+                </div>
                 <Footer/>
             </BrowserRouter>
         );

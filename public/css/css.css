@@ -5,6 +5,18 @@ padding-bottom: 0.5em;
 
 }
 
+footer{
+    height: 10vh;
+}
+
+.block{
+    display: flex;
+    min-height: 90vh;
+    flex-direction: column;
+    flex: 1;
+    margin: 0 auto;
+}
+
 .symbol-required {
     color: #e20c0c;
 }
