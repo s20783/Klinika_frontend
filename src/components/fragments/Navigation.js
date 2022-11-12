@@ -55,8 +55,12 @@ class Navigation extends React.Component {
                                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.vets')}</NavLink>}
                                 {(isAdmin()  || isWeterynarz()) && <NavLink to="/pacjenci"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.patients')}</NavLink>}
+                                {(isAdmin()  || isWeterynarz()) && <NavLink to="/wizyty"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.visits')}</NavLink>}
                                 {(isAdmin() || isWeterynarz()) && <NavLink to="/uslugi"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.services')}</NavLink>}
+                                {(isAdmin() || isWeterynarz()) && <NavLink to="/choroby"
+                                                       className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.disease')}</NavLink>}
                                 {(isAdmin() || isWeterynarz()) && <NavLink to="/leki"
                                                        className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">{t('navigation.medicines')}</NavLink>}
                                 {(isAdmin() || isWeterynarz()) && <NavLink to="/szczepionia"

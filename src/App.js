@@ -23,6 +23,9 @@ import SzczegolyKlienta from "./components/klient/SzczegolyKlienta";
 import SpecjalizacjaList from "./components/specjalizacja/SpecjalizacjaList";
 import FormularzSpecjalizacji from "./components/specjalizacja/FormularzSpecjalizacji";
 import UsuniecieSpecjalizacji from "./components/specjalizacja/UsuniecieSpecjalizacji";
+import ChorobaList from "./components/choroba/ChorobaList";
+import FormularzChoroby from "./components/choroba/FormularzChoroby";
+import UsuniecieChoroby from "./components/choroba/UsuniecieChoroby";
 import UslugaList from "./components/usluga/UslugaList";
 import FormularzUslugi from "./components/usluga/FormularzUslugi";
 import UsuniecieUslugi from "./components/usluga/UsuniecieUslugi";
@@ -30,6 +33,7 @@ import KontoWizyty from "./components/konto/KontoWizyty";
 import ZmianaHasla from "./components/konto/ZmianaHasla";
 import ZmianaDanychKonta from "./components/konto/ZmianaDanychKonta";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
+import WizytaList from "./components/wizyta/WizytaList";
 import UsuniecieWizyty from "./components/wizyta/UsuniecieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
@@ -110,7 +114,12 @@ class App extends React.Component {
                     <Route path="/umowWizyte" element={<UmowienieWizyty/>}/>
                     <Route path="/potwierdzenieWizyty" element={<PotwierdzenieUmowieniaWizyty/>}/>
                     <Route path="/wizyty/delete/:idWizyta" element={<UsuniecieWizyty/>}/>
+                    <Route path="/wizyty" element={<WizytaList/>}/>
 
+                    <Route path="/choroby" element={<ChorobaList/>}/>
+                    <Route path="/dodajChorobe" element={<FormularzChoroby/>}/>
+                    <Route path="/choroby/edycjaChoroba/:IdChoroba" element={<FormularzChoroby/>}/>
+                    <Route path="/choroby/delete/:IdChoroba" element={<UsuniecieChoroby/>}/>
 
                     <Route path="/leki" element={<LekList/>}/>
                     <Route path="/leki/:IdLek" element={<LekDetailsList/>}/>

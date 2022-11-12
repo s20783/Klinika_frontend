@@ -6,7 +6,9 @@
 		"clients": "Klienci",
 		"vets": "Weterynarze",
 		"patients": "Pacjenci",
+		"visits": "Wizyty",
 		"services": "Usługi",
+		"disease": "Choroby",
 		"medicines": "Leki",
 		"vaccinations": "Szczepionki",
 		"schedule": "Harmonogram",
@@ -257,6 +259,22 @@
 			},
 			"price": "Cena",
 			"narcosis": "Czy narkoza?",
+			"description": "Opis"
+		}
+	},
+	"choroba": {
+		"title": "Choroby",
+		"addNewDisease": "Dodanie nowej choroby",
+		"editDisease": "Edycja choroby",
+		"deletingDisease": "Czy na pewno chcesz usunąc chorobe?",
+		"deleteDisease": "Usuń chorobe",
+		"addDescription":"Dodaj opis . . .",
+		"selectDisease": "Wybierz chorobe",
+		"button": {
+			"addDisease": "Dodaj chorobe"
+		},
+		"fields": {
+			"name": "Nazwa",
 			"description": "Opis"
 		}
 	}

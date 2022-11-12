@@ -6,7 +6,9 @@
 		"clients": "Clients",
 		"vets": "Vets",
 		"patients": "Patients",
+		"visits": "Visits",
 		"services": "Services",
+		"disease": "Disease",
 		"medicines": "Medicines",
 		"vaccinations": "Vaccinations",
 		"schedule": "Schedule",
@@ -231,6 +233,22 @@
 		"selectSpecialization": "Select specialization",
 		"button": {
 			"addSpecialization": "Add specialization"
+		},
+		"fields": {
+			"name": "Name",
+			"description": "Description"
+		}
+	},
+	"choroba": {
+		"title": "Diseases",
+		"addNewDisease": "Adding new disease",
+		"editDisease": "Edit disease",
+		"deletingDisease": "Are you sure you want to delete disease?",
+		"deleteDisease": "Delete disease",
+		"addDisease":"Add description . . .",
+		"selectDisease": "Select disease",
+		"button": {
+			"addDisease": "Add disease"
 		},
 		"fields": {
 			"name": "Name",
