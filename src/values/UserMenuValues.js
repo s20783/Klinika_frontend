@@ -18,14 +18,6 @@ export const userMenuValues = [
     {
         title: 'prescriptions',
         url: '/mojeRecepty'
-    },
-    {
-        title: 'referrals',
-        url: '/mojeSkierowania'
-    },
-    {
-        title: 'payments',
-        url: '/mojeOplaty'
     }
 ];
 
