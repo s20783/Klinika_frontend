@@ -1,5 +1,5 @@
 import React from "react";
-import {getVisitList} from "../../api/WizytaApiCalls";
+import {getClientVisitList} from "../../api/WizytaApiCalls";
 import WizytaTableList from "../wizyta/WizytaTableList";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
@@ -20,7 +20,7 @@ class KontoWizyty extends React.Component {
 
     componentDidMount() {
         const {navigate} = this.props;
-        getVisitList()
+        getClientVisitList()
             .then(res => {
                 console.log(res.status)
                 if (res.status === 401) {

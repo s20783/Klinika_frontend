@@ -19,21 +19,21 @@ function PacjentKlientListTable(props) {
             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.name')}</th>
-                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.species')}</th>
-                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.breed')}</th>
-                    <th scope="col" className="px-6 uppercase py-3">{t('pacjent.fields.color')}</th>
-                    <th scope="col" className="px-6 uppercase py-3"/>
+                    <th scope="col" className="px-6 uppercase py-3 text-center">{t('pacjent.fields.name')}</th>
+                    <th scope="col" className="px-6 uppercase py-3 text-center">{t('pacjent.fields.species')}</th>
+                    <th scope="col" className="px-6 uppercase py-3 text-center">{t('pacjent.fields.breed')}</th>
+                    <th scope="col" className="px-6 uppercase py-3 text-center">{t('pacjent.fields.gender')}</th>
+                    <th scope="col" className="px-6 uppercase py-3 text-center"/>
                 </tr>
                 </thead>
                 <tbody>
                 {list.map(x => (
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                         key={x.IdPacjent}>
-                        <td className="px-6 py-2">{x.Nazwa}</td>
-                        <td className="px-6 py-2">{x.Gatunek}</td>
-                        <td className="px-6 py-2">{x.Rasa}</td>
-                        <td className="px-6 py-2">{x.Masc}</td>
+                        <td className="px-6 py-2 text-center">{x.Nazwa}</td>
+                        <td className="px-6 py-2 text-center">{x.Gatunek}</td>
+                        <td className="px-6 py-2 text-center">{x.Rasa}</td>
+                        <td className="px-6 py-2 text-center">{x.Plec === 'F' ? 'Samica' : 'Samiec'}</td>
                         <td className="px-6 py-1">
                             <div className="list-actions">
                                 <div className=" flex">

@@ -26,7 +26,7 @@ export function postWizyta(data) {
         token = user.Token
     }
     const dataString = JSON.stringify(data)
-        const url = `${wizytaURL}/moje_wizyty`;
+        const url = `${wizytaURL}`;
     const options = {
         method: 'POST',
         headers: {
@@ -56,10 +56,10 @@ export function getPacjentVisitList(Id){
     const promise = fetch(url, options);
     return promise;
 }
-export function getClientVisitList(Id){
+export function getClientVisitList(){
     const user = getCurrentUser()
     let token
-    const url = `${wizytaURL}/${Id}`;
+    const url = `${wizytaURL}/moje_wizyty`;
 
     if(user && user.Token) {
         token = user.Token
