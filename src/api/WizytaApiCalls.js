@@ -90,3 +90,35 @@ export function deleteWizyta(Id){
     }
     return fetch(url,options)
 }
+export function getWizytaDetails(Id){
+    const url = `${wizytaURL}/details/${Id}`;
+    const user = getCurrentUser()
+    let token
+    if(user && user.Token) {
+        token = user.Token
+    }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+    return fetch(url, options);
+}
+export function getUslugaVisitList(Id){
+    /*const url = `${wizytaURL}/details/${Id}`;
+    const user = getCurrentUser()
+    let token
+    if(user && user.Token) {
+        token = user.Token
+    }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+    return fetch(url, options);*/
+}

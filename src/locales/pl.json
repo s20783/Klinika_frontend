@@ -126,6 +126,7 @@
 	"wizyta": {
 		"title": "Wizyty",
 		"makeAnAppointment": "Umówienie wizyty",
+		"visitDetails": "Szczegóły wizyty",
 		"thankYou": "Dziękujemy!",
 		"confirmation": "Potwierdzenie umówienia wizyty.",
 		"date": "Termin",
@@ -144,11 +145,15 @@
 			"AnulowanaKlinika": "Anulowana"
 		},
 		"table": {
-			"date": "data",
-			"patient": "pacjent",
-			"vet": "weterynarz",
-			"status": "status",
-			"isPaid": "czy opłacone"
+			"startDate": "Data rozpoczecia",
+			"endDate": "Data zakonczenia",
+			"patient": "Pacjent",
+			"vet": "Weterynarz",
+			"status": "Status",
+			"isPaid": "Czy opłacone?",
+			"price": "Cena",
+			"clientNote": "Notatka klienta",
+			"description": "Opis"
 		},
 		"field": {
 			"patient": "Pacjent",

@@ -34,6 +34,7 @@ import ZmianaHasla from "./components/konto/ZmianaHasla";
 import ZmianaDanychKonta from "./components/konto/ZmianaDanychKonta";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
 import WizytaList from "./components/wizyta/WizytaList";
+import SzczegolyWizyty from "./components/wizyta/SzczegolyWizyty";
 import UsuniecieWizyty from "./components/wizyta/UsuniecieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
@@ -115,6 +116,7 @@ class App extends React.Component {
                     <Route path="/potwierdzenieWizyty" element={<PotwierdzenieUmowieniaWizyty/>}/>
                     <Route path="/wizyty/delete/:idWizyta" element={<UsuniecieWizyty/>}/>
                     <Route path="/wizyty" element={<WizytaList/>}/>
+                    <Route path="/wizyty/:IdWizyta" element={<SzczegolyWizyty/>}/>
 
                     <Route path="/choroby" element={<ChorobaList/>}/>
                     <Route path="/dodajChorobe" element={<FormularzChoroby/>}/>

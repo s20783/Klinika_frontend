@@ -127,6 +127,7 @@
 	"wizyta": {
 		"title": "Appointments",
 		"makeAnAppointment": "Make an appointment",
+		"visitDetails": "Visit Details",
 		"thankYou": "Thank you!",
 		"confirmation": "Appointment confirmed.",
 		"date": "Date",
@@ -145,11 +146,15 @@
 			"AnulowanaKlinika": "Canceled"
 		},
 		"table": {
-			"date": "Date",
+			"startDate": "Start Date",
+			"endDate": "End Date",
 			"patient": "Patient",
 			"vet": "Vet",
-			"status": "status",
-			"isPaid": "paid"
+			"status": "Status",
+			"isPaid": "Is paid?",
+			"price": "Price",
+			"clientNote": "Client Note",
+			"description": "Description"
 		},
 		"field": {
 			"patient": "Patient",
@@ -236,6 +241,29 @@
 		},
 		"fields": {
 			"name": "Name",
+			"description": "Description"
+		}
+	},
+	"usluga": {
+		"title": "Services",
+		"addNewService": "Adding new service",
+		"editService": "Editing service",
+		"deletingService": "Are you sure you want to delete service?",
+		"deleteService": "Delete service",
+		"addDescription":"Add description . . .",
+		"button": {
+			"addService": "Add service"
+		},
+		"fields": {
+			"name": "Name",
+			"painScale": "Pain scale",
+			"painScaleEnum": {
+				"low": "Low",
+				"medium": "Medium",
+				"high": "High"
+			},
+			"price": "Price",
+			"narcosis": "Is narcosis?",
 			"description": "Description"
 		}
 	},

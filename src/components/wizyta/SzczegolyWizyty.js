@@ -1,40 +1,37 @@
 import React from "react";
 import {getKlientList} from "../../api/KlientApiCalls";
-import {getPacjentDetails1} from "../../api/PacjentApiCalls";
-import {getPacjentVisitList} from "../../api/WizytaApiCalls";
-import DodaniePacjentaForm from "./DodaniePacjentaForm";
+import {getWizytaDetails} from "../../api/WizytaApiCalls";
+import {getUslugaVisitList} from "../../api/WizytaApiCalls";
 import {useParams} from "react-router";
 import dayjs from 'dayjs';
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {Link} from "react-router-dom";
 
-class SzczegolyPacjent extends React.Component {
+class SzczegolyWizyty extends React.Component {
     constructor(props) {
             super(props);
-            const paramsIdPacjent = this.props.params.idPacjent
+            const paramsIdWizyta = this.props.params.IdWizyta
          this.state = {
-            pacjent: {
-                IdOsoba: '',
-                Wlasciciel:'',
-                Nazwa:'',
-                Gatunek:'',
-                Rasa:'',
-                Waga: null,
-                Masc:'',
-                Plec:'',
-                DataUrodzenia:'',
-                Agresywne:false,
-                Ubezplodnienie: false
+            wizyta: {
+                Pacjent: '',
+                Weterynarz:'',
+                DataRozpoczecia:null,
+                DataZakonczenia:null,
+                Opis:'',
+                NotatkaKlient: '',
+                Cena:null,
+                CzyOplacona:false,
+                Status:'',
             },
-            idPacjent:paramsIdPacjent,
+            idWizyta:paramsIdWizyta,
             message:'',
-            wizyty:[]
+            uslugi:[]
          }
     }
 
-      fetchPatientDetails = () => {
-        getPacjentDetails1(this.state.idPacjent)
+      fetchWizytaDetails = () => {
+        getWizytaDetails(this.state.idWizyta)
             .then(res => res.json())
             .then(
                    (data) => {
@@ -45,7 +42,7 @@ class SzczegolyPacjent extends React.Component {
                          })
                       } else {
                          this.setState({
-                              pacjent: data,
+                              wizyta: data,
                               notice: null
                          })
                       }
@@ -65,9 +62,9 @@ class SzczegolyPacjent extends React.Component {
 
 
     componentDidMount() {
-       this.fetchPatientDetails()
-
-         getPacjentVisitList(this.state.idPacjent)
+       this.fetchWizytaDetails()
+/*
+         getUslugaVisitList(this.state.idWizyta)
              .then(res => {
                  console.log(res.status)
                  if (res.status === 401) {
@@ -80,7 +77,7 @@ class SzczegolyPacjent extends React.Component {
                      console.log(data)
                      this.setState({
                          isLoaded: true,
-                         wizyty: data
+                         uslugi: data
                      });
                  },
                  (error) => {
@@ -89,11 +86,11 @@ class SzczegolyPacjent extends React.Component {
                          error
                      });
                  }
-             )
+             )*/
     }
 
     render() {
-        const {error, isLoaded, pacjent} = this.state
+        const {error, isLoaded, wizyta} = this.state
         const {t} = this.props;
         let content;
 
@@ -111,7 +108,7 @@ class SzczegolyPacjent extends React.Component {
         return(
         <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
                  <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('pacjent.detailsPatient')}</p>
+                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('wizyta.visitDetails')}</p>
                     <div class="block lg:hidden sticky inset-0">
                        <button id="menu-toggle" class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-500 appearance-none focus:outline-none">
                           <svg class="fill-current h-3 float-right" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -125,103 +122,93 @@ class SzczegolyPacjent extends React.Component {
                      <div class="flex flex-wrap -mx-3 mb-4 border-b">
                          <div class="w-full px-3">
                              <label class="block tracking-wide text-gray-600 text-s font-bold mb-2" >
-                                   {t('pacjent.fields.owner')}
+                                   {t('wizyta.table.patient')}
                              </label>
-                             <input class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
-                                 name="Wlasciciel" id="Wlasciciel" type="text" value="Adam Nowak"  onChange={this.handleChange} placeholder="" />
+                             <input class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-4 leading-tight focus:outline-none focus:bg-white "
+                                 name="Wlasciciel" id="Wlasciciel" type="text"  value={this.state.wizyta.Pacjent} onChange={this.handleChange} placeholder="" />
                          </div>
                     </div>
 
                     <div class="flex flex-wrap -mx-3 mb-4 border-b">
                          <div class="w-full px-3">
                              <label class="block tracking-wide text-gray-600 text-s font-bold mb-2" >
-                                  {t('pacjent.fields.name')}
+                                  {t('wizyta.table.vet')}
                              </label>
-                             <input class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
-                                 name="Nazwa" id="Nazwa" type="text" value={this.state.pacjent.Nazwa} onChange={this.handleChange} placeholder="" />
+                             <input class="form-textarea appearance-none block w-4/6 bg-gray-200  text-gray-700 border border-gray-200 rounded py-1 px-4 mb-4 leading-tight focus:outline-none focus:bg-white "
+                                 name="Nazwa" id="Nazwa" type="text" value={this.state.wizyta.Weterynarz} onChange={this.handleChange} placeholder="" />
                          </div>
                     </div>
 
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-2/6 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2" >
-                               {t('pacjent.fields.species')}
+                               {t('wizyta.table.startDate')}
                             </label>
                             <input class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
-                            name="Gatunek" id="Gatunek" type="text"  value={this.state.pacjent.Gatunek} placeholder="" onChange={this.handleChange}/>
+                            name="DataRozpoczecia" id="DataRozpoczecia" type="text"  value={dayjs(this.state.wizyta.DataRozpoczecia).format('YYYY-MM-DD HH:mm')} placeholder="" onChange={this.handleChange}/>
                         </div>
                         <div class="w-full md:w-2/6 px-3 ml-8">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2" for="grid-last-name">
-                                {t('pacjent.fields.breed')}
+                                {t('wizyta.table.endDate')}
                             </label>
                             <input class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            name="Rasa" id="Rasa" type="text"  value={this.state.pacjent.Rasa} placeholder="" onChange={this.handleChange}/>
+                            name="DataZakonczenia" id="DataZakonczenia" type="text"  value={dayjs(this.state.wizyta.DataZakonczenia).format('YYYY-MM-DD HH:mm')} placeholder="" onChange={this.handleChange}/>
                         </div>
                     </div>
-
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                {t('pacjent.fields.weight')}
-                            </label>
-                            <input class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            name="Waga" id="Waga" step="0.01" type="number" value={this.state.pacjent.Waga} onChange={this.handleChange} placeholder="" />
-
-                        </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                {t('pacjent.fields.color')}
-                            </label>
-                            <input class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            name="Masc" id="Masc" type="text"value={this.state.pacjent.Masc} placeholder="" onChange={this.handleChange}/>
+                    <div class=" mb-6 border-b">
+                        <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
+                            {t("wizyta.table.description")}
+                        </label>
+                        <div class="md:w-3/4 mt-5">
+                          <textarea class="form-textarea block w-full focus:bg-white mb-4" id="Opis" name="Opis"
+                                    value={this.state.wizyta.Opis} rows="5" onChange={this.handleChange}/>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                               {t('pacjent.fields.birthdate')}
+                                {t('wizyta.table.clientNote')}
                             </label>
-                            <input class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            name="DataUrodzenia" id="DataUrodzenia"  type="text" value={dayjs(this.state.pacjent.DataUrodzenia).format('YYYY-MM-DD')}  placeholder="" />
-
+                          <textarea class="form-textarea block w-full focus:bg-white mb-4" id="Notatka" name="Notatka"
+                                              value={this.state.wizyta.NotatkaKlient}  rows="5" onChange={this.handleChange}/>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                {t('pacjent.fields.infertile')}
-                            </label>
-                            {this.state.pacjent.Ubezplodnienie===true && <svg class="h-8 w-8 text-black mb-5"  width="24" height="24" viewBox="0 0 24 24"  stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 12l5 5l10 -10" /></svg>}
-                            {this.state.pacjent.Ubezplodnienie===false && <svg class="h-8 w-8 text-black mb-5"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="w-full md:w-1/3 px-3 mb-6 mt-6 ml-14 md:mb-0">
+                            <div className=" mb-6">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                                    {t('wizyta.table.isPaid')}
+                                </label>
+                            {this.state.wizyta.CzyOplacona===true && <svg class="h-8 w-8 text-black mb-5"  width="24" height="24" viewBox="0 0 24 24"  stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 12l5 5l10 -10" /></svg>}
+                            {this.state.wizyta.CzyOplacona===false && <svg class="h-8 w-8 text-black mb-5"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                                                     </svg>}                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap -mx-3 mb-6 ">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                {t('pacjent.fields.gender')}
-                            </label>
-                            {this.state.pacjent.Plec==="M" && <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" font-weight="bold" class="bi bi-gender-male" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="black" stroke-width="0.5"/>
-                                                              </svg>}
-                            {this.state.pacjent.Plec==="F" && <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"  class="bi bi-gender-female" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z" stroke="black" stroke-width="0.5"/>
-                                                              </svg>}
-                        </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
-                                {t('pacjent.fields.aggressive')}
-                            </label>
-                            {this.state.pacjent.Agresywne===true && <svg class="h-8 w-8 text-black"  width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 12l5 5l10 -10" /></svg>}
-                            {this.state.pacjent.Agresywne===false && <svg class="h-8 w-8 text-black "  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                       <path stroke-linecap="round" stroke-linejoin="round"  d="M6 18L18 6M6 6l12 12"/>
                                                                      </svg>}
-
+                            </div>
                         </div>
                     </div>
+
+                    <div class="flex flex-wrap  mb-6 ">
+                        <div class="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+                            <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2" >
+                               {t('wizyta.table.price')}
+                            </label>
+                            <input class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                            name="Cena" id="Cena" type="text"  value={this.state.wizyta.Cena} placeholder="" onChange={this.handleChange}/>
+                        </div>
+                        <div class="w-full md:w-2/6 px-3 ml-8">
+                            <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2" for="grid-last-name">
+                                {t('wizyta.table.status')}
+                            </label>
+                            <input class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            name="Status" id="Status" type="text"  value={this.state.wizyta.Status} placeholder="" onChange={this.handleChange}/>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap  mb-6 ">
+
+                     </div>
+
                  </form>
                  <div className="flex justify-between mt-14">
                   <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
-                      {t('wizyta.title')}</h2>
+                      {t('usluga.title')}</h2>
 
                       <div className="relative  w-1/3 ">
                           <button id="menu-toggle" onClick={() => { this.mozeDoWizyty()}}
@@ -234,25 +221,24 @@ class SzczegolyPacjent extends React.Component {
                  <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                      <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                      <tr>
-                         <th scope="col" className="px-6 uppercase py-3 text-center">{t("wizyta.table.date")}</th>
-                         <th scope="col" className="px-6 uppercase py-3 text-center">{t("wizyta.table.vet")}</th>
-                         <th scope="col" className="px-6 uppercase py-3 text-center">{t("wizyta.table.status")}</th>
-                         <th scope="col" className="px-6 uppercase py-3 text-center">{t("wizyta.table.isPaid")}</th>
+                         <th scope="col" className="px-6 uppercase py-3 text-center">{t("usluga.fields.name")}</th>
+                         <th scope="col" className="px-6 uppercase py-3 text-center">{t("usluga.fields.narcosis")}</th>
+                         <th scope="col" className="px-6 uppercase py-3 text-center">{t("usluga.fields.price")}</th>
                          <th></th>
                      </tr>
                      </thead>
                      <tbody>
-                     {this.state.wizyty.map(x => (
+                     {this.state.uslugi.map(x => (
                          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
-                             key={x.idWizyta}>
-                             <td scope="col" className="px-6 py-2 text-center">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
-                             <td scope="col" className="px-6 py-2 text-center">{x.Weterynarz}</td>
-                             <td scope="col" className="px-6 py-2 text-center">{t("wizyta.status." + x.Status)}</td>
-                             <td scope="col" className="px-6 py-2 text-center">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
+                             key={x.idUsluga}>
+                             <td scope="col" className="px-6 py-2 text-center">{x.Nazwa }</td>
+                             <td scope="col" className="px-6 py-2 text-center">{x.CzyNarkoza}</td>
+                             <td scope="col" className="px-6 py-2 text-center">{x.Cena}</td>
+
 
                                  <div className="list-actions text-center py-2">
                                      <div className=" flex">
-                                    <Link to={`/wizyty/${x.IdWizyta}`} className="list-actions-button-details flex-1">
+                                    <Link to={`/uslugi/${x.IdUsluga}`} className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-details flex-1"
                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="#000000" viewBox="0 0 256 256">
@@ -268,26 +254,6 @@ class SzczegolyPacjent extends React.Component {
                                                       strokeLinejoin="round" strokeWidth="16"></polyline>
                                             <circle className="details-icon-color dot" cx="126" cy="84"
                                                     r="12"></circle>
-                                        </svg>
-                                    </Link>
-                                    <Link to={`/wizyty/edit/${x.IdWizyta}`}
-                                                             className="list-actions-button-details flex-1">
-                                        <svg className="list-actions-button-edit flex-1"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                                            <rect className="details-icon-color" width="256" height="256"
-                                                  fill="none"></rect>
-                                            <path className="details-icon-color"
-                                                  d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
-                                                  fill="none" stroke="#000000" strokeLinecap="round"
-                                                  strokeLinejoin="round" strokeWidth="16"></path>
-                                            <line className="details-icon-color" x1="136" y1="64" x2="192" y2="120"
-                                                  fill="none" stroke="#000000" strokeLinecap="round"
-                                                  strokeLinejoin="round" strokeWidth="16"></line>
-                                            <polyline className="details-icon-color"
-                                                      points="216 216 96 216 40.509 160.509" fill="none"
-                                                      stroke="#000000" strokeLinecap="round"
-                                                      strokeLinejoin="round" strokeWidth="16"></polyline>
                                         </svg>
                                     </Link>
                                     <Link to={`/wizyty/delete/${x.IdWizyta}`}className="list-actions-button-details flex-1">
@@ -319,7 +285,6 @@ class SzczegolyPacjent extends React.Component {
                                      </div>
                                  </div>
 
-
                          </tr>
                      ))}
                      </tbody>
@@ -346,4 +311,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation() (withRouter(SzczegolyPacjent));
+export default withTranslation() (withRouter(SzczegolyWizyty));
