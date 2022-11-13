@@ -26,7 +26,7 @@ export function postWizyta(data) {
         token = user.Token
     }
     const dataString = JSON.stringify(data)
-        const url = `${wizytaURL}`;
+    const url = `${wizytaURL}/umowWizyte`;
     const options = {
         method: 'POST',
         headers: {

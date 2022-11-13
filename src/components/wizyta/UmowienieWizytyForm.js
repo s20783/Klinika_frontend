@@ -34,7 +34,6 @@ class UmowienieWizytyForm extends React.Component {
         }
     }
 
-
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -52,10 +51,13 @@ class UmowienieWizytyForm extends React.Component {
 
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
+        const {list} = this.state
         let errorMessage = '';
-        if (fieldName === 'Pacjent') {
-            if (!fieldValue) {
-                errorMessage = `${t('validation.required')}`
+        if(this.checkPacjentList(list)){
+            if (fieldName === 'Pacjent') {
+                if (!fieldValue) {
+                    errorMessage = `${t('validation.required')}`
+                }
             }
         }
         if (fieldName === 'Termin') {
@@ -90,17 +92,28 @@ class UmowienieWizytyForm extends React.Component {
         const {navigate} = this.props;
         const data = {...this.state.data}
         const wizyta = {...this.state.wizyta}
+        const {list} = this.state
 
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
-            let response
-            const newData = {
-                ID_Harmonogram: data["Termin"],
-                ID_Pacjent: data["Pacjent"],
-                Notatka: data["Notatka"],
-                ID_klient: data["ID_Klient"]
+            let response, newData
+            if(this.checkPacjentList(list)){
+                newData = {
+                    ID_Harmonogram: data["Termin"],
+                    ID_Pacjent: data["Pacjent"],
+                    Notatka: data["Notatka"],
+                    ID_klient: data["ID_Klient"]
+                }
+            } else {
+                newData = {
+                    ID_Harmonogram: data["Termin"],
+                    ID_Pacjent: '0',
+                    Notatka: data["Notatka"],
+                    ID_klient: data["ID_Klient"]
+                }
             }
+            console.log(newData)
             postWizyta(newData)
                 .then(res => {
                     response = res
@@ -108,9 +121,8 @@ class UmowienieWizytyForm extends React.Component {
                 })
                 .then(
                     (data1) => {
-                        console.log(response)
+                        console.log(data1)
                         if (response.ok) {
-                            //console.log(this.state.wizyta.Data)
                             navigate(
                                 "/potwierdzenieWizyty",
                                 {
@@ -132,6 +144,8 @@ class UmowienieWizytyForm extends React.Component {
                             error: error
                         })
                     })
+        } else {
+            console.log("adsa")
         }
     }
 
@@ -148,7 +162,6 @@ class UmowienieWizytyForm extends React.Component {
 
     onChange = (date) => {
         this.setState({selectedDate: date});
-
         const {navigate} = this.props;
         getHarmonogram(dayjs(date).format('YYYY-MM-DD'))
             .then(res => {
@@ -182,13 +195,17 @@ class UmowienieWizytyForm extends React.Component {
 
         errors["Data"] = ''
         data["Termin"] = harmonogram.IdHarmonogram
-        wizyta["Data"] =  getFormattedDateWithHour(harmonogram.Data)
-        wizyta["Dzien"] =  harmonogram.Dzien
+        wizyta["Data"] = getFormattedDateWithHour(harmonogram.Data)
+        wizyta["Dzien"] = harmonogram.Dzien
         this.setState({
             wizyta: wizyta,
             data: data,
             errors: errors
         })
+    }
+
+    checkPacjentList = (list) => {
+        return list.length > 0;
     }
 
     render() {
@@ -200,29 +217,31 @@ class UmowienieWizytyForm extends React.Component {
             <div
                 className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                 <form onSubmit={this.handleSubmit}>
-                    <section class="bg-white-100 border-b  mb-7">
-                        <div class=" md:flex mb-6 mt-4">
-                            <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
-                                   htmlFor="Pacjent">
-                                {t("wizyta.field.patient")}
-                            </label>
-                            <div class="md:w-3/5">
+                    {this.checkPacjentList(list) &&
+                        <section className="bg-white-100 border-b  mb-7">
+                            <div className=" md:flex mb-6 mt-4">
+                                <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
+                                       htmlFor="Pacjent">
+                                    {t("wizyta.field.patient")}
+                                </label>
+                                <div className="md:w-3/5">
 
-                                <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
-                                        className={this.state.errors.Pacjent ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
-                                    <option value="">{t("wizyta.selectPatient")}</option>
-                                    {
-                                        list.map(pacjent => (
-                                            <option value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
-                                        ))}
-                                    <option value="0">{t("wizyta.other")}</option>
-                                </select>
+                                    <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
+                                            className={this.state.errors.Pacjent ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
+                                        <option value="">{t("wizyta.selectPatient")}</option>
+                                        {
+                                            list.map(pacjent => (
+                                                <option value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
+                                            ))}
+                                        <option value="0">{t("wizyta.other")}</option>
+                                    </select>
+                                </div>
+                                <span id="errorPacjent" className="errors-text2">{this.state.errors.Pacjent}</span>
                             </div>
-                            <span id="errorPacjent" className="errors-text2">{this.state.errors.Pacjent}</span>
-                        </div>
-                    </section>
-                    <section class="bg-white-100 border-b mt-7">
-                        <label class="block  text-gray-600 font-bold md:text-left mb-6" form="my-select">
+                        </section>
+                    }
+                    <section className="bg-white-100 border-b mt-7">
+                        <label className="block  text-gray-600 font-bold md:text-left mb-6" form="my-select">
                             {t("wizyta.field.date")}
                         </label>
                         <Calendar className="mb-7"
@@ -239,11 +258,11 @@ class UmowienieWizytyForm extends React.Component {
 
                         </div>
                     </section>
-                    <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
+                    <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
                         {t("wizyta.field.description")}
                     </label>
-                    <div class="md:w-3/4 mt-5">
-                        <textarea class="form-textarea block w-full focus:bg-white " id="Notatka" name="Notatka"
+                    <div className="md:w-3/4 mt-5">
+                        <textarea className="form-textarea block w-full focus:bg-white " id="Notatka" name="Notatka"
                                   rows="5" onChange={this.handleChange}/>
                     </div>
                     <span id="errorOpis" className="errors-text2">{this.state.errors.Notatka}</span>
@@ -272,4 +291,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation() (withNavigate(UmowienieWizytyForm))
+export default withTranslation()(withNavigate(UmowienieWizytyForm))
