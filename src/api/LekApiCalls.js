@@ -1,10 +1,11 @@
 import {getCurrentUser} from "../components/other/authHelper";
+
 const lekURL = 'http://localhost:36989/api/Lek';
 
-export function getLekList(){
+export function getLekList() {
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -14,15 +15,14 @@ export function getLekList(){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(lekURL, options);
-    return promise;
+    return fetch(lekURL, options);
 }
 
-export function getLekDetailsList(Id){
+export function getLekDetailsList(Id) {
     const url = `${lekURL}/${Id}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -32,6 +32,5 @@ export function getLekDetailsList(Id){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(url, options);
-    return promise;
+    return fetch(url, options);
 }

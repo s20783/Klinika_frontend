@@ -19,7 +19,6 @@ class ZmianaHasla extends React.Component {
                 currentHaslo: '',
                 newHaslo: '',
                 newHaslo2: ''
-
             },
             error: '',
             message: ''
@@ -107,7 +106,7 @@ class ZmianaHasla extends React.Component {
             if (!ValidateHaslo(fieldValue)) {
                 errorMessage = `${t('validation.password')}`
             }
-            if (fieldValue != user['newHaslo']) {
+            if (fieldValue !== user['newHaslo']) {
                 errorMessage = `${t('validation.notSame')}`
             }
             if (!CheckTextRange(fieldValue, 5, 30)) {
@@ -125,8 +124,7 @@ class ZmianaHasla extends React.Component {
         const errors = this.state.errors
         for (const fieldName in user) {
             const fieldValue = user[fieldName]
-            const errorMessage = this.validateField(fieldName, fieldValue)
-            errors[fieldName] = errorMessage
+            errors[fieldName] = this.validateField(fieldName, fieldValue)
         }
         this.setState({
             errors: errors
@@ -154,9 +152,8 @@ class ZmianaHasla extends React.Component {
                         <div className="mx-8 my-10">
                             <p className="text-center mx-48 mb-6 font-bold text-4xl">{t("konto.changePassword")}</p>
                             <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
-
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                                                <p className=" pl-2 text-sm text-gray-600 font-bold">{t("konto.field.currentPassword")}</p>
+                                    <p className=" pl-2 text-sm text-gray-600 font-bold">{t("konto.field.currentPassword")}</p>
 
                                     <input type="text" id="currentHaslo" name="currentHaslo"
                                            onChange={this.handleChange}
@@ -164,11 +161,8 @@ class ZmianaHasla extends React.Component {
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errorHaslo" className="errors-text">{this.state.errors.currentHaslo}</span>
-
-
-
                                 <div className="my-5 pt-3 rounded bg-gray-200">
-                                                                <p className=" pl-2 text-sm text-gray-600 font-bold">{t("konto.field.newPassword")}</p>
+                                    <p className=" pl-2 text-sm text-gray-600 font-bold">{t("konto.field.newPassword")}</p>
 
                                     <input type="password" id="newHaslo" name="newHaslo"
                                            onChange={this.handleChange}
@@ -176,20 +170,16 @@ class ZmianaHasla extends React.Component {
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errornewHaslo" className="errors-text">{this.state.errors.newHaslo}</span>
-
-
                                 <div className="my-3 pt-3 rounded bg-gray-200">
-                                                                <p className=" pl-2 text-sm text-gray-600 font-bold">{t("konto.field.newPassword2")}</p>
+                                    <p className=" pl-2 text-sm text-gray-600 font-bold">{t("konto.field.newPassword2")}</p>
 
                                     <input type="password" id="newHaslo2" name="newHaslo2"
-                                            onChange={this.handleChange}
+                                           onChange={this.handleChange}
                                            className={this.state.errors.newHaslo2 ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errornewHaslo2" className="errors-text">{this.state.errors.newHaslo2}</span>
-
                                 <span id="error" className="errors-text2">{this.state.message}</span>
-
                                 <div class="flex justify-between">
                                     <p className=" text-black font-bold  underline text-lg hover:text-red-400 p-2 mt-6">
                                         <button onClick={() => navigate(-1)}>{t("button.back")}</button>
@@ -199,7 +189,9 @@ class ZmianaHasla extends React.Component {
                                 </div>
                             </form>
                             <div className="text-center pt-3">
-                                <p><Link to="#" className="underline font-semibold hover:text-blue-400">{t("konto.forgotPassword")}</Link></p>
+                                <p><Link to="#"
+                                         className="underline font-semibold hover:text-blue-400">{t("konto.forgotPassword")}</Link>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -224,4 +216,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation() (withNavigate(withRouter(ZmianaHasla)));
+export default withTranslation()(withNavigate(withRouter(ZmianaHasla)));

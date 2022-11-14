@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {getImie} from "../other/authHelper";
 import Dropdown from "./Dropdown";
 
@@ -31,12 +31,13 @@ function DropdownMenu(props) {
 
     return (
         <div onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}>
+             onMouseLeave={onMouseLeave}>
             <button id="userMenu"
                     className="flex items-center shadow bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-sm md:text-base font-bold py-2 px-4 rounded"
                     aria-expanded={dropdown ? "true" : "false"}
-                    onClick={() => { setDropdown((prev) => !prev)}}>
-
+                    onClick={() => {
+                        setDropdown((prev) => !prev)
+                    }}>
                 <div className="flex items-center text-sm">
                     <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                         <img
@@ -62,7 +63,6 @@ function DropdownMenu(props) {
                     </g>
                 </svg>
             </button>
-
             {
                 dropdown && <Dropdown logout={props.logout}/>
             }

@@ -2,12 +2,11 @@ import {getCurrentUser} from "../components/other/authHelper";
 
 const harmonogramURL = 'http://localhost:36989/api/Harmonogram?date=';
 
-
-export function getHarmonogram(Date){
+export function getHarmonogram(Date) {
     const url = `${harmonogramURL}${Date}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -17,6 +16,5 @@ export function getHarmonogram(Date){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(url, options);
-    return promise;
+    return fetch(url, options);
 }

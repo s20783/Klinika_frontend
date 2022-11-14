@@ -1,6 +1,6 @@
 import React from "react";
 import {deleteWeterynarz} from "../../api/WeterynarzApiCalls";
-import {useParams, useNavigate} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
@@ -39,7 +39,7 @@ class UsuniecieWeterynarza extends React.Component {
     }
 
     render() {
-        const {error, idWeterynarz} = this.state
+        const { idWeterynarz} = this.state
         const {t} = this.props;
 
         return (
@@ -50,7 +50,7 @@ class UsuniecieWeterynarza extends React.Component {
 
                 <div class="modal-content py-9 px-5">
                     <p class="text-4xl mb-2 text-center font-bold">{t('weterynarz.deletingVet')}</p>
-                    <img src="/images/znakZapytaniaPies.png"/>
+                    <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
 
                     <div class="flex justify-end pt-2">
                         <Link to="/weterynarze">

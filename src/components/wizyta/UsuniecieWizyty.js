@@ -1,7 +1,5 @@
 import React from "react";
-import {deleteWizyta} from "../../api/WizytaApiCalls";
-import {useParams, useNavigate} from "react-router";
-import {Link} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 
 class UsuniecieWizyty extends React.Component {
@@ -18,7 +16,7 @@ class UsuniecieWizyty extends React.Component {
     }
 
     removeWizyte = (idWizyta) => {
-        const {navigate} = this.props;
+       // const {navigate} = this.props;
         //let response;
         /*
         console.log(idWizyta)
@@ -52,16 +50,16 @@ class UsuniecieWizyty extends React.Component {
 
                 <div class="modal-content py-9 px-5">
                     <p class="text-4xl mb-2 text-center font-bold">{t('wizyta.deletingVisit')}</p>
-                    <img src="/images/znakZapytaniaPies.png"/>
+                    <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
 
                     <div class="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
                                 class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">
-                                {t('button.back')}
+                            {t('button.back')}
                         </button>
                         <button
-                        onClick={() => this.removeWizyte(idWizyta)}
-                                class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('wizyta.deleteVisit')}
+                            onClick={() => this.removeWizyte(idWizyta)}
+                            class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('wizyta.deleteVisit')}
                         </button>
                     </div>
                 </div>

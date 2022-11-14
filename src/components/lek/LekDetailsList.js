@@ -1,8 +1,8 @@
 import React from "react";
-import {getLekDetailsList, getLekList} from "../../api/LekApiCalls";
-import LekListTable from "./LekListTable";
+import {getLekDetailsList} from "../../api/LekApiCalls";
 import {useParams} from "react-router";
 import LekDetailsListTable from "./LekDetailsListTable";
+import {withTranslation} from "react-i18next";
 
 class LekDetailsList extends React.Component {
     constructor(props) {
@@ -39,6 +39,7 @@ class LekDetailsList extends React.Component {
     render() {
         const {error, isLoaded, leki} = this.state
         let content;
+        const {t} = this.props;
 
         if (error) {
             content = <p>Błąd: {error.message}</p>
@@ -55,7 +56,7 @@ class LekDetailsList extends React.Component {
                     <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                                Informacje o leku</h2>
+                                {t('lek.infoMedicine')}</h2>
                             {content}
                         </div>
                     </div>
@@ -76,4 +77,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withRouter(LekDetailsList);
+export default withTranslation()(withRouter(LekDetailsList));

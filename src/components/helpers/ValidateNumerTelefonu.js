@@ -1,5 +1,5 @@
-export function ValidateNumerTelefonu(value){
-    if(!value){
+export function ValidateNumerTelefonu(value) {
+    if (!value) {
         return false;
     }
     value = value.toString();

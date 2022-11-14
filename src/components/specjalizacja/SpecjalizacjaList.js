@@ -64,8 +64,8 @@ class SpecjalizacjaList extends React.Component {
                     <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                            {t('specjalizacja.title')}</h2>
-                        {content}
+                                {t('specjalizacja.title')}</h2>
+                            {content}
                         </div>
                     </div>
                 </section>
@@ -79,4 +79,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation() (withNavigate(SpecjalizacjaList));
+export default withTranslation()(withNavigate(SpecjalizacjaList));

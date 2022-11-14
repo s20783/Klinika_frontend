@@ -86,7 +86,9 @@
 			"nazwaUzytkownika": "Username",
 			"haslo": "Password",
 			"haslo2": "Password"
-		}
+		},
+		"thankYou": "Thank you!",
+		"accountCreated": "Your account has been created. Log in to make an appointment."
 	},
 	"mainPage": {
 		"title": "Welcome to PetMed clinic!"
@@ -281,6 +283,26 @@
 		"fields": {
 			"name": "Name",
 			"description": "Description"
+		}
+	},
+	"lek": {
+		"name": "Medicine",
+		"title": "Medicines",
+		"infoMedicine": "Info about medicine",
+		"addNewMedicine": "Adding new medicine",
+		"editMedicine": "Editing medicine",
+		"deletingMedicine": "Are you sure you want to delete medicine?",
+		"deleteMedicine": "Delete medicine",
+		"button": {
+			"addMedicine": "Add medicine",
+			"edit": "Edit",
+			"addMedicineInWarehouse": "Add medicine in warehouse"
+		},
+		"fields": {
+			"name": "Name",
+			"quantity": "Quantity",
+			"unitOfMeasure": "Unit of measure",
+			"expirationDate": "Expiration date"
 		}
 	}
 }

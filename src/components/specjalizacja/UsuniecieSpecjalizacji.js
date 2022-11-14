@@ -1,6 +1,6 @@
 import React from "react";
 import {deleteSpecjalizacja} from "../../api/SpecjalizacjaApiCalls";
-import {useParams, useNavigate} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
@@ -38,18 +38,15 @@ class UsuniecieSpecjalizacji extends React.Component {
     }
 
     render() {
-        const {error, idSpecjalizacja} = this.state
+        const {idSpecjalizacja} = this.state
         const {t} = this.props;
 
         return (
             <body class="bg-gray-200 flex items-center justify-center h-screen">
-
-            <div class="modal-overlay absolute w-full h-full bg-gray-500 opacity-50"></div>
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
-
                 <div class="modal-content py-9 px-5">
                     <p class="text-4xl mb-2 text-center font-bold">{t('specjalizacja.deletingSpecialization')}</p>
-                    <img src="/images/znakZapytaniaPies.png"/>
+                    <img src="/images/znakZapytaniaPies.png" alt={"ZnakZapytaniaPies"}/>
 
                     <div class="flex justify-end pt-2">
                         <Link to="/specjalizacje">

@@ -1,16 +1,17 @@
-export function getCurrentUser(){
+export function getCurrentUser() {
     // console.log(JSON.parse(localStorage.getItem('user')))
     return JSON.parse(localStorage.getItem('user'));
 }
 
-export function getImie(){
+export function getImie() {
     const user = getCurrentUser()
-    if(user){
+    if (user) {
         return user.Imie
     } else {
         return undefined
     }
 }
+
 //
 // export function getNazwisko(){
 //     const user = getCurrentUser()
@@ -23,20 +24,14 @@ export function getImie(){
 
 export function isAuthenticated() {
     const user = getCurrentUser()
-    if(user) {
-        return true
-    } else {
-        return false
-    }
+    return !!user;
 }
 
 export function isKlient() {
     const user = getCurrentUser()
-    if(user) {
-        if(user.Rola === 'user'){
-            return true;
-        }
-        return false;
+    if (user) {
+        return user.Rola === 'user';
+
     } else {
         return false
     }
@@ -44,11 +39,9 @@ export function isKlient() {
 
 export function isWeterynarz() {
     const user = getCurrentUser()
-    if(user) {
-        if(user.Rola === 'weterynarz'){
-            return true;
-        }
-        return false;
+    if (user) {
+        return user.Rola === 'weterynarz';
+
     } else {
         return false
     }
@@ -67,12 +60,8 @@ export function isWeterynarz() {
 
 export function isAdmin() {
     const user = getCurrentUser()
-    if(user) {
-        if(user.Rola === 'admin') {
-            return true
-        } else {
-            return false
-        }
+    if (user) {
+        return user.Rola === 'admin';
     } else {
         return false
     }

@@ -2,10 +2,10 @@ import {getCurrentUser} from "../components/other/authHelper";
 
 const weterynarzURL = 'http://localhost:36989/api/Weterynarz'
 
-export function getWeterynarzList(){
+export function getWeterynarzList() {
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -15,14 +15,14 @@ export function getWeterynarzList(){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(weterynarzURL, options);
-    return promise;
+    return fetch(weterynarzURL, options);
 }
-export function getWeterynarzDetails(Id){
+
+export function getWeterynarzDetails(Id) {
     const url = `${weterynarzURL}/${Id}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -34,6 +34,7 @@ export function getWeterynarzDetails(Id){
     }
     return fetch(url, options);
 }
+
 export function addWeterynarz(weterynarz) {
     const user = getCurrentUser()
     let token
@@ -43,16 +44,17 @@ export function addWeterynarz(weterynarz) {
     const url = `${weterynarzURL}`
     const weterynarzString = JSON.stringify(weterynarz)
     console.log(weterynarzString)
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                 'Authorization': 'Bearer ' + token
-            },
-            body: weterynarzString
-        }
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: weterynarzString
+    }
     return fetch(url, options);
 }
+
 export function updateWeterynarz(weterynarz, Id) {
     const user = getCurrentUser()
     let token
@@ -62,18 +64,18 @@ export function updateWeterynarz(weterynarz, Id) {
     const url = `${weterynarzURL}/${Id}`
     const weterynarzString = JSON.stringify(weterynarz)
     console.log(weterynarzString)
-        const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                 'Authorization': 'Bearer ' + token
-            },
-            body: weterynarzString
-        }
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: weterynarzString
+    }
     return fetch(url, options);
 }
 
-export function deleteWeterynarz(Id){
+export function deleteWeterynarz(Id) {
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
@@ -82,10 +84,10 @@ export function deleteWeterynarz(Id){
     const url = `${weterynarzURL}/${Id}`
     const options = {
         method: 'DELETE',
-        headers:{
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         },
     }
-    return fetch(url,options)
+    return fetch(url, options)
 }

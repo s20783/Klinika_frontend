@@ -15,10 +15,10 @@ export function registerCall(user) {
     return fetch(url, options);
 }
 
-export function getKlientList(){
+export function getKlientList() {
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -28,15 +28,14 @@ export function getKlientList(){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(baseURL, options);
-    return promise;
+    return fetch(baseURL, options);
 }
 
-export function getKlientDetails(Id){
+export function getKlientDetails(Id) {
     const url = `${baseURL}/${Id}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {

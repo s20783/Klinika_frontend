@@ -1,5 +1,5 @@
 export function ValidateEmail(value) {
-    if(!value){
+    if (!value) {
         return false;
     }
     value = value.toString().trim();

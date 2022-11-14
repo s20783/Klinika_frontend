@@ -1,5 +1,5 @@
-export function ValidateHaslo(value){
-    if(!value){
+export function ValidateHaslo(value) {
+    if (!value) {
         return false;
     }
     value = value.toString().trim();

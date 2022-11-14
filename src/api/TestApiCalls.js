@@ -8,7 +8,6 @@ export function postTestApi() {
     if (user && user.Token) {
         token = user.Token
     }
-    const url = `${testURL}?param=0`
     const options = {
         method: 'POST',
         headers: {

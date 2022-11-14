@@ -76,4 +76,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation() ( withNavigate(WizytaList));
+export default withTranslation()(withNavigate(WizytaList));

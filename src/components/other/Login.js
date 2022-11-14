@@ -1,4 +1,4 @@
-import {Navigate, useNavigate, useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import React from "react";
 import {Link} from "react-router-dom";
 import {loginCall} from "../../api/authApiCalls";
@@ -37,7 +37,7 @@ class Login extends React.Component {
     }
 
     handleSubmit = (event) => {
-        const { navigate } = this.props;
+        const {navigate} = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
@@ -45,31 +45,30 @@ class Login extends React.Component {
             //console.log(user)
             let response
             loginCall(user)
-                 .then(res => {
-                     response = res
-                     return res.json()
-                 })
-                 .then(
-                     (data) => {
-                         if (response.status === 200) {
-                             if (data.Token) {
-                                 //console.log(data)
-                                 const userString = JSON.stringify(data)
-                                 this.props.handleLogin(userString)
+                .then(res => {
+                    response = res
+                    return res.json()
+                })
+                .then(
+                    (data) => {
+                        if (response.status === 200) {
+                            if (data.Token) {
+                                //console.log(data)
+                                const userString = JSON.stringify(data)
+                                this.props.handleLogin(userString)
 
-                                 navigate("/", { replace: true });
+                                navigate("/", {replace: true});
                             }
-                        }
-                        else if (response.status === 401) {
-                             //console.log(data)
-                             this.setState({
-                                 message: data.message
-                             })
+                        } else if (response.status === 401) {
+                            //console.log(data)
+                            this.setState({
+                                message: data.message
+                            })
                         } else {
-                             //console.log(data)
-                             this.setState({
-                                 message: data.message
-                             })
+                            //console.log(data)
+                            this.setState({
+                                message: data.message
+                            })
                         }
                     },
                     (error) => {
@@ -102,8 +101,7 @@ class Login extends React.Component {
         const errors = this.state.errors
         for (const fieldName in user) {
             const fieldValue = user[fieldName]
-            const errorMessage = this.validateField(fieldName, fieldValue)
-            errors[fieldName] = errorMessage
+            errors[fieldName] = this.validateField(fieldName, fieldValue)
         }
         this.setState({
             errors: errors
@@ -132,35 +130,40 @@ class Login extends React.Component {
                             <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
 
                                 <div className=" py-1">
-                                    <label htmlFor="logowanie" className="text-lg font-bold text-3xl">{t('login.signIn')}</label>
+                                    <label htmlFor="logowanie"
+                                           className="text-lg font-bold text-3xl">{t('login.signIn')}</label>
                                 </div>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" id="NazwaUzytkownika" name="NazwaUzytkownika" placeholder={t('login.fields.nazwaUzytkownika')} onChange={this.handleChange}
+                                    <input type="text" id="NazwaUzytkownika" name="NazwaUzytkownika"
+                                           placeholder={t('login.fields.nazwaUzytkownika')} onChange={this.handleChange}
                                            className={this.state.errors.NazwaUzytkownika ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
-                                <span id="errorLogin" className="errors-text">{this.state.errors.NazwaUzytkownika}</span>
+                                <span id="errorLogin"
+                                      className="errors-text">{this.state.errors.NazwaUzytkownika}</span>
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
-                                    <input type="password" id="Haslo" name="Haslo" placeholder={t('login.fields.haslo')} onChange={this.handleChange}
+                                    <input type="password" id="Haslo" name="Haslo" placeholder={t('login.fields.haslo')}
+                                           onChange={this.handleChange}
                                            className={this.state.errors.Haslo ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errorHaslo" className="errors-text">{this.state.errors.Haslo}</span>
 
-                                {this.state.message !== '' && <span id="error" className="errors-text2">{t('errors.' + this.state.message)}</span>}
-
+                                {this.state.message !== '' && <span id="error"
+                                                                    className="errors-text2">{t('errors.' + this.state.message)}</span>}
                                 <input type="submit" value={t('login.signIn')}
                                        className="bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
                             </form>
-
                             <div className="text-center pt-3">
-                                <p><Link to="#" className="underline font-semibold">{t('login.forgotPassword')}</Link></p>
+                                <p><Link to="#" className="underline font-semibold">{t('login.forgotPassword')}</Link>
+                                </p>
                             </div>
-
                             <div className="text-center pt-12 pb-12">
-                                <p>{t('login.text')} <Link to="/register" className="underline font-semibold">{t('login.register')}.</Link></p>
+                                <p>{t('login.text')} <Link to="/register"
+                                                           className="underline font-semibold">{t('login.register')}.</Link>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -182,7 +185,7 @@ const withRouter = WrappedComponent => props => {
 
 const withNavigate = Component => props => {
     const navigate = useNavigate();
-    return <Component {...props} navigate={navigate} />;
+    return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation() (withNavigate(withRouter(Login)));
+export default withTranslation()(withNavigate(withRouter(Login)));

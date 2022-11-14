@@ -64,6 +64,7 @@
 	"login": {
 		"title": "Witamy w klinice PetMed",
 		"signIn": "Logowanie",
+		"login": "Zaloguj się",
 		"forgotPassword": "Nie pamiętasz hasła?",
 		"register": "Zarejestruj się tutaj",
 		"text": "Nie masz konta?",
@@ -85,7 +86,10 @@
 			"nazwaUzytkownika": "Nazwa użytkownika",
 			"haslo": "Hasło",
 			"haslo2": "Powtórz hasło"
-		}
+		},
+		"thankYou": "Dziękujemy!",
+		"accountCreated": "Twoje konto zostało utworzone. Zaloguj się, aby umówić wizytę."
+
 	},
 	"mainPage": {
 		"title": "Witamy w klinice PetMed!"
@@ -281,6 +285,26 @@
 		"fields": {
 			"name": "Nazwa",
 			"description": "Opis"
+		}
+	},
+	"lek": {
+		"name": "lek",
+		"title": "Leki",
+		"infoMedicine": "Informacje o leku",
+		"addNewMedicine": "Dodanie nowego leku",
+		"editMedicine": "Edycja leku",
+		"deletingMedicine": "Czy na pewno chcesz usunąc lek?",
+		"deleteMedicine": "Usuń lek",
+		"button": {
+			"addMedicine": "Dodaj lek",
+			"edit": "Edytuj",
+			"addMedicineInWarehouse": "Dodaj lek w magazynie"
+		},
+		"fields": {
+			"name": "Nazwa",
+			"quantity": "Ilość",
+			"unitOfMeasure": "Jednostka miary",
+			"expirationDate": "Data ważności"
 		}
 	}
 }

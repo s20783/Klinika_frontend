@@ -1,6 +1,5 @@
 import React from "react";
 import {Navigate, useNavigate, useParams} from "react-router";
-import {Link} from "react-router-dom";
 import {registerCall} from "../../api/KlientApiCalls";
 import {ValidateEmail} from "../helpers/ValidateEmail";
 import {withTranslation} from "react-i18next";
@@ -52,7 +51,7 @@ class Register extends React.Component {
     }
 
     handleSubmit = (event) => {
-        const { navigate } = this.props;
+        const {navigate} = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
@@ -69,6 +68,7 @@ class Register extends React.Component {
                         console.log(response.status)
                         if (response.status === 200) {
                             this.setState({redirect: true})
+                            navigate("/afterRegister")
                         }
                         return res.json()
                     })
@@ -91,10 +91,10 @@ class Register extends React.Component {
                                     })
                                 }
                             }
-                           //else {
-                           //this.setState({redirect: true})
-                           //this.setState({redirect: true})
-                           //}
+                            //else {
+                            //this.setState({redirect: true})
+                            //this.setState({redirect: true})
+                            //}
                         },
                         (error) => {
                             this.setState({
@@ -183,8 +183,7 @@ class Register extends React.Component {
         const errors = this.state.errors
         for (const fieldName in user) {
             const fieldValue = user[fieldName]
-            const errorMessage = this.validateField(fieldName, fieldValue)
-            errors[fieldName] = errorMessage
+            errors[fieldName] = this.validateField(fieldName, fieldValue)
         }
         this.setState({
             errors: errors
@@ -208,9 +207,9 @@ class Register extends React.Component {
         if (redirect) {
             return (
                 <Navigate to=
-                     {'/afterRegister'}
-                    state={"gg"}
-                 />
+                              {'/afterRegister'}
+                          state={"gg"}
+                />
             )
         }
 
@@ -229,7 +228,8 @@ class Register extends React.Component {
 
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" name="Imie" id="Imie" placeholder={t('register.fields.imie') + " *"}
+                                    <input type="text" name="Imie" id="Imie"
+                                           placeholder={t('register.fields.imie') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Imie ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -237,7 +237,8 @@ class Register extends React.Component {
                                 <span id="errorImie" className="errors-text">{this.state.errors.Imie}</span>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" name="Nazwisko" id="Nazwisko" placeholder={t('register.fields.nazwisko') + " *"}
+                                    <input type="text" name="Nazwisko" id="Nazwisko"
+                                           placeholder={t('register.fields.nazwisko') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Nazwisko ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -245,7 +246,8 @@ class Register extends React.Component {
                                 <span id="errorNazwisko" className="errors-text">{this.state.errors.Nazwisko}</span>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" name="NazwaUzytkownika" id="NazwaUzytkownika" placeholder={t('register.fields.nazwaUzytkownika') + " *"}
+                                    <input type="text" name="NazwaUzytkownika" id="NazwaUzytkownika"
+                                           placeholder={t('register.fields.nazwaUzytkownika') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.NazwaUzytkownika ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -254,7 +256,8 @@ class Register extends React.Component {
                                       className="errors-text">{this.state.errors.NazwaUzytkownika}</span>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="text" id="Email" name="Email" placeholder={t('register.fields.email') + " *"}
+                                    <input type="text" id="Email" name="Email"
+                                           placeholder={t('register.fields.email') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Email ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -262,7 +265,8 @@ class Register extends React.Component {
                                 <span id="errorEmail" className="errors-text">{this.state.errors.Email}</span>
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
-                                    <input type="tel" id="NumerTelefonu" name="NumerTelefonu" placeholder={t('register.fields.numerTelefonu') + " *"}
+                                    <input type="tel" id="NumerTelefonu" name="NumerTelefonu"
+                                           placeholder={t('register.fields.numerTelefonu') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.NumerTelefonu ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -278,7 +282,8 @@ class Register extends React.Component {
                                 {/*<span id="errorLogin" className="errors-text">{this.state.errors.Data_urodzenia}</span>*/}
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
-                                    <input type="password" id="Haslo" name="Haslo" placeholder={t('register.fields.haslo') + " *"}
+                                    <input type="password" id="Haslo" name="Haslo"
+                                           placeholder={t('register.fields.haslo') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Haslo ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -286,7 +291,8 @@ class Register extends React.Component {
                                 <span id="errorHaslo" className="errors-text">{this.state.errors.Haslo}</span>
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
-                                    <input type="password" id="Haslo2" name="Haslo2" placeholder={t('register.fields.haslo2') + " *"}
+                                    <input type="password" id="Haslo2" name="Haslo2"
+                                           placeholder={t('register.fields.haslo2') + " *"}
                                            onChange={this.handleChange}
                                            className={this.state.errors.Haslo2 ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
@@ -320,9 +326,9 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
- const withNavigate = Component => props => {
-     const navigate = useNavigate();
-     return <Component {...props} navigate={navigate} />;
- };
+const withNavigate = Component => props => {
+    const navigate = useNavigate();
+    return <Component {...props} navigate={navigate}/>;
+};
 
-export default withTranslation()(withRouter(Register));
+export default withTranslation()(withNavigate(withRouter(Register)));

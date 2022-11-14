@@ -6,11 +6,9 @@ export function loginCall(user) {
     const url = `${baseURL}/login`
     const userString = JSON.stringify(user)
     const options = {
-        method: 'POST',
-        headers: {
+        method: 'POST', headers: {
             'Content-Type': 'application/json'
-        },
-        body: userString
+        }, body: userString
     }
     return fetch(url, options);
 }
@@ -19,43 +17,38 @@ export function refreshCall(user) {
     const url = `${baseURL}/refreshToken`
     const tokenString = JSON.stringify(user)
     const options = {
-        method: 'POST',
-        headers: {
+        method: 'POST', headers: {
             'Content-Type': 'application/json'
-        },
-        body: tokenString
+        }, body: tokenString
     }
     return fetch(url, options);
 }
 
-export function getKontoData(){
+export function getKontoData() {
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
-        method: 'GET',
-        headers: {
+        method: 'GET', headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(baseURL, options);
-    return promise;
+    return fetch(baseURL, options);
 }
+
 export function changePassword(user) {
     const user1 = getCurrentUser()
     let token = user1.Token;
     const url = `${baseURL}/password`
     const userString = JSON.stringify(user)
     const options = {
-        method: 'PUT',
-        headers: {
+        method: 'PUT', headers: {
             'Content-Type': 'application/json',
-             'Authorization': 'Bearer ' + token
-        },
-        body: userString
+            'Authorization': 'Bearer ' + token
+        }, body: userString
     }
 
     return fetch(url, options);
@@ -67,12 +60,10 @@ export function changeDaneKonta(user) {
     const url = `${baseURL}`
     const userString = JSON.stringify(user)
     const options = {
-        method: 'PUT',
-        headers: {
+        method: 'PUT', headers: {
             'Content-Type': 'application/json',
-             'Authorization': 'Bearer ' + token
-        },
-        body: userString
+            'Authorization': 'Bearer ' + token
+        }, body: userString
     }
 
     return fetch(url, options);

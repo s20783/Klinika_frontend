@@ -2,11 +2,11 @@ import {getCurrentUser} from "../components/other/authHelper";
 
 const weterynarzSpecjalizajcaURL = 'http://localhost:36989/api/WeterynarzSpecjalizacja';
 
-export function getWeterynarzSpecjalizacjaList(Id){
+export function getWeterynarzSpecjalizacjaList(Id) {
     const url = `${weterynarzSpecjalizajcaURL}/${Id}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -18,11 +18,12 @@ export function getWeterynarzSpecjalizacjaList(Id){
     }
     return fetch(url, options);
 }
-export function addWeterynarzSpecjalizacja(idSpecjalizacja, idWeterynarz){
+
+export function addWeterynarzSpecjalizacja(idSpecjalizacja, idWeterynarz) {
     const url = `${weterynarzSpecjalizajcaURL}/${idSpecjalizacja}/${idWeterynarz}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -35,8 +36,7 @@ export function addWeterynarzSpecjalizacja(idSpecjalizacja, idWeterynarz){
     return fetch(url, options);
 }
 
-
-export function deleteWeterynarzSpecjalizacja(idSpecjalizacja, idWeterynarz){
+export function deleteWeterynarzSpecjalizacja(idSpecjalizacja, idWeterynarz) {
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
@@ -45,10 +45,10 @@ export function deleteWeterynarzSpecjalizacja(idSpecjalizacja, idWeterynarz){
     const url = `${weterynarzSpecjalizajcaURL}/${idSpecjalizacja}/${idWeterynarz}`;
     const options = {
         method: 'DELETE',
-        headers:{
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         },
     }
-    return fetch(url,options)
+    return fetch(url, options)
 }

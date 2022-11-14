@@ -1,10 +1,11 @@
 import {getCurrentUser} from "../components/other/authHelper";
+
 const uslugaURL = 'http://localhost:36989/api/Usluga';
 
-export function getUslugaList(){
+export function getUslugaList() {
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -14,15 +15,14 @@ export function getUslugaList(){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(uslugaURL, options);
-    return promise;
+    return fetch(uslugaURL, options);
 }
 
-export function getUslugaDetails(Id){
+export function getUslugaDetails(Id) {
     const url = `${uslugaURL}/${Id}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -44,16 +44,17 @@ export function addUsluga(usluga) {
     const url = `${uslugaURL}`
     const uslugaString = JSON.stringify(usluga)
     console.log(uslugaString)
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                 'Authorization': 'Bearer ' + token
-            },
-            body: uslugaString
-        }
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: uslugaString
+    }
     return fetch(url, options);
 }
+
 export function updateUsluga(usluga, Id) {
     const user = getCurrentUser()
     let token
@@ -63,18 +64,18 @@ export function updateUsluga(usluga, Id) {
     const url = `${uslugaURL}/${Id}`
     const uslugaString = JSON.stringify(usluga)
     console.log(uslugaString)
-        const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                 'Authorization': 'Bearer ' + token
-            },
-            body: uslugaString
-        }
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: uslugaString
+    }
     return fetch(url, options);
 }
 
-export function deleteUsluga(Id){
+export function deleteUsluga(Id) {
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
@@ -83,10 +84,10 @@ export function deleteUsluga(Id){
     const url = `${uslugaURL}/${Id}`
     const options = {
         method: 'DELETE',
-        headers:{
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         },
     }
-    return fetch(url,options)
+    return fetch(url, options)
 }

@@ -89,4 +89,4 @@ class UmowienieWizyty extends React.Component {
     }
 }
 
-export default withTranslation() (UmowienieWizyty);
+export default withTranslation()(UmowienieWizyty);

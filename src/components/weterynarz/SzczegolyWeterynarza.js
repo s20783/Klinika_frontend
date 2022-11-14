@@ -1,16 +1,14 @@
 import React from "react";
-import formMode from "../helpers/FormMode";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {useNavigate} from "react-router";
 import {getWeterynarzDetails} from "../../api/WeterynarzApiCalls";
 import {
-    getWeterynarzSpecjalizacjaList,
     addWeterynarzSpecjalizacja,
-    deleteWeterynarzSpecjalizacja
+    deleteWeterynarzSpecjalizacja,
+    getWeterynarzSpecjalizacjaList
 } from "../../api/WeterynarzSpecjalizacjaApiCalls";
 import {getSpecjalizacjaList} from "../../api/SpecjalizacjaApiCalls";
-import dayjs from 'dayjs';
+import {getFormattedDate} from "../other/dateFormat";
 
 class SzczegolyWeterynarza extends React.Component {
     constructor(props) {
@@ -71,7 +69,6 @@ class SzczegolyWeterynarza extends React.Component {
                 }
             );
 
-        const {navigate} = this.props;
         getWeterynarzSpecjalizacjaList(this.state.idWeterynarz)
             .then(res => {
                 console.log(res.status)
@@ -97,7 +94,6 @@ class SzczegolyWeterynarza extends React.Component {
 
     showSelect() {
         if (this.state.specjalizacje1.length === 0) {
-            const {navigate} = this.props;
             getSpecjalizacjaList()
                 .then(res => {
                     console.log(res.status)
@@ -246,6 +242,7 @@ class SzczegolyWeterynarza extends React.Component {
     render() {
         const {t} = this.props;
         const {navigate} = this.props
+        const {data, specjalizacje, specjalizacje1, errors} = this.state
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
@@ -261,7 +258,6 @@ class SzczegolyWeterynarza extends React.Component {
                         </button>
                     </div>
                 </div>
-
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <section class="bg-white-100 border-b  mb-7">
@@ -272,91 +268,84 @@ class SzczegolyWeterynarza extends React.Component {
                             </label>
                             <div class="md:w-3/5">
                                 <input class="form-textarea block w-full focus:bg-white"
-                                       name="Login" id="Login" type="text" value={this.state.data.Login}
+                                       name="Login" id="Login" type="text" value={data.Login}
                                        placeholder=""/>
-
                             </div>
                         </div>
                     </section>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.firstName')}
                             </label>
                             <input
                                 class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Imie" id="Imie" type="text" value={this.state.data.Imie} placeholder=""/>
-
+                                name="Imie" id="Imie" type="text" value={data.Imie} placeholder=""/>
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.lastName')}
                             </label>
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Nazwisko" id="Nazwisko" type="text" value={this.state.data.Nazwisko}
+                                name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
                                 placeholder=""/>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.phoneNumber')}
                             </label>
                             <input
                                 class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
-                                value={this.state.data.NumerTelefonu} placeholder=""/>
-
+                                value={data.NumerTelefonu} placeholder=""/>
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.email')}
                             </label>
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Email" id="Email" type="text" value={this.state.data.Email} placeholder=""/>
+                                name="Email" id="Email" type="text" value={data.Email} placeholder=""/>
                         </div>
                     </div>
-
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.birthDate')}
                             </label>
                             <input
                                 class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
-                                value={dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')} placeholder=""/>
+                                value={getFormattedDate(data.DataUrodzenia)} placeholder=""/>
 
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.salary')}
                             </label>
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Pensja" id="Pensja" type="number" value={this.state.data.Pensja} placeholder=""/>
+                                name="Pensja" id="Pensja" type="number" value={data.Pensja} placeholder=""/>
                         </div>
                     </div>
-
                     <div class="flex flex-wrap -mx-3 mb-6  ">
-
                         <div class="w-full md:w-1/3 px-3 mb-6  md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-city">
+                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.employmentDate')}
                             </label>
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataZatrudnienia" id="DataZatrudnienia" type="text"
-                                value={dayjs(this.state.data.DataZatrudnienia).format('YYYY-MM-DD')} placeholder=""/>
+                                value={getFormattedDate(data.DataZatrudnienia)} placeholder=""/>
                         </div>
                     </div>
 
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('specjalizacja.title')}</h2>
-
                         <div className="relative  w-1/3 ">
                             <button id="menu-toggle" onClick={() => {
                                 this.showSelect()
@@ -371,19 +360,20 @@ class SzczegolyWeterynarza extends React.Component {
                             <thead
                                 className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" className="px-6 uppercase py-3">{t('specjalizacja.fields.name')}</th>
-                                <th scope="col"
-                                    className="px-6 uppercase py-3">{t('specjalizacja.fields.description')}</th>
+                                <th scope="col" className="text-center px-6 uppercase py-3">
+                                    {t('specjalizacja.fields.name')}</th>
+                                <th scope="col" className="text-center px-6 uppercase py-3">
+                                    {t('specjalizacja.fields.description')}</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            {this.state.specjalizacje.map(x => (
+                            {specjalizacje.map(x => (
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                     key={x.IdSpecjalizacja}>
-                                    <td className="px-6 py-2">{x.Nazwa}</td>
-                                    <td className="px-6 py-2">{x.Opis}</td>
-                                    <div className="list-actions py-2">
+                                    <td className="text-center px-6 py-2">{x.Nazwa}</td>
+                                    <td className="text-center px-6 py-2">{x.Opis}</td>
+                                    <div className="text-center list-actions py-2">
                                         <div className=" flex">
                                             <button onClick={() => {
                                                 this.deleteSpec(x.IdSpecjalizacja)
@@ -394,24 +384,24 @@ class SzczegolyWeterynarza extends React.Component {
                                                     <rect width="256" height="256" fill="none"></rect>
                                                     <line className="details-icon-color" x1="215.99609" y1="56"
                                                           x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                          stroke-linecap="round" stroke-linejoin="round"
-                                                          stroke-width="16"></line>
+                                                          stroke-linecap="round" strokeLinejoin="round"
+                                                          strokeWidth="16"></line>
                                                     <line className="details-icon-color" x1="104" y1="104" x2="104"
                                                           y2="168"
                                                           fill="none" stroke="#000000" stroke-linecap="round"
-                                                          stroke-linejoin="round" stroke-width="16"></line>
+                                                          strokeLinejoin="round" strokeWidth="16"></line>
                                                     <line className="details-icon-color" x1="152" y1="104" x2="152"
                                                           y2="168"
                                                           fill="none" stroke="#000000" stroke-linecap="round"
-                                                          stroke-linejoin="round" stroke-width="16"></line>
+                                                          strokeLinejoin="round" strokeWidth="16"></line>
                                                     <path className="details-icon-color"
                                                           d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none"
                                                           stroke="#000000" stroke-linecap="round"
-                                                          stroke-linejoin="round" stroke-width="16"></path>
+                                                          strokeLinejoin="round" strokeWidth="16"></path>
                                                     <path className="details-icon-color"
                                                           d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
                                                           fill="none" stroke="#000000" stroke-linecap="round"
-                                                          stroke-linejoin="round" stroke-width="16"></path>
+                                                          strokeLinejoin="round" strokeWidth="16"></path>
                                                 </svg>
                                             </button>
                                         </div>
@@ -420,23 +410,21 @@ class SzczegolyWeterynarza extends React.Component {
                             ))}
                             </tbody>
                         </table>
-
                     </div>
                     <div className=" md:flex mb-6 mt-4 hidden ">
                         <div class="md:w-full">
                             <select name="IdSpecjalizacja" id="spec-content" onChange={this.handleChange}
-
                                     className="form-select hidden block w-full focus:bg-white">
-                                <option value="">Wybierz specjalizacje</option>
+                                <option value="">{t('specjalizacja.selectSpecialization')}</option>
                                 {
-                                    this.state.specjalizacje1.map(spec => (
+                                    specjalizacje1.map(spec => (
                                         <option
-                                            className={this.checkIfExist(this.state.specjalizacje, spec.IdSpecjalizacja) === true ? "text-green-400" : ""}
+                                            className={this.checkIfExist(specjalizacje, spec.IdSpecjalizacja) === true ? "text-gray-300" : ""}
                                             value={spec.IdSpecjalizacja}>{spec.Nazwa} - {spec.Opis}</option>
                                     ))}
                             </select>
-                            <span id="errorIdSpecjalizacja" name="IdSpecjalizacja"
-                                  className="errors-text2 mt-4">{this.state.errors.IdSpecjalizacja}</span>
+                            <span id="errorIdSpecjalizacja"
+                                  className="errors-text2 mt-4">{errors.IdSpecjalizacja}</span>
                             <div className="relative  w-full ">
                                 <button id="spec-content1" onClick={() => {
                                     this.addSpec()

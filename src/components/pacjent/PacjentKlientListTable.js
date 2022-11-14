@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {useTranslation, withTranslation} from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 function PacjentKlientListTable(props) {
     const list = props.pacjenci
@@ -37,7 +37,8 @@ function PacjentKlientListTable(props) {
                         <td className="px-6 py-1">
                             <div className="list-actions">
                                 <div className=" flex">
-                                    <Link to={`/pacjenci/${x.IdPacjent}`} className="list-actions-button-details flex-1">
+                                    <Link to={`/pacjenci/${x.IdPacjent}`}
+                                          className="list-actions-button-details flex-1">
                                         <svg className="list-actions-button-details flex-1"
                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              fill="#000000" viewBox="0 0 256 256">

@@ -53,7 +53,7 @@ class UmowienieWizytyForm extends React.Component {
         const {t} = this.props;
         const {list} = this.state
         let errorMessage = '';
-        if(this.checkPacjentList(list)){
+        if (this.checkPacjentList(list)) {
             if (fieldName === 'Pacjent') {
                 if (!fieldValue) {
                     errorMessage = `${t('validation.required')}`
@@ -78,8 +78,7 @@ class UmowienieWizytyForm extends React.Component {
         const errors = this.state.errors
         for (const fieldName in data) {
             const fieldValue = data[fieldName]
-            const errorMessage = this.validateField(fieldName, fieldValue)
-            errors[fieldName] = errorMessage
+            errors[fieldName] = this.validateField(fieldName, fieldValue)
         }
 
         this.setState({
@@ -98,7 +97,7 @@ class UmowienieWizytyForm extends React.Component {
         const isValid = this.validateForm()
         if (isValid) {
             let response, newData
-            if(this.checkPacjentList(list)){
+            if (this.checkPacjentList(list)) {
                 newData = {
                     ID_Harmonogram: data["Termin"],
                     ID_Pacjent: data["Pacjent"],
@@ -210,7 +209,7 @@ class UmowienieWizytyForm extends React.Component {
 
     render() {
         const {navigate} = this.props
-        const {list, harmonogram} = this.state
+        const {list, harmonogram, errors, date, wizyta} = this.state
         const {t} = this.props;
 
         return (
@@ -227,7 +226,7 @@ class UmowienieWizytyForm extends React.Component {
                                 <div className="md:w-3/5">
 
                                     <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
-                                            className={this.state.errors.Pacjent ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
+                                            className={errors.Pacjent ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
                                         <option value="">{t("wizyta.selectPatient")}</option>
                                         {
                                             list.map(pacjent => (
@@ -236,7 +235,7 @@ class UmowienieWizytyForm extends React.Component {
                                         <option value="0">{t("wizyta.other")}</option>
                                     </select>
                                 </div>
-                                <span id="errorPacjent" className="errors-text2">{this.state.errors.Pacjent}</span>
+                                <span id="errorPacjent" className="errors-text2">{errors.Pacjent}</span>
                             </div>
                         </section>
                     }
@@ -245,17 +244,16 @@ class UmowienieWizytyForm extends React.Component {
                             {t("wizyta.field.date")}
                         </label>
                         <Calendar className="mb-7"
-                                  value={this.state.date}
+                                  value={date}
                                   onClickDay={this.onChange}
                         />
                         <div>
-                            {<Time showTime={this.state.harmonogram.length} harmonogram={harmonogram}
+                            {<Time showTime={harmonogram.length} harmonogram={harmonogram}
                                    timeChange={this.handleHarmonogramSelect}/>}
-                            <span id="errorData" className="errors-text2 mb-4">{this.state.errors.Termin}</span>
-                            <span id="" className="">{this.state.wizyta.Data === '' ? '' :
-                                t("wizyta.selectedDate") + this.state.wizyta.Data.replaceAll("-", ".") + " (" + t('other.day.' + this.state.wizyta.Dzien) + ")"}
+                            <span id="errorData" className="errors-text2 mb-4">{errors.Termin}</span>
+                            <span id="" className="">{wizyta.Data === '' ? '' :
+                                t("wizyta.selectedDate") + wizyta.Data.replaceAll("-", ".") + " (" + t('other.day.' + wizyta.Dzien) + ")"}
                             </span>
-
                         </div>
                     </section>
                     <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
@@ -265,8 +263,7 @@ class UmowienieWizytyForm extends React.Component {
                         <textarea className="form-textarea block w-full focus:bg-white " id="Notatka" name="Notatka"
                                   rows="5" onChange={this.handleChange}/>
                     </div>
-                    <span id="errorOpis" className="errors-text2">{this.state.errors.Notatka}</span>
-
+                    <span id="errorOpis" className="errors-text2">{errors.Notatka}</span>
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}

@@ -2,6 +2,7 @@ import React from "react";
 import {getLekList} from "../../api/LekApiCalls";
 import LekListTable from "./LekListTable";
 import {useNavigate} from "react-router";
+import {withTranslation} from "react-i18next";
 
 class LekList extends React.Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class LekList extends React.Component {
     render() {
         const {error, isLoaded, leki} = this.state
         let content;
+        const {t} = this.props;
 
         if (error) {
             content = <p>Błąd: {error.message}</p>
@@ -60,7 +62,7 @@ class LekList extends React.Component {
                     <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                                Leki</h2>
+                                {t('lek.title')}</h2>
                             {content}
                         </div>
                     </div>
@@ -75,4 +77,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withNavigate(LekList);
+export default withTranslation()(withNavigate(LekList));

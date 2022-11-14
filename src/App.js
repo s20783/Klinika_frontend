@@ -1,10 +1,7 @@
 import Footer from "./components/fragments/Footer";
 import Navigation from "./components/fragments/Navigation";
 import MainPage from "./components/other/MainPage";
-import {
-    Routes,
-    Route, BrowserRouter
-} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import React from 'react';
 import Kontakt from "./components/other/Kontakt";
 import Login from "./components/other/Login";
@@ -98,7 +95,8 @@ class App extends React.Component {
 
                     <Route path="/specjalizacje" element={<SpecjalizacjaList/>}/>
                     <Route path="/dodajSpecjalizacje" element={<FormularzSpecjalizacji/>}/>
-                    <Route path="/specjalizacje/edycjaSpecjalizacja/:idSpecjalizacja" element={<FormularzSpecjalizacji/>}/>
+                    <Route path="/specjalizacje/edycjaSpecjalizacja/:idSpecjalizacja"
+                           element={<FormularzSpecjalizacji/>}/>
                     <Route path="/specjalizacje/delete/:idSpecjalizacja" element={<UsuniecieSpecjalizacji/>}/>
 
                     <Route path="/uslugi" element={<UslugaList/>}/>

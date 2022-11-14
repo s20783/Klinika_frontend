@@ -13,7 +13,7 @@ function Times(props) {
                 {props.harmonogram.map(time => (
                     <div key={time.IdHarmonogram}>
                         <label className="bg-purple-400 hover:bg-green-400 text-white py-1 px-3 rounded"
-                            onClick={() => props.timeChange(time)}>
+                               onClick={() => props.timeChange(time)}>
                             {getHour(time.Data)} {time.Weterynarz}
                         </label>
                     </div>

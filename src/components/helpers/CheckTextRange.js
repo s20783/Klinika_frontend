@@ -7,8 +7,6 @@ export function CheckTextRange(value, min, max) {
     if (length > max) {
         return false;
     }
-    if (length < min) {
-        return false;
-    }
-    return true;
+    return length >= min;
+
 }

@@ -9,8 +9,6 @@ export function checkNumberRange(value, min, max){
     if(value<min){
         return false;
     }
-    if(value>max){
-        return false;
-    }
-    return true;
+    return value <= max;
+
 }

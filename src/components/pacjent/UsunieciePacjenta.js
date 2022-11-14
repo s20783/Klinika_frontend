@@ -1,7 +1,6 @@
 import React from "react";
 import {deletePacjent} from "../../api/PacjentApiCalls";
-import {useParams, useNavigate} from "react-router";
-import {Link} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 
 class UsunieciePacjenta extends React.Component {
@@ -15,7 +14,6 @@ class UsunieciePacjenta extends React.Component {
             isLoaded: false,
             notice: '',
         }
-
     }
 
     removePacjent = (idPacjent) => {
@@ -39,28 +37,24 @@ class UsunieciePacjenta extends React.Component {
     }
 
     render() {
-        const {error, idPacjent} = this.state
+        const { idPacjent} = this.state
         const {t} = this.props;
         const {navigate} = this.props;
 
         return (
             <body class="bg-gray-200 flex items-center justify-center h-screen">
-
-            <div class="modal-overlay absolute w-full h-full bg-gray-500 opacity-50"></div>
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
-
                 <div class="modal-content py-9 px-5">
                     <p class="text-4xl mb-2 text-center font-bold">{t('pacjent.deletingPatient')}</p>
-                    <img src="/images/znakZapytaniaPies.png"/>
-
+                    <img src="/images/znakZapytaniaPies.png" alt={"ZnakZapytaniaPies"}/>
                     <div class="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
                                 class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">
-                                {t('button.back')}
+                            {t('button.back')}
                         </button>
                         <button onClick={() => this.removePacjent(idPacjent)}
                                 class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">
-                                {t('pacjent.deletePatient')}
+                            {t('pacjent.deletePatient')}
                         </button>
                     </div>
                 </div>

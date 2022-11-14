@@ -1,10 +1,11 @@
 import {getCurrentUser} from "../components/other/authHelper";
+
 const specjalizacjaURL = 'http://localhost:36989/api/Specjalizacja';
 
-export function getSpecjalizacjaList(){
+export function getSpecjalizacjaList() {
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -14,15 +15,14 @@ export function getSpecjalizacjaList(){
             'Authorization': 'Bearer ' + token
         }
     }
-    const promise = fetch(specjalizacjaURL, options);
-    return promise;
+    return fetch(specjalizacjaURL, options);
 }
 
-export function getSpecjalizacjaDetails(Id){
+export function getSpecjalizacjaDetails(Id) {
     const url = `${specjalizacjaURL}/details/${Id}`;
     const user = getCurrentUser()
     let token
-    if(user && user.Token) {
+    if (user && user.Token) {
         token = user.Token
     }
     const options = {
@@ -44,16 +44,17 @@ export function addSpecjalizacja(specjalizacja) {
     const url = `${specjalizacjaURL}`
     const specjalizacjaString = JSON.stringify(specjalizacja)
     console.log(specjalizacjaString)
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                 'Authorization': 'Bearer ' + token
-            },
-            body: specjalizacjaString
-        }
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: specjalizacjaString
+    }
     return fetch(url, options);
 }
+
 export function updateSpecjalizacja(specjalizacja, Id) {
     const user = getCurrentUser()
     let token
@@ -63,18 +64,18 @@ export function updateSpecjalizacja(specjalizacja, Id) {
     const url = `${specjalizacjaURL}/${Id}`
     const specjalizacjaString = JSON.stringify(specjalizacja)
     console.log(specjalizacjaString)
-        const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                 'Authorization': 'Bearer ' + token
-            },
-            body: specjalizacjaString
-        }
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: specjalizacjaString
+    }
     return fetch(url, options);
 }
 
-export function deleteSpecjalizacja(Id){
+export function deleteSpecjalizacja(Id) {
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
@@ -83,10 +84,10 @@ export function deleteSpecjalizacja(Id){
     const url = `${specjalizacjaURL}/${Id}`
     const options = {
         method: 'DELETE',
-        headers:{
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         },
     }
-    return fetch(url,options)
+    return fetch(url, options)
 }
