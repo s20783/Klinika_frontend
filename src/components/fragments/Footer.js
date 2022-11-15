@@ -17,8 +17,8 @@ class Footer extends React.Component {
     render() {
         const {t} = this.props;
         return (
-            <footer className="p-3 mt- bg-white shadow md:px-6 md:py-1 dark:bg-gray-800 mt-2">
-                <hr className="my-2  border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-2"/>
+            <footer className="p-3 mt- bg-white shadow md:px-6 md:py-1 dark:bg-gray-800">
+                <hr className="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-3"/>
                 <div className="max-w-lg mx-auto flex justify-center text-black">
                     <button onClick={() => {
                         this.handleLanguageChange('pl')
@@ -63,7 +63,7 @@ class Footer extends React.Component {
                         </li>
                     </ul>
                 </div>
-                <div className="flex items-center justify-center sm:justify-between md:ml-4 ml-2 md:mr-4 mr-2">
+                <div className="flex items-center justify-center sm:justify-between md:ml-4 ml-2 md:mr-4 mr-2 mb-1">
                     <p className="flex flex-wrap items-center mb-4 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
                         <i className="fa-regular fa-copyright"></i>
                         Klinika PetMed 2022
