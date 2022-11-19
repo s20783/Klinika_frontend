@@ -54,6 +54,7 @@ function LekListTable(props) {
                     <th scope="col" className="text-center px-6 py-3">{t('lek.fields.name')}</th>
                     <th scope="col" className="text-center px-6 py-3">{t('lek.fields.quantity')}</th>
                     <th scope="col" className="text-center px-6 py-3">{t('lek.fields.unitOfMeasure')}</th>
+                    <th scope="col" className="text-center px-6 py-3">{t('lek.fields.manufacturer')}</th>
                     <th scope="col" className="text-center px-6 py-3"/>
                 </tr>
                 </thead>
@@ -64,6 +65,7 @@ function LekListTable(props) {
                         <td className="text-center px-6 py-2">{lek.Nazwa}</td>
                         <td className="text-center px-6 py-2">{lek.Ilosc}</td>
                         <td className="text-center px-6 py-2">{lek.JednostkaMiary}</td>
+                        <td className="text-center px-6 py-2">{lek.Producent}</td>
                         <td className="text-center px-6 py-2">
                             <div className="text-center list-actions">
                                 <div className="flex">

@@ -290,8 +290,11 @@
 		"title": "Medicines",
 		"infoMedicine": "Info about medicine",
 		"addNewMedicine": "Adding new medicine",
+		"addNewMedicineWarehouse": "Adding new medicine in warehouse",
 		"editMedicine": "Editing medicine",
+		"editMedicineWarehouse": "Editing medicine in warehouse",
 		"deletingMedicine": "Are you sure you want to delete medicine?",
+		"deletingMedicineWarehouse": "Are you sure you want to delete medicine from warehouse?",
 		"deleteMedicine": "Delete medicine",
 		"button": {
 			"addMedicine": "Add medicine",
@@ -302,7 +305,9 @@
 			"name": "Name",
 			"quantity": "Quantity",
 			"unitOfMeasure": "Unit of measure",
-			"expirationDate": "Expiration date"
+			"expirationDate": "Expiration date",
+			"manufacturer": "Manufacturer"
+
 		}
 	}
 }

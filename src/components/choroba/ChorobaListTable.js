@@ -68,8 +68,7 @@ function ChorobaListTable(props) {
                             key={x.ID_Choroba}>
 
                             <td className="px-6 py-2 text-center">{x.Nazwa}</td>
-                            <td className="px-6 py-2 text-center">dfksjhndcbvsgfehdghsfifh wbf cuhebaocub
-                                efuvh uhuc uvh uweqrd gscuh evdvucdfuopdf8ygvdfe
+                            <td className="px-6 py-2 text-center">{x.Opis}
                             </td>
                             <td className="px-6 py-1">
                                 <div className="list-actions">

@@ -125,6 +125,11 @@ class SzczegolyWeterynarza extends React.Component {
             helpDiv.classList.remove("hidden");
         } else {
             helpDiv.classList.add("hidden");
+            const data = {...this.state.data1}
+            data['IdSpecjalizacja'] = null
+            this.setState({
+                data1: data,
+            })
         }
         if (helpDiv1.classList.contains("hidden")) {
             helpDiv1.classList.remove("hidden");
@@ -141,32 +146,17 @@ class SzczegolyWeterynarza extends React.Component {
         deleteWeterynarzSpecjalizacja(idSpec, this.state.idWeterynarz)
             .then(res => {
                 response = res
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    if (response.status === 200) {
-                        console.log(response.status)
-                        navigate(0);
+                console.log(response.status)
+                if (response.ok) {
+                    console.log(response.status)
+                    navigate(0);
+                } else if (response.status === 401) {
+                    console.log("Brak autoryzacji")
 
-                    } else if (response.status === 401) {
-                        console.log(data)
-                        this.setState({
-                            message: data.message
-                        })
-                    } else {
-                        console.log(data)
-                        this.setState({
-                            message: data.message
-                        })
-                    }
-                },
-                (error) => {
-                    this.setState({
-                        error: error
-                    })
-                })
+                } else {
+                    console.log(response.status)
+                }
+            })
     }
 
     handleChange = (event) => {
@@ -189,34 +179,22 @@ class SzczegolyWeterynarza extends React.Component {
         const {navigate} = this.props;
         let response;
         console.log(this.state.data1.IdSpecjalizacja)
-        addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz)
-            .then(res => {
-                response = res
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    if (response.status === 200) {
+        if (this.state.data1.IdSpecjalizacja !== null) {
+            addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz)
+                .then(res => {
+                    response = res
+                    console.log(response.status)
+                    if (response.ok) {
                         console.log(response.status)
                         navigate(0);
                     } else if (response.status === 401) {
-                        console.log(data)
-                        this.setState({
-                            message: data.message
-                        })
+                        console.log("Brak autoryzacji")
+
                     } else {
-                        console.log(data)
-                        this.setState({
-                            message: data.message
-                        })
+                        console.log(response.status)
                     }
-                },
-                (error) => {
-                    this.setState({
-                        error: error
-                    })
                 })
+        }
     }
 
     validateField = (fieldName, fieldValue) => {

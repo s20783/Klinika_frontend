@@ -25,6 +25,7 @@
 		"max300": "To pole wymaga od 2 do 300 znaków",
 		"max300nullable": "To pole wymaga do 300 znaków",
 		"date": "Data nie może byc z przyszłości",
+		"date1": "Data nie może być z przeszłości",
 		"from5to50": "To pole wymaga od 5 do 50 znaków",
 		"from6to50": "To pole wymaga od 6 do 50 znaków",
 		"from8to50": "To pole wymaga od 8 do 50 znaków",
@@ -292,8 +293,11 @@
 		"title": "Leki",
 		"infoMedicine": "Informacje o leku",
 		"addNewMedicine": "Dodanie nowego leku",
+		"addNewMedicineWarehouse": "Dodanie nowego leku w magazynie",
 		"editMedicine": "Edycja leku",
+		"editMedicineWarehouse": "Edycja leku w magazynie",
 		"deletingMedicine": "Czy na pewno chcesz usunąc lek?",
+		"deletingMedicineWarehouse": "Czy na pewno chcesz usunąc lek z magazynu?",
 		"deleteMedicine": "Usuń lek",
 		"button": {
 			"addMedicine": "Dodaj lek",
@@ -304,7 +308,8 @@
 			"name": "Nazwa",
 			"quantity": "Ilość",
 			"unitOfMeasure": "Jednostka miary",
-			"expirationDate": "Data ważności"
+			"expirationDate": "Data ważności",
+			"manufacturer": "Producent"
 		}
 	}
 }

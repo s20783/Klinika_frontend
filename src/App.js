@@ -11,6 +11,9 @@ import {getCurrentUser} from "./components/other/authHelper";
 import Konto from "./components/konto/Konto";
 import LekList from "./components/lek/LekList";
 import LekDetailsList from "./components/lek/LekDetailsList";
+import FormularzLeku from "./components/lek/FormularzLeku";
+import UsuniecieLeku from "./components/lek/UsuniecieLeku";
+import FormularzLekMagazyn from "./components/lek/FormularzLekMagazyn";
 import PacjentList from "./components/pacjent/PacjentList";
 import FormularzPacjenta from "./components/pacjent/FormularzPacjenta";
 import SzczegolyPacjent from "./components/pacjent/SzczegolyPacjent";
@@ -41,6 +44,7 @@ import UsuniecieWeterynarza from "./components/weterynarz/UsuniecieWeterynarza";
 import KontoPacjenci from "./components/konto/KontoPacjenci";
 import Regulamin from "./components/other/Regulamin";
 import PolitykaPrywatnosci from "./components/other/PolitykaPrywatnosci";
+import UsuniecieLekuMagazyn from "./components/lek/UsuniecieLekuMagazyn";
 
 class App extends React.Component {
     constructor(props) {
@@ -123,6 +127,16 @@ class App extends React.Component {
 
                     <Route path="/leki" element={<LekList/>}/>
                     <Route path="/leki/:IdLek" element={<LekDetailsList/>}/>
+                    <Route path="/dodajLek" element={<FormularzLeku/>}/>
+                    <Route path="/leki/edit/:IdLek"
+                           element={<FormularzLeku/>}/>
+                    <Route path="/leki/delete/:IdLek" element={<UsuniecieLeku/>}/>
+
+                    <Route path="/leki/magazyn/dodajLek/:IdLek" element={<FormularzLekMagazyn/>}/>
+                    <Route path="/leki/magazyn/edit/:IdStanLeku" element={<FormularzLekMagazyn/>}/>
+                    <Route path="/leki/magazyn/delete/:IdStanLeku" element={<UsuniecieLekuMagazyn/>}/>
+
+
 
                     <Route path="/pacjenci" element={<PacjentList/>}/>
                     <Route path="/dodajPacjenta" element={<FormularzPacjenta/>}/>
