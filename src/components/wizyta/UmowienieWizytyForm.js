@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import {useNavigate} from "react-router";
 import Time from "../other/Time";
 import dayjs from 'dayjs';
-import {getHarmonogram} from "../../api/HarmonogramApiCalls";
+import {getHarmonogramWizyta} from "../../api/HarmonogramApiCalls";
 import {postWizyta} from "../../api/WizytaApiCalls";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {withTranslation} from "react-i18next";
@@ -162,7 +162,7 @@ class UmowienieWizytyForm extends React.Component {
     onChange = (date) => {
         this.setState({selectedDate: date});
         const {navigate} = this.props;
-        getHarmonogram(dayjs(date).format('YYYY-MM-DD'))
+        getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'))
             .then(res => {
                 if (res.status === 401) {
                     console.log('Potrzebny aktualny access token')

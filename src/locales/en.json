@@ -104,6 +104,7 @@
 		"prescriptions": "Prescriptions",
 		"referrals": "Referrals",
 		"payments": "Payments",
+		"schedule": "Schedule",
 		"logout": "Log out"
 	},
 	"konto": {
@@ -308,6 +309,25 @@
 			"expirationDate": "Expiration date",
 			"manufacturer": "Manufacturer"
 
+		}
+	},
+	"harmonogram": {
+		"checkingTheVetsSchedule": "Checking the schedule",
+		"selectVet": "Select vet",
+		"button": {
+			"check": "Check"
+		},
+		"fields": {
+			"vet": "Vet",
+			"date": "Date"
+		},
+		"weekdays": {
+			"pon": "mon",
+			"wt": "tue",
+			"sr": "wed",
+			"czw": "thu",
+			"pt": "fri",
+			"sob": "sat"
 		}
 	}
 }

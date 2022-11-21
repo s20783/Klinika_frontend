@@ -20,6 +20,25 @@ export const userMenuValues = [
         url: '/mojeRecepty'
     }
 ];
+export const vetMenuValues = [
+    {
+        title: 'myAccount',
+        url: '/konto'
+    },
+    {
+        title: 'notifications',
+        url: '/powiadomienia'
+    },
+    {
+        title: 'schedule',
+        url: '/mojHarmonogram'
+    },
+    {
+        title: 'appointments',
+        url: '/mojeWizyty'
+    }
+
+];
 
 export const adminMenuValues = [
     {

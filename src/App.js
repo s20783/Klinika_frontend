@@ -45,6 +45,11 @@ import KontoPacjenci from "./components/konto/KontoPacjenci";
 import Regulamin from "./components/other/Regulamin";
 import PolitykaPrywatnosci from "./components/other/PolitykaPrywatnosci";
 import UsuniecieLekuMagazyn from "./components/lek/UsuniecieLekuMagazyn";
+import Harmonogram from "./components/harmonogram/Harmonogram";
+
+function KontoHarmonogram() {
+    return null;
+}
 
 class App extends React.Component {
     constructor(props) {
@@ -111,6 +116,7 @@ class App extends React.Component {
                     <Route path="/konto" element={<Konto/>}/>
                     <Route path="/moiPacjenci" element={<KontoPacjenci/>}/>
                     <Route path="/mojeWizyty" element={<KontoWizyty/>}/>
+                    <Route path="/mojHarmonogram" element={<KontoHarmonogram/>}/>
                     <Route path="/zmianaHasla" element={<ZmianaHasla/>}/>
                     <Route path="/zmianaDanychKonta" element={<ZmianaDanychKonta/>}/>
 
@@ -136,7 +142,7 @@ class App extends React.Component {
                     <Route path="/leki/magazyn/edit/:IdStanLeku" element={<FormularzLekMagazyn/>}/>
                     <Route path="/leki/magazyn/delete/:IdStanLeku" element={<UsuniecieLekuMagazyn/>}/>
 
-
+                    <Route path="/harmonogram" element={<Harmonogram/>}/>
 
                     <Route path="/pacjenci" element={<PacjentList/>}/>
                     <Route path="/dodajPacjenta" element={<FormularzPacjenta/>}/>

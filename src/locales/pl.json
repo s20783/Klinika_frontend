@@ -1,315 +1,333 @@
 {
-	"navigation": {
-		"mainPage": "Strona główna",
-		"contact": "Kontakt",
-		"appointment": "Umów wizytę",
-		"clients": "Klienci",
-		"vets": "Weterynarze",
-		"patients": "Pacjenci",
-		"visits": "Wizyty",
-		"services": "Usługi",
-		"disease": "Choroby",
-		"medicines": "Leki",
-		"vaccinations": "Szczepionki",
-		"schedule": "Harmonogram",
-		"specializations":"Specjalizacje"
-	},
-	"footer": {
-		"regulations": "Regulamin",
-		"policy": "Polityka prywatności"
-	},
-	"validation": {
-		"required": "Pole wymagane",
-		"max30": "To pole wymaga od 2 do 30 znaków",
-		"max50": "To pole wymaga od 2 do 50 znaków",
-		"max300": "To pole wymaga od 2 do 300 znaków",
-		"max300nullable": "To pole wymaga do 300 znaków",
-		"date": "Data nie może byc z przyszłości",
-		"date1": "Data nie może być z przeszłości",
-		"from5to50": "To pole wymaga od 5 do 50 znaków",
-		"from6to50": "To pole wymaga od 6 do 50 znaków",
-		"from8to50": "To pole wymaga od 8 do 50 znaków",
-		"from8to30": "To pole wymaga od 8 do 30 znaków",
-		"notSame": "Hasła nie są takie same",
-		"format": "Niepoprawny format",
-		"password": "Pole wymaga minimum 8 znaków, wielkiej litery i cyfry",
-		"salary": "To pole musi być liczbą z przedziału od 0 do 100000"
-	},
-	"errors": {
-		"Incorrect": "Niepoprawne hasło lub login",
-		"Incorrect1": "Niepoprawne hasło",
-		"Not unique": "Ta nazwa jest już zajęta",
-		"Incorrect password": "Niepoprawne hasło"
-	},
-	"button": {
-		"next": "Dalej",
-		"back": "Powrót",
-		"confirm": "Zatwierdź",
-		"add": "Dodaj"
-	},
-	"other": {
-		"yes": "Tak",
-		"no": "Nie",
-		"search": "Wyszukaj",
-		"selectedDate": "Wybrano date: ",
-		"day": {
-			"1": "Poniedziałek",
-			"2": "Wtorek",
-			"3": "Środa",
-			"4": "Czwartek",
-			"5": "Piątek",
-			"6": "Sobota",
-			"7": "Niedziela"
-		}
-	},
-	"login": {
-		"title": "Witamy w klinice PetMed",
-		"signIn": "Logowanie",
-		"login": "Zaloguj się",
-		"forgotPassword": "Nie pamiętasz hasła?",
-		"register": "Zarejestruj się tutaj",
-		"text": "Nie masz konta?",
-		"fields": {
-			"nazwaUzytkownika": "Nazwa użytkownika",
-			"haslo": "Hasło"
-		}
-	},
-	"register": {
-		"title": "Witamy w klinice PetMed",
-		"signUp": "Rejestracja",
-		"signUpButton": "Zarejestruj się",
-		"required": "wymagane",
-		"fields": {
-			"imie": "Imię",
-			"nazwisko": "Nazwisko",
-			"email": "Email",
-			"numerTelefonu": "Numer telefonu",
-			"nazwaUzytkownika": "Nazwa użytkownika",
-			"haslo": "Hasło",
-			"haslo2": "Powtórz hasło"
-		},
-		"thankYou": "Dziękujemy!",
-		"accountCreated": "Twoje konto zostało utworzone. Zaloguj się, aby umówić wizytę."
-
-	},
-	"mainPage": {
-		"title": "Witamy w klinice PetMed!"
-	},
-	"contact": {
-		"title": "Kontakt"
-	},
-	"userMenu": {
-		"myAccount": "Moje konto",
-		"notifications": "Powiadomienia",
-		"appointments": "Wizyty",
-		"pets": "Zwierzęta",
-		"prescriptions": "Recepty",
-		"referrals": "Skierowania",
-		"payments": "Opłaty",
-		"logout": "Wyloguj się"
-	},
-	"konto": {
-		"myAccount": "Moje konto",
-		"contactDetails": "Dane kontaktowe",
-		"accountManagement": "Zarządzanie kontem",
-		"changePassword": "Zmiana hasła",
-		"saveChanges": "Zapisz zmiany",
-		"forgotPassword": "Nie pamiętasz hasła?",
-		"changeData": "Zmiana danych konta",
-		"login": "Nazwa użytkownika",
-		"button": {
-			"changeContactData": "Zmień dane kontaktowe",
-			"changePassword" : "Zmień hasło"
-		},
-		"field": {
-			"typePassword": "Podaj hasło",
-			"currentPassword": "Aktualne hasło",
-			"newPassword": "Nowe hasło",
-			"newPassword2": "Powtórz hasło"
-		}
-	},
-	"wizyta": {
-		"title": "Wizyty",
-		"makeAnAppointment": "Umówienie wizyty",
-		"visitDetails": "Szczegóły wizyty",
-		"thankYou": "Dziękujemy!",
-		"confirmation": "Potwierdzenie umówienia wizyty.",
-		"date": "Termin",
-		"selectPatient": "Wybierz pacjenta",
-		"selectedDate": "Wybrano termin: ",
-		"deletingVisit": "Czy na pewno chcesz usunąc wizyte?",
-		"deleteVisit": "Usuń wizyte",
-		"other": "inny",
-		"button": {
-			"appointment": "Umów wizytę"
-		},
-		"status": {
-			"Zaplanowana": "Zaplanowana",
-			"Zrealizowana": "Zrealizowana",
-			"AnulowanaKlient": "Anulowana",
-			"AnulowanaKlinika": "Anulowana"
-		},
-		"table": {
-			"startDate": "Data rozpoczecia",
-			"endDate": "Data zakonczenia",
-			"patient": "Pacjent",
-			"vet": "Weterynarz",
-			"status": "Status",
-			"isPaid": "Czy opłacone?",
-			"price": "Cena",
-			"clientNote": "Notatka klienta",
-			"description": "Opis"
-		},
-		"field": {
-			"patient": "Pacjent",
-			"date": "Wybierz termin",
-			"description": "Dodaj opis"
-		}
-	},
-	"pacjent": {
-		"title": "Pacjenci",
-		"addNewPatient": "Adding new patient",
-		"editPatient": "Edycja pacjenta",
-		"detailsPatient": "Szczegóły pacjenta",
-		"selectOwner": "Wybierz właściciela",
-		"deletingPatient": "Czy na pewno chcesz usunąc pacjenta?",
-		"deletePatient": "Usuń pacjenta",
-		"button": {
-			"addPatient": "Dodaj pacjenta"
-		},
-		"gender": {
-			"male": "Samiec",
-			"female": "Samica"
-		},
-		"fields": {
-			"owner": "Właściciel",
-			"name": "Nazwa",
-			"species": "Gatunek",
-			"breed": "Rasa",
-			"weight": "Waga",
-			"color": "Maść",
-			"birthdate": "Data urodzenia",
-			"gender": "Płeć",
-			"infertile": "Czy ubezpłodniony?",
-			"aggressive": "Czy agresywny?"
-
-		}
-	},
-	"weterynarz": {
-		"title": "Weterynarze",
-		"addNewVet": "Dodanie nowego weterynarza",
-		"editVet": "Edycja weterynarza",
-		"detailsVet": "Szczegóły weterynarza",
-		"deletingVet": "Czy na pewno chcesz usunąc weterynarza?",
-		"deleteVet": "Usuń weterynarza",
-		"button": {
-			"addVet": "Dodaj weterynarza",
-			"addSpec": "+ Dodaj"
-		},
-		"fields": {
-			"firstName": "Imię",
-			"lastName": "Nazwisko",
-			"phoneNumber": "Numer telefonu",
-			"email": "Email",
-			"login": "Nazwa użytkownika",
-			"birthDate": "Data urodzenia",
-			"employmentDate": "Data zatrudnienia",
-			"salary": "Pensja"
-		}
-	},
-	"klient": {
-		"title": "Klienci",
-		"addNewClient": "Dodanie nowego klienta",
-		"editClient": "Edycja klienta",
-		"detailsClient": "Szczegóły klienta",
-		"deletingClient": "Czy na pewno chcesz usunąc klienta?",
-		"deleteClient": "Usuń klienta",
-		"fields": {
-			"firstName": "Imię",
-			"lastName": "Nazwisko",
-			"phoneNumber": "Numer telefonu",
-			"email": "Email",
-			"login": "Nazwa użytkownika",
-			"birthDate": "Data urodzenia"
-		}
-	},
-	"specjalizacja": {
-		"title": "Specjalizacje",
-		"addNewSpecialization": "Dodanie nowej specjalizacji",
-		"editSpecialization": "Edycja specjalizacji",
-		"deletingSpecialization": "Czy na pewno chcesz usunąc specjalizacje?",
-		"deleteSpecialization": "Usuń specjalizacje",
-		"addDescription":"Dodaj opis . . .",
-		"selectSpecialization": "Wybierz specjalizacje",
-		"button": {
-			"addSpecialization": "Dodaj specjalizacje"
-		},
-		"fields": {
-			"name": "Nazwa",
-			"description": "Opis"
-		}
-	},
-	"usluga": {
-		"title": "Usługi",
-		"addNewService": "Dodanie nowej uslugi",
-		"editService": "Edycja uslugi",
-		"deletingService": "Czy na pewno chcesz usunąc usluge?",
-		"deleteService": "Usuń usluge",
-		"addDescription":"Dodaj opis . . .",
-		"button": {
-			"addService": "Dodaj usluge"
-		},
-		"fields": {
-			"name": "Nazwa",
-			"painScale": "Dolegliwość",
-			"painScaleEnum": {
-				"low": "Niska",
-				"medium": "Średnia",
-				"high": "Wysoka"
-			},
-			"price": "Cena",
-			"narcosis": "Czy narkoza?",
-			"description": "Opis"
-		}
-	},
-	"choroba": {
-		"title": "Choroby",
-		"addNewDisease": "Dodanie nowej choroby",
-		"editDisease": "Edycja choroby",
-		"deletingDisease": "Czy na pewno chcesz usunąc chorobe?",
-		"deleteDisease": "Usuń chorobe",
-		"addDescription":"Dodaj opis . . .",
-		"selectDisease": "Wybierz chorobe",
-		"button": {
-			"addDisease": "Dodaj chorobe"
-		},
-		"fields": {
-			"name": "Nazwa",
-			"description": "Opis"
-		}
-	},
-	"lek": {
-		"name": "lek",
-		"title": "Leki",
-		"infoMedicine": "Informacje o leku",
-		"addNewMedicine": "Dodanie nowego leku",
-		"addNewMedicineWarehouse": "Dodanie nowego leku w magazynie",
-		"editMedicine": "Edycja leku",
-		"editMedicineWarehouse": "Edycja leku w magazynie",
-		"deletingMedicine": "Czy na pewno chcesz usunąc lek?",
-		"deletingMedicineWarehouse": "Czy na pewno chcesz usunąc lek z magazynu?",
-		"deleteMedicine": "Usuń lek",
-		"button": {
-			"addMedicine": "Dodaj lek",
-			"edit": "Edytuj",
-			"addMedicineInWarehouse": "Dodaj lek w magazynie"
-		},
-		"fields": {
-			"name": "Nazwa",
-			"quantity": "Ilość",
-			"unitOfMeasure": "Jednostka miary",
-			"expirationDate": "Data ważności",
-			"manufacturer": "Producent"
-		}
-	}
+  "navigation": {
+    "mainPage": "Strona główna",
+    "contact": "Kontakt",
+    "appointment": "Umów wizytę",
+    "clients": "Klienci",
+    "vets": "Weterynarze",
+    "patients": "Pacjenci",
+    "visits": "Wizyty",
+    "services": "Usługi",
+    "disease": "Choroby",
+    "medicines": "Leki",
+    "vaccinations": "Szczepionki",
+    "schedule": "Harmonogram",
+    "specializations": "Specjalizacje"
+  },
+  "footer": {
+    "regulations": "Regulamin",
+    "policy": "Polityka prywatności"
+  },
+  "validation": {
+    "required": "Pole wymagane",
+    "max30": "To pole wymaga od 2 do 30 znaków",
+    "max50": "To pole wymaga od 2 do 50 znaków",
+    "max300": "To pole wymaga od 2 do 300 znaków",
+    "max300nullable": "To pole wymaga do 300 znaków",
+    "date": "Data nie może byc z przyszłości",
+    "date1": "Data nie może być z przeszłości",
+    "from5to50": "To pole wymaga od 5 do 50 znaków",
+    "from6to50": "To pole wymaga od 6 do 50 znaków",
+    "from8to50": "To pole wymaga od 8 do 50 znaków",
+    "from8to30": "To pole wymaga od 8 do 30 znaków",
+    "notSame": "Hasła nie są takie same",
+    "format": "Niepoprawny format",
+    "password": "Pole wymaga minimum 8 znaków, wielkiej litery i cyfry",
+    "salary": "To pole musi być liczbą z przedziału od 0 do 100000"
+  },
+  "errors": {
+    "Incorrect": "Niepoprawne hasło lub login",
+    "Incorrect1": "Niepoprawne hasło",
+    "Not unique": "Ta nazwa jest już zajęta",
+    "Incorrect password": "Niepoprawne hasło"
+  },
+  "button": {
+    "next": "Dalej",
+    "back": "Powrót",
+    "confirm": "Zatwierdź",
+    "add": "Dodaj"
+  },
+  "other": {
+    "yes": "Tak",
+    "no": "Nie",
+    "search": "Wyszukaj",
+    "selectedDate": "Wybrano date: ",
+    "day": {
+      "1": "Poniedziałek",
+      "2": "Wtorek",
+      "3": "Środa",
+      "4": "Czwartek",
+      "5": "Piątek",
+      "6": "Sobota",
+      "7": "Niedziela"
+    }
+  },
+  "login": {
+    "title": "Witamy w klinice PetMed",
+    "signIn": "Logowanie",
+    "login": "Zaloguj się",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "register": "Zarejestruj się tutaj",
+    "text": "Nie masz konta?",
+    "fields": {
+      "nazwaUzytkownika": "Nazwa użytkownika",
+      "haslo": "Hasło"
+    }
+  },
+  "register": {
+    "title": "Witamy w klinice PetMed",
+    "signUp": "Rejestracja",
+    "signUpButton": "Zarejestruj się",
+    "required": "wymagane",
+    "fields": {
+      "imie": "Imię",
+      "nazwisko": "Nazwisko",
+      "email": "Email",
+      "numerTelefonu": "Numer telefonu",
+      "nazwaUzytkownika": "Nazwa użytkownika",
+      "haslo": "Hasło",
+      "haslo2": "Powtórz hasło"
+    },
+    "thankYou": "Dziękujemy!",
+    "accountCreated": "Twoje konto zostało utworzone. Zaloguj się, aby umówić wizytę."
+  },
+  "mainPage": {
+    "title": "Witamy w klinice PetMed!"
+  },
+  "contact": {
+    "title": "Kontakt"
+  },
+  "userMenu": {
+    "myAccount": "Moje konto",
+    "notifications": "Powiadomienia",
+    "schedule": "Harmonogram",
+    "appointments": "Wizyty",
+    "pets": "Zwierzęta",
+    "prescriptions": "Recepty",
+    "referrals": "Skierowania",
+    "payments": "Opłaty",
+    "logout": "Wyloguj się"
+  },
+  "konto": {
+    "myAccount": "Moje konto",
+    "contactDetails": "Dane kontaktowe",
+    "accountManagement": "Zarządzanie kontem",
+    "changePassword": "Zmiana hasła",
+    "saveChanges": "Zapisz zmiany",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "changeData": "Zmiana danych konta",
+    "login": "Nazwa użytkownika",
+    "button": {
+      "changeContactData": "Zmień dane kontaktowe",
+      "changePassword": "Zmień hasło"
+    },
+    "field": {
+      "typePassword": "Podaj hasło",
+      "currentPassword": "Aktualne hasło",
+      "newPassword": "Nowe hasło",
+      "newPassword2": "Powtórz hasło"
+    }
+  },
+  "wizyta": {
+    "title": "Wizyty",
+    "makeAnAppointment": "Umówienie wizyty",
+    "visitDetails": "Szczegóły wizyty",
+    "thankYou": "Dziękujemy!",
+    "confirmation": "Potwierdzenie umówienia wizyty.",
+    "date": "Termin",
+    "selectPatient": "Wybierz pacjenta",
+    "selectedDate": "Wybrano termin: ",
+    "deletingVisit": "Czy na pewno chcesz usunąc wizyte?",
+    "deleteVisit": "Usuń wizyte",
+    "other": "inny",
+    "button": {
+      "appointment": "Umów wizytę"
+    },
+    "status": {
+      "Zaplanowana": "Zaplanowana",
+      "Zrealizowana": "Zrealizowana",
+      "AnulowanaKlient": "Anulowana",
+      "AnulowanaKlinika": "Anulowana"
+    },
+    "table": {
+      "startDate": "Data rozpoczecia",
+      "endDate": "Data zakonczenia",
+      "patient": "Pacjent",
+      "vet": "Weterynarz",
+      "status": "Status",
+      "isPaid": "Czy opłacone?",
+      "price": "Cena",
+      "clientNote": "Notatka klienta",
+      "description": "Opis"
+    },
+    "field": {
+      "patient": "Pacjent",
+      "date": "Wybierz termin",
+      "description": "Dodaj opis"
+    }
+  },
+  "pacjent": {
+    "title": "Pacjenci",
+    "addNewPatient": "Adding new patient",
+    "editPatient": "Edycja pacjenta",
+    "detailsPatient": "Szczegóły pacjenta",
+    "selectOwner": "Wybierz właściciela",
+    "deletingPatient": "Czy na pewno chcesz usunąc pacjenta?",
+    "deletePatient": "Usuń pacjenta",
+    "button": {
+      "addPatient": "Dodaj pacjenta"
+    },
+    "gender": {
+      "male": "Samiec",
+      "female": "Samica"
+    },
+    "fields": {
+      "owner": "Właściciel",
+      "name": "Nazwa",
+      "species": "Gatunek",
+      "breed": "Rasa",
+      "weight": "Waga",
+      "color": "Maść",
+      "birthdate": "Data urodzenia",
+      "gender": "Płeć",
+      "infertile": "Czy ubezpłodniony?",
+      "aggressive": "Czy agresywny?"
+    }
+  },
+  "weterynarz": {
+    "title": "Weterynarze",
+    "addNewVet": "Dodanie nowego weterynarza",
+    "editVet": "Edycja weterynarza",
+    "detailsVet": "Szczegóły weterynarza",
+    "deletingVet": "Czy na pewno chcesz usunąc weterynarza?",
+    "deleteVet": "Usuń weterynarza",
+    "button": {
+      "addVet": "Dodaj weterynarza",
+      "addSpec": "+ Dodaj"
+    },
+    "fields": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "phoneNumber": "Numer telefonu",
+      "email": "Email",
+      "login": "Nazwa użytkownika",
+      "birthDate": "Data urodzenia",
+      "employmentDate": "Data zatrudnienia",
+      "salary": "Pensja"
+    }
+  },
+  "klient": {
+    "title": "Klienci",
+    "addNewClient": "Dodanie nowego klienta",
+    "editClient": "Edycja klienta",
+    "detailsClient": "Szczegóły klienta",
+    "deletingClient": "Czy na pewno chcesz usunąc klienta?",
+    "deleteClient": "Usuń klienta",
+    "fields": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "phoneNumber": "Numer telefonu",
+      "email": "Email",
+      "login": "Nazwa użytkownika",
+      "birthDate": "Data urodzenia"
+    }
+  },
+  "specjalizacja": {
+    "title": "Specjalizacje",
+    "addNewSpecialization": "Dodanie nowej specjalizacji",
+    "editSpecialization": "Edycja specjalizacji",
+    "deletingSpecialization": "Czy na pewno chcesz usunąc specjalizacje?",
+    "deleteSpecialization": "Usuń specjalizacje",
+    "addDescription": "Dodaj opis . . .",
+    "selectSpecialization": "Wybierz specjalizacje",
+    "button": {
+      "addSpecialization": "Dodaj specjalizacje"
+    },
+    "fields": {
+      "name": "Nazwa",
+      "description": "Opis"
+    }
+  },
+  "usluga": {
+    "title": "Usługi",
+    "addNewService": "Dodanie nowej uslugi",
+    "editService": "Edycja uslugi",
+    "deletingService": "Czy na pewno chcesz usunąc usluge?",
+    "deleteService": "Usuń usluge",
+    "addDescription": "Dodaj opis . . .",
+    "button": {
+      "addService": "Dodaj usluge"
+    },
+    "fields": {
+      "name": "Nazwa",
+      "painScale": "Dolegliwość",
+      "painScaleEnum": {
+        "low": "Niska",
+        "medium": "Średnia",
+        "high": "Wysoka"
+      },
+      "price": "Cena",
+      "narcosis": "Czy narkoza?",
+      "description": "Opis"
+    }
+  },
+  "choroba": {
+    "title": "Choroby",
+    "addNewDisease": "Dodanie nowej choroby",
+    "editDisease": "Edycja choroby",
+    "deletingDisease": "Czy na pewno chcesz usunąc chorobe?",
+    "deleteDisease": "Usuń chorobe",
+    "addDescription": "Dodaj opis . . .",
+    "selectDisease": "Wybierz chorobe",
+    "button": {
+      "addDisease": "Dodaj chorobe"
+    },
+    "fields": {
+      "name": "Nazwa",
+      "description": "Opis"
+    }
+  },
+  "lek": {
+    "name": "lek",
+    "title": "Leki",
+    "infoMedicine": "Informacje o leku",
+    "addNewMedicine": "Dodanie nowego leku",
+    "addNewMedicineWarehouse": "Dodanie nowego leku w magazynie",
+    "editMedicine": "Edycja leku",
+    "editMedicineWarehouse": "Edycja leku w magazynie",
+    "deletingMedicine": "Czy na pewno chcesz usunąc lek?",
+    "deletingMedicineWarehouse": "Czy na pewno chcesz usunąc lek z magazynu?",
+    "deleteMedicine": "Usuń lek",
+    "button": {
+      "addMedicine": "Dodaj lek",
+      "edit": "Edytuj",
+      "addMedicineInWarehouse": "Dodaj lek w magazynie"
+    },
+    "fields": {
+      "name": "Nazwa",
+      "quantity": "Ilość",
+      "unitOfMeasure": "Jednostka miary",
+      "expirationDate": "Data ważności",
+      "manufacturer": "Producent"
+    }
+  },
+  "harmonogram": {
+    "checkingTheVetsSchedule": "Sprawdzenie harmonogramu",
+    "selectVet": "Wybierz weterynarza",
+    "button": {
+      "check": "Sprawdź"
+    },
+    "fields": {
+      "vet": "Weterynarz",
+      "date": "Data"
+    },
+    "weekdays": {
+      "pon": "pon",
+      "wt": "wt",
+      "sr": "sr",
+      "czw": "czw",
+      "pt": "pt",
+      "sob": "sob"
+    }
+  }
 }

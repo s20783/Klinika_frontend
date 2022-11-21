@@ -29,7 +29,7 @@ class Footer extends React.Component {
                         this.handleLanguageChange('en')
                     }} className="hover:text-blue-400">EN
                     </button>
-                    <span className="mx-3">•</span>
+                    <span className="mx-3 ">•</span>
                     <button onClick={() => {
                         this.handleLanguageChange('ua')
                     }} className="hover:text-blue-400">UA
