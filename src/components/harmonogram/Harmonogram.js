@@ -13,7 +13,7 @@ class Harmonogram extends React.Component {
 
         this.state = {
             data: {
-                Weterynarz: '',
+                Weterynarz: '0',
                 Data: '',
             },
             errors: {
@@ -182,7 +182,7 @@ class Harmonogram extends React.Component {
         let language = i18n.language;
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('harmonogram.checkingTheVetsSchedule')}</p>
                     <div class="block lg:hidden sticky inset-0">
@@ -208,13 +208,12 @@ class Harmonogram extends React.Component {
                                 <div className="md:w-3/5">
                                     <select name="Weterynarz" id="Weterynarz" onChange={this.handleChange}
                                             className={errors.IdOsoba ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
-                                        <option value="">{t('harmonogram.selectVet')}</option>
+                                        <option value="0">{t('harmonogram.all')}</option>
                                         {
                                             weterynarze.map(vet => (
                                                 <option selected={data.IdOsoba === vet.IdOsoba}
                                                         value={vet.IdOsoba}>{vet.Imie} {vet.Nazwisko}</option>
                                             ))}
-                                        <option value="0"> -</option>
                                     </select>
                                 </div>
                                 <span id="errorWeterynarz" className="errors-text2 mt-4">{errors.Weterynarz}</span>

@@ -314,6 +314,7 @@
 	"harmonogram": {
 		"checkingTheVetsSchedule": "Checking the schedule",
 		"selectVet": "Select vet",
+		"all": "All vets",
 		"button": {
 			"check": "Check"
 		},

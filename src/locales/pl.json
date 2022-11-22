@@ -314,6 +314,7 @@
   "harmonogram": {
     "checkingTheVetsSchedule": "Sprawdzenie harmonogramu",
     "selectVet": "Wybierz weterynarza",
+    "all": "Wszyscy weterynarze",
     "button": {
       "check": "Sprawdź"
     },
