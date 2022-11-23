@@ -45,11 +45,9 @@ import KontoPacjenci from "./components/konto/KontoPacjenci";
 import Regulamin from "./components/other/Regulamin";
 import PolitykaPrywatnosci from "./components/other/PolitykaPrywatnosci";
 import UsuniecieLekuMagazyn from "./components/lek/UsuniecieLekuMagazyn";
-import Harmonogram from "./components/harmonogram/Harmonogram";
+import HarmonogramForm from "./components/harmonogram/HarmonogramForm";
+import KontoHarmonogram from "./components/konto/KontoHarmonogram";
 
-function KontoHarmonogram() {
-    return null;
-}
 
 class App extends React.Component {
     constructor(props) {
@@ -90,7 +88,6 @@ class App extends React.Component {
                     <Route path="/login" element={<Login handleLogin={this.handleLogin}/>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/afterRegister" element={<AfterRegister/>}/>
-
 
                     <Route path="/klienci" element={<KlientList/>}/>
                     <Route path="/klienci/:IdOsoba" element={<SzczegolyKlienta/>}/>
@@ -142,7 +139,7 @@ class App extends React.Component {
                     <Route path="/leki/magazyn/edit/:IdStanLeku" element={<FormularzLekMagazyn/>}/>
                     <Route path="/leki/magazyn/delete/:IdStanLeku" element={<UsuniecieLekuMagazyn/>}/>
 
-                    <Route path="/harmonogram" element={<Harmonogram/>}/>
+                    <Route path="/harmonogram" element={<HarmonogramForm/>}/>
 
                     <Route path="/pacjenci" element={<PacjentList/>}/>
                     <Route path="/dodajPacjenta" element={<FormularzPacjenta/>}/>
