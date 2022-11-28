@@ -105,7 +105,9 @@
 		"referrals": "Referrals",
 		"payments": "Payments",
 		"schedule": "Schedule",
-		"logout": "Log out"
+		"logout": "Log out",
+		"checkSchedule": "Check schedule",
+		"setWorkingHours": "Set working hours"
 	},
 	"konto": {
 		"myAccount": "My account",
@@ -311,8 +313,20 @@
 
 		}
 	},
+	"godzinyPracy": {
+		"title": "Working hours",
+		"changingWorkingHour":"Changing vet's working hour",
+		"wrongTimeFormat": "Wrong time format",
+		"button": {
+			"addDefault": "Add default"
+		},
+		"deletingWorkingHour": "Are you sure you want to delete working hour?",
+		"deleteWorkingHour": "Delete working hour"
+	},
 	"harmonogram": {
 		"checkingTheVetsSchedule": "Checking the schedule",
+		"workingHour": "Working hours",
+		"changingWorkingHour":"Changing vet's working hour",
 		"selectVet": "Select vet",
 		"all": "All vets",
 		"button": {

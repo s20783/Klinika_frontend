@@ -106,7 +106,9 @@
     "prescriptions": "Recepty",
     "referrals": "Skierowania",
     "payments": "Opłaty",
-    "logout": "Wyloguj się"
+    "logout": "Wyloguj się",
+    "checkSchedule": "Sprawdz harmonogram",
+    "setWorkingHours": "Ustaw godziny pracy"
   },
   "konto": {
     "myAccount": "Moje konto",
@@ -311,6 +313,16 @@
       "manufacturer": "Producent"
     }
   },
+  "godzinyPracy": {
+    "title": "Godziny pracy",
+    "changingWorkingHour":"Zmiana godzin pracy weterynarza",
+    "wrongTimeFormat": "Zły format czasu",
+    "button": {
+      "addDefault": " Dodaj domyślne"
+    },
+    "deletingWorkingHour": "Czy na pewno chcesz usunąc godzine pracy?",
+    "deleteWorkingHour": "Usuń godzine pracy"
+  },
   "harmonogram": {
     "checkingTheVetsSchedule": "Sprawdzenie harmonogramu",
     "selectVet": "Wybierz weterynarza",
@@ -323,12 +335,12 @@
       "date": "Data"
     },
     "weekdays": {
-      "pon": "pon",
-      "wt": "wt",
-      "sr": "sr",
-      "czw": "czw",
-      "pt": "pt",
-      "sob": "sob"
+      "1": "pon",
+      "2": "wt",
+      "3": "sr",
+      "4": "czw",
+      "5": "pt",
+      "6": "sob"
     }
   }
 }

@@ -14,14 +14,14 @@ function Harmonogram(props) {
     return (
 
         <div>
-            <h2 className="mt-6 w-full my-2 mb-6 underline  text-3xl font-bold leading-tight text-left text-gray-500">
+            <h2 className="mt-6 w-full my-2 mb-6  text-2xl font-bold leading-tight text-left text-gray-500">
                 {getFormattedDate1(start)}<span className="mx-3  "> - </span>{getFormattedDate1(end)}</h2>
             <table
                 className="w-full text-center flex flex-wrap text-gray-700 dark:text-gray-400">
                 <tr></tr>
                 <tr>
                     <th className=" text-l mb-6 text-center flex flex-wrap mx-20 text-gray-700 uppercase underline decoration-double dark:bg-gray-700 dark:text-gray-400">
-                        {t("harmonogram.weekdays.pon")}</th>
+                        {t("harmonogram.weekdays.1")}</th>
                     {harmonogram.map(x => (
                         (x.Dzien === 1) &&
                         <td className="text-center w-full flex flex-wrap my-2 ">
@@ -44,7 +44,7 @@ function Harmonogram(props) {
                 </tr>
                 <tr className="border-b-2 border-t-2">
                     <th className=" text-xl mb-6 text-center flex flex-wrap mx-20 text-gray-700 uppercase underline decoration-double dark:bg-gray-700 dark:text-gray-400">
-                        {t("harmonogram.weekdays.wt")}</th>
+                        {t("harmonogram.weekdays.2")}</th>
                     {harmonogram.map(x => (
                         (x.Dzien === 2) &&
                         <td className="text-center w-full flex flex-wrap my-2 ">
@@ -67,7 +67,7 @@ function Harmonogram(props) {
                 </tr>
                 <tr>
                     <th className=" text-xl mb-6 text-center flex flex-wrap mx-20 text-gray-700 uppercase underline decoration-double dark:bg-gray-700 dark:text-gray-400">
-                        {t("harmonogram.weekdays.sr")}</th>
+                        {t("harmonogram.weekdays.3")}</th>
                     {harmonogram.map(x => (
                         (x.Dzien === 3) &&
                         <td className="text-center w-full flex flex-wrap my-2 ">
@@ -90,7 +90,7 @@ function Harmonogram(props) {
                 </tr>
                 <tr className="border-b-2 border-t-2">
                     <th className=" text-xl mb-6 text-center flex flex-wrap mx-20 text-gray-700 uppercase underline decoration-double dark:bg-gray-700 dark:text-gray-400">
-                        {t("harmonogram.weekdays.czw")}</th>
+                        {t("harmonogram.weekdays.4")}</th>
                     {harmonogram.map(x => (
                         (x.Dzien === 4) &&
                         <td className="text-center w-full flex flex-wrap my-2 ">
@@ -113,7 +113,7 @@ function Harmonogram(props) {
                 </tr>
                 <tr>
                     <th className=" text-xl mb-6 text-center flex flex-wrap mx-20 text-gray-700 uppercase underline decoration-double dark:bg-gray-700 dark:text-gray-400">
-                        {t("harmonogram.weekdays.pt")}</th>
+                        {t("harmonogram.weekdays.5")}</th>
                     {harmonogram.map(x => (
                         (x.Dzien === 5) &&
                         <td className="text-center w-full flex flex-wrap my-2 ">
@@ -136,9 +136,9 @@ function Harmonogram(props) {
                 </tr>
                 <tr className="border-2">
                     <th className=" text-xl mb-6 text-center flex flex-wrap mx-20 text-gray-700 uppercase underline decoration-double dark:bg-gray-700 dark:text-gray-400">
-                        {t("harmonogram.weekdays.sob")}</th>
+                        {t("harmonogram.weekdays.6")}</th>
                     {harmonogram.map(x => (
-                        (x.Dzien === 1) &&
+                        (x.Dzien === 6) &&
                         <td className="text-center w-full flex flex-wrap my-2 ">
                             <div className={(x.CzyZajete === false)
                                 ? ' border-l-4 border-green-300 mx-2 w-full' :

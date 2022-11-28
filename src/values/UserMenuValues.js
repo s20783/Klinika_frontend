@@ -50,3 +50,14 @@ export const adminMenuValues = [
         url: '/powiadomienia'
     }
 ];
+
+export const harmonogramMenuValues = [
+    {
+        title: 'checkSchedule',
+        url: '/harmonogram'
+    },
+    {
+        title: 'setWorkingHours',
+        url: '/godzinyPracy'
+    }
+];

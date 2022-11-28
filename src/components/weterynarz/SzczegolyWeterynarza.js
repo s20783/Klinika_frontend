@@ -8,7 +8,9 @@ import {
     getWeterynarzSpecjalizacjaList
 } from "../../api/WeterynarzSpecjalizacjaApiCalls";
 import {getSpecjalizacjaList} from "../../api/SpecjalizacjaApiCalls";
-import {getFormattedDate} from "../other/dateFormat";
+import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
+import {getGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
+import {Link} from "react-router-dom";
 
 class SzczegolyWeterynarza extends React.Component {
     constructor(props) {
@@ -16,28 +18,21 @@ class SzczegolyWeterynarza extends React.Component {
         console.log(this.props.params)
         const paramsIdWeterynarz = this.props.params.IdOsoba
         this.state = {
-            data: {
-                Login: '',
-                Imie: '',
-                Nazwisko: '',
-                NumerTelefonu: '',
-                Email: '',
-                DataUrodzenia: '',
-                DataZatrudnienia: '',
-                Pensja: null,
-            },
+            data: '',
             specjalizacje: [],
             specjalizacje1: [],
             data1: {
                 IdSpecjalizacja: null,
             },
-            errors: {
+            errors1: {
                 IdSpecjalizacja: '',
             },
+            godzinyPracy: [],
             idWeterynarz: paramsIdWeterynarz,
             error: '',
             isLoaded: false,
             notice: '',
+
         }
     }
 
@@ -90,6 +85,27 @@ class SzczegolyWeterynarza extends React.Component {
                 }
             )
 
+        getGodzinyPracyList(this.state.idWeterynarz)
+            .then(res => {
+                console.log(res.status)
+                return res.json()
+            })
+            .then(
+                (data) => {
+                    console.log(data)
+                    this.setState({
+                        isLoaded: true,
+                        godzinyPracy: data
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+
     }
 
     showSelect() {
@@ -117,24 +133,22 @@ class SzczegolyWeterynarza extends React.Component {
 
         }
 
-
-        var helpDiv = document.getElementById("spec-content");
-        var helpDiv1 = document.getElementById("spec-content1");
+        const helpDiv = document.getElementById("spec-content");
+        const helpDiv1 = document.getElementById("spec-content1");
 
         if (helpDiv.classList.contains("hidden")) {
             helpDiv.classList.remove("hidden");
+            helpDiv1.classList.remove("hidden");
+
         } else {
             helpDiv.classList.add("hidden");
+            helpDiv1.classList.add("hidden");
+
             const data = {...this.state.data1}
             data['IdSpecjalizacja'] = null
             this.setState({
                 data1: data,
             })
-        }
-        if (helpDiv1.classList.contains("hidden")) {
-            helpDiv1.classList.remove("hidden");
-        } else {
-            helpDiv1.classList.add("hidden");
         }
 
     }
@@ -165,12 +179,12 @@ class SzczegolyWeterynarza extends React.Component {
         data[name] = value
 
         const errorMessage = this.validateField(name, value)
-        const errors = {...this.state.errors}
+        const errors = {...this.state.errors1}
         errors[name] = errorMessage
 
         this.setState({
             data1: data,
-            errors: errors
+            errors1: errors
         })
 
     }
@@ -220,7 +234,7 @@ class SzczegolyWeterynarza extends React.Component {
     render() {
         const {t} = this.props;
         const {navigate} = this.props
-        const {data, specjalizacje, specjalizacje1, errors} = this.state
+        const {data, idWeterynarz, specjalizacje, specjalizacje1, errors1, godzinyPracy} = this.state
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
@@ -328,67 +342,70 @@ class SzczegolyWeterynarza extends React.Component {
                             <button id="menu-toggle" onClick={() => {
                                 this.showSelect()
                             }}
-                                    className="absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
                         </div>
                     </div>
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
-                        <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
-                            <thead
-                                className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" className="text-center px-6 uppercase py-3">
-                                    {t('specjalizacja.fields.name')}</th>
-                                <th scope="col" className="text-center px-6 uppercase py-3">
-                                    {t('specjalizacja.fields.description')}</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {specjalizacje.map(x => (
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
-                                    key={x.IdSpecjalizacja}>
-                                    <td className="text-center px-6 py-2">{x.Nazwa}</td>
-                                    <td className="text-center px-6 py-2">{x.Opis}</td>
-                                    <div className="text-center list-actions py-2">
-                                        <div className=" flex">
-                                            <button onClick={() => {
-                                                this.deleteSpec(x.IdSpecjalizacja)
-                                            }} className="list-actions-button-details flex-1">
-                                                <svg className="list-actions-button-delete flex-1"
-                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <rect width="256" height="256" fill="none"></rect>
-                                                    <line className="details-icon-color" x1="215.99609" y1="56"
-                                                          x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                          stroke-linecap="round" strokeLinejoin="round"
-                                                          strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="104" y1="104" x2="104"
-                                                          y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="152" y1="104" x2="152"
-                                                          y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <path className="details-icon-color"
-                                                          d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none"
-                                                          stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                    <path className="details-icon-color"
-                                                          d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
+                    {(specjalizacje.length !== 0) &&
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                            <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
+                                <thead
+                                    className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" className="text-center px-6 uppercase py-3">
+                                        {t('specjalizacja.fields.name')}</th>
+                                    <th scope="col" className="text-center px-6 uppercase py-3">
+                                        {t('specjalizacja.fields.description')}</th>
+                                    <th></th>
                                 </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                {specjalizacje.map(x => (
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                                        key={x.IdSpecjalizacja}>
+                                        <td className="text-center px-6 py-2">{x.Nazwa}</td>
+                                        <td className="text-center px-6 py-2">{x.Opis}</td>
+                                        <div className="text-center list-actions py-2">
+                                            <div className=" flex">
+                                                <button onClick={() => {
+                                                    this.deleteSpec(x.IdSpecjalizacja)
+                                                }} className="list-actions-button-details flex-1">
+                                                    <svg className="list-actions-button-delete flex-1"
+                                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                         fill="#000000" viewBox="0 0 256 256">
+                                                        <rect width="256" height="256" fill="none"></rect>
+                                                        <line className="details-icon-color" x1="215.99609" y1="56"
+                                                              x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
+                                                              stroke-linecap="round" strokeLinejoin="round"
+                                                              strokeWidth="16"></line>
+                                                        <line className="details-icon-color" x1="104" y1="104" x2="104"
+                                                              y2="168"
+                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></line>
+                                                        <line className="details-icon-color" x1="152" y1="104" x2="152"
+                                                              y2="168"
+                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></line>
+                                                        <path className="details-icon-color"
+                                                              d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
+                                                              fill="none"
+                                                              stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></path>
+                                                        <path className="details-icon-color"
+                                                              d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
+                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    }
                     <div className=" md:flex mb-6 mt-4 hidden ">
                         <div class="md:w-full">
                             <select name="IdSpecjalizacja" id="spec-content" onChange={this.handleChange}
@@ -402,7 +419,7 @@ class SzczegolyWeterynarza extends React.Component {
                                     ))}
                             </select>
                             <span id="errorIdSpecjalizacja"
-                                  className="errors-text2 mt-4">{errors.IdSpecjalizacja}</span>
+                                  className="errors-text2 mt-4">{errors1.IdSpecjalizacja}</span>
                             <div className="relative  w-full ">
                                 <button id="spec-content1" onClick={() => {
                                     this.addSpec()
@@ -413,6 +430,122 @@ class SzczegolyWeterynarza extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <div className="flex justify-between mt-14">
+                        <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
+                            {t('godzinyPracy.title')}</h2>
+                        <div className="relative  w-1/3 ">
+                            <div className="absolute top-0 right-0">
+                                <Link to={`/godzinyPracy/${idWeterynarz}`}>
+                                    <button
+                                        className=" h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        <span className="text-2xl font-bold">+</span><span
+                                        className="text-l font-bold"> Zmień</span>
+                                    </button>
+                                </Link>
+
+                            </div>
+                        </div>
+                    </div>
+                    <table
+                        className="w-full text-center flex flex-wrap text-gray-700 dark:text-gray-400">
+                        <tr></tr>
+                        <tr>
+                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                <span
+                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.1")}</span>
+                            </th>
+                            {godzinyPracy.map(x => (
+                                (x.DzienTygodnia === 1) &&
+                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <div className="w-full">
+                                            <span className=' text-s '>
+                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
+                                            </span>
+                                    </div>
+                                </td>
+                            ))}
+                        </tr>
+                        <tr className="border-b-2 border-t-2">
+                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                <span
+                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.2")}</span>
+                            </th>
+                            {godzinyPracy.map(x => (
+                                (x.DzienTygodnia === 2) &&
+                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <div className="w-full">
+                                            <span className=' text-s '>
+                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
+                                            </span>
+                                    </div>
+                                </td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                <span
+                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.3")}</span>
+                            </th>
+                            {godzinyPracy.map(x => (
+                                (x.DzienTygodnia === 3) &&
+                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <div className="w-full">
+                                            <span className=' text-s '>
+                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
+                                            </span>
+                                    </div>
+                                </td>
+                            ))}
+                        </tr>
+                        <tr className="border-b-2 border-t-2">
+                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                <span
+                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.4")}</span>
+                            </th>
+                            {godzinyPracy.map(x => (
+                                (x.DzienTygodnia === 4) &&
+                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <div className="w-full">
+                                            <span className=' text-s '>
+                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
+                                            </span>
+                                    </div>
+                                </td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                <span
+                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.5")}</span>
+                            </th>
+                            {godzinyPracy.map(x => (
+                                (x.DzienTygodnia === 5) &&
+                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <div className="w-full">
+                                            <span className=' text-s '>
+                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
+                                            </span>
+                                    </div>
+                                </td>
+                            ))}
+                        </tr>
+                        <tr className="border-2">
+                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                <span
+                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.6")}</span>
+                            </th>
+                            <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                <div className="w-full">
+                                    {godzinyPracy.map(x => (
+                                        (x.DzienTygodnia === 6) &&
+                                        <span className=' text-s '>
+                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
+                                        </span>))}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}

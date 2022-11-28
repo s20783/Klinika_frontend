@@ -10,3 +10,6 @@ export function getFormattedDate1(dateSource){
 export function getFormattedDateWithHour(dateSource){
     return dateSource.replace('T', ' ').replace(':00', '')
 }
+export function getFormattedHour(dateSource){
+    return dateSource.toString().replace(':00', '')
+}
