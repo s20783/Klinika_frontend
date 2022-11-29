@@ -34,6 +34,10 @@ export const vetMenuValues = [
         url: '/mojHarmonogram'
     },
     {
+        title: 'workingHours',
+        url: '/godzinyPracy'
+    },
+    {
         title: 'appointments',
         url: '/mojeWizyty'
     }
@@ -51,13 +55,3 @@ export const adminMenuValues = [
     }
 ];
 
-export const harmonogramMenuValues = [
-    {
-        title: 'checkSchedule',
-        url: '/harmonogram'
-    },
-    {
-        title: 'setWorkingHours',
-        url: '/godzinyPracy'
-    }
-];

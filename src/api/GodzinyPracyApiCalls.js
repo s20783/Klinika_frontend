@@ -18,6 +18,23 @@ export function getGodzinyPracyList(id) {
     }
     return fetch(url, options);
 }
+export function getKontoGodzinyPracyList() {
+    const url = `${godzinyPracyURL}/moje_godziny`;
+    const user = getCurrentUser()
+    let token
+    if (user && user.Token) {
+        token = user.Token
+    }
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }
+    return fetch(url, options);
+}
+
 
 export function addGodzinyPracy(idVet, dane) {
     const user = getCurrentUser()
