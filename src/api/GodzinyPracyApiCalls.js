@@ -3,7 +3,7 @@ import {getCurrentUser} from "../components/other/authHelper";
 const godzinyPracyURL = 'http://localhost:36989/api/GodzinyPracy';
 
 export function getGodzinyPracyList(id) {
-    const url = `${godzinyPracyURL}/${id}`;
+    const url = `${godzinyPracyURL}/list/${id}`;
     const user = getCurrentUser()
     let token
     if (user && user.Token) {
@@ -35,6 +35,23 @@ export function addGodzinyPracy(idVet, dane) {
             'Authorization': 'Bearer ' + token
         },
         body: godzinyPracyString
+    }
+    return fetch(url, options);
+}
+export function addDomyslneGodzinyPracy(idVet) {
+    const user = getCurrentUser()
+    let token
+    if (user && user.Token) {
+        token = user.Token
+    }
+    const url = `${godzinyPracyURL}/default/${idVet}`
+    console.log("default" + "add")
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
     }
     return fetch(url, options);
 }
