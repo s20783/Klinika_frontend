@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {Link} from "react-router-dom";
+import {getPacjentDetailsAxios, getPacjentListAxios} from "../../axios/PacjentAxiosCalls";
 
 class SzczegolyPacjent extends React.Component {
     constructor(props) {
@@ -31,39 +32,22 @@ class SzczegolyPacjent extends React.Component {
         }
     }
 
-    fetchPatientDetails = () => {
-        getPacjentDetails1(this.state.idPacjent)
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    console.log(data)
-                    if (data.message) {
-                        this.setState({
-                            notice: data.message
-                        })
-                    } else {
-                        this.setState({
-                            pacjent: data,
-                            notice: null
-                        })
-                    }
-                    this.setState({
-                        isLoaded: true,
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    })
-                }
-            );
+    fetchPatientDetails = async () => {
+        try{
+            const res = await getPacjentDetailsAxios(this.state.idPacjent);
+            var data = await res.data
 
+            this.setState({
+                isLoaded: true,
+                pacjent: data
+            });
+        } catch (error){
+            console.log(error)
+        }
     }
 
-
     componentDidMount() {
-        this.fetchPatientDetails()
+        this.fetchPatientDetails();
 
         getPacjentVisitList(this.state.idPacjent)
             .then(res => {

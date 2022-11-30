@@ -53,19 +53,13 @@ class Login extends React.Component {
                     (data) => {
                         if (response.status === 200) {
                             if (data.Token) {
-                                //console.log(data)
+                                console.log(data)
                                 const userString = JSON.stringify(data)
                                 this.props.handleLogin(userString)
 
                                 navigate("/", {replace: true});
                             }
-                        } else if (response.status === 401) {
-                            //console.log(data)
-                            this.setState({
-                                message: data.message
-                            })
                         } else {
-                            //console.log(data)
                             this.setState({
                                 message: data.message
                             })

@@ -2,7 +2,7 @@ import Footer from "./components/fragments/Footer";
 import Navigation from "./components/fragments/Navigation";
 import MainPage from "./components/other/MainPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import React from 'react';
+import React, {useCallback} from 'react';
 import Kontakt from "./components/other/Kontakt";
 import Login from "./components/other/Login";
 import Register from "./components/other/Register";
@@ -57,12 +57,10 @@ class App extends React.Component {
             user: undefined,
             prevPath: ''
         }
-
     }
 
     handleLogin = (user) => {
         localStorage.setItem("user", user)
-        //localStorage.setItem("refreshToken", refresh)
         this.setState({user: user})
     }
 

@@ -1,8 +1,8 @@
 import React from "react";
-import {getPacjentList} from "../../api/PacjentApiCalls";
 import PacjentListTable from "./PacjentListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
+import {getPacjentListAxios} from "../../axios/PacjentAxiosCalls";
 
 class PacjentList extends React.Component {
     constructor(props) {
@@ -12,36 +12,17 @@ class PacjentList extends React.Component {
             isLoaded: false,
             pacjenci: [],
             notice: ''
-
         }
     }
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getPacjentList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
+    async componentDidMount() {
+        const res = await getPacjentListAxios();
+        var data = await res.data
 
-                    this.setState({
-                        isLoaded: true,
-                        pacjenci: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        this.setState({
+            isLoaded: true,
+            pacjenci:  data
+        });
     }
 
     render() {
@@ -54,7 +35,6 @@ class PacjentList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
             content = <PacjentListTable pacjenci={pacjenci}/>
         }
 

@@ -1,8 +1,8 @@
 import React from "react";
 import {useNavigate} from "react-router";
-import {getKlientList} from "../../api/KlientApiCalls";
 import KlientListTable from "./KlientListTable";
 import {withTranslation} from "react-i18next";
+import {getKlientListAxios} from "../../axios/KlientAxiosCalls";
 
 class KlientList extends React.Component {
     constructor(props) {
@@ -15,31 +15,16 @@ class KlientList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getKlientList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    this.setState({
-                        isLoaded: true,
-                        klienci: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+        const res = await getKlientListAxios();
+        var data = await res.data
+
+        this.setState({
+            isLoaded: true,
+            klienci: data
+        });
+
+        //const {navigate} = this.props;
     }
 
     render() {
