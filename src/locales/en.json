@@ -107,7 +107,7 @@
 		"schedule": "Schedule",
 		"logout": "Log out",
 		"checkSchedule": "Check schedule",
-		"setWorkingHours": "Set working hours"
+		"workingHours": "Working hours"
 	},
 	"konto": {
 		"myAccount": "My account",
@@ -337,12 +337,12 @@
 			"date": "Date"
 		},
 		"weekdays": {
-			"pon": "mon",
-			"wt": "tue",
-			"sr": "wed",
-			"czw": "thu",
-			"pt": "fri",
-			"sob": "sat"
+			"1": "mon",
+			"2": "tue",
+			"3": "wed",
+			"4": "thu",
+			"5": "fri",
+			"6": "sat"
 		}
 	}
 }

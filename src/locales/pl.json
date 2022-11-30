@@ -108,7 +108,7 @@
     "payments": "Opłaty",
     "logout": "Wyloguj się",
     "checkSchedule": "Sprawdz harmonogram",
-    "setWorkingHours": "Ustaw godziny pracy"
+    "workingHours": "Godziny pracy"
   },
   "konto": {
     "myAccount": "Moje konto",

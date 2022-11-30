@@ -49,6 +49,7 @@ import HarmonogramForm from "./components/harmonogram/HarmonogramForm";
 import KontoHarmonogram from "./components/konto/KontoHarmonogram";
 import GodzinyPracy from "./components/godzinyPracy/GodzinyPracy";
 import UsuniecieGodzinPracy from "./components/godzinyPracy/UsuniecieGodzinPracy";
+import KontoGodzinyPracy from "./components/konto/KontoGodzinyPracy";
 
 class App extends React.Component {
     constructor(props) {
@@ -116,6 +117,7 @@ class App extends React.Component {
                     <Route path="/moiPacjenci" element={<KontoPacjenci/>}/>
                     <Route path="/mojeWizyty" element={<KontoWizyty/>}/>
                     <Route path="/mojHarmonogram" element={<KontoHarmonogram/>}/>
+                    <Route path="/godzinyPracy" element={<KontoGodzinyPracy/>}/>
                     <Route path="/zmianaHasla" element={<ZmianaHasla/>}/>
                     <Route path="/zmianaDanychKonta" element={<ZmianaDanychKonta/>}/>
 
