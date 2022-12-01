@@ -60,12 +60,12 @@ class KontoGodzinyPracy extends React.Component {
                 <div
                     class="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
 
-                    <div className="flex justify-between mt-14">
+                    <div className="flex justify-between mt-8">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('godzinyPracy.title')}</h2>
                     </div>
                     <table
-                        className="w-full text-center flex flex-wrap text-gray-700 dark:text-gray-400">
+                        className="w-full text-center flex flex-wrap mb-20 text-gray-700 dark:text-gray-400">
                         <tr></tr>
                         <tr>
                             <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">

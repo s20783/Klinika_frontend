@@ -39,7 +39,7 @@ class UsuniecieSpecjalizacji extends React.Component {
 
     render() {
         const {idSpecjalizacja} = this.state
-        const {t} = this.props;
+        const {t, navigate} = this.props;
 
         return (
             <body class="bg-gray-200 flex items-center justify-center h-screen">
@@ -49,10 +49,8 @@ class UsuniecieSpecjalizacji extends React.Component {
                     <img src="/images/znakZapytaniaPies.png" alt={"ZnakZapytaniaPies"}/>
 
                     <div class="flex justify-end pt-2">
-                        <Link to="/specjalizacje">
-                            <button
+                        <button onClick={() => navigate(-1)}
                                 class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
-                        </Link>
                         <button onClick={() => this.removeSpecjalizacja(idSpecjalizacja)}
                                 class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('specjalizacja.deleteSpecialization')}</button>
                     </div>

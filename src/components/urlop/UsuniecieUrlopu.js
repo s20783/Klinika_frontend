@@ -1,26 +1,26 @@
 import React from "react";
-import {deleteLekMagazyn} from "../../api/LekWMagazynieApiCalls";
 import {useNavigate, useParams} from "react-router";
-import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
+import {deleteUrlop} from "../../api/UrlopApiCall";
 
-class UsuniecieLekuMagazyn extends React.Component {
+class UsuniecieUrlopu extends React.Component {
     constructor(props) {
         super(props);
-        const paramsIdStanLeku = this.props.params.IdStanLeku
-        console.log(paramsIdStanLeku)
+        const paramsIdUrlop = this.props.params.IdUrlop
+        console.log(paramsIdUrlop)
         this.state = {
-            idStanLeku: paramsIdStanLeku,
+            idUrlop: paramsIdUrlop,
             error: '',
             isLoaded: false,
             notice: '',
         }
     }
 
-    removeLek = (idStanLeku) => {
+    removeUrlop = (idUrlop) => {
         const {navigate} = this.props;
         //let response;
-        deleteLekMagazyn(idStanLeku)
+        console.log(idUrlop)
+        deleteUrlop(idUrlop)
             .then(res => {
                 console.log(res)
                 if (res.status === 204) {
@@ -38,21 +38,24 @@ class UsuniecieLekuMagazyn extends React.Component {
     }
 
     render() {
-        const {idStanLeku} = this.state
+        const {idUrlop} = this.state
         const {t, navigate} = this.props;
 
         return (
             <body class="bg-gray-200 flex items-center justify-center h-screen">
+
+            <div class="modal-overlay absolute w-full h-full bg-gray-500 opacity-50"></div>
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+
                 <div class="modal-content py-9 px-5">
-                    <p class="text-4xl mb-2 text-center font-bold">{t('lek.deletingMedicineWarehouse')}</p>
-                    <img src="/images/znakZapytaniaPies.png" alt={"ZnakZapytaniaPies"}/>
+                    <p class="text-4xl mb-2 text-center font-bold">{t('urlop.deletingVacation')}</p>
+                    <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
 
                     <div class="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
                                 class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
-                        <button onClick={() => this.removeLek(idStanLeku)}
-                                class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('lek.deleteMedicine')}</button>
+                        <button onClick={() => this.removeUrlop(idUrlop)}
+                                class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('urlop.deleteVacation')}</button>
                     </div>
                 </div>
             </div>
@@ -77,4 +80,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(UsuniecieLekuMagazyn)));
+export default withTranslation()(withRouter(withNavigate(UsuniecieUrlopu)));

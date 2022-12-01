@@ -232,7 +232,7 @@ class GodzinyPracy extends React.Component {
                 console.log(response.status)
                 if (response.ok) {
                     console.log(response.status)
-                    //navigate(0);
+                    navigate(0);
                 } else if (response.status === 401) {
                     console.log("Brak autoryzacji")
 
@@ -523,11 +523,13 @@ class GodzinyPracy extends React.Component {
 
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
-                            <button onClick={() => navigate(-1)}
+                            <Link to={`/godzinyPracyWeterynarz/${idWeterynarz}`}>
+                            <button
                                     className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t("button.back")}
                             </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

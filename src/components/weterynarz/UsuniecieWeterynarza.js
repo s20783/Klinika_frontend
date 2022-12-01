@@ -39,8 +39,8 @@ class UsuniecieWeterynarza extends React.Component {
     }
 
     render() {
-        const { idWeterynarz} = this.state
-        const {t} = this.props;
+        const {idWeterynarz} = this.state
+        const {t, navigate} = this.props;
 
         return (
             <body class="bg-gray-200 flex items-center justify-center h-screen">
@@ -53,10 +53,8 @@ class UsuniecieWeterynarza extends React.Component {
                     <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
 
                     <div class="flex justify-end pt-2">
-                        <Link to="/weterynarze">
-                            <button
+                        <button onClick={() => navigate(-1)}
                                 class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
-                        </Link>
                         <button onClick={() => this.removeWeterynarza(idWeterynarz)}
                                 class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('weterynarz.deleteVet')}</button>
                     </div>

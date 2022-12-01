@@ -24,7 +24,7 @@ function WizytaTableList(props) {
                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                     <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.date")}</th>
+                        <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.startDate")}</th>
                         <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.patient")}</th>
                         <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.vet")}</th>
                         <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.status")}</th>
@@ -66,23 +66,23 @@ function WizytaTableList(props) {
                                             </svg>
                                         </Link>
                                         {isWeterynarz() && <Link to={`/wizyty/edit/${x.IdWizyta}`}
-                                                                 className="list-actions-button-details flex-1">
-                                            <svg className="list-actions-button-edit flex-1"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                                 width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                                                <rect className="details-icon-color" width="256" height="256"
-                                                      fill="none"></rect>
-                                                <path className="details-icon-color"
-                                                      d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
-                                                      fill="none" stroke="#000000" strokeLinecap="round"
-                                                      strokeLinejoin="round" strokeWidth="16"></path>
-                                                <line className="details-icon-color" x1="136" y1="64" x2="192" y2="120"
-                                                      fill="none" stroke="#000000" strokeLinecap="round"
-                                                      strokeLinejoin="round" strokeWidth="16"></line>
-                                                <polyline className="details-icon-color"
-                                                          points="216 216 96 216 40.509 160.509" fill="none"
-                                                          stroke="#000000" strokeLinecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></polyline>
+                                                                             className="list-actions-button-details flex-1">
+                                                        <svg className="list-actions-button-edit flex-1"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                                                            <rect className="details-icon-color" width="256" height="256"
+                                                                  fill="none"></rect>
+                                                            <path className="details-icon-color"
+                                                                  d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></path>
+                                                            <line className="details-icon-color" x1="136" y1="64" x2="192" y2="120"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></line>
+                                                            <polyline className="details-icon-color"
+                                                                      points="216 216 96 216 40.509 160.509" fill="none"
+                                                                      stroke="#000000" strokeLinecap="round"
+                                                                      strokeLinejoin="round" strokeWidth="16"></polyline>
                                             </svg>
                                         </Link>
                                         }
