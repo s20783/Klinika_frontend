@@ -478,10 +478,10 @@ class GodzinyPracy extends React.Component {
                     </table>
 
 
-                    <div className=" md:flex mb-6 mt-4  hidden">
+                    <div className=" md:flex mb-6 mt-4  ">
                         <div className="md:w-full ">
 
-                            <div className="flex flex-wrap -mx-3 mb-6 mt-4 relative ">
+                            <div className="flex flex-wrap -mx-3 mb-6 mt-4  ">
                                 <span id="spec-content5"
                                       className="hidden mt-3 ml-6 mr-4 font-bold text-l  uppercase underline">
                                     {t('harmonogram.weekdays.' + data.DzienTygodnia)} </span>
@@ -495,11 +495,11 @@ class GodzinyPracy extends React.Component {
                                     <span id="errorGodzinaRozpoczecia"
                                           className="errors-text2 mb-4 ">{errors.GodzinaRozpoczecia}</span>
                                 </div>
-                                <span id="spec-content6" className=" hidden text-2xl ml-7">-</span>
+                                <span id="spec-content6" className=" hidden md:visible invisible text-2xl ml-7">-</span>
                                 <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
 
                                     <input id="spec-content3"
-                                           className="hidden appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                           className="hidden mr-5 appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                            name="GodzinaZakonczenia" type="time"
                                            value={data.GodzinaZakonczenia}
                                            placeholder="Godzina Zakonczenia"
@@ -510,7 +510,7 @@ class GodzinyPracy extends React.Component {
                                 <button id="spec-content4" onClick={() => {
                                     this.changeGodzinyPracy()
                                 }}
-                                        className="absolute hidden top-0 right-0 mr-14 h-10 w-46 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                        className=" hidden flex justify-end mr-14 h-10 w-46 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                     {!(czyEdycja) ?
                                         <span className="text-l font-bold "> + {t('button.add')}</span>
                                         : <span className="text-l font-bold ">+ Edytuj</span>
