@@ -10,6 +10,7 @@ import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {checkNumberRange} from "../helpers/CheckNRange";
 import {getFormattedDate} from "../other/dateFormat";
+import {getLekList} from "../../api/LekApiCalls";
 
 class FormularzWeterynarz extends React.Component {
     constructor(props) {
@@ -212,48 +213,45 @@ class FormularzWeterynarz extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const {navigate} = this.props;
-        const dane = {...this.state}
+        const dane = {...this.state.data}
         let response, promise;
-        console.log(dane.data)
         const isValid = this.validateForm()
-
         if (isValid) {
 
-            if (dane.formMode === formMode.NEW) {
-                promise = addWeterynarz(dane.data)
-            } else if (dane.formMode === formMode.EDIT) {
+            if (this.state.formMode === formMode.NEW) {
+                promise = addWeterynarz(dane)
+            } else if (this.state.formMode === formMode.EDIT) {
                 console.log(dane.data)
-                promise = updateWeterynarz(dane.data, dane.idWeterynarz)
+                promise = updateWeterynarz(dane, this.state.idWeterynarz)
             }
             if (promise) {
                 promise
                     .then(res => {
-                        response = res
+                        console.log(res.status)
+                        console.log(res.body)
+
+                        if (res.status === 401) {
+                            console.log('Potrzebny aktualny access token')
+                            navigate("/", {replace: true});
+                        }
                         return res.json()
                     })
-                    .then((data) => {
-                        console.log(data)
-                        console.log(response)
-                        if (response.ok) {
-                            console.log(response.status)
-                            navigate("/weterynarze", {replace: true});
-
-                        } else if (response.status === 401) {
+                    .then(
+                        (data) => {
                             console.log(data)
+                            if(this.state.formMode===formMode.NEW) {
+                                navigate(`/czyDodacGodziny/${data.ID}`, {replace: true});
+                            }else {
+                                navigate("/weterynarze")
+                            }
+                        },
+                        (error) => {
                             this.setState({
-                                message: data.message
-                            })
-                        } else {
-                            console.log(data)
-                            this.setState({
-                                message: data.message
-                            })
+                                isLoaded: true,
+                                error
+                            });
                         }
-                    }, (error) => {
-                        this.setState({
-                            error: error
-                        })
-                    })
+                    )
             }
         }
     }

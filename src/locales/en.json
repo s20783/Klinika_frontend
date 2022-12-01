@@ -318,7 +318,8 @@
 		"changingWorkingHour":"Changing vet's working hour",
 		"wrongTimeFormat": "Wrong time format",
 		"button": {
-			"addDefault": "Add default"
+			"addDefault": "Add default",
+			"change": "Change"
 		},
 		"deletingWorkingHour": "Are you sure you want to delete working hour?",
 		"deleteWorkingHour": "Delete working hour"
@@ -344,5 +345,19 @@
 			"5": "fri",
 			"6": "sat"
 		}
+	},
+	"urlop": {
+		"title": "Vacations dates",
+		"wrongTimeFormat": "Wrong time format",
+		"addNewVacation": "Adding new vacation",
+		"editVacation": "Editing vacation",
+		"button": {
+		},
+		"deletingVacation": "Are you sure you want to delete vacation date?",
+		"deleteVacation": "Delete vacation date",
+		"fields": {
+			"date": "Data"
+		}
+
 	}
 }

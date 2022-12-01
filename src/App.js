@@ -50,6 +50,10 @@ import KontoHarmonogram from "./components/konto/KontoHarmonogram";
 import GodzinyPracy from "./components/godzinyPracy/GodzinyPracy";
 import UsuniecieGodzinPracy from "./components/godzinyPracy/UsuniecieGodzinPracy";
 import KontoGodzinyPracy from "./components/konto/KontoGodzinyPracy";
+import UsuniecieUrlopu from "./components/urlop/UsuniecieUrlopu";
+import GodzinyPracyWeterynarz from "./components/weterynarz/GodzinyPracyWeterynarz";
+import FormularzUrlop from "./components/urlop/FormularzUrlop";
+import CzyDodacGodziny from "./components/godzinyPracy/CzyDodacGodziny";
 
 class App extends React.Component {
     constructor(props) {
@@ -98,9 +102,16 @@ class App extends React.Component {
                     <Route path="/weterynarze/edycjaWeterynarza/:IdOsoba" element={<FormularzWeterynarz/>}/>
                     <Route path="/dodajWeterynarza" element={<FormularzWeterynarz/>}/>
                     <Route path="/weterynarze/delete/:IdOsoba" element={<UsuniecieWeterynarza/>}/>
+                    <Route path="/godzinyPracyWeterynarz/:IdOsoba" element={<GodzinyPracyWeterynarz/>}/>
+
 
                     <Route path="/godzinyPracy/:IdOsoba" element={<GodzinyPracy/>}/>
+                    <Route path="/czyDodacGodziny/:IdOsoba" element={<CzyDodacGodziny/>}/>
                     <Route path="/godzinyPracy/delete/:IdOsoba/:Dzien" element={<UsuniecieGodzinPracy/>}/>
+
+                    <Route path="/urlop/:IdVet" element={<FormularzUrlop/>}/>
+                    <Route path="/urlop/:IdVet/:IdUrlop" element={<FormularzUrlop/>}/>
+                    <Route path="/urlop/delete/:IdUrlop" element={<UsuniecieUrlopu/>}/>
 
                     <Route path="/specjalizacje" element={<SpecjalizacjaList/>}/>
                     <Route path="/dodajSpecjalizacje" element={<FormularzSpecjalizacji/>}/>

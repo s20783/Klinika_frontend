@@ -54,4 +54,15 @@ export const adminMenuValues = [
         url: '/powiadomienia'
     }
 ];
-
+export const szczegolyVetMenuValues = [
+    {
+        title: 'personalData',
+        title1: '',
+        url: '/weterynarze'
+    },
+    {
+        title: 'workingHours',
+        title1: 'vacations',
+        url: '/godzinyPracyWeterynarz'
+    }
+];

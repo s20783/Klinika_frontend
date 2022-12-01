@@ -27,7 +27,7 @@ class UsuniecieUslugi extends React.Component {
 
     render() {
         const {idUsluga} = this.state
-        const {t} = this.props;
+        const {t, navigate} = this.props;
 
         return (
             <body class="bg-gray-200 flex items-center justify-center h-screen">
@@ -36,12 +36,10 @@ class UsuniecieUslugi extends React.Component {
                     <p class="text-4xl mb-2 text-center font-bold">{t('usluga.deletingService')}</p>
                     <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
                     <div class="flex justify-end pt-2">
-                        <Link to="/uslugi">
-                            <button
+                        <button onClick={() => navigate(-1)}
                                 class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">
-                                {t('button.back')}
-                            </button>
-                        </Link>
+                            {t('button.back')}
+                        </button>
                         <button onClick={() => this.removeUsluga(idUsluga)}
                                 class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">
                             {t('usluga.deleteService')}

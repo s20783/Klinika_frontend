@@ -108,7 +108,9 @@
     "payments": "Opłaty",
     "logout": "Wyloguj się",
     "checkSchedule": "Sprawdz harmonogram",
-    "workingHours": "Godziny pracy"
+    "workingHours": "Godziny pracy",
+    "personalData": "Dane osobowe",
+    "vacations": "Urlopy"
   },
   "konto": {
     "myAccount": "Moje konto",
@@ -318,11 +320,15 @@
     "changingWorkingHour":"Zmiana godzin pracy weterynarza",
     "wrongTimeFormat": "Zły format czasu",
     "button": {
-      "addDefault": " Dodaj domyślne"
+      "addDefault": " Dodaj domyślne",
+      "change": "Zmień"
     },
     "deletingWorkingHour": "Czy na pewno chcesz usunąc godzine pracy?",
-    "deleteWorkingHour": "Usuń godzine pracy"
+    "deleteWorkingHour": "Usuń godzine pracy",
+    "addingWorkingHour": "Czy chcesz dodać godizny pracy dla weterynarza?",
+    "addWorkingHour": "Dodaj godziny pracy"
   },
+
   "harmonogram": {
     "checkingTheVetsSchedule": "Sprawdzenie harmonogramu",
     "selectVet": "Wybierz weterynarza",
@@ -341,6 +347,20 @@
       "4": "czw",
       "5": "pt",
       "6": "sob"
+    }
+  },
+  "urlop": {
+    "title": "Urlopy",
+    "wrongTimeFormat": "Zły format czasu",
+    "addNewVacation": "Dodanie nowego urlopu",
+    "editVacation": "Edycja urlopu",
+    "button": {
+      "addDefault": " Dodaj domyślne"
+    },
+    "deletingVacation": "Czy na pewno chcesz usunąc urlop?",
+    "deleteVacation": "Usuń urlop",
+    "fields": {
+      "date": "Data"
     }
   }
 }

@@ -9,8 +9,8 @@ import {
 } from "../../api/WeterynarzSpecjalizacjaApiCalls";
 import {getSpecjalizacjaList} from "../../api/SpecjalizacjaApiCalls";
 import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
-import {getGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
 import {Link} from "react-router-dom";
+import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
 
 class SzczegolyWeterynarza extends React.Component {
     constructor(props) {
@@ -18,7 +18,6 @@ class SzczegolyWeterynarza extends React.Component {
         console.log(this.props.params)
         const paramsIdWeterynarz = this.props.params.IdOsoba
         this.state = {
-            data: '',
             specjalizacje: [],
             specjalizacje1: [],
             data1: {
@@ -30,8 +29,10 @@ class SzczegolyWeterynarza extends React.Component {
             godzinyPracy: [],
             idWeterynarz: paramsIdWeterynarz,
             error: '',
+            data: '',
             isLoaded: false,
             notice: '',
+            urlopy: []
 
         }
     }
@@ -75,27 +76,6 @@ class SzczegolyWeterynarza extends React.Component {
                     this.setState({
                         isLoaded: true,
                         specjalizacje: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-
-        getGodzinyPracyList(this.state.idWeterynarz)
-            .then(res => {
-                console.log(res.status)
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        godzinyPracy: data
                     });
                 },
                 (error) => {
@@ -233,29 +213,15 @@ class SzczegolyWeterynarza extends React.Component {
 
     render() {
         const {t} = this.props;
-        const {navigate} = this.props
-        const {data, idWeterynarz, specjalizacje, specjalizacje1, errors1, godzinyPracy} = this.state
+        const {data, idWeterynarz, specjalizacje, specjalizacje1, errors1} = this.state
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('weterynarz.detailsVet')}</p>
+                <div className="w-full lg:w-1/6 lg:px-6 text-xl text-gray-800 leading-normal">
+                    <SzczegolyVetMenu idVet={idWeterynarz}/>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                    <section class="bg-white-100 border-b  mb-7">
-                        <div class=" flex flex-wrap md:flex mb-6 mt-4">
-                            <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
-                                   htmlFor="Nazwa">
-                                {t('weterynarz.fields.login')}
-                            </label>
-                            <div class="md:w-3/5">
-                                <input class="form-textarea block w-full focus:bg-white"
-                                       name="Login" id="Login" type="text" value={data.Login}
-                                       placeholder=""/>
-                            </div>
-                        </div>
-                    </section>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
@@ -421,129 +387,15 @@ class SzczegolyWeterynarza extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-between mt-14">
-                        <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
-                            {t('godzinyPracy.title')}</h2>
-                        <div className="relative  w-1/3 ">
-                            <div className="absolute top-0 right-0">
-                                <Link to={`/godzinyPracy/${idWeterynarz}`}>
-                                    <button
-                                        className=" h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                        <span className="text-2xl font-bold">+</span><span
-                                        className="text-l font-bold"> Zmień</span>
-                                    </button>
-                                </Link>
-
-                            </div>
-                        </div>
-                    </div>
-                    <table
-                        className="w-full text-center flex flex-wrap text-gray-700 dark:text-gray-400">
-                        <tr></tr>
-                        <tr>
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                                <span
-                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.1")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 1) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
-                                            </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr className="border-b-2 border-t-2">
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                                <span
-                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.2")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 2) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
-                                            </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                                <span
-                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.3")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 3) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
-                                            </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr className="border-b-2 border-t-2">
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                                <span
-                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.4")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 4) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
-                                            </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                                <span
-                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.5")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 5) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
-                                            </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr className="border-2">
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                                <span
-                                    className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.6")}</span>
-                            </th>
-                            <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                <div className="w-full">
-                                    {godzinyPracy.map(x => (
-                                        (x.DzienTygodnia === 6) &&
-                                        <span className=' text-s '>
-                                                {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
-                                        </span>))}
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
-                            <button onClick={() => navigate(-1)}
+                            <Link to={`/weterynarze`}>
+                                <button
                                     className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
-                                {t("button.back")}
-                            </button>
+                                    {t("button.back")}
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
