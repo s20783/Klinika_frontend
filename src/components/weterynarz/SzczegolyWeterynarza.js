@@ -363,7 +363,7 @@ class SzczegolyWeterynarza extends React.Component {
                             </table>
                         </div>
                     }
-                    <div className=" md:flex mb-6 mt-4 hidden ">
+                    <div className="flex flex-wrap mb-6 mt-4  ">
                         <div class="w-full">
                             <select name="IdSpecjalizacja" id="spec-content" onChange={this.handleChange}
                                     className="form-select hidden block w-full focus:bg-white">

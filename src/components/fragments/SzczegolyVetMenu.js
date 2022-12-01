@@ -40,8 +40,8 @@ function SzczegolyVetMenu(props) {
                             isActive ? 'column-1 py-2 md:my-0 hover:bg-blue-100 lg:hover:bg-transparent font-bold block pl-4 align-middle text-gray-700 no-underline hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400 lg:border-blue-400' :
                                 'column-1 py-2 md:my-0 hover:bg-blue-100 lg:hover:bg-transparent block pl-4 align-middle text-gray-700 no-underline lg:hover:text-blue-400 hover:text-blue-400 border-l-4 border-transparent lg:hover:border-gray-400'
                         } to={`${item.url}/${idVet}`}>
-                            <div class="relative xl:h-10 h-14 w-30">
-                            <span className="absolute left-0 top-0 pb-1 md:pb-0 text-sm">{t('userMenu.' + item.title )} </span>
+                            <div class="relative h-10 w-52">
+                            <span className="absolute top-0 left-0 pb-1 md:pb-0 text-sm">{t('userMenu.' + item.title )} </span>
                             {item.title1 !== '' &&
                                 <span className="absolute bottom-0 left-0  pb-1 md:pb-0 text-xs">{t('userMenu.' + item.title1 )} </span>
                             }

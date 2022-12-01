@@ -38,8 +38,8 @@ class Navigation extends React.Component {
             <div className="relative bg-white">
                 <div className="p-4 mt- md:px-6 md:py-0">
                     <div
-                        className="flex  justify-between items-center border-b-2 border-gray-400 py-6  lg:justify-start lg:space-x-5">
-                        <div className=" flex justify-start 3xl:w-0 3xl:flex-1">
+                        className="flex justify-between items-center border-b-2 border-gray-400 py-6  lg:justify-start lg:space-x-5">
+                        <div className=" flex justify-start 2xl:flex-auto">
                             <Link to="/">
                                 <img
                                     className=""
@@ -48,8 +48,8 @@ class Navigation extends React.Component {
                                 />
                             </Link>
                         </div>
-                        <nav className="flex  flex-wrap  ">
-                            <NavLink to="/" className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
+                        <nav className="flex  flex-wrap   flex justify-center ">
+                            <NavLink to="/" className="text-base pr-5  font-medium text-gray-500 hover:text-blue-400">
                                 {t('navigation.mainPage')}</NavLink>
                             <NavLink to="/kontakt"
                                      className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
