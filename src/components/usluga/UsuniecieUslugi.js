@@ -1,5 +1,5 @@
 import React from "react";
-import {deleteUsluga} from "../../api/UslugaApiCalls";
+import {deleteUsluga} from "../../axios/UslugaAxiosCalls";
 import {useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
@@ -8,33 +8,21 @@ class UsuniecieUslugi extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdUsluga = this.props.params.idUsluga
-
         this.state = {
             idUsluga: paramsIdUsluga,
             error: '',
-            isLoaded: false,
-            notice: '',
+            isLoaded: false
         }
     }
 
-    removeUsluga = (idUsluga) => {
+    removeUsluga = async (idUsluga) => {
         const {navigate} = this.props;
-        //let response;
-        deleteUsluga(idUsluga)
-            .then(res => {
-                console.log(res)
-                if (res.status === 204) {
-                    console.log(res.status)
-                    navigate("/uslugi", {replace: true});
-
-                } else if (res.status === 401) {
-                    console.log(res)
-
-                } else {
-                    console.log(res)
-
-                }
-            })
+        try {
+            await deleteUsluga(idUsluga);
+            await navigate("/uslugi", {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React from "react";
-import {getKlientPacjentList} from "../../api/PacjentApiCalls";
+import {getKlientPacjentList} from "../../axios/PacjentAxiosCalls";
 import UmowienieWizytyForm from "./UmowienieWizytyForm";
 import {withTranslation} from "react-i18next";
 
@@ -15,31 +15,19 @@ class UmowienieWizyty extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {navigate} = this.props;
-        getKlientPacjentList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    this.setState({
-                        isLoaded: true,
-                        pacjenci: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        try {
+            const res = await getKlientPacjentList(this.state.idKlient);
+            const data = await res.data
+
+            this.setState({
+                isLoaded: true,
+                pacjenci: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

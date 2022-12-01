@@ -12,7 +12,7 @@ function UslugaListTable(props) {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
         const newFilter = list.filter((value) => {
-            return value.Nazwa.toLowerCase().includes(searchWord.toLowerCase());
+            return value.NazwaUslugi.toLowerCase().includes(searchWord.toLowerCase());
         });
 
         if (searchWord === "") {
@@ -20,8 +20,7 @@ function UslugaListTable(props) {
         } else {
             setFilteredData(newFilter);
         }
-        console.log(filteredData)
-    };
+    }
 
 
     return (
@@ -95,7 +94,7 @@ function UslugaListTable(props) {
                                                           strokeLinejoin="round" strokeWidth="16"></polyline>
                                             </svg>
                                         </Link>
-                                        <Link to={`/uslugi/delete/${x.IdUsluga}`}
+                                        <Link to={`/uslugi/delete/${x.ID_Usluga}`}
                                               className="list-actions-button-details flex-1">
                                             <svg className="list-actions-button-delete flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -122,29 +121,14 @@ function UslugaListTable(props) {
                                             </svg>
                                         </Link>
                                     </div>
-                                    {/*<li><Link to={`/leki/${lek.Idlek}`}*/}
-                                    {/*          className="list-actions-button-edit"*/}
-                                    {/*>Edytuj</Link></li>*/}
-                                    {/*<li><Link to={``}*/}
-                                    {/*          className="list-actions-button-delete"*/}
-                                    {/*>Usuń</Link></li>*/}
                                 </div>
                             </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
-
-                {/*<form className="form">*/}
-                {/*    {isAdmin() &&*/}
-                {/*    <div className="form-buttons">*/}
-                {/*        <Link to={`/kluby/add`} className="form-button-submit">{t('kluby.form.list.btnLabel')}</Link>*/}
-                {/*    </div>*/}
-                {/*    }*/}
-                {/*</form>*/}
             </div>
         </div>
-
     )
 }
 

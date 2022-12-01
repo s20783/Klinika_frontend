@@ -1,5 +1,5 @@
 import React from "react";
-import {getUslugaList} from "../../api/UslugaApiCalls";
+import {getUslugaList} from "../../axios/UslugaAxiosCalls";
 import UslugaListTable from "./UslugaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
@@ -10,38 +10,22 @@ class UslugaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            uslugi: [],
-            notice: ''
-
+            uslugi: []
         }
     }
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getUslugaList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        uslugi: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+        try {
+            const res = await getUslugaList();
+            const data = await res.data
+
+            this.setState({
+                uslugi: data,
+                isLoaded: true
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -54,7 +38,6 @@ class UslugaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
             content = <UslugaListTable uslugi={uslugi}/>
         }
 
