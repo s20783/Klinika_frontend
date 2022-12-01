@@ -1,16 +1,15 @@
 import React from "react";
-import {getKlientList} from "../../api/KlientApiCalls";
 import DodaniePacjentaForm from "./DodaniePacjentaForm";
 import formMode from "../helpers/FormMode";
 import {useParams} from "react-router";
 import {withTranslation} from "react-i18next";
+import {getKlientList} from "../../axios/KlientAxiosCalls";
 
 class FormularzPacjenta extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdPacjent = this.props.params.idPacjent
         const currentFormMode = paramsIdPacjent ? formMode.EDIT : formMode.NEW
-
         this.state = {
             klienci: [],
             idPacjent: paramsIdPacjent,
@@ -21,51 +20,34 @@ class FormularzPacjenta extends React.Component {
         }
     }
 
-    fetchClientList = () => {
-        const {navigate} = this.props;
-        getKlientList()
-            .then(res => {
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
+    fetchKlientList = async () => {
+        try {
+            const res = await getKlientList();
+            var data = await res.data
 
-                    this.setState({
-                        isLoaded: true,
-                        klienci: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+            this.setState({
+                isLoaded: true,
+                klienci: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-
     componentDidMount() {
-        this.fetchClientList()
-
+        this.fetchKlientList()
     }
 
     render() {
         const {error, isLoaded, klienci, idPacjent} = this.state
         let content;
         const {t} = this.props;
-        console.log(idPacjent)
 
         if (error) {
             content = <p>Błąd: {error.message}</p>
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
             content = <DodaniePacjentaForm klienci={klienci} idPacjent={idPacjent}/>
         }
 

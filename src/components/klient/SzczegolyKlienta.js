@@ -1,18 +1,17 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getKlientDetails} from "../../api/KlientApiCalls";
-import {getKlientPacjentList} from "../../api/PacjentApiCalls";
-import {getClientVisitListForDetails} from "../../api/WizytaApiCalls";
+import {getKlientDetails} from "../../axios/KlientAxiosCalls";
+import {getKlientPacjentList} from "../../axios/PacjentAxiosCalls";
 import dayjs from 'dayjs';
 import {Link} from "react-router-dom";
 import {getFormattedDateWithHour} from "../other/dateFormat";
+import {getKlientWizytaListForDetails} from "../../axios/WizytaAxiosCalls";
 
 
-class SzczegolyWeterynarza extends React.Component {
+class SzczegolyKlienta extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.params)
         const paramsIdKlient = this.props.params.IdOsoba
         this.state = {
             data: {
@@ -26,89 +25,44 @@ class SzczegolyWeterynarza extends React.Component {
             wizyty: [],
             idKlient: paramsIdKlient,
             error: '',
-            isLoaded: false,
-            notice: '',
+            //isLoaded: false,
         }
     }
 
-    componentDidMount() {
-        getKlientDetails(this.state.idKlient)
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    console.log(data)
-                    if (data.message) {
-                        this.setState({
-                            notice: data.message
-                        })
-                    } else {
-                        this.setState({
-                            data: data,
-                            notice: null
-                        })
-                    }
-                    this.setState({
-                        isLoaded: true,
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    })
-                }
-            );
-
+    async componentDidMount() {
         const {navigate} = this.props;
-        getKlientPacjentList(this.state.idKlient)
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        pacjenci: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        try {
+            const res = await getKlientDetails(this.state.idKlient);
+            const data = await res.data
 
-        getClientVisitListForDetails(this.state.idKlient)
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        wizyty: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+            this.setState({
+                data: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
+
+        try {
+            const res = await getKlientPacjentList(this.state.idKlient);
+            const data = await res.data
+
+            this.setState({
+                pacjenci: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
+
+        try {
+            const res = await getKlientWizytaListForDetails(this.state.idKlient);
+            const data = await res.data
+
+            this.setState({
+                wizyty: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -299,8 +253,8 @@ class SzczegolyWeterynarza extends React.Component {
                             ))}
                             </tbody>
                         </table>
-
                     </div>
+
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t("wizyta.title")}</h2>
@@ -414,7 +368,6 @@ class SzczegolyWeterynarza extends React.Component {
                                                           strokeLinejoin="round" strokeWidth="16"></path>
                                                 </svg>
                                             </Link>
-
                                         </div>
                                     </div>
                                 </tr>
@@ -452,4 +405,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation()(withNavigate(withRouter(SzczegolyWeterynarza)));
+export default withTranslation()(withNavigate(withRouter(SzczegolyKlienta)));

@@ -1,6 +1,6 @@
 import React from "react";
 import PacjentKlientListTable from "../pacjent/PacjentKlientListTable";
-import {getKlientPacjentList} from "../../api/PacjentApiCalls";
+import {getKlientPacjentList} from "../../axios/PacjentAxiosCalls";
 import KontoMenu from "../fragments/KontoMenu";
 
 class KontoPacjenci extends React.Component {
@@ -16,36 +16,21 @@ class KontoPacjenci extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {navigate} = this.props;
-        getKlientPacjentList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        pacjenci: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        try {
+            const res = await getKlientPacjentList(this.state.idKlient);
+            const data = await res.data
+
+            this.setState({
+                pacjenci: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
-
         const {error, isLoaded, pacjenci} = this.state
         let content;
 
@@ -54,7 +39,6 @@ class KontoPacjenci extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
             content = <PacjentKlientListTable pacjenci={pacjenci}/>
         }
 

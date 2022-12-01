@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router";
 import KlientListTable from "./KlientListTable";
 import {withTranslation} from "react-i18next";
-import {getKlientListAxios} from "../../axios/KlientAxiosCalls";
+import {getKlientList} from "../../axios/KlientAxiosCalls";
 
 class KlientList extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class KlientList extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await getKlientListAxios();
+        const res = await getKlientList();
         var data = await res.data
 
         this.setState({

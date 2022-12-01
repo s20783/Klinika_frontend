@@ -2,7 +2,7 @@ import React from "react";
 import PacjentListTable from "./PacjentListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getPacjentListAxios} from "../../axios/PacjentAxiosCalls";
+import {getPacjentList} from "../../axios/PacjentAxiosCalls";
 
 class PacjentList extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class PacjentList extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await getPacjentListAxios();
+        const res = await getPacjentList();
         var data = await res.data
 
         this.setState({

@@ -3,12 +3,11 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
-import {addUsluga, getUslugaDetails, updateUsluga} from "../../api/UslugaApiCalls";
+import {addUsluga, getUslugaDetails, updateUsluga} from "../../axios/UslugaAxiosCalls";
 
 class FormularzUslugi extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.params)
         const paramsIdUsluga = this.props.params.idUsluga
         const currentFormMode = paramsIdUsluga ? formMode.EDIT : formMode.NEW
 
@@ -29,45 +28,26 @@ class FormularzUslugi extends React.Component {
             idUsluga: paramsIdUsluga,
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode
         }
     }
 
 
-    componentDidMount() {
-
+    async componentDidMount() {
         if (this.state.formMode === formMode.EDIT) {
-            getUslugaDetails(this.state.idUsluga)
-                .then(res => res.json())
-                .then(
-                    (data) => {
-                        console.log(data)
-                        if (data.message) {
-                            this.setState({
-                                notice: data.message
-                            })
-                        } else {
-                            this.setState({
-                                data: data,
-                                notice: null
-                            })
-                        }
-                        this.setState({
-                            isLoaded: true,
-                        })
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        })
-                    }
-                );
+            try {
+                const res = await getUslugaDetails(this.state.idUsluga);
+                const data = await res.data
 
+                this.setState({
+                    data: data,
+                    isLoaded: true
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
-
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -96,8 +76,7 @@ class FormularzUslugi extends React.Component {
             }
         }
         if (fieldName === 'Opis') {
-            console.log(fieldValue.toString().trim().length)
-            if (!CheckTextRange(fieldValue, 0, 300)) { /////////??????????????????????
+            if (!CheckTextRange(fieldValue, 0, 300)) {
                 errorMessage = t('validation.max300nullable')
             }
         }
@@ -116,7 +95,6 @@ class FormularzUslugi extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -149,52 +127,27 @@ class FormularzUslugi extends React.Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const dane = {...this.state}
-        let response, promise;
-        console.log(dane.data)
         const isValid = this.validateForm()
 
-
         if (isValid) {
-
             if (dane.formMode === formMode.NEW) {
-                promise = addUsluga(dane.data)
+                try {
+                    await addUsluga(dane.data);
+                    await navigate("/uslugi", {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             } else if (dane.formMode === formMode.EDIT) {
-                promise = updateUsluga(dane.data, dane.idUsluga)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        return res.json()
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            if (response < 200 && response < 299) {
-                                console.log(response.status)
-                                navigate("/uslugi", {replace: true});
-
-                            } else if (response.status === 401) {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            } else {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            }
-                        },
-                        (error) => {
-                            this.setState({
-                                error: error
-                            })
-                        })
+                try {
+                    await updateUsluga(dane.data, this.state.idUsluga)
+                    await navigate("/uslugi", {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }

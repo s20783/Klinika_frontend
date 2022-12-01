@@ -2,10 +2,10 @@ import React from 'react';
 import Calendar from 'react-calendar';
 import {useNavigate} from "react-router";
 import dayjs from 'dayjs';
-import {addPacjent, getPacjentDetails1, updatePacjent} from "../../api/PacjentApiCalls";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import formMode from "../helpers/FormMode";
 import {withTranslation} from "react-i18next";
+import {addPacjent, getPacjentDetails, updatePacjent} from "../../axios/PacjentAxiosCalls";
 
 
 class DodaniePacjentaForm extends React.Component {
@@ -13,8 +13,6 @@ class DodaniePacjentaForm extends React.Component {
         super(props);
         const paramsIdPacjent = this.props.idPacjent
         const currentFormMode = paramsIdPacjent ? formMode.EDIT : formMode.NEW
-
-        console.log(this.props)
         this.state = {
             data: {
                 IdOsoba: '',
@@ -48,36 +46,23 @@ class DodaniePacjentaForm extends React.Component {
         }
     }
 
+    fetchPatientDetails = async () => {
+        try{
+            const res = await getPacjentDetails(this.state.idPacjent);
+            var data = await res.data
+
+            this.setState({
+                isLoaded: true,
+                data: data
+            });
+        } catch (error){
+            console.log(error)
+        }
+    }
+
     componentDidMount() {
-
         if (this.state.idPacjent) {
-            getPacjentDetails1(this.state.idPacjent)
-                .then(res => res.json())
-                .then(
-                    (data) => {
-                        console.log(data)
-                        if (data.message) {
-                            this.setState({
-                                notice: data.message
-                            })
-                        } else {
-                            this.setState({
-                                data: data,
-                                notice: null
-                            })
-                        }
-                        this.setState({
-                            isLoaded: true,
-                        })
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        })
-                    }
-                );
-
+            this.fetchPatientDetails();
         }
     }
 
@@ -198,51 +183,27 @@ class DodaniePacjentaForm extends React.Component {
         return !this.hasErrors();
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const isValid = this.validateForm()
         const dane = {...this.state}
-        let response, promise;
-        console.log(dane.data)
 
         if (isValid) {
-
             if (dane.formMode === formMode.NEW) {
-                promise = addPacjent(dane.data)
+                try {
+                    await addPacjent(dane.data);
+                    await navigate("/pacjenci", {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             } else if (dane.formMode === formMode.EDIT) {
-                promise = updatePacjent(dane.data, dane.idPacjent)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        return res.json()
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            if (response.status === 200) {
-                                console.log(response.status)
-                                navigate("/pacjenci", {replace: true});
-
-                            } else if (response.status === 401) {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            } else {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            }
-                        },
-                        (error) => {
-                            this.setState({
-                                error: error
-                            })
-                        })
+                try {
+                    await updatePacjent(dane.data, dane.idPacjent)
+                    await navigate("/pacjenci", {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }
