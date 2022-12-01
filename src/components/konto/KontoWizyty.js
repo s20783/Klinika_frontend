@@ -1,8 +1,8 @@
 import React from "react";
-import {getClientVisitList} from "../../api/WizytaApiCalls";
 import WizytaTableList from "../wizyta/WizytaTableList";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
+import {getKlientWizytaList} from "../../axios/WizytaAxiosCalls";
 
 class KontoWizyty extends React.Component {
     constructor(props) {
@@ -12,37 +12,23 @@ class KontoWizyty extends React.Component {
             error: '',
             message: '',
             user: '',
-            wizyty: [],
-            notice: ''
+            wizyty: []
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {navigate} = this.props;
-        getClientVisitList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        wizyty: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        try {
+            const res = await getKlientWizytaList()
+            var data = await res.data
+
+            this.setState({
+                isLoaded: true,
+                wizyty: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

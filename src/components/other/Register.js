@@ -1,6 +1,6 @@
 import React from "react";
 import {Navigate, useNavigate, useParams} from "react-router";
-import {registerCall} from "../../api/KlientApiCalls";
+import {registerCall} from "../../axios/KlientAxiosCalls";
 import {ValidateEmail} from "../helpers/ValidateEmail";
 import {withTranslation} from "react-i18next";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
@@ -50,59 +50,62 @@ class Register extends React.Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         const {navigate} = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
             const user = this.state.user
             console.log(user)
-            let response;
-            let promise;
-            promise = registerCall(user);
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        console.log(response)
-                        console.log(response.status)
-                        if (response.status === 200) {
-                            this.setState({redirect: true})
-                            navigate("/afterRegister")
-                        }
-                        return res.json()
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            this.setState({
-                                message: data.message
-                            })
-                            if (response.status === 500) {
-                                for (const i in data) {
-                                    const errorItem = data[i]
-                                    const errorMessage = errorItem.message
-                                    const fieldName = errorItem.path
-                                    const errors = {...this.state.errors}
-                                    errors[fieldName] = errorMessage
-                                    this.setState({
-                                        errors: errors,
-                                        error: null
-                                    })
-                                }
-                            }
-                            //else {
-                            //this.setState({redirect: true})
-                            //this.setState({redirect: true})
-                            //}
-                        },
-                        (error) => {
-                            this.setState({
-                                //isLoaded: true,
-                                error: error
-                            })
-                        })
+            //let response;
+            //let promise;
+            try {
+                await registerCall(user);
+                navigate("/afterRegister", {replace: true});
+            } catch (error) {
+                console.log(error)
             }
+
+            // promise = registerCall(user);
+            // if (promise) {
+            //     promise
+            //         .then(res => {
+            //             response = res
+            //             console.log(response)
+            //             console.log(response.status)
+            //             if (response.status === 200) {
+            //                 this.setState({redirect: true})
+            //                 navigate("/afterRegister")
+            //             }
+            //             return res.json()
+            //         })
+            //         .then(
+            //             (data) => {
+            //                 console.log(data)
+            //                 this.setState({
+            //                     message: data.message
+            //                 })
+            //                 if (response.status === 500) {
+            //                     for (const i in data) {
+            //                         const errorItem = data[i]
+            //                         const errorMessage = errorItem.message
+            //                         const fieldName = errorItem.path
+            //                         const errors = {...this.state.errors}
+            //                         errors[fieldName] = errorMessage
+            //                         this.setState({
+            //                             errors: errors,
+            //                             error: null
+            //                         })
+            //                     }
+            //                 }
+            //             },
+            //             (error) => {
+            //                 this.setState({
+            //                     //isLoaded: true,
+            //                     error: error
+            //                 })
+            //             })
+            //}
         }
     }
 
@@ -153,8 +156,8 @@ class Register extends React.Component {
             }
         }
         if (fieldName === 'Haslo') {
-            if (!CheckTextRange(fieldValue, 8, 30)) {
-                errorMessage = `${t('validation.from8to30')}`
+            if (!CheckTextRange(fieldValue, 5, 30)) {
+                errorMessage = `${t('validation.from5to50')}`
             }
             if (!ValidateHaslo(fieldValue)) {
                 errorMessage = `${t('validation.password')}`
@@ -165,8 +168,8 @@ class Register extends React.Component {
             }
         }
         if (fieldName === 'Haslo2') {
-            if (!CheckTextRange(fieldValue, 8, 30)) {
-                errorMessage = `${t('validation.from8to30')}`
+            if (!CheckTextRange(fieldValue, 5, 30)) {
+                errorMessage = `${t('validation.from5to50')}`
             }
             if (!ValidateHaslo(fieldValue)) {
                 errorMessage = `${t('validation.password')}`
@@ -273,13 +276,6 @@ class Register extends React.Component {
                                 </div>
                                 <span id="errorNumerTelefonu"
                                       className="errors-text">{this.state.errors.NumerTelefonu}</span>
-
-                                {/*<div className="my-3 pt-3  rounded bg-gray-200">*/}
-                                {/*    <input datepicker type="text" id="Data_urodzenia" name="Data_urodzenia" placeholder="Data urodzenia *" onChange={this.handleChange}*/}
-                                {/*           className={this.state.errors.Data_urodzenia ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'*/}
-                                {/*               : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>*/}
-                                {/*</div>*/}
-                                {/*<span id="errorLogin" className="errors-text">{this.state.errors.Data_urodzenia}</span>*/}
 
                                 <div className="my-3 pt-3 rounded bg-gray-200">
                                     <input type="password" id="Haslo" name="Haslo"

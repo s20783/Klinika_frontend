@@ -1,11 +1,11 @@
 import React from "react";
-import {getPacjentVisitList} from "../../api/WizytaApiCalls";
 import {useParams} from "react-router";
 import dayjs from 'dayjs';
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {Link} from "react-router-dom";
 import {getPacjentDetails} from "../../axios/PacjentAxiosCalls";
+import {getPacjentWizytaList} from "../../axios/WizytaAxiosCalls";
 
 class SzczegolyPacjent extends React.Component {
     constructor(props) {
@@ -32,7 +32,7 @@ class SzczegolyPacjent extends React.Component {
     }
 
     fetchPatientDetails = async () => {
-        try{
+        try {
             const res = await getPacjentDetails(this.state.idPacjent);
             var data = await res.data
 
@@ -40,37 +40,25 @@ class SzczegolyPacjent extends React.Component {
                 isLoaded: true,
                 pacjent: data
             });
-        } catch (error){
+        } catch (error) {
             console.log(error)
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.fetchPatientDetails();
 
-        getPacjentVisitList(this.state.idPacjent)
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        wizyty: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        try {
+            const res = await getPacjentWizytaList(this.state.idPacjent)
+            var data = await res.data
+
+            this.setState({
+                isLoaded: true,
+                wizyty: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -78,19 +66,19 @@ class SzczegolyPacjent extends React.Component {
         const {t} = this.props;
         let content;
 
-                if (error) {
-                    content = <p>Błąd: {error.message}</p>
-                } else if (!isLoaded) {
-                    content = <p>Ładowanie...</p>
-                } else {
-                    content =
-                        <div>
-                            //gdy brak listy -> kontnet
-                        </div>
-                }
+        if (error) {
+            content = <p>Błąd: {error.message}</p>
+        } else if (!isLoaded) {
+            content = <p>Ładowanie...</p>
+        } else {
+            content =
+                <div>
+                    //gdy brak listy -> kontnet
+                </div>
+        }
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('pacjent.detailsPatient')}</p>
                     <div class="block lg:hidden sticky inset-0">
@@ -229,7 +217,8 @@ class SzczegolyPacjent extends React.Component {
                                     </svg>}
                             </div>
                             <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
                                     {t('pacjent.fields.aggressive')}
                                 </label>
                                 {pacjent.Agresywne === true &&

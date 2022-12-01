@@ -1,12 +1,8 @@
 import React from "react";
-import {getClientVisitList} from "../../api/WizytaApiCalls";
-import WizytaTableList from "../wizyta/WizytaTableList";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getGodzinyPracyList, getKontoGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
-import {Link} from "react-router-dom";
 import {getFormattedHour} from "../other/dateFormat";
-import {getCurrentUser} from "../other/authHelper";
 
 class KontoGodzinyPracy extends React.Component {
     constructor(props) {
@@ -16,8 +12,7 @@ class KontoGodzinyPracy extends React.Component {
             error: '',
             message: '',
             user: '',
-            godzinyPracy: [],
-            notice: ''
+            godzinyPracy: []
         }
     }
 
