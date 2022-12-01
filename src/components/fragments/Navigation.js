@@ -23,11 +23,11 @@ class Navigation extends React.Component {
                     <div className="flex relative inline-block float-right">
                         <div className="relative text-sm">
                             <Link to="/login"
-                                  className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-blue-400">
+                                  className="whitespace-nowrap sm:ml-1 ml-8 text-base font-medium text-gray-500 hover:text-blue-400">
                                 Zaloguj się
                             </Link>
                             <Link to="/register"
-                                  className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-400">
+                                  className="sm:ml-8 ml-1 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-400">
                                 Zarejestruj się
                             </Link>
                         </div>
@@ -36,10 +36,10 @@ class Navigation extends React.Component {
             </>
         return (
             <div className="relative bg-white">
-                <div className="p-4 mt- md:px-6 md:py-0">
+                <div className="p-4 mt-  md:py-0">
                     <div
                         className="flex justify-between items-center border-b-2 border-gray-400 py-6  lg:justify-start lg:space-x-5">
-                        <div className=" flex justify-start 2xl:flex-auto">
+                        <div className=" flex justify-start xl:flex-auto">
                             <Link to="/">
                                 <img
                                     className=""
@@ -48,7 +48,7 @@ class Navigation extends React.Component {
                                 />
                             </Link>
                         </div>
-                        <nav className="flex  flex-wrap   flex justify-center ">
+                        <nav className="flex flex-wrap  flex justify-center flex-auto ">
                             <NavLink to="/" className="text-base pr-5  font-medium text-gray-500 hover:text-blue-400">
                                 {t('navigation.mainPage')}</NavLink>
                             <NavLink to="/kontakt"
@@ -99,7 +99,7 @@ class Navigation extends React.Component {
                                          className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
                                     {t('navigation.specializations')}</NavLink>}
                         </nav>
-                        <div className=" items-center  justify-end flex-1 ">
+                        <div className=" items-center justify-end flex-auto ">
                             {loginLogoutButton}
                         </div>
                     </div>
