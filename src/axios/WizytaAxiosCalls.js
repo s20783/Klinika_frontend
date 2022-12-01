@@ -22,5 +22,5 @@ export function getWizytaDetails(Id){
 
 export async function umowWizyte(data){
     const dataString = JSON.stringify(data)
-    await api.post('/Wizyta', dataString);
+    await api.post('/Wizyta/umowWizyte', dataString);
 }
