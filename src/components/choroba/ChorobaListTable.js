@@ -46,8 +46,10 @@ function ChorobaListTable(props) {
 
                     </label>
                     <Link to="/dodajChorobe"
-                          className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                        <span className="text-xl">+</span> {t('choroba.button.addDisease')}
+                          className="absolute top-0 right-0 h-12 w-12 sm:w-44 shadow bg-blue-400 hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <span className="text-xl">+ </span>
+                        <span className="invisible sm:visible ">
+                            {t('choroba.button.addDisease')}</span>
                     </Link>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 function WeterynarzListTable(props) {
     const {t} = useTranslation();
     const list = props.weterynarze
+    console.log(list)
     const [filteredData, setFilteredData] = useState(list);
     const [wordEntered, setWordEntered] = useState("");
 
@@ -27,9 +28,9 @@ function WeterynarzListTable(props) {
     return (
         <div>
             <div className="p-4 ">
-                <div className="relative mt-1 ">
+                <div className="relative mt-1 flex flex-wrap">
                     <label form="table-search" className="sr-only shrink">Search</label>
-                    <div className="absolute shrink  inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <div className="absolute  inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
                              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd"
@@ -45,8 +46,8 @@ function WeterynarzListTable(props) {
 
                     </label>
                     <Link to="/dodajWeterynarza"
-                          className="absolute top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                        <span className="text-xl">+</span> {t('weterynarz.button.addVet')}
+                          className="absolute top-0 right-0  h-12 w-12 sm:w-56 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <span className="text-xl">+</span><span className="invisible sm:visible "> {t('weterynarz.button.addVet')}</span>
                     </Link>
                 </div>
             </div>
@@ -64,17 +65,18 @@ function WeterynarzListTable(props) {
                     <tbody>
                     {filteredData.map(x => (
                         <tr key={x.IdOsoba}
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
+                            className="bg-white   border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
                             <td className="px-6 py-2 text-center">{x.Imie}</td>
                             <td className="px-6 py-2 text-center">{x.Nazwisko}</td>
                             <td className="px-6 py-2 text-center">{x.NumerTelefonu}</td>
                             <td className="px-6 py-2 text-center">{x.Email}</td>
                             <td className="px-6 py-2 text-center">
                                 <div className="list-actions text-center">
-                                    <div className="flex">
-                                        <Link to={`/weterynarze/${x.IdOsoba}`}
-                                              className="list-actions-button-details flex-1">
-                                            <svg className="list-actions-button-details flex-1"
+                                    <div className="relative h-6 w-5/6 flex flex-wrap ml-8">
+                                        <Link to={`/weterynarze/${x.IdOsoba}`}>
+                                            <svg className=
+                                                 "absolute inset-y-1 right-16"
+
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#000000" viewBox="0 0 256 256">
                                                 <rect width="256" height="256" fill="none"/>
@@ -91,29 +93,33 @@ function WeterynarzListTable(props) {
                                                         r="12"></circle>
                                             </svg>
                                         </Link>
-                                        <Link to={`/weterynarze/edycjaWeterynarza/${x.IdOsoba}`}
-                                              className="list-actions-button-details flex-1">
-                                            <svg className="list-actions-button-edit flex-1"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                                 width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                                                <rect className="details-icon-color" width="256" height="256"
-                                                      fill="none"></rect>
-                                                <path className="details-icon-color"
-                                                      d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
-                                                      fill="none" stroke="#000000" stroke-linecap="round"
-                                                      strokeLinejoin="round" strokeWidth="16"></path>
-                                                <line className="details-icon-color" x1="136" y1="64" x2="192" y2="120"
-                                                      fill="none" stroke="#000000" stroke-linecap="round"
-                                                      strokeLinejoin="round" strokeWidth="16"></line>
-                                                <polyline className="details-icon-color"
-                                                          points="216 216 96 216 40.509 160.509" fill="none"
-                                                          stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></polyline>
-                                            </svg>
-                                        </Link>
+                                        {x.Email !== "" &&
+                                            <Link to={`/weterynarze/edycjaWeterynarza/${x.IdOsoba}`}
+                                                  disabled className="absolute inset-y-1 right-8 ml-2">
+                                                <svg className=" "
+                                                     xmlns="http://www.w3.org/2000/svg"
+                                                     width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                                                    <rect className="details-icon-color" width="256" height="256"
+                                                          fill="none"></rect>
+                                                    <path className="details-icon-color"
+                                                          d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
+                                                          fill="none" stroke="#000000" stroke-linecap="round"
+                                                          strokeLinejoin="round" strokeWidth="16"></path>
+                                                    <line className="details-icon-color" x1="136" y1="64" x2="192"
+                                                          y2="120"
+                                                          fill="none" stroke="#000000" stroke-linecap="round"
+                                                          strokeLinejoin="round" strokeWidth="16"></line>
+                                                    <polyline className="details-icon-color"
+                                                              points="216 216 96 216 40.509 160.509" fill="none"
+                                                              stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></polyline>
+                                                </svg>
+                                            </Link>
+                                        }
+                                        {x.Email !== "" &&
                                         <Link to={`/weterynarze/delete/${x.IdOsoba}`}
-                                              className="list-actions-button-details flex-1">
-                                            <svg className="list-actions-button-delete flex-1"
+                                              className=" ">
+                                            <svg className="absolute inset-y-1 right-1 ml-2"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#000000" viewBox="0 0 256 256">
                                                 <rect width="256" height="256" fill="none"></rect>
@@ -137,6 +143,7 @@ function WeterynarzListTable(props) {
                                                       strokeLinejoin="round" strokeWidth="16"></path>
                                             </svg>
                                         </Link>
+                                        }
                                     </div>
                                 </div>
                             </td>

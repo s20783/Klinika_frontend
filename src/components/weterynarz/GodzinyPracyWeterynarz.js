@@ -231,7 +231,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                         <td className=" list-actions ">
                                             <div className="relative h-6 w-4/6">
                                                 <Link to={`/urlop/${idWeterynarz}/${x.IdUrlop}`}
-                                                      className=" absolute inset-y-1 right-8 list-actions-button-details flex-1">
+                                                      className=" absolute inset-y-1 right-8  flex-1">
                                                     <svg className="list-actions-button-edit flex-1"
                                                          xmlns="http://www.w3.org/2000/svg"
                                                          width="20" height="20" fill="#000000" viewBox="0 0 256 256">

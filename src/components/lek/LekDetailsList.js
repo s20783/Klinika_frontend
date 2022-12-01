@@ -173,8 +173,7 @@ class LekDetailsList extends React.Component {
     }
 
     render() {
-        const {error, IdLek, leki, lek, choroby, chorobyLek, errors, data1} = this.state
-        let content;
+        const { IdLek, leki, lek, choroby, chorobyLek, errors} = this.state
         const {t} = this.props;
         const {navigate} = this.props;
 
@@ -192,8 +191,10 @@ class LekDetailsList extends React.Component {
                                         {lek.Nazwa} ({lek.JednostkaMiary})</h2>
                                     <div className="relative w-1/3 ">
                                         <Link to={`/leki/magazyn/dodajLek/${IdLek}`}
-                                              className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                            <span className="text-xl">+</span> {t('lek.button.addMedicineInWarehouse')}
+                                              className="absolute top-0 right-0  h-12 w-12 md:w-64  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                            <span className="text-xl">+</span>
+                                            <span className="invisible md:visible ">
+                                                {t('lek.button.addMedicineInWarehouse')}</span>
                                         </Link>
                                     </div>
                                 </div>

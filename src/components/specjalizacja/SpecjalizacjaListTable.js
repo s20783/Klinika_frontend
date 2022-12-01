@@ -43,8 +43,11 @@ function SpecjalizacjaListTable(props) {
                                placeholder={t('other.search')}/>
                     </label>
                     <Link to="/dodajSpecjalizacje"
-                          className="absolute    top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                        <span className="text-xl">+</span> {t('specjalizacja.button.addSpecialization')}
+                          className="absolute    top-0 right-0  h-12 w-12 sm:w-56  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <span className="text-xl">+</span>
+                        <span className="invisible sm:visible ">
+                            {t('specjalizacja.button.addSpecialization')}
+                        </span>
                     </Link>
                 </div>
             </div>

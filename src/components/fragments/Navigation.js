@@ -39,7 +39,7 @@ class Navigation extends React.Component {
                 <div className="p-4 mt- md:px-6 md:py-0">
                     <div
                         className="flex  justify-between items-center border-b-2 border-gray-400 py-6  lg:justify-start lg:space-x-5">
-                        <div className=" flex justify-start lg:w-0 lg:flex-1">
+                        <div className=" flex justify-start 3xl:w-0 3xl:flex-1">
                             <Link to="/">
                                 <img
                                     className=""
