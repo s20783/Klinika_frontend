@@ -1,9 +1,9 @@
 import React from "react";
-import {getWizytaDetails} from "../../api/WizytaApiCalls";
 import {useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {Link} from "react-router-dom";
+import {getWizytaDetails} from "../../axios/WizytaAxiosCalls";
 
 class SzczegolyWizyty extends React.Component {
     constructor(props) {
@@ -27,34 +27,18 @@ class SzczegolyWizyty extends React.Component {
         }
     }
 
-    fetchWizytaDetails = () => {
-        getWizytaDetails(this.state.idWizyta)
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    console.log(data)
-                    if (data.message) {
-                        this.setState({
-                            notice: data.message
-                        })
-                    } else {
-                        this.setState({
-                            wizyta: data,
-                            notice: null
-                        })
-                    }
-                    this.setState({
-                        isLoaded: true,
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    })
-                }
-            );
+    fetchWizytaDetails = async () => {
+        try {
+            const res = await getWizytaDetails(this.state.idWizyta)
+            var data = await res.data
 
+            this.setState({
+                isLoaded: true,
+                wizyta: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 

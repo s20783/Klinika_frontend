@@ -1,5 +1,5 @@
 import React from "react";
-import {getKlientPacjentList} from "../../axios/PacjentAxiosCalls";
+import {getKlientPacjentList2} from "../../axios/PacjentAxiosCalls";
 import UmowienieWizytyForm from "./UmowienieWizytyForm";
 import {withTranslation} from "react-i18next";
 
@@ -18,7 +18,7 @@ class UmowienieWizyty extends React.Component {
     async componentDidMount() {
         const {navigate} = this.props;
         try {
-            const res = await getKlientPacjentList(this.state.idKlient);
+            const res = await getKlientPacjentList2();
             const data = await res.data
 
             this.setState({
@@ -45,7 +45,7 @@ class UmowienieWizyty extends React.Component {
 
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3">
+            <div class="container w-full flex flex-wrap mx-auto px-2 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('wizyta.makeAnAppointment')}</p>
 

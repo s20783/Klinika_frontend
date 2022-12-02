@@ -4,9 +4,9 @@ import {useNavigate} from "react-router";
 import Time from "../other/Time";
 import dayjs from 'dayjs';
 import {getHarmonogramWizyta} from "../../api/HarmonogramApiCalls";
-import {postWizyta} from "../../api/WizytaApiCalls";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {withTranslation} from "react-i18next";
+import {umowWizyte} from "../../axios/WizytaAxiosCalls";
 
 class UmowienieWizytyForm extends React.Component {
     constructor(props) {
@@ -87,7 +87,7 @@ class UmowienieWizytyForm extends React.Component {
         return !this.hasErrors();
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         const {navigate} = this.props;
         const data = {...this.state.data}
         const wizyta = {...this.state.wizyta}
@@ -96,7 +96,7 @@ class UmowienieWizytyForm extends React.Component {
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
-            let response, newData
+            let newData
             if (this.checkPacjentList(list)) {
                 newData = {
                     ID_Harmonogram: data["Termin"],
@@ -113,38 +113,18 @@ class UmowienieWizytyForm extends React.Component {
                 }
             }
             console.log(newData)
-            postWizyta(newData)
-                .then(res => {
-                    response = res
-                    return res.json()
-                })
-                .then(
-                    (data1) => {
-                        console.log(data1)
-                        if (response.ok) {
-                            navigate(
-                                "/potwierdzenieWizyty",
-                                {
-                                    state: {
-                                        Data: wizyta.Data
-                                    }
-                                })
-                        } else if (response.status === 404) {
-                            console.log(data1)
-                        } else {
-                            console.log(data1)
-                            this.setState({
-                                message: data1.message
-                            })
+            try {
+                await umowWizyte(newData)
+                navigate(
+                    "/potwierdzenieWizyty",
+                    {
+                        state: {
+                            Data: wizyta.Data
                         }
-                    },
-                    (error) => {
-                        this.setState({
-                            error: error
-                        })
                     })
-        } else {
-            console.log("adsa")
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 

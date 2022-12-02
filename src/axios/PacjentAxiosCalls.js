@@ -12,6 +12,10 @@ export function getKlientPacjentList(Id) {
     return api.get(`/Pacjent/klient/${Id}`);
 }
 
+export function getKlientPacjentList2() {
+    return api.get(`/Pacjent/klient`);
+}
+
 export async function addPacjent(patient) {
     const patientString = JSON.stringify(patient)
     await api.post('/Pacjent', patientString);
