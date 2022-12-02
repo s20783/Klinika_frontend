@@ -1,13 +1,9 @@
 import React from "react";
-import {getClientVisitList} from "../../api/WizytaApiCalls";
-import WizytaTableList from "../wizyta/WizytaTableList";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
-import {getGodzinyPracyList, getKontoGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
-import {Link} from "react-router-dom";
+import {getKontoGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
 import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
-import {getCurrentUser} from "../other/authHelper";
-import {getKontoUrlopList} from "../../api/UrlopApiCall";
+import {getKontoUrlopList} from "../../axios/UrlopAxiosCalls";
 
 class KontoGodzinyPracy extends React.Component {
     constructor(props) {
@@ -18,12 +14,11 @@ class KontoGodzinyPracy extends React.Component {
             message: '',
             user: '',
             godzinyPracy: [],
-            urlopy:[],
-            notice: ''
+            urlopy:[]
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {navigate} = this.props;
 
         getKontoGodzinyPracyList()
@@ -51,30 +46,16 @@ class KontoGodzinyPracy extends React.Component {
                 }
             )
 
-        getKontoUrlopList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        urlopy: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        try {
+            const res = await getKontoUrlopList()
+            const data = await res.data
+            this.setState({
+                isLoaded: true,
+                urlopy: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -212,7 +193,6 @@ class KontoGodzinyPracy extends React.Component {
                             </table>
                         </div>
                     }
-
                 </div>
             </div>
         )

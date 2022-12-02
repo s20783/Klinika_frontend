@@ -1,10 +1,11 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {changeDaneKonta, getKontoData} from "../../api/authApiCalls";
+import {changeDaneKonta} from "../../axios/AuthAxiosCalls";
 import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {CheckTextRange} from "../helpers/CheckTextRange";
+import {getKontoData} from "../../axios/AuthAxiosCalls";
 
 
 class ZmianaDanychKonta extends React.Component {
@@ -33,7 +34,6 @@ class ZmianaDanychKonta extends React.Component {
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
-        console.log(data)
         data[name] = value
 
         const errorMessage = this.validateField(name, value)
@@ -110,83 +110,35 @@ class ZmianaDanychKonta extends React.Component {
         return errorMessage
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         const {navigate} = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
             const data = this.state.data
-            console.log(data)
-            let response;
-            let promise = changeDaneKonta(data);
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        console.log(response)
-                        console.log(response.status)
-                        if (response.status === 200) {
-                            this.setState({redirect: true})
-                            navigate("/konto", {replace: true});
-                        }
-                        return res.json()
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            this.setState({
-                                message: data.message
-                            })
-                            if (response.status === 500) {
-                                for (const i in data) {
-                                    const errorItem = data[i]
-                                    const errorMessage = errorItem.message
-                                    const fieldName = errorItem.path
-                                    const errors = {...this.state.errors}
-                                    errors[fieldName] = errorMessage
-                                    this.setState({
-                                        errors: errors,
-                                        error: null
-                                    })
-                                }
-                            }
-                            //else {
-                            //this.setState({redirect: true})
-                            //this.setState({redirect: true})
-                            //}
-                        },
-                        (error) => {
-                            this.setState({
-                                //isLoaded: true,
-                                error: error
-                            })
-                        })
+            try {
+                await changeDaneKonta(data)
+                await navigate("/konto", {replace: true});
+            } catch (error) {
+                console.log(error.response)
+                this.setState({
+                    message: error.response.data.message
+                })
             }
         }
     }
 
-    componentDidMount() {
-        const data1 = this.state.data
-        getKontoData()
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    console.log(data)
-                    data1['NazwaUzytkownika'] = data['NazwaUzytkownika']
-                    data1['NumerTelefonu'] = data['NumerTelefonu']
-                    data1['Email'] = data['Email']
-                    this.setState({
-                        isLoaded: true,
-                        data: data1
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+        try {
+            const res = await getKontoData()
+            const data1 = await res.data
+            this.setState({
+                isLoaded: true,
+                data: data1
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

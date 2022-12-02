@@ -48,7 +48,7 @@ instance.interceptors.response.use(resp => resp, async error => {
         }
     }
 
-    return error;
+    await Promise.reject(error);
 });
 
 export default instance;

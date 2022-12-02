@@ -7,7 +7,7 @@ import {
     deleteWeterynarzSpecjalizacja,
     getWeterynarzSpecjalizacjaList
 } from "../../api/WeterynarzSpecjalizacjaApiCalls";
-import {getSpecjalizacjaList} from "../../api/SpecjalizacjaApiCalls";
+import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
 import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
 import {Link} from "react-router-dom";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
@@ -88,29 +88,18 @@ class SzczegolyWeterynarza extends React.Component {
 
     }
 
-    showSelect() {
+    async showSelect() {
         if (this.state.specjalizacje1.length === 0) {
-            getSpecjalizacjaList()
-                .then(res => {
-                    console.log(res.status)
-                    return res.json()
-                })
-                .then(
-                    (data) => {
-                        console.log(data)
-                        this.setState({
-                            isLoaded: true,
-                            specjalizacje1: data
-                        });
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                )
-
+            try {
+                const res = await getSpecjalizacjaList()
+                const data = await res.data
+                this.setState({
+                    isLoaded: true,
+                    specjalizacje1: data
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
 
         const helpDiv = document.getElementById("spec-content");

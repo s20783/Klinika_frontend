@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router";
 import React from "react";
 import {Link} from "react-router-dom";
-import {changePassword} from "../../api/authApiCalls";
+import {changePassword} from "../../axios/AuthAxiosCalls";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {ValidateHaslo} from "../helpers/ValidateHaslo";
 import {withTranslation} from "react-i18next";
@@ -40,42 +40,20 @@ class ZmianaHasla extends React.Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         const {navigate} = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
-            const user = this.state.user
-            console.log(user)
-            let response
-            changePassword(user)
-                .then(res => {
-                    response = res
-                    return res.json()
+            try {
+                await changePassword(this.state.user)
+                await navigate("/konto", {replace: true});
+            } catch (error) {
+                console.log(error.response)
+                this.setState({
+                    message: error.response.data.message
                 })
-                .then(
-                    (data) => {
-                        if (response.status === 200) {
-                            console.log(response.status)
-                            navigate("/konto", {replace: true});
-
-                        } else if (response.status === 401) {
-                            console.log(data)
-                            this.setState({
-                                message: data.message
-                            })
-                        } else {
-                            console.log(data)
-                            this.setState({
-                                message: data.message
-                            })
-                        }
-                    },
-                    (error) => {
-                        this.setState({
-                            error: error
-                        })
-                    })
+            }
         }
     }
 
@@ -179,7 +157,7 @@ class ZmianaHasla extends React.Component {
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errornewHaslo2" className="errors-text">{this.state.errors.newHaslo2}</span>
-                                <span id="error" className="errors-text2">{this.state.message}</span>
+                                <span id="error" className="errors-text2">{this.state.message !== '' ? t('errors.' + this.state.message) : ''}</span>
                                 <div class="flex justify-between">
                                     <p className=" text-black font-bold  underline text-lg hover:text-red-400 p-2 mt-6">
                                         <button onClick={() => navigate(-1)}>{t("button.back")}</button>

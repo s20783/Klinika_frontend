@@ -2,7 +2,7 @@ import React from "react";
 import {getLekDetailsList} from "../../api/LekApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getChorobaList} from "../../api/ChorobaApiCalls";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 import {addChorobaLek, deleteChorobaLek} from "../../api/ChorobaLekApiCalls";
 import {Link} from "react-router-dom";
 import {getFormattedDate} from "../other/dateFormat";
@@ -44,35 +44,24 @@ class LekDetailsList extends React.Component {
                 (error) => {
                     this.setState({
                         isLoaded: true,
-                        error
+                        error: error
                     });
                 }
             )
     }
 
-    showSelect() {
+    async showSelect() {
         if (this.state.choroby.length === 0) {
-            getChorobaList()
-                .then(res => {
-                    console.log(res.status)
-                    return res.json()
-                })
-                .then(
-                    (data) => {
-                        console.log(data)
-                        this.setState({
-                            isLoaded: true,
-                            choroby: data
-                        });
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                )
-
+            try {
+                const res = await getChorobaList()
+                const data = await res.data
+                this.setState({
+                    isLoaded: true,
+                    choroby: data
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
 
         var helpDiv = document.getElementById("spec-content");

@@ -87,7 +87,7 @@ class Navigation extends React.Component {
                                          className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
                                     {t('navigation.medicines')}</NavLink>}
                             {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/szczepionia"
+                                <NavLink to="/szczepionki"
                                          className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
                                     {t('navigation.vaccinations')}</NavLink>}
                             {isAdmin() &&

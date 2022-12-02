@@ -1,5 +1,5 @@
 import React from "react";
-import {getChorobaList} from "../../api/ChorobaApiCalls";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 import ChorobaListTable from "./ChorobaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
@@ -10,38 +10,21 @@ class ChorobaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            choroby: [],
-            notice: ''
-
+            choroby: []
         }
     }
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getChorobaList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-
-                    this.setState({
-                        isLoaded: true,
-                        choroby: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+        try {
+            const res = await getChorobaList()
+            const data = await res.data
+            this.setState({
+                isLoaded: true,
+                choroby: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -54,7 +37,6 @@ class ChorobaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
             content = <ChorobaListTable choroby={choroby}/>
         }
 

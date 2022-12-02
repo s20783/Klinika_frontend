@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import React from "react";
-import {getKontoData} from "../../api/authApiCalls";
+import {getKontoData} from "../../axios/AuthAxiosCalls";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 
@@ -15,25 +15,16 @@ class Konto extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-        getKontoData()
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        user: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+        try {
+            const res = await getKontoData()
+            this.setState({
+                isLoaded: true,
+                user: res.data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

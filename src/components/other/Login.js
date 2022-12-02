@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router";
 import React from "react";
 import {Link} from "react-router-dom";
-import {loginCall} from "../../api/authApiCalls";
+import {loginCall} from "../../axios/AuthAxiosCalls";
 import {withTranslation} from "react-i18next";
 
 class Login extends React.Component {
@@ -36,40 +36,26 @@ class Login extends React.Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         const {navigate} = this.props;
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
-            const user = this.state.user
-            //console.log(user)
-            let response
-            loginCall(user)
-                .then(res => {
-                    response = res
-                    return res.json()
-                })
-                .then(
-                    (data) => {
-                        if (response.status === 200) {
-                            if (data.Token) {
-                                console.log(data)
-                                const userString = JSON.stringify(data)
-                                this.props.handleLogin(userString)
+            try {
+                const res = await loginCall(this.state.user)
+                const data = await res.data
 
-                                navigate("/", {replace: true});
-                            }
-                        } else {
-                            this.setState({
-                                message: data.message
-                            })
-                        }
-                    },
-                    (error) => {
-                        this.setState({
-                            error: error
-                        })
-                    })
+                //if (data.Token) {
+                    const userString = JSON.stringify(data)
+                    this.props.handleLogin(userString)
+                    navigate("/", {replace: true});
+                //}
+            } catch (error) {
+                console.log(error)
+                this.setState({
+                    message: error.response.data.message
+                })
+            }
         }
     }
 
@@ -86,7 +72,6 @@ class Login extends React.Component {
                 errorMessage = `${t('validation.required')}`
             }
         }
-
         return errorMessage
     }
 

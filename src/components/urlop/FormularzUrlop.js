@@ -2,21 +2,16 @@ import React from 'react';
 import Calendar from 'react-calendar';
 import {useNavigate, useParams} from "react-router";
 import dayjs from 'dayjs';
-import {addUrlop, getUrlopDetails, editUrlop} from "../../api/UrlopApiCall";
-import {CheckTextRange} from "../helpers/CheckTextRange";
+import {addUrlop, getUrlopDetails, editUrlop} from "../../axios/UrlopAxiosCalls";
 import formMode from "../helpers/FormMode";
 import {withTranslation} from "react-i18next";
-import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
-
 
 class FormularzUrlop extends React.Component {
     constructor(props) {
         super(props);
-
         const IdVet = this.props.params.IdVet
         const paramsIdUrlop = this.props.params.IdUrlop
         const currentFormMode = paramsIdUrlop ? formMode.EDIT : formMode.NEW
-        console.log(paramsIdUrlop)
         this.state = {
             data: {
                 ID_weterynarz: IdVet,
@@ -33,36 +28,17 @@ class FormularzUrlop extends React.Component {
         }
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
         if (this.state.idUrlop) {
-            getUrlopDetails(this.state.idUrlop)
-                .then(res => res.json())
-                .then(
-                    (data) => {
-                        console.log(data)
-                        if (data.message) {
-                            this.setState({
-                                notice: data.message
-                            })
-                        } else {
-                            this.setState({
-                                data: data,
-                                notice: null
-                            })
-                        }
-                        this.setState({
-                            isLoaded: true,
-                        })
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        })
-                    }
-                );
-
+            try {
+                const res = await getUrlopDetails(this.state.idUrlop)
+                this.setState({
+                    data: res.data,
+                    isLoaded: true
+                })
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -93,7 +69,6 @@ class FormularzUrlop extends React.Component {
 
     onChange = (date) => {
         const data = {...this.state.data}
-        console.log(dayjs(date).format())
         data['Dzien'] = dayjs(date).format()
 
         const errorMessage = this.validateField('Dzien', date)
@@ -120,36 +95,27 @@ class FormularzUrlop extends React.Component {
         return !this.hasErrors();
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const isValid = this.validateForm()
         const dane = {...this.state}
-        let response, promise;
-        console.log(dane.data)
 
         if (isValid) {
-
             if (dane.formMode === formMode.NEW) {
-                promise = addUrlop(dane.data)
+                try {
+                    await addUrlop(dane.data)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             } else if (dane.formMode === formMode.EDIT) {
-                promise = editUrlop(dane.idUrlop, dane.data)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        console.log(response.status)
-                        if (response.ok) {
-                            console.log(response.status)
-                            navigate(-1);
-                        } else if (response.status === 401) {
-                            console.log("Brak autoryzacji")
-
-                        } else {
-                            console.log(response.status)
-                        }
-                    })
+                try {
+                    await editUrlop(dane.idUrlop, dane.data)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }
@@ -171,7 +137,6 @@ class FormularzUrlop extends React.Component {
         const {i18n} = this.props;
         let language = i18n.language
         const pageTitle = this.state.formMode === formMode.NEW ? t('urlop.addNewVacation') : t('urlop.editVacation')
-
 
         return (
             <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">

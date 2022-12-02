@@ -4,9 +4,8 @@ import {withTranslation} from "react-i18next";
 import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
 import {getGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
 import {Link} from "react-router-dom";
-import {getUrlopList} from "../../api/UrlopApiCall";
+import {getUrlopList} from "../../axios/UrlopAxiosCalls";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
-import GodzinyPracy from "../godzinyPracy/GodzinyPracy";//?????????????????/
 
 
 class GodzinyPracyWeterynarz extends React.Component {
@@ -19,15 +18,13 @@ class GodzinyPracyWeterynarz extends React.Component {
             idWeterynarz: paramsIdWeterynarz,
             error: '',
             isLoaded: false,
-            notice: '',
             urlopy: [],
             data:'',
             dataError:''
         }
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
         getGodzinyPracyList(this.state.idWeterynarz)
             .then(res => {
                 console.log(res.status)
@@ -49,29 +46,17 @@ class GodzinyPracyWeterynarz extends React.Component {
                 }
             )
 
-        getUrlopList(this.state.idWeterynarz)
-            .then(res => {
-                console.log(res.status)
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        urlopy: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        try {
+            const res = await getUrlopList(this.state.idWeterynarz)
+            const data = res.data
+            this.setState({
+                isLoaded: true,
+                urlopy: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
-
-
 
 
     render() {

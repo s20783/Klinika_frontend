@@ -3,7 +3,7 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
-import {addSpecjalizacja, getSpecjalizacjaDetails, updateSpecjalizacja} from "../../api/SpecjalizacjaApiCalls";
+import {getSpecjalizacjaDetails, addSpecjalizacja, updateSpecjalizacja} from "../../axios/SpecjalizacjaAxiosCalls";
 
 class FormularzSpecjalizacji extends React.Component {
     constructor(props) {
@@ -29,39 +29,20 @@ class FormularzSpecjalizacji extends React.Component {
         }
     }
 
-
-    componentDidMount() {
-
+    async componentDidMount() {
         if (this.state.formMode === formMode.EDIT) {
-            getSpecjalizacjaDetails(this.state.idSpecjalizacja)
-                .then(res => res.json())
-                .then(
-                    (data) => {
-                        console.log(data)
-                        if (data.message) {
-                            this.setState({
-                                notice: data.message
-                            })
-                        } else {
-                            this.setState({
-                                data: data,
-                                notice: null
-                            })
-                        }
-                        this.setState({
-                            isLoaded: true,
-                        })
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        })
-                    }
-                );
+            try {
+                const res = await getSpecjalizacjaDetails(this.state.idSpecjalizacja)
+                const data = await res.data
+                this.setState({
+                    isLoaded: true,
+                    data: data
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
-
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -123,52 +104,27 @@ class FormularzSpecjalizacji extends React.Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const dane = {...this.state}
-        let response, promise;
-        console.log(dane.data)
         const isValid = this.validateForm()
 
-
         if (isValid) {
-
             if (dane.formMode === formMode.NEW) {
-                promise = addSpecjalizacja(dane.data)
+                try {
+                    await addSpecjalizacja(dane.data)
+                    navigate("/specjalizacje", {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             } else if (dane.formMode === formMode.EDIT) {
-                promise = updateSpecjalizacja(dane.data, dane.idSpecjalizacja)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        return res.json()
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            if (response.status === 200) {
-                                console.log(response)
-                                navigate("/specjalizacje", {replace: true});
-
-                            } else if (response.status === 401) {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            } else {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            }
-                        },
-                        (error) => {
-                            this.setState({
-                                error: error
-                            })
-                        })
+                try {
+                    await updateSpecjalizacja(dane.data, dane.idSpecjalizacja)
+                    navigate("/specjalizacje", {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }

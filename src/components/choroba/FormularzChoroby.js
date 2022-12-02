@@ -3,15 +3,13 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
-import {addChoroba, getChorobaDetails, updateChoroba} from "../../api/ChorobaApiCalls";
+import {addChoroba, getChorobaDetails, updateChoroba} from "../../axios/ChorobaAxiosCalls";
 
 class FormularzChoroby extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.params)
         const paramsIdChoroba = this.props.params.IdChoroba
         const currentFormMode = paramsIdChoroba ? formMode.EDIT : formMode.NEW
-        console.log(paramsIdChoroba)
         this.state = {
             data: {
                 Nazwa: '',
@@ -24,44 +22,24 @@ class FormularzChoroby extends React.Component {
             idChoroba: paramsIdChoroba,
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode
         }
     }
 
-
-    componentDidMount() {
-
+    async componentDidMount() {
         if (this.state.formMode === formMode.EDIT) {
-            getChorobaDetails(this.state.idChoroba)
-                .then(res => res.json())
-                .then(
-                    (data) => {
-                        console.log(data)
-                        if (data.message) {
-                            this.setState({
-                                notice: data.message
-                            })
-                        } else {
-                            this.setState({
-                                data: data,
-                                notice: null
-                            })
-                        }
-                        this.setState({
-                            isLoaded: true,
-                        })
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        })
-                    }
-                );
+            try {
+                const res = await getChorobaDetails(this.state.idChoroba)
+                const data = await res.data
+                this.setState({
+                    isLoaded: true,
+                    data: data
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
-
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -99,7 +77,6 @@ class FormularzChoroby extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -124,52 +101,27 @@ class FormularzChoroby extends React.Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const dane = {...this.state}
-        let response, promise;
-        console.log(dane.data)
         const isValid = this.validateForm()
 
-
         if (isValid) {
-
             if (dane.formMode === formMode.NEW) {
-                promise = addChoroba(dane.data)
+                try {
+                    await addChoroba(dane.data)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             } else if (dane.formMode === formMode.EDIT) {
-                promise = updateChoroba(dane.data, dane.idChoroba)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        return res.json()
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            if (response.status === 200) {
-                                console.log(response)
-                                navigate(-1, {replace: true});
-
-                            } else if (response.status === 401) {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            } else {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            }
-                        },
-                        (error) => {
-                            this.setState({
-                                error: error
-                            })
-                        })
+                try {
+                    await updateChoroba(dane.data, dane.idChoroba)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }

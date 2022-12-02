@@ -1,5 +1,5 @@
 import React from "react";
-import {getSpecjalizacjaList} from "../../api/SpecjalizacjaApiCalls";
+import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
 import SpecjalizacjaListTable from "./SpecjalizacjaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
@@ -11,37 +11,20 @@ class SpecjalizacjaList extends React.Component {
             error: '',
             isLoaded: false,
             specjalizacje: [],
-            notice: ''
-
         }
     }
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getSpecjalizacjaList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-
-                    this.setState({
-                        isLoaded: true,
-                        specjalizacje: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+        try {
+            const res = await getSpecjalizacjaList()
+            const data = await res.data
+            this.setState({
+                isLoaded: true,
+                specjalizacje: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -54,7 +37,6 @@ class SpecjalizacjaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            //content = <p>Ładowanie zakończone</p>
             content = <SpecjalizacjaListTable specjalizacje={specjalizacje}/>
         }
 
