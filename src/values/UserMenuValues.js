@@ -35,6 +35,7 @@ export const vetMenuValues = [
     },
     {
         title: 'workingHours',
+        title1: 'vacations',
         url: '/godzinyPracy'
     },
     {
@@ -57,7 +58,6 @@ export const adminMenuValues = [
 export const szczegolyVetMenuValues = [
     {
         title: 'personalData',
-        title1: '',
         url: '/weterynarze'
     },
     {

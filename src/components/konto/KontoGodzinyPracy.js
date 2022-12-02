@@ -5,8 +5,9 @@ import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getGodzinyPracyList, getKontoGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
 import {Link} from "react-router-dom";
-import {getFormattedHour} from "../other/dateFormat";
+import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
 import {getCurrentUser} from "../other/authHelper";
+import {getKontoUrlopList} from "../../api/UrlopApiCall";
 
 class KontoGodzinyPracy extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class KontoGodzinyPracy extends React.Component {
             message: '',
             user: '',
             godzinyPracy: [],
+            urlopy:[],
             notice: ''
         }
     }
@@ -48,10 +50,35 @@ class KontoGodzinyPracy extends React.Component {
                     });
                 }
             )
+
+        getKontoUrlopList()
+            .then(res => {
+                console.log(res.status)
+                if (res.status === 401) {
+                    console.log('Potrzebny aktualny access token')
+                    navigate("/", {replace: true});
+                }
+                return res.json()
+            })
+            .then(
+                (data) => {
+                    console.log(data)
+                    this.setState({
+                        isLoaded: true,
+                        urlopy: data
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
     }
 
     render() {
-        const {error, isLoaded, godzinyPracy} = this.state
+        const {error, urlopy, godzinyPracy} = this.state
         const {t} = this.props;
 
         return (
@@ -65,7 +92,7 @@ class KontoGodzinyPracy extends React.Component {
                             {t('godzinyPracy.title')}</h2>
                     </div>
                     <table
-                        className="w-full text-center flex flex-wrap mb-20 text-gray-700 dark:text-gray-400">
+                        className="w-full text-center flex flex-wrap mb-12 text-gray-700 dark:text-gray-400">
                         <tr></tr>
                         <tr>
                             <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
@@ -163,6 +190,29 @@ class KontoGodzinyPracy extends React.Component {
                             </td>
                         </tr>
                     </table>
+                    <div className="flex justify-between 6">
+                        <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
+                            {t('urlop.title')}</h2>
+                    </div>
+                    {(urlopy.length !== 0) &&
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                            <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
+                                <thead
+                                    className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                </thead>
+                                <tbody>
+                                {urlopy.map(x => (
+                                    <tr className="relative bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                                        key={x.IdUrlop}>
+                                        <td className=" px-6 py-2">• {getFormattedDate(x.Dzien)}</td>
+
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+
                 </div>
             </div>
         )

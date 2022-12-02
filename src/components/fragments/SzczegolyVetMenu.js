@@ -42,8 +42,9 @@ function SzczegolyVetMenu(props) {
                         } to={`${item.url}/${idVet}`}>
                             <div class="relative h-10 w-52">
                             <span className="absolute top-0 left-0 pb-1 md:pb-0 text-sm">{t('userMenu.' + item.title )} </span>
-                            {item.title1 !== '' &&
-                                <span className="absolute bottom-0 left-0  pb-1 md:pb-0 text-xs">{t('userMenu.' + item.title1 )} </span>
+                            { item.title1  &&
+                                <span className="absolute bottom-0 left-0  pb-1 md:pb-0 text-xs">
+                                    {t('userMenu.' + item.title1 )} </span>
                             }
                             </div>
                         </NavLink>
