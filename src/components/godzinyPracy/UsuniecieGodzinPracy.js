@@ -1,7 +1,6 @@
 import React from "react";
-import {deleteGodzinyPracy} from "../../api/GodzinyPracyApiCalls";
+import {deleteGodzinyPracy} from "../../axios/GodzinyPracyAxiosCalls";
 import {useNavigate, useParams} from "react-router";
-import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
 class UsuniecieGodzinPracy extends React.Component {
@@ -19,24 +18,14 @@ class UsuniecieGodzinPracy extends React.Component {
         }
     }
 
-    removeGodzinyPracy = (idWeterynarz, dzien) => {
+    removeGodzinyPracy = async (idWeterynarz, dzien) => {
         const {navigate} = this.props;
-        let response;
-        console.log(idWeterynarz)
-        deleteGodzinyPracy(idWeterynarz, dzien)
-            .then(res => {
-                response = res
-                console.log(response.status)
-                if (response.ok) {
-                    console.log(response.status)
-                    navigate(-1);
-                } else if (response.status === 401) {
-                    console.log("Brak autoryzacji")
-
-                } else {
-                    console.log(response.status)
-                }
-            })
+        try {
+            await deleteGodzinyPracy(idWeterynarz, dzien)
+            await navigate(0, {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

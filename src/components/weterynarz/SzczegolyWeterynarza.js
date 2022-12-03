@@ -1,16 +1,17 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getWeterynarzDetails} from "../../api/WeterynarzApiCalls";
+import { getWeterynarzDetails} from "../../axios/WeterynarzAxionCalls";
 import {
     addWeterynarzSpecjalizacja,
     deleteWeterynarzSpecjalizacja,
-    getWeterynarzSpecjalizacjaList
-} from "../../api/WeterynarzSpecjalizacjaApiCalls";
+} from "../../axios/WeterynarzSpecjalizajcaAziosCalls";
+
 import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
-import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
+import {getFormattedDate} from "../other/dateFormat";
 import {Link} from "react-router-dom";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
+import {getWeterynarzSpecjalizacjaList} from "../../axios/WeterynarzSpecjalizajcaAziosCalls";
 
 class SzczegolyWeterynarza extends React.Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class SzczegolyWeterynarza extends React.Component {
         console.log(this.props.params)
         const paramsIdWeterynarz = this.props.params.IdOsoba
         this.state = {
+            data: '',
             specjalizacje: [],
             specjalizacje1: [],
             data1: {
@@ -29,7 +31,6 @@ class SzczegolyWeterynarza extends React.Component {
             godzinyPracy: [],
             idWeterynarz: paramsIdWeterynarz,
             error: '',
-            data: '',
             isLoaded: false,
             notice: '',
             urlopy: []
@@ -37,54 +38,23 @@ class SzczegolyWeterynarza extends React.Component {
         }
     }
 
-    componentDidMount() {
-        getWeterynarzDetails(this.state.idWeterynarz)
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    console.log(data)
-                    if (data.message) {
-                        this.setState({
-                            notice: data.message
-                        })
-                    } else {
-                        this.setState({
-                            data: data,
-                            notice: null
-                        })
-                    }
-                    this.setState({
-                        isLoaded: true,
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    })
-                }
-            );
+    async componentDidMount() {
 
-        getWeterynarzSpecjalizacjaList(this.state.idWeterynarz)
-            .then(res => {
-                console.log(res.status)
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        specjalizacje: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        var res = await getWeterynarzDetails(this.state.idWeterynarz);
+        var data = await res.data
+
+        this.setState({
+            isLoaded: true,
+            data: data
+        });
+
+         res = await getWeterynarzSpecjalizacjaList(this.state.idWeterynarz);
+         data = await res.data
+
+        this.setState({
+            isLoaded: true,
+            specjalizacje: data
+        });
 
     }
 
@@ -122,24 +92,15 @@ class SzczegolyWeterynarza extends React.Component {
 
     }
 
-    deleteSpec = (idSpec) => {
-        const {navigate} = this.props;
-        let response;
-        console.log(idSpec)
-        deleteWeterynarzSpecjalizacja(idSpec, this.state.idWeterynarz)
-            .then(res => {
-                response = res
-                console.log(response.status)
-                if (response.ok) {
-                    console.log(response.status)
-                    navigate(0);
-                } else if (response.status === 401) {
-                    console.log("Brak autoryzacji")
+    deleteSpec = async (idSpec) => {
 
-                } else {
-                    console.log(response.status)
-                }
-            })
+        const {navigate} = this.props;
+        try {
+            await deleteWeterynarzSpecjalizacja(idSpec, this.state.idWeterynarz)
+            await navigate(0, {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     handleChange = (event) => {
@@ -157,26 +118,17 @@ class SzczegolyWeterynarza extends React.Component {
         })
 
     }
-
-    addSpec = () => {
+    addSpec = async () => {
         const {navigate} = this.props;
-        let response;
-        console.log(this.state.data1.IdSpecjalizacja)
         if (this.state.data1.IdSpecjalizacja !== null) {
-            addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz)
-                .then(res => {
-                    response = res
-                    console.log(response.status)
-                    if (response.ok) {
-                        console.log(response.status)
-                        navigate(0);
-                    } else if (response.status === 401) {
-                        console.log("Brak autoryzacji")
 
-                    } else {
-                        console.log(response.status)
-                    }
-                })
+            try {
+                await addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz)
+                await navigate(0, {replace: true});
+            } catch (error) {
+                console.log(error)
+            }
+
         }
     }
 
@@ -218,7 +170,7 @@ class SzczegolyWeterynarza extends React.Component {
                             </label>
                             <input
                                 class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Imie" id="Imie" type="text" value={data.Imie} placeholder=""/>
+                                disabled name="Imie" id="Imie" type="text" value={data.Imie} placeholder=""/>
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
@@ -227,7 +179,7 @@ class SzczegolyWeterynarza extends React.Component {
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
-                                placeholder=""/>
+                                disabled placeholder=""/>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
@@ -238,7 +190,7 @@ class SzczegolyWeterynarza extends React.Component {
                             <input
                                 class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
-                                value={data.NumerTelefonu} placeholder=""/>
+                                disabled value={data.NumerTelefonu} placeholder=""/>
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
@@ -246,7 +198,7 @@ class SzczegolyWeterynarza extends React.Component {
                             </label>
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Email" id="Email" type="text" value={data.Email} placeholder=""/>
+                                disabled name="Email" id="Email" type="text" value={data.Email} placeholder=""/>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
@@ -257,7 +209,7 @@ class SzczegolyWeterynarza extends React.Component {
                             <input
                                 class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
-                                value={getFormattedDate(data.DataUrodzenia)} placeholder=""/>
+                                disabled value={getFormattedDate(data.DataUrodzenia)} placeholder=""/>
 
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
@@ -266,7 +218,7 @@ class SzczegolyWeterynarza extends React.Component {
                             </label>
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Pensja" id="Pensja" type="number" value={data.Pensja} placeholder=""/>
+                                disabled name="Pensja" id="Pensja" type="number" value={data.Pensja} placeholder=""/>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6  ">
@@ -277,7 +229,7 @@ class SzczegolyWeterynarza extends React.Component {
                             <input
                                 class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataZatrudnienia" id="DataZatrudnienia" type="text"
-                                value={getFormattedDate(data.DataZatrudnienia)} placeholder=""/>
+                                disabled value={getFormattedDate(data.DataZatrudnienia)} placeholder=""/>
                         </div>
                     </div>
 

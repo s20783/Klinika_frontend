@@ -3,7 +3,7 @@ import {getLekDetailsList} from "../../api/LekApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
-import {addChorobaLek, deleteChorobaLek, getChorobaLek} from "../../api/ChorobaLekApiCalls";
+import {addChorobaLek, deleteChorobaLek} from "../../axios/ChorobaLekAxiosCalls";
 import {Link} from "react-router-dom";
 import {getFormattedDate} from "../other/dateFormat";
 
@@ -85,47 +85,32 @@ class LekDetailsList extends React.Component {
         }
     }
 
-    deleteChoroba = (idChoroba) => {
+
+    deleteChoroba = async (idChoroba) => {
+
         const {navigate} = this.props;
-        let response;
-        console.log(idChoroba)
-        deleteChorobaLek(idChoroba, this.state.IdLek)
-            .then(res => {
-                response = res
-                console.log(response.status)
-                if (response.ok) {
-                    console.log(response.status)
-                    navigate(0);
-                } else if (response.status === 401) {
-                    console.log("Brak autoryzacji")
-
-                } else {
-                    console.log(response.status)
-                }
-            })
-
-    }
-
-    addChoroba = () => {
-        const {navigate} = this.props;
-        let response;
-        if (this.state.data1.IdChoroba !== '') {
-            addChorobaLek(this.state.data1.IdChoroba, this.state.IdLek)
-                .then(res => {
-                    response = res
-                    console.log(response.status)
-                    if (response.ok) {
-                        console.log(response.status)
-                        navigate(0);
-                    } else if (response.status === 401) {
-                        console.log("Brak autoryzacji")
-
-                    } else {
-                        console.log(response.status)
-                    }
-                })
+        try {
+            await deleteChorobaLek(idChoroba, this.state.IdLek)
+            await navigate(0, {replace: true});
+        } catch (error) {
+            console.log(error)
         }
     }
+
+    addChoroba = async () => {
+        const {navigate} = this.props;
+        if (this.state.data1.IdChoroba !== '') {
+
+            try {
+                await addChorobaLek(this.state.data1.IdChoroba, this.state.IdLek)
+                await navigate(0, {replace: true});
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+    }
+
 
     checkIfExist = (chorobaArray, chorobaID) => {
         for (let i = 0; i < chorobaArray.length; i++) {

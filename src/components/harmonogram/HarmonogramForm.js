@@ -4,7 +4,7 @@ import {withTranslation} from "react-i18next";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
 import {getHarmonogramVet, getHarmonogram} from "../../api/HarmonogramApiCalls";
-import {getWeterynarzList} from "../../api/WeterynarzApiCalls";
+import {getWeterynarzList} from "../../axios/WeterynarzAxionCalls";
 import Harmonogram from "./Harmonogram";
 
 
@@ -34,31 +34,15 @@ class HarmonogramForm extends React.Component {
     }
 
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getWeterynarzList()
-            .then(res => {
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
+    async componentDidMount() {
 
-                    this.setState({
-                        isLoaded: true,
-                        weterynarze: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        const res = await getWeterynarzList();
+        var data = await res.data
+
+        this.setState({
+            isLoaded: true,
+            weterynarze: data
+        });
     }
 
 

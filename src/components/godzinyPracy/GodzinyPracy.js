@@ -3,13 +3,14 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedHour} from "../other/dateFormat";
 import {
-    getGodzinyPracyList,
     addGodzinyPracy,
     editGodzinyPracy,
     addDomyslneGodzinyPracy
-} from "../../api/GodzinyPracyApiCalls";
+} from "../../axios/GodzinyPracyAxiosCalls";
 import {ValidateTime} from "../helpers/ValidateTime";
 import {Link} from "react-router-dom";
+import {getGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
+
 
 class GodzinyPracy extends React.Component {
     constructor(props) {
@@ -54,56 +55,43 @@ class GodzinyPracy extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const res = await getGodzinyPracyList(this.state.idWeterynarz)
+        var data = res.data
 
-        getGodzinyPracyList(this.state.idWeterynarz)
-            .then(res => {
-                console.log(res.status)
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    data.map((x) => {
-                        console.log()
-                        if (x.DzienTygodnia === 1) {
-                            this.setState({
-                                pon: x
-                            });
-                        } else if (x.DzienTygodnia === 2) {
-                            this.setState({
-                                wt: x
-                            });
-                        } else if (x.DzienTygodnia === 3) {
-                            this.setState({
-                                sr: x
-                            });
-                        } else if (x.DzienTygodnia === 4) {
-                            this.setState({
-                                czw: x
-                            });
-                        } else if (x.DzienTygodnia === 5) {
-                            this.setState({
-                                pt: x
-                            });
-                        } else if (x.DzienTygodnia === 6) {
-                            this.setState({
-                                sob: x
-                            });
-                        }
-                    })
-                    this.setState({
-                        isLoaded: true,
-                        godzinyPracy: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        res.data.map((x) => {
+            console.log()
+            if (x.DzienTygodnia === 1) {
+                this.setState({
+                    pon: x
+                });
+            } else if (x.DzienTygodnia === 2) {
+                this.setState({
+                    wt: x
+                });
+            } else if (x.DzienTygodnia === 3) {
+                this.setState({
+                    sr: x
+                });
+            } else if (x.DzienTygodnia === 4) {
+                this.setState({
+                    czw: x
+                });
+            } else if (x.DzienTygodnia === 5) {
+                this.setState({
+                    pt: x
+                });
+            } else if (x.DzienTygodnia === 6) {
+                this.setState({
+                    sob: x
+                });
+            }
+        })
+
+        this.setState({
+            isLoaded: true,
+            godzinyPracy: data
+        });
 
     }
 
@@ -222,58 +210,45 @@ class GodzinyPracy extends React.Component {
         return errorMessage;
     }
 
-    dodajDomyslne = () => {
+    dodajDomyslne = async () => {
+
         const {navigate} = this.props;
-        let response
-        console.log(this.state.idWeterynarz)
-        addDomyslneGodzinyPracy(this.state.idWeterynarz)
-            .then(res => {
-                response = res
-                console.log(response.status)
-                if (response.ok) {
-                    console.log(response.status)
-                    navigate(0);
-                } else if (response.status === 401) {
-                    console.log("Brak autoryzacji")
+        if (this.state.data1.IdSpecjalizacja !== null) {
 
-                } else {
-                    console.log(response.status)
-                }
-            })
-
+            try {
+                await addDomyslneGodzinyPracy(this.state.idWeterynarz)
+                await navigate(0, {replace: true});
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 
-    changeGodzinyPracy = () => {
+    changeGodzinyPracy = async (event) => {
+        event.preventDefault();
         const {navigate} = this.props;
-        const dane = {...this.state.data}
-        let response, promise;
-        console.log(dane)
+        const dane = {...this.state}
         const isValid = this.validateForm()
 
         if (isValid) {
-
             if (this.state.czyEdycja) {
-                promise = editGodzinyPracy(this.state.idWeterynarz, dane)
-            } else {
-                promise = addGodzinyPracy(this.state.idWeterynarz, dane)
+                try {
+                    await editGodzinyPracy(this.state.idWeterynarz, dane)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        console.log(response.status)
-                        if (response.ok) {
-                            console.log(response.status)
-                            navigate(0);
-                        } else if (response.status === 401) {
-                            console.log("Brak autoryzacji")
-
-                        } else {
-                            console.log(response.status)
-                        }
-                    })
+            else {
+                try {
+                    await addGodzinyPracy(this.state.idWeterynarz, dane)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
+
     }
 
     render() {

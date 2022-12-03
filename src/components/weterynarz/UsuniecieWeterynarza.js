@@ -1,7 +1,6 @@
 import React from "react";
-import {deleteWeterynarz} from "../../api/WeterynarzApiCalls";
+import {deleteWeterynarz} from "../../axios/WeterynarzAxionCalls";
 import {useNavigate, useParams} from "react-router";
-import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
 class UsuniecieWeterynarza extends React.Component {
@@ -17,25 +16,14 @@ class UsuniecieWeterynarza extends React.Component {
         }
     }
 
-    removeWeterynarza = (idWeterynarz) => {
+    removeWeterynarza = async (idWeterynarz) => {
         const {navigate} = this.props;
-        //let response;
-        console.log(idWeterynarz)
-        deleteWeterynarz(idWeterynarz)
-            .then(res => {
-                console.log(res)
-                if (res.status === 204) {
-                    console.log(res.status)
-                    navigate("/weterynarze", {replace: true});
-
-                } else if (res.status === 401) {
-                    console.log(res)
-
-                } else {
-                    console.log(res)
-
-                }
-            })
+        try {
+            await deleteWeterynarz(idWeterynarz)
+            await navigate("/weterynarze", {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

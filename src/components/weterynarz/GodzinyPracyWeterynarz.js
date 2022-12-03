@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
-import {getGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
+import {getGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
 import {Link} from "react-router-dom";
 import {getUrlopList} from "../../axios/UrlopAxiosCalls";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
@@ -25,26 +25,14 @@ class GodzinyPracyWeterynarz extends React.Component {
     }
 
     async componentDidMount() {
-        getGodzinyPracyList(this.state.idWeterynarz)
-            .then(res => {
-                console.log(res.status)
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        godzinyPracy: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        const res = await getGodzinyPracyList(this.state.idWeterynarz)
+        var data = res.data
+
+        this.setState({
+            isLoaded: true,
+            godzinyPracy: data
+        });
+
 
         try {
             const res = await getUrlopList(this.state.idWeterynarz)

@@ -1,8 +1,9 @@
 import React from "react";
 import {useNavigate} from "react-router";
-import {getWeterynarzList} from "../../api/WeterynarzApiCalls";
+import {getWeterynarzList} from "../../axios/WeterynarzAxionCalls";
 import WeterynarzListTable from "./WeterynarzListTable";
 import {withTranslation} from "react-i18next";
+import {getKlientList} from "../../axios/KlientAxiosCalls";
 
 class WeterynarzList extends React.Component {
     constructor(props) {
@@ -15,31 +16,15 @@ class WeterynarzList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getWeterynarzList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    this.setState({
-                        isLoaded: true,
-                        weterynarze: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+
+        const res = await getWeterynarzList();
+        var data = await res.data
+
+        this.setState({
+            isLoaded: true,
+            weterynarze: data
+        });
     }
 
     render() {

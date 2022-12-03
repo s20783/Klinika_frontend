@@ -1,7 +1,7 @@
 import React from "react";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
-import {getKontoGodzinyPracyList} from "../../api/GodzinyPracyApiCalls";
+import {getKontoGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
 import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
 import {getKontoUrlopList} from "../../axios/UrlopAxiosCalls";
 
@@ -20,35 +20,16 @@ class KontoGodzinyPracy extends React.Component {
 
     async componentDidMount() {
         const {navigate} = this.props;
-
-        getKontoGodzinyPracyList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        godzinyPracy: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-
         try {
-            const res = await getKontoUrlopList()
-            const data = await res.data
+            var res = await getKontoGodzinyPracyList()
+            var data = await res.data
+            this.setState({
+                isLoaded: true,
+                godzinyPracy: data
+            });
+
+             res = await getKontoUrlopList()
+             data = await res.data
             this.setState({
                 isLoaded: true,
                 urlopy: data

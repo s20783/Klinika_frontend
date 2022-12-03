@@ -3,14 +3,13 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
-import {addWeterynarz, getWeterynarzDetails, updateWeterynarz} from "../../api/WeterynarzApiCalls";
+import {addWeterynarz, getWeterynarzDetails, updateWeterynarz} from "../../axios/WeterynarzAxionCalls";
 import Calendar from 'react-calendar';
 import dayjs from 'dayjs';
 import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {checkNumberRange} from "../helpers/CheckNRange";
 import {getFormattedDate} from "../other/dateFormat";
-import {getLekList} from "../../api/LekApiCalls";
 
 class FormularzWeterynarz extends React.Component {
     constructor(props) {
@@ -47,30 +46,17 @@ class FormularzWeterynarz extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         if (this.state.formMode === formMode.EDIT) {
-            getWeterynarzDetails(this.state.idWeterynarz)
-                .then(res => res.json())
-                .then((data) => {
-                    console.log(data)
-                    if (data.message) {
-                        this.setState({
-                            notice: data.message
-                        })
-                    } else {
-                        this.setState({
-                            data: data, notice: null
-                        })
-                    }
-                    this.setState({
-                        isLoaded: true,
-                    })
-                }, (error) => {
-                    this.setState({
-                        isLoaded: true, error
-                    })
-                });
+
+            const res = await getWeterynarzDetails(this.state.idWeterynarz);
+            var data = await res.data
+
+            this.setState({
+                isLoaded: true,
+                data: data
+            });
         }
     }
 
@@ -210,50 +196,30 @@ class FormularzWeterynarz extends React.Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
-        const dane = {...this.state.data}
-        let response, promise;
+        const dane = {...this.state}
         const isValid = this.validateForm()
+
         if (isValid) {
-
-            if (this.state.formMode === formMode.NEW) {
-                promise = addWeterynarz(dane)
-            } else if (this.state.formMode === formMode.EDIT) {
-                console.log(dane.data)
-                promise = updateWeterynarz(dane, this.state.idWeterynarz)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        console.log(res.status)
-                        console.log(res.body)
-
-                        if (res.status === 401) {
-                            console.log('Potrzebny aktualny access token')
-                            navigate("/", {replace: true});
-                        }
-                        return res.json()
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            if(this.state.formMode===formMode.NEW) {
-                                navigate(`/czyDodacGodziny/${data.ID}`, {replace: true});
-                            }else {
-                                navigate("/weterynarze")
-                            }
-                        },
-                        (error) => {
-                            this.setState({
-                                isLoaded: true,
-                                error
-                            });
-                        }
-                    )
+            if (dane.formMode === formMode.NEW) {
+                try {
+                    await addWeterynarz(dane)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
+            } else if (dane.formMode === formMode.EDIT) {
+                try {
+                    await updateWeterynarz(dane, this.state.idWeterynarz)
+                    await navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
+
     }
 
     render() {
