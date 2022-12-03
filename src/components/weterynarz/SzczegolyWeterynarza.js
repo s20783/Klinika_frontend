@@ -206,7 +206,7 @@ class SzczegolyWeterynarza extends React.Component {
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div className="w-full lg:w-1/6 lg:px-6 text-xl text-gray-800 leading-normal">
+                <div className="w-full lg:w-1/6 xs:px-6 text-xl text-gray-800 leading-normal">
                     <SzczegolyVetMenu idVet={idWeterynarz}/>
                 </div>
                 <div

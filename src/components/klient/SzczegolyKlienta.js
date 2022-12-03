@@ -66,6 +66,7 @@ class SzczegolyKlienta extends React.Component {
     }
 
     render() {
+        const {pacjenci, wizyty} = this.state
         const {t} = this.props;
         const {navigate} = this.props
 
@@ -149,7 +150,8 @@ class SzczegolyKlienta extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                    {(pacjenci.length !== 0) &&
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
                         <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                             <thead
                                 className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -168,7 +170,7 @@ class SzczegolyKlienta extends React.Component {
                             </tr>
                             </thead>
                             <tbody>
-                            {this.state.pacjenci.map(x => (
+                            {pacjenci.map(x => (
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                     key={x.IdPacjent}>
                                     <td className="px-6 py-2 text-center">{x.Nazwa}</td>
@@ -254,7 +256,7 @@ class SzczegolyKlienta extends React.Component {
                             </tbody>
                         </table>
                     </div>
-
+                    }
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t("wizyta.title")}</h2>
@@ -265,13 +267,14 @@ class SzczegolyKlienta extends React.Component {
                             </button>
                         </div>
                     </div>
+                    {(wizyty.length !== 0) &&
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
                         <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                             <thead
                                 className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 uppercase py-3 text-center">
-                                    {t('wizyta.table.date')}</th>
+                                    {t('wizyta.table.startDate')}</th>
                                 <th scope="col" className="px-6 uppercase py-3 text-center">
                                     {t('wizyta.table.patient')}</th>
                                 <th scope="col" className="px-6 uppercase py-3 text-center">
@@ -284,7 +287,7 @@ class SzczegolyKlienta extends React.Component {
                             </tr>
                             </thead>
                             <tbody>
-                            {this.state.wizyty.map(x => (
+                            {wizyty.map(x => (
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                     key={x.IdWizyta}>
                                     <td className="px-6 py-2 text-center">
@@ -375,6 +378,7 @@ class SzczegolyKlienta extends React.Component {
                             </tbody>
                         </table>
                     </div>
+                    }
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}

@@ -3,7 +3,7 @@ import {getLekDetailsList} from "../../api/LekApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
-import {addChorobaLek, deleteChorobaLek} from "../../api/ChorobaLekApiCalls";
+import {addChorobaLek, deleteChorobaLek, getChorobaLek} from "../../api/ChorobaLekApiCalls";
 import {Link} from "react-router-dom";
 import {getFormattedDate} from "../other/dateFormat";
 
@@ -48,6 +48,7 @@ class LekDetailsList extends React.Component {
                     });
                 }
             )
+
     }
 
     async showSelect() {

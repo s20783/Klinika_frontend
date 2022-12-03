@@ -2,6 +2,8 @@ import {getCurrentUser} from "../components/other/authHelper";
 
 const chorobaLekURL = 'http://localhost:36989/api/ChorobaLek';
 
+
+
 export function addChorobaLek(IdChoroba, IdLek) {
     const user = getCurrentUser()
     let token
