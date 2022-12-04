@@ -325,6 +325,7 @@
 		"deleteWorkingHour": "Delete working hour"
 	},
 	"harmonogram": {
+		"title": "Harmonogram",
 		"checkingTheVetsSchedule": "Checking the schedule",
 		"workingHour": "Working hours",
 		"changingWorkingHour":"Changing vet's working hour",

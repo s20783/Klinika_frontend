@@ -110,7 +110,9 @@
     "checkSchedule": "Sprawdz harmonogram",
     "workingHours": "Godziny pracy",
     "personalData": "Dane osobowe",
-    "vacations": "Urlopy"
+    "vacations": "Urlopy",
+    "add": "Dodaj harmonogram",
+    "update": "Aktualizuj harmonogram"
   },
   "konto": {
     "myAccount": "Moje konto",
@@ -330,6 +332,7 @@
   },
 
   "harmonogram": {
+    "title": "Harmonogram",
     "checkingTheVetsSchedule": "Sprawdzenie harmonogramu",
     "selectVet": "Wybierz weterynarza",
     "all": "Wszyscy weterynarze",

@@ -12,3 +12,11 @@ export function getHarmonogramVet(idVet, Date) {
 export function getHarmonogram(Date) {
     return api.get(`${harmonogramURL}/klinika?date=${Date}`);
 }
+
+export async function addHarmonogram() {
+    await api.post(`${harmonogramURL}/auto`);
+}
+
+export async function updateHarmonogram() {
+    await api.put(`${harmonogramURL}/auto`, );
+}

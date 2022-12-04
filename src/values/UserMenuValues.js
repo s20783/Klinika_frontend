@@ -66,3 +66,14 @@ export const szczegolyVetMenuValues = [
         url: '/godzinyPracyWeterynarz'
     }
 ];
+export const harmonogramMenuValues = [
+    {
+        title: 'add',
+        function:'dodajHarmonogram'
+
+    },
+    {
+        title: 'update',
+        function:'aktualizujHarmonogram'
+    }
+];
