@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
-import {getHarmonogramVet, getHarmonogram} from "../../api/HarmonogramApiCalls";
+import {getHarmonogramVet, getHarmonogram} from "../../axios/HarmonogramAxiosCalls";
 import {getWeterynarzList} from "../../axios/WeterynarzAxionCalls";
 import Harmonogram from "./Harmonogram";
 
@@ -118,50 +118,42 @@ class HarmonogramForm extends React.Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const dane = {...this.state}
-        console.log(dane.data)
         const isValid = this.validateForm()
-        let promise;
-
 
         if (isValid) {
             if (dane.data.Weterynarz === '0') {
-                promise = getHarmonogram(dane.data.Data)
+                try {
+                    const res = await getHarmonogram(dane.data.Data)
+                    const data = await res.data
+                    this.setState({
+                        isLoaded: true,
+                        harmonogram: data.harmonogramy,
+                        start: data.Start,
+                        end: data.End
+                    });
+                } catch (error) {
+                    console.log(error)
+                }
             } else {
-                promise = getHarmonogramVet(dane.data.Weterynarz, dane.data.Data)
+                try {
+                    const res = await getHarmonogramVet(dane.data.Weterynarz, dane.data.Data)
+                    const data = await res.data
+                    this.setState({
+                        isLoaded: true,
+                        harmonogram: data.harmonogramy,
+                        start: data.Start,
+                        end: data.End
+                    });
+                } catch (error) {
+                    console.log(error)
+                }
             }
-            promise
-                .then(res => {
-                    console.log(res.status)
-                    if (res.status === 401) {
-                        console.log('Potrzebny aktualny access token')
-                        navigate("/", {replace: true});
-                    }
-                    return res.json()
-                })
-                .then(
-                    (data) => {
-                        console.log(data)
-                        this.setState({
-                            isLoaded: true,
-                            harmonogram: data.harmonogramy,
-                            start: data.Start,
-                            end: data.End
-                        });
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                )
         }
     }
-
 
     render() {
         const {data, errors, date, weterynarze, harmonogram, start, end} = this.state

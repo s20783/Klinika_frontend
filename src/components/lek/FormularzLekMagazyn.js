@@ -3,9 +3,10 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {checkNumberRange} from "../helpers/CheckNRange";
-import {addLekMagazyn, getLekMagazyn, updateLekMagazyn} from "../../api/LekWMagazynieApiCalls";
+import {addLekMagazyn, getLekMagazyn, updateLekMagazyn} from "../../axios/LekWMagazynieAxiosCalls";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
+import {getLekDetails} from "../../axios/LekAxiosCalls";
 
 class FormularzLekMagazyn extends React.Component {
     constructor(props) {
@@ -36,37 +37,21 @@ class FormularzLekMagazyn extends React.Component {
     }
 
 
-    componentDidMount() {
+    async componentDidMount() {
 
         console.log(this.state.formMode)
 
         if (this.state.formMode === formMode.EDIT) {
-            getLekMagazyn(this.state.idStanLeku)
-                .then(res => res.json())
-                .then(
-                    (data) => {
-                        console.log(data + "sddddddddddddddddd")
-                        if (data.message) {
-                            this.setState({
-                                notice: data.message
-                            })
-                        } else {
-                            this.setState({
-                                data: data,
-                                notice: null
-                            })
-                        }
-                        this.setState({
-                            isLoaded: true,
-                        })
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        })
-                    }
-                );
+            try {
+                const res = await getLekMagazyn(this.state.idStanLeku)
+                const data = await res.data
+                this.setState({
+                    isLoaded: true,
+                    data: data
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
 
     }
@@ -151,59 +136,27 @@ class FormularzLekMagazyn extends React.Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const dane = {...this.state}
-        let response, promise;
-        console.log(dane.data)
         const isValid = this.validateForm()
 
-
         if (isValid) {
-
             if (dane.formMode === formMode.NEW) {
-                promise = addLekMagazyn(dane.idLek, dane.data)
-                console.log(dane.data )
-
+                try {
+                    await addLekMagazyn(dane.idLek, dane.data)
+                    navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             } else if (dane.formMode === formMode.EDIT) {
-                promise = updateLekMagazyn(dane.data, dane.idStanLeku)
-                console.log(dane.data +" "+ dane.idStanLeku)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        if (response.ok ) {
-                            navigate(-1, {replace: true});
-                            return res.json()
-                        }
-                    })
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            console.log(response)
-                            if (response.ok ) {
-                                console.log(response)
-                                navigate(-1, {replace: true});
-
-                            } else if (response.status === 401) {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            } else {
-                                console.log(data)
-                                this.setState({
-                                    message: data.message
-                                })
-                            }
-                        },
-                        (error) => {
-                            this.setState({
-                                error: error
-                            })
-                        })
+                try {
+                    await updateLekMagazyn(dane.data, dane.idStanLeku)
+                    navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }

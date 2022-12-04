@@ -1,7 +1,6 @@
 import React from "react";
-import {deleteLekMagazyn} from "../../api/LekWMagazynieApiCalls";
+import {deleteLekMagazyn} from "../../axios/LekWMagazynieAxiosCalls";
 import {useNavigate, useParams} from "react-router";
-import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
 class UsuniecieLekuMagazyn extends React.Component {
@@ -17,25 +16,17 @@ class UsuniecieLekuMagazyn extends React.Component {
         }
     }
 
-    removeLek = (idStanLeku) => {
+
+    removeLek = async (idStanLeku) => {
         const {navigate} = this.props;
-        //let response;
-        deleteLekMagazyn(idStanLeku)
-            .then(res => {
-                console.log(res)
-                if (res.status === 204) {
-                    console.log(res.status)
-                    navigate(-1, {replace: true});
-
-                } else if (res.status === 401) {
-                    console.log(res)
-
-                } else {
-                    console.log(res)
-
-                }
-            })
+        try {
+            await deleteLekMagazyn(idStanLeku)
+            await navigate(-1, {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
     }
+
 
     render() {
         const {idStanLeku} = this.state

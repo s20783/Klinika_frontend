@@ -1,8 +1,9 @@
 import React from "react";
-import {getLekList} from "../../api/LekApiCalls";
+import {getLekList} from "../../axios/LekAxiosCalls";
 import LekListTable from "./LekListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
+import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
 
 class LekList extends React.Component {
     constructor(props) {
@@ -15,32 +16,17 @@ class LekList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const {navigate} = this.props;
-        getLekList()
-            .then(res => {
-                console.log(res.status)
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        leki: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    async componentDidMount() {
+        try {
+            const res = await getLekList()
+            const data = await res.data
+            this.setState({
+                isLoaded: true,
+                leki: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

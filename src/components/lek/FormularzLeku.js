@@ -3,7 +3,7 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
-import {addLek, getLekDetails, updateLek} from "../../api/LekApiCalls";
+import {addLek, getLekDetails, updateLek} from "../../axios/LekAxiosCalls";
 
 class FormularzLeku extends React.Component {
     constructor(props) {
@@ -33,37 +33,19 @@ class FormularzLeku extends React.Component {
     }
 
 
-    componentDidMount() {
-
-        console.log(this.state.formMode)
+    async componentDidMount() {
 
         if (this.state.formMode === formMode.EDIT) {
-            getLekDetails(this.state.idLek)
-                .then(res => res.json())
-                .then(
-                    (data) => {
-                        console.log(data)
-                        if (data.message) {
-                            this.setState({
-                                notice: data.message
-                            })
-                        } else {
-                            this.setState({
-                                data: data,
-                                notice: null
-                            })
-                        }
-                        this.setState({
-                            isLoaded: true,
-                        })
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        })
-                    }
-                );
+            try {
+                const res = await getLekDetails(this.state.idLek)
+                const data = await res.data
+                this.setState({
+                    isLoaded: true,
+                    data: data
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
 
     }
@@ -142,42 +124,30 @@ class FormularzLeku extends React.Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const {navigate} = this.props;
         const dane = {...this.state}
-        let response, promise;
-        console.log(dane.data)
         const isValid = this.validateForm()
-        console.log(isValid)
-
 
         if (isValid) {
-
             if (dane.formMode === formMode.NEW) {
-                promise = addLek(dane.data)
+                try {
+                    await addLek(dane.data)
+                    navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             } else if (dane.formMode === formMode.EDIT) {
-                promise = updateLek(dane.data, dane.idLek)
-            }
-            if (promise) {
-                promise
-                    .then(res => {
-                        response = res
-                        console.log(response.status)
-                        if (response.ok) {
-                            console.log(response.status)
-                            navigate(-1);
-                        } else if (response.status === 401) {
-                            console.log("Brak autoryzacji")
-
-                        } else {
-                            console.log(response.status)
-                        }
-                    })
+                try {
+                    await updateLek(dane.data, dane.idLek)
+                    navigate(-1, {replace: true});
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }
-
 
     render() {
         const {data, errors} = this.state

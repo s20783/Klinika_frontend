@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
-import { getHarmonogram} from "../../api/HarmonogramApiCalls";
+import { getHarmonogram} from "../../axios/HarmonogramAxiosCalls";
 import Harmonogram from "../harmonogram/Harmonogram";
 import KontoMenu from "../fragments/KontoMenu";
 
@@ -104,42 +104,25 @@ class KontoHarmonogram extends React.Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        const {navigate} = this.props;
         const dane = {...this.state}
         console.log(dane.data)
         const isValid = this.validateForm()
 
-
         if (isValid) {
-
-            getHarmonogram(dane.data.Data)
-                .then(res => {
-                    console.log(res.status)
-                    if (res.status === 401) {
-                        console.log('Potrzebny aktualny access token')
-                        navigate("/", {replace: true});
-                    }
-                    return res.json()
-                })
-                .then(
-                    (data) => {
-                        console.log(data)
-                        this.setState({
-                            isLoaded: true,
-                            harmonogram: data.harmonogramy,
-                            start:data.Start,
-                            end:data.End
-                        });
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                )
+            try {
+                const res = await getHarmonogram(dane.data.Data)
+                const data = await res.data
+                this.setState({
+                    isLoaded: true,
+                    harmonogram: data.harmonogramy,
+                    start:data.Start,
+                    end:data.End
+                });
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 

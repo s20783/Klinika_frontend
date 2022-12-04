@@ -15,7 +15,6 @@ class WizytaList extends React.Component {
     }
 
     async componentDidMount() {
-        const {navigate} = this.props;
 
         try {
             const res = await getWizytaList();

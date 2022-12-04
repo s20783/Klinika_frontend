@@ -3,10 +3,10 @@ import Calendar from 'react-calendar';
 import {useNavigate} from "react-router";
 import Time from "../other/Time";
 import dayjs from 'dayjs';
-import {getHarmonogramWizyta} from "../../api/HarmonogramApiCalls";
+import {getHarmonogramWizyta} from "../../axios/HarmonogramAxiosCalls";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {withTranslation} from "react-i18next";
-import {umowWizyte} from "../../axios/WizytaAxiosCalls";
+import { umowWizyte} from "../../axios/WizytaAxiosCalls";
 
 class UmowienieWizytyForm extends React.Component {
     constructor(props) {
@@ -139,32 +139,20 @@ class UmowienieWizytyForm extends React.Component {
     }
 
 
-    onChange = (date) => {
+    onChange = async (date) => {
         this.setState({selectedDate: date});
-        const {navigate} = this.props;
-        getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'))
-            .then(res => {
-                if (res.status === 401) {
-                    console.log('Potrzebny aktualny access token')
-                    navigate("/", {replace: true});
-                }
-                return res.json()
-            })
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        harmonogram: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+
+        try {
+            const res = await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'));
+            var data = await res.data
+
+            this.setState({
+                isLoaded: true,
+                harmonogram: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     handleHarmonogramSelect = (harmonogram) => {

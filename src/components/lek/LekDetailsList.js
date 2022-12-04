@@ -1,11 +1,11 @@
 import React from "react";
-import {getLekDetailsList} from "../../api/LekApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 import {addChorobaLek, deleteChorobaLek} from "../../axios/ChorobaLekAxiosCalls";
 import {Link} from "react-router-dom";
 import {getFormattedDate} from "../other/dateFormat";
+import {getLekDetails} from "../../axios/LekAxiosCalls";
 
 class LekDetailsList extends React.Component {
     constructor(props) {
@@ -28,27 +28,20 @@ class LekDetailsList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        getLekDetailsList(this.state.IdLek)
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        lek: data,
-                        leki: data.LekList,
-                        chorobyLek: data.Choroby
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error: error
-                    });
-                }
-            )
 
+    async componentDidMount() {
+        try {
+            const res = await getLekDetails(this.state.IdLek)
+            const data = await res.data
+            this.setState({
+                isLoaded: true,
+                lek: data,
+                leki: data.LekList,
+                chorobyLek: data.Choroby
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async showSelect() {

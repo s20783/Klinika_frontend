@@ -1,7 +1,6 @@
 import React from "react";
-import {deleteLek} from "../../api/LekApiCalls";
+import {deleteLek} from "../../axios/LekAxiosCalls";
 import {useNavigate, useParams} from "react-router";
-import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
 class UsuniecieLeku extends React.Component {
@@ -17,24 +16,15 @@ class UsuniecieLeku extends React.Component {
         }
     }
 
-    removeLek = (idLek) => {
+
+    removeLek = async (idLek) => {
         const {navigate} = this.props;
-        //let response;
-        deleteLek(idLek)
-            .then(res => {
-                console.log(res)
-                if (res.status === 204) {
-                    console.log(res.status)
-                    navigate("/leki", {replace: true});
-
-                } else if (res.status === 401) {
-                    console.log(res)
-
-                } else {
-                    console.log(res)
-
-                }
-            })
+        try {
+            await deleteLek(idLek)
+            await navigate("/leki", {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
