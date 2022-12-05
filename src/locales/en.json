@@ -107,7 +107,9 @@
 		"schedule": "Schedule",
 		"logout": "Log out",
 		"checkSchedule": "Check schedule",
-		"workingHours": "Working hours"
+		"workingHours": "Working hours",
+		"add": "Add schedule",
+		"update": "Update schedule"
 	},
 	"konto": {
 		"myAccount": "My account",

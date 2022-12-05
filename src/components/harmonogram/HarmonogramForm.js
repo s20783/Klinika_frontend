@@ -175,7 +175,7 @@ class HarmonogramForm extends React.Component {
                 <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">
                         {t('harmonogram.title')}</p>
-                    <HarmonogramMenu/>
+                    <HarmonogramMenu navigate={navigate}/>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">

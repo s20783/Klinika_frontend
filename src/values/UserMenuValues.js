@@ -69,7 +69,7 @@ export const szczegolyVetMenuValues = [
 export const harmonogramMenuValues = [
     {
         title: 'add',
-        function:'dodajHarmonogram'
+        function: 'dodajHarmonogram'
 
     },
     {

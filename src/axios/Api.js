@@ -38,6 +38,7 @@ instance.interceptors.response.use(resp => resp, async error => {
         }
 
         const response = await instance.post('/Konto/refresh', JSON.stringify(refreshToken1));
+        console.log(response)
         if (response.status === 200) {
             user.Token = response.data['accessToken']
             localStorage.setItem("user", JSON.stringify(user))

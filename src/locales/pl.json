@@ -111,8 +111,8 @@
     "workingHours": "Godziny pracy",
     "personalData": "Dane osobowe",
     "vacations": "Urlopy",
-    "add": "Dodaj harmonogram",
-    "update": "Aktualizuj harmonogram"
+    "add": "Dodaj ",
+    "update": "Aktualizuj "
   },
   "konto": {
     "myAccount": "Moje konto",
