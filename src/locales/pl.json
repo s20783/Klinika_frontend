@@ -22,8 +22,10 @@
     "required": "Pole wymagane",
     "max30": "To pole wymaga od 2 do 30 znaków",
     "max50": "To pole wymaga od 2 do 50 znaków",
+    "max100": "To pole wymaga od 2 do 100 znaków",
     "max300": "To pole wymaga od 2 do 300 znaków",
     "max300nullable": "To pole wymaga do 300 znaków",
+    "max50nullable": "To pole wymaga do 50 znaków",
     "date": "Data nie może byc z przyszłości",
     "date1": "Data nie może być z przeszłości",
     "from5to50": "To pole wymaga od 5 do 50 znaków",
@@ -364,6 +366,25 @@
     "deleteVacation": "Usuń urlop",
     "fields": {
       "date": "Data"
+    }
+  },
+  "szczepionka": {
+    "title": "Szczepionki",
+    "addNewVaccine": "Dodanie nowej szczepionki",
+    "editVaccine": "Edycja szczepionki",
+    "deletingVaccine": "Czy na pewno chcesz usunąc szczepionke?",
+    "deleteVaccine": "Usuń szczepionke",
+    "addApplication": "Dodaj zastosowanie . . .",
+    "selectVaccine": "Wybierz szczepionke",
+    "button": {
+      "addVaccine": "Dodaj szczepionke"
+    },
+    "fields": {
+      "name": "Nazwa",
+      "mandatory": "Czy obowiazkowa",
+      "periodOfValidity": "Okres waznosci",
+      "application": "Zastosowanie",
+      "manufacturer": "Producent"
     }
   }
 }

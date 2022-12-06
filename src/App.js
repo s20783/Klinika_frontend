@@ -54,6 +54,9 @@ import UsuniecieUrlopu from "./components/urlop/UsuniecieUrlopu";
 import GodzinyPracyWeterynarz from "./components/weterynarz/GodzinyPracyWeterynarz";
 import FormularzUrlop from "./components/urlop/FormularzUrlop";
 import CzyDodacGodziny from "./components/godzinyPracy/CzyDodacGodziny";
+import SzczepionkaList from "./components/szczepionka/SzczepionkaList";
+import FormularzSzczepionki from "./components/szczepionka/FormularzSzczepionki";
+import UsuniecieSzczepionki from "./components/szczepionka/UsuniecieSzczepionki";
 
 class App extends React.Component {
     constructor(props) {
@@ -118,6 +121,11 @@ class App extends React.Component {
                     <Route path="/specjalizacje/edycjaSpecjalizacja/:idSpecjalizacja"
                            element={<FormularzSpecjalizacji/>}/>
                     <Route path="/specjalizacje/delete/:idSpecjalizacja" element={<UsuniecieSpecjalizacji/>}/>
+
+                    <Route path="/szczepionki" element={<SzczepionkaList/>}/>
+                    <Route path="/dodajSzczepionke" element={<FormularzSzczepionki/>}/>
+                    <Route path="/szczepionki/edycjaSzczepionki/:idSzczepionka" element={<FormularzSzczepionki/>}/>
+                    <Route path="/szczepionki/delete/:idSzczepionka" element={<UsuniecieSzczepionki/>}/>
 
                     <Route path="/uslugi" element={<UslugaList/>}/>
                     <Route path="/dodajUsluge" element={<FormularzUslugi/>}/>

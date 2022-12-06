@@ -5,11 +5,11 @@ export function getWeterynarzList() {
     return api.get('/Weterynarz');
 }
 export function getWeterynarzDetails(Id) {
-    return api.get(`/Weterynarz/${Id}`);
+    return  api.get(`/Weterynarz/${Id}`);
 }
 export async function addWeterynarz(weterynarz) {
     const patientString = JSON.stringify(weterynarz)
-    await api.post('/Weterynarz', patientString);
+    return await api.post('/Weterynarz', patientString);
 }
 
 export async function updateWeterynarz(weterynarz, idWeterynarz) {

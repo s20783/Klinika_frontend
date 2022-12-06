@@ -33,6 +33,7 @@ class LekDetailsList extends React.Component {
         try {
             const res = await getLekDetails(this.state.IdLek)
             const data = await res.data
+            console.log(data.LekList)
             this.setState({
                 isLoaded: true,
                 lek: data,
@@ -149,26 +150,26 @@ class LekDetailsList extends React.Component {
         return (
             <main>
                 <section className="bg-gray-100  ">
-                    <div className="container w-full max-w-5xl  mx-auto px-2 py-8">
+                    <div className="container w-full max-w-6xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
                                 {t('lek.infoMedicine')}</h2>
-                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                            <div className="relative overflow-x-auto sm:rounded-lg ">
                                 <div className="flex justify-between mt-14">
                                     <h2 className=" w-1/3 my-2 mb-6 text-xl font-black leading-tight text-gray-600">
                                         {lek.Nazwa} ({lek.JednostkaMiary})</h2>
                                     <div className="relative w-1/3 ">
                                         <Link to={`/leki/magazyn/dodajLek/${IdLek}`}
                                               className="absolute top-0 right-0  h-12 w-12 md:w-64  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                            <span className="text-xl">+</span>
+                                            <span className="text-xl">+ </span>
                                             <span className="invisible md:visible ">
                                                 {t('lek.button.addMedicineInWarehouse')}</span>
                                         </Link>
                                     </div>
                                 </div>
-                                <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400 mb-12">
+                                <table className="w-full text-sm text-left text-gray-700  mb-12">
                                     <thead
-                                        className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                        className="text-s text-gray-700 uppercase bg-gray-100 ">
                                     <tr>
                                         <th scope="col"
                                             className="text-center px-6 py-3">{t('lek.fields.quantity')}</th>
@@ -181,16 +182,16 @@ class LekDetailsList extends React.Component {
                                     <tbody>
                                     {leki.map(lek => (
                                         <tr key={lek.IdStanLeku}
-                                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
+                                            className="bg-white border-b ">
                                             <td className="text-center px-6 py-2">{lek.Ilosc}</td>
                                             <td
                                                 className="text-center px-6 py-2">{lek.DataWaznosci ? getFormattedDate(lek.DataWaznosci) : "-"}</td>
 
-                                            <td className=" text-center px-6 py-1">
+                                            <td className=" text-center  py-1">
                                                 <div className="list-actions">
                                                     <div className="flex">
                                                         <Link to={`/leki/magazyn/edit/${lek.IdStanLeku}`}
-                                                              className="list-actions-button-details flex-1">
+                                                              className="mr-3">
                                                             <svg className="list-actions-button-edit flex-1"
                                                                  xmlns="http://www.w3.org/2000/svg"
                                                                  width="20" height="20" fill="#000000"

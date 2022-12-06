@@ -361,6 +361,24 @@
 		"fields": {
 			"date": "Data"
 		}
-
+	},
+	"szczepionka": {
+		"title": "Vaccines",
+		"addNewVaccine": "Adding new vaccine",
+		"editVaccine": "Editing vaccine",
+		"deletingVaccine": "Are you sure you want to delete vaccine?",
+		"deleteVaccine": "Delete vaccine",
+		"addApplication": "Add application . . .",
+		"selectVaccine": "Select vaccine",
+		"button": {
+			"addVaccine": "Add vaccine"
+		},
+		"fields": {
+			"name": "Name",
+			"mandatory": "Mandatory?",
+			"periodOfValidity": "Period of validity",
+			"application": "Application",
+			"manufacturer": "Manufacturer"
+		}
 	}
 }

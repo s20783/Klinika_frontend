@@ -1,52 +1,53 @@
 import React from "react";
 import {useNavigate} from "react-router";
-import {getWeterynarzList} from "../../axios/WeterynarzAxionCalls";
-import WeterynarzListTable from "./WeterynarzListTable";
 import {withTranslation} from "react-i18next";
-import {getKlientList} from "../../axios/KlientAxiosCalls";
+import {getSzczepionkaList} from "../../axios/SzczepionkaAxiosCalls";
+import SzczepionkaListTable from "./SzczepionkaListTable";
 
-class WeterynarzList extends React.Component {
+class SzczepionkaList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             error: '',
             isLoaded: false,
-            weterynarze: [],
-            notice: ''
+            szczepionki: [],
         }
     }
 
     async componentDidMount() {
-
-        const res = await getWeterynarzList();
-        var data = await res.data
-
-        this.setState({
-            isLoaded: true,
-            weterynarze: data
-        });
+        try {
+            const res = await getSzczepionkaList()
+            const data = await res.data
+            console.log(data)
+            this.setState({
+                isLoaded: true,
+                szczepionki: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
-        const {error, isLoaded, weterynarze} = this.state
-        let content;
+        const {error, isLoaded, szczepionki} = this.state
         const {t} = this.props;
+        let content;
 
         if (error) {
             content = <p>Błąd: {error.message}</p>
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <WeterynarzListTable weterynarze={weterynarze}/>
+            content = <SzczepionkaListTable szczepionki={szczepionki}/>
         }
 
         return (
             <main>
                 <section className="bg-gray-100 border-b  ">
-                    <div className="container w-full max-w-6xl  mx-auto px-2 py-8">
+                    <div className="container w-full max-w-7xl  mx-auto px-2 py-8">
                         <div id='recipients' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                                {t('weterynarz.title')}</h2>
+                                {t('szczepionka.title')}</h2>
                             {content}
                         </div>
                     </div>
@@ -61,4 +62,4 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-export default withTranslation()(withNavigate(WeterynarzList));
+export default withTranslation()(withNavigate(SzczepionkaList));

@@ -161,7 +161,7 @@ class FormularzWeterynarz extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
+        //console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -202,17 +202,20 @@ class FormularzWeterynarz extends React.Component {
         const dane = {...this.state}
         const isValid = this.validateForm()
 
+        console.log(dane.data)
+
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addWeterynarz(dane)
-                    await navigate(-1, {replace: true});
+                    const response = await addWeterynarz(dane.data)
+                    console.log(response.data.ID)
+                    await navigate(`/czyDodacGodziny/${response.data.ID}`, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateWeterynarz(dane, this.state.idWeterynarz)
+                    await updateWeterynarz(dane.data, this.state.idWeterynarz)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

@@ -213,7 +213,7 @@ class GodzinyPracy extends React.Component {
     dodajDomyslne = async () => {
 
         const {navigate} = this.props;
-        if (this.state.data1.IdSpecjalizacja !== null) {
+        if (this.state.idWeterynarz !== null) {
 
             try {
                 await addDomyslneGodzinyPracy(this.state.idWeterynarz)

@@ -4,9 +4,10 @@ export function CheckTextRange(value, min, max) {
     }
     value = value.toString().trim();
     const length = value.length;
+
     if (length > max) {
         return false;
     }
-    return length >= min;
+    return length > min;
 
 }
