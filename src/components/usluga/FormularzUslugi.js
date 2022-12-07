@@ -159,7 +159,7 @@ class FormularzUslugi extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('usluga.addNewService') : t('usluga.editService')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
@@ -205,7 +205,7 @@ class FormularzUslugi extends React.Component {
                                     onChange={this.handleChange} placeholder=""/>
                                 <span id="errorCena" className="errors-text2 mb-6 ">{errors.Cena}</span>
                             </div>
-                            <div class="w-full md:w-1/3 px-3 mb-6 ml-20 md:mb-0">
+                            <div class="w-full md:w-1/3 px-3 mb-6 md:ml-20 md:mb-0">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                     {t('usluga.fields.narcosis')}
                                 </label>

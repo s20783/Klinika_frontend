@@ -200,7 +200,7 @@ class FormularzSzczepionki extends React.Component {
                                 <span id="errorNazwa" className="errors-text2  my-4">
                                     {errors.Zastosowanie}</span>
                             </div>
-                            <div className="w-full md:w-1/3 px-3 mb-6 mt-6 ml-14 md:mb-0">
+                            <div className="w-full md:w-1/3 px-3 mb-6 mt-6 md:ml-14 md:mb-0">
                                 <div className=" mb-6">
                                     <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                            form="grid-city">
@@ -226,7 +226,7 @@ class FormularzSzczepionki extends React.Component {
                                     onChange={this.handleChange} placeholder=""/>
                                 <span id="errorOkresWaznosci" className="errors-text2 mb-4 ">{errors.OkresWaznosci}</span>
                             </div>
-                            <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
                                 <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('szczepionka.fields.manufacturer')}

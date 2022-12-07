@@ -44,30 +44,6 @@ class SzczegolyWizyty extends React.Component {
 
     componentDidMount() {
         this.fetchWizytaDetails()
-        /*
-                 getUslugaVisitList(this.state.idWizyta)
-                     .then(res => {
-                         console.log(res.status)
-                         if (res.status === 401) {
-                             console.log('Potrzebny aktualny access token')
-                         }
-                         return res.json()
-                     })
-                     .then(
-                         (data) => {
-                             console.log(data)
-                             this.setState({
-                                 isLoaded: true,
-                                 uslugi: data
-                             });
-                         },
-                         (error) => {
-                             this.setState({
-                                 isLoaded: true,
-                                 error
-                             });
-                         }
-                     )*/
     }
 
     render() {
@@ -87,7 +63,7 @@ class SzczegolyWizyty extends React.Component {
                         }*/
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('wizyta.visitDetails')}</p>
                 </div>
