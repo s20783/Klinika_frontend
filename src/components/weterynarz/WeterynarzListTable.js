@@ -70,13 +70,12 @@ function WeterynarzListTable(props) {
                             <td className="px-6 py-2 text-center">{x.Nazwisko}</td>
                             <td className="px-6 py-2 text-center">{x.NumerTelefonu}</td>
                             <td className="px-6 py-2 text-center">{x.Email}</td>
-                            <td className="px-6 py-2 text-center">
-                                <div className="list-actions text-center">
-                                    <div className="relative h-6 w-5/6 flex flex-wrap ml-8">
-                                        <Link to={`/weterynarze/${x.IdOsoba}`}>
-                                            <svg className=
-                                                 "absolute inset-y-1 right-16"
 
+                            <td className="px-6 py-2 ">
+                                <div className="list-actions ">
+                                    <div className="flex ">
+                                        <Link to={`/weterynarze/${x.IdOsoba}`} className="flex-1">
+                                            <svg className="flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#000000" viewBox="0 0 256 256">
                                                 <rect width="256" height="256" fill="none"/>
@@ -95,8 +94,8 @@ function WeterynarzListTable(props) {
                                         </Link>
                                         {x.Email !== "" &&
                                             <Link to={`/weterynarze/edycjaWeterynarza/${x.IdOsoba}`}
-                                                  disabled className="absolute inset-y-1 right-8 ml-2">
-                                                <svg className=" "
+                                                   className="flex-1">
+                                                <svg className="flex-1 "
                                                      xmlns="http://www.w3.org/2000/svg"
                                                      width="20" height="20" fill="#000000" viewBox="0 0 256 256">
                                                     <rect className="details-icon-color" width="256" height="256"
@@ -118,8 +117,8 @@ function WeterynarzListTable(props) {
                                         }
                                         {x.Email !== "" &&
                                         <Link to={`/weterynarze/delete/${x.IdOsoba}`}
-                                              className=" ">
-                                            <svg className="absolute inset-y-1 right-1 ml-2"
+                                              className="flex-1 ">
+                                            <svg className="flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#000000" viewBox="0 0 256 256">
                                                 <rect width="256" height="256" fill="none"></rect>

@@ -35,7 +35,8 @@
     "notSame": "Hasła nie są takie same",
     "format": "Niepoprawny format",
     "password": "Pole wymaga minimum 8 znaków, wielkiej litery i cyfry",
-    "salary": "To pole musi być liczbą z przedziału od 0 do 100000"
+    "salary": "To pole musi być liczbą z przedziału od 0 do 100000",
+    "weight": "To pole musi być liczbą z przedziału od 0 do 10000"
   },
   "errors": {
     "Incorrect": "Niepoprawne hasło lub login",
@@ -385,6 +386,25 @@
       "periodOfValidity": "Okres waznosci",
       "application": "Zastosowanie",
       "manufacturer": "Producent"
+    }
+  },
+  "szczepienie": {
+    "title": "Szczepienia",
+    "addVaccination": "Dodanie szczepienia",
+    "editVaccination": "Edycja szczepienia",
+    "selectVaccine": "Wybierz szczepionke",
+    "deletingVaccination": "Czy na pewno chcesz usunąc szczepienie?",
+    "deleteVaccination": "Usuń szczepienie",
+    "button": {
+      "addVaccination": "Dodaj szczepienie"
+    },
+    "fields": {
+      "name": "Nazwa",
+      "vaccine": "Szczepionka",
+      "application": "Zastosowanie",
+      "date": "Data",
+      "periodOfValidity": "Okres waznosci",
+      "dose": "Dawka"
     }
   }
 }

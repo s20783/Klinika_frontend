@@ -82,63 +82,65 @@ class DodaniePacjentaForm extends React.Component {
     }
 
     validateField = (fieldName, fieldValue) => {
+        const {t} = this.props;
         let errorMessage = '';
+
         if (fieldName === 'IdOsoba') {
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'Nazwa') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
-                errorMessage = `To pole wymaga od 2 do 50 znaków`
+                errorMessage = t('validation.max50')
             }
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'Gatunek') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
-                errorMessage = `To pole wymaga od 2 do 50 znaków`
+                errorMessage = t('validation.max50')
             }
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'Rasa') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
-                errorMessage = `To pole wymaga od 2 do 50 znaków`
+                errorMessage = t('validation.max50')
             }
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'Waga') {
             if (fieldValue < 0 || fieldValue > 999) {
-                errorMessage = `Pole powinno być liczbą z przedziału od 0 do 1000.`
+                errorMessage = t('validation.weight')
             }
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'Masc') {
             if (!CheckTextRange(fieldValue, 2, 50)) {
-                errorMessage = `To pole wymaga od 2 do 50 znaków`
+                errorMessage = t('validation.max50')
             }
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'DataUrodzenia') {
             if (dayjs(fieldValue).diff(dayjs(new Date())) > 0) {
-                errorMessage = `Data nie moze byc z przyszłości`
+                errorMessage = t('validation.date')
             }
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         if (fieldName === 'Plec') {
             if (!fieldValue) {
-                errorMessage = `Pole wymagane`
+                errorMessage = t('validation.required')
             }
         }
         return errorMessage

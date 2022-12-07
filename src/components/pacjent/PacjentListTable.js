@@ -71,12 +71,13 @@ function PacjentListTable(props) {
                                 <Link to={`/klienci/${x.IdOsoba}`}
                                       className="underline font-semibold">{x.Wlasciciel}</Link>
                             </td>
+
                             <td className="px-6 py-1">
                                 <div className="list-actions">
                                     <div className=" flex">
                                         <Link to={`/pacjenci/details/${x.IdPacjent}`}
-                                              className="list-actions-button-details flex-1">
-                                            <svg className="list-actions-button-details flex-1"
+                                              className=" flex-1">
+                                            <svg className=" flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#000000" viewBox="0 0 256 256">
                                                 <rect width="256" height="256" fill="none"/>
@@ -94,8 +95,8 @@ function PacjentListTable(props) {
                                             </svg>
                                         </Link>
                                         <Link to={`/pacjenci/edycjaPacjenta/${x.IdPacjent}`}
-                                              className="list-actions-button-details flex-1">
-                                            <svg className="list-actions-button-edit flex-1"
+                                              className=" flex-1">
+                                            <svg className=" flex-1"
                                                  xmlns="http://www.w3.org/2000/svg"
                                                  width="20" height="20" fill="#000000" viewBox="0 0 256 256">
                                                 <rect className="details-icon-color" width="256" height="256"
