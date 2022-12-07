@@ -157,7 +157,7 @@ class SzczegolyWeterynarza extends React.Component {
         const {data, idWeterynarz, specjalizacje, specjalizacje1, errors1} = this.state
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div className="w-full lg:w-1/6 xs:px-6 text-xl text-gray-800 leading-normal">
                     <SzczegolyVetMenu idVet={idWeterynarz}/>
                 </div>
@@ -172,7 +172,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 disabled name="Imie" id="Imie" type="text" value={data.Imie} placeholder=""/>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.lastName')}
                             </label>
@@ -192,7 +192,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
                                 disabled value={data.NumerTelefonu} placeholder=""/>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.email')}
                             </label>
@@ -212,7 +212,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 disabled value={getFormattedDate(data.DataUrodzenia)} placeholder=""/>
 
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.salary')}
                             </label>

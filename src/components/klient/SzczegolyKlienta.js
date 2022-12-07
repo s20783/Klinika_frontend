@@ -97,7 +97,7 @@ class SzczegolyKlienta extends React.Component {
                                 name="Imie" id="Imie" type="text" value={this.state.data.Imie} placeholder=""/>
 
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.lastName')}
                             </label>
@@ -118,7 +118,7 @@ class SzczegolyKlienta extends React.Component {
                                 value={this.state.data.NumerTelefonu} placeholder=""/>
 
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.email')}
                             </label>

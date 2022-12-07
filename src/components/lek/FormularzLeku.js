@@ -193,7 +193,7 @@ class FormularzLeku extends React.Component {
                                 <span id="errorJednostkaMiary"
                                       className="errors-text2 mb-4 ">{errors.JednostkaMiary}</span>
                             </div>
-                            <div className="w-full md:w-2/6 px-3 ml-8">
+                            <div className="w-full md:w-2/6 px-3 md:ml-8">
                                 <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2"
                                        form="grid-last-name">
                                     {t('lek.fields.manufacturer')}
