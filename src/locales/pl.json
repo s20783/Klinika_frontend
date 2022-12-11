@@ -48,7 +48,8 @@
     "next": "Dalej",
     "back": "Powrót",
     "confirm": "Zatwierdź",
-    "add": "Dodaj"
+    "add": "Dodaj",
+    "addToDataBase": "Dodaj lek do bazy"
   },
   "other": {
     "yes": "Tak",
@@ -406,5 +407,21 @@
       "periodOfValidity": "Okres waznosci",
       "dose": "Dawka"
     }
+  },
+  "recepta": {
+    "title": "Recepta",
+    "prescriptionDetails": "Szczegóły recepty",
+    "writingPrescription": "Wypisanie recepty",
+    "deletingPrescription": "Czy na pewno chcesz usunąc recepte?",
+    "deletePrescription": "Usuń recepte",
+    "fields": {
+      "recommendations": "Zalecenia",
+      "medicines": "Leki",
+      "patient": "Pacjent",
+      "date":"Data wypisania",
+      "vet": "Weterynarz"
+
+    }
   }
+
 }

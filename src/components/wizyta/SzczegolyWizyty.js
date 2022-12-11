@@ -4,6 +4,8 @@ import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {Link} from "react-router-dom";
 import {getWizytaDetails} from "../../axios/WizytaAxiosCalls";
+import {getReceptaDetails, getReceptaLeki} from "../../axios/ReceptaAxiosCalls";
+import {getUslugaWizytaList} from "../../axios/UslugaAxiosCalls";
 
 class SzczegolyWizyty extends React.Component {
     constructor(props) {
@@ -23,7 +25,9 @@ class SzczegolyWizyty extends React.Component {
             },
             idWizyta: paramsIdWizyta,
             message: '',
-            uslugi: []
+            uslugi: [],
+            recepta: '',
+            lekiRecepta: []
         }
     }
 
@@ -32,6 +36,7 @@ class SzczegolyWizyty extends React.Component {
             const res = await getWizytaDetails(this.state.idWizyta)
             var data = await res.data
 
+            //console.log(data)
             this.setState({
                 isLoaded: true,
                 wizyta: data
@@ -41,26 +46,56 @@ class SzczegolyWizyty extends React.Component {
         }
     }
 
+    fetchReceptaDetails = async () => {
+        try {
+            var res = await getReceptaDetails(this.state.idWizyta)
+            var data = await res.data
+
+            console.log(data)
+            this.setState({
+                isLoaded: true,
+                recepta: data
+            });
+
+            res = await getReceptaLeki(this.state.idWizyta)
+            data = await res.data
+
+            console.log(data)
+            this.setState({
+                isLoaded: true,
+                lekiRecepta: data
+            });
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    fetchUslugi = async () => {
+        try {
+            const res = await getUslugaWizytaList(this.state.idWizyta)
+            var data = await res.data
+
+            console.log(data)
+            this.setState({
+                isLoaded: true,
+                uslugi: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     componentDidMount() {
         this.fetchWizytaDetails()
+        this.fetchReceptaDetails()
+        this.fetchUslugi()
     }
 
     render() {
-        const {error, isLoaded, wizyta, uslugi} = this.state
+        const {wizyta, uslugi, recepta, idWizyta, lekiRecepta} = this.state
         const {t} = this.props;
-        let content;
-        /*
-                 if (error) {
-                            content = <p>Błąd: {error.message}</p>
-                        } else if (!isLoaded) {
-                            content = <p>Ładowanie...</p>
-                        } else {
-                            content =
-                                <div>
-                                        gdy brak listy -> kontnet
-                                </div>
-                        }*/
+
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
@@ -194,6 +229,8 @@ class SzczegolyWizyty extends React.Component {
                                 className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 uppercase py-3 text-center">
+                                    {t("usluga.fields.name")}</th>
+                                <th scope="col" className="px-6 uppercase py-3 text-center">
                                     {t("usluga.fields.narcosis")}</th>
                                 <th scope="col" className="px-6 uppercase py-3 text-center">
                                     {t("usluga.fields.price")}</th>
@@ -204,67 +241,126 @@ class SzczegolyWizyty extends React.Component {
                             {uslugi.map(x => (
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                     key={x.idUsluga}>
-                                    <td className="px-6 py-2 text-center">{x.Nazwa}</td>
-                                    <td className="px-6 py-2 text-center">{x.CzyNarkoza}</td>
+                                    <td className="px-6 py-2 text-center">{x.NazwaUslugi}</td>
+                                    <td className="px-6 py-2 text-center">{x.Narkoza ===false ? t("other.no") : t("other.yes")} </td>
                                     <td className="px-6 py-2 text-center">{x.Cena}</td>
-
-                                    <div className="list-actions text-center py-2">
-                                        <div className=" flex">
-                                            <Link to={`/uslugi/${x.IdUsluga}`}
-                                                  className="list-actions-button-details flex-1">
-                                                <svg className="list-actions-button-details flex-1"
-                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <rect width="256" height="256" fill="none"/>
-                                                    <g className="details-icon-color" opacity="0.1"></g>
-                                                    <circle className="details-icon-color hover:white-100" cx="128"
-                                                            cy="128"
-                                                            r="96"
-                                                            fill="none" stroke="#000000" strokeLinecap="round"
-                                                            strokeLinejoin="round" strokeWidth="16"></circle>
-                                                    <polyline className="details-icon-color"
-                                                              points="120 120 128 120 128 176 136 176" fill="none"
-                                                              stroke="#000000" strokeLinecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></polyline>
-                                                    <circle className="details-icon-color dot" cx="126" cy="84"
-                                                            r="12"></circle>
-                                                </svg>
-                                            </Link>
-                                            <Link to={`/wizyty/delete/${x.IdWizyta}`}
-                                                  className="list-actions-button-details flex-1">
-                                                <svg className="list-actions-button-delete flex-1"
-                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <rect width="256" height="256" fill="none"></rect>
-                                                    <line className="details-icon-color" x1="215.99609" y1="56"
-                                                          x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                          stroke-linecap="round" strokeLinejoin="round"
-                                                          strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="104" y1="104" x2="104"
-                                                          y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="152" y1="104" x2="152"
-                                                          y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <path className="details-icon-color"
-                                                          d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none"
-                                                          stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                    <path className="details-icon-color"
-                                                          d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                </svg>
-                                            </Link>
-                                        </div>
-                                    </div>
                                 </tr>
                             ))}
                             </tbody>
                         </table>
                     </div>
+                    <div className="flex justify-between mt-14">
+                        <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
+                            {t('recepta.title')}</h2>
+                        <div className="relative  w-1/3 ">
+
+                            {recepta !== '' &&
+                                <div>
+                                    <Link to={`/recepta/edit/${idWizyta}`}>
+                                        <button id="menu-toggle"
+                                                className="absolute top-16 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                <span className="text-2xl font-bold ">
+                                    <svg className="list-actions-button-edit flex-1"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         width="20" height="20" fill="#FFFFFF" viewBox="0 0 256 256">
+                                                            <rect className="details-icon-color" width="256"
+                                                                  height="256"
+                                                                  fill="none"></rect>
+                                                            <path className="details-icon-color"
+                                                                  d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
+                                                                  fill="none" stroke="#FFFFFF" strokeLinecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="20"></path>
+                                                            <line className="details-icon-color" x1="136" y1="64"
+                                                                  x2="192" y2="120"
+                                                                  fill="none" stroke="#FFFFFF" strokeLinecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="20"></line>
+                                                            <polyline className="details-icon-color"
+                                                                      points="216 216 96 216 40.509 160.509" fill="none"
+                                                                      stroke="#FFFFFF" strokeLinecap="round"
+                                                                      strokeLinejoin="round"
+                                                                      strokeWidth="20"></polyline>
+                                            </svg>
+                                </span>
+                                        </button>
+                                    </Link>
+                                    <Link to={`/recepta/delete/${idWizyta}`}>
+                                        <button id="menu-toggle"
+                                                className="absolute top-32 right-0 h-12 w-46 shadow bg-red-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                <span className="text-2xl font-bold ">
+
+                                            <svg className="list-actions-button-delete flex-1"
+                                                 xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                 fill="#FFFFFF" viewBox="0 0 256 256">
+                                                <rect width="256" height="256" fill="none"></rect>
+                                                <line className="details-icon-color" x1="215.99609" y1="56"
+                                                      x2="39.99609" y2="56.00005" fill="none" stroke="#FFFFFF"
+                                                      stroke-linecap="round" strokeLinejoin="round"
+                                                      strokeWidth="16"></line>
+                                                <line className="details-icon-color" x1="104" y1="104" x2="104" y2="168"
+                                                      fill="none" stroke="#FFFFFF" stroke-linecap="round"
+                                                      strokeLinejoin="round" strokeWidth="16"></line>
+                                                <line className="details-icon-color" x1="152" y1="104" x2="152" y2="168"
+                                                      fill="none" stroke="#FFFFFF" stroke-linecap="round"
+                                                      strokeLinejoin="round" strokeWidth="16"></line>
+                                                <path className="details-icon-color"
+                                                      d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none"
+                                                      stroke="#FFFFFF" stroke-linecap="round"
+                                                      strokeLinejoin="round" strokeWidth="16"></path>
+                                                <path className="details-icon-color"
+                                                      d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
+                                                      fill="none" stroke="#FFFFFF" stroke-linecap="round"
+                                                      strokeLinejoin="round" strokeWidth="16"></path>
+                                            </svg>
+                                </span>
+                                        </button>
+                                    </Link>
+                                </div>
+                            }
+                            {recepta === '' &&
+                                <Link to={`/recepta/add/${idWizyta}`}>
+
+                                    <button id="menu-toggle"
+                                            className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        <span className="text-2xl font-bold ">+</span>
+                                    </button>
+                                </Link>
+                            }
+                        </div>
+                    </div>
+                    {recepta !== '' &&
+                        <div className="border-4 border-blue-200 h-fit ml-3 shadow-xl rounded-md mx-20">
+
+                            <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
+                                {t('recepta.fields.medicines')}</h2>
+                            <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
+                                <thead
+                                    className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" className="px-6 uppercase py-3 text-center">
+                                        {t("lek.fields.name")}</th>
+                                    <th scope="col" className="px-6 uppercase py-3 text-center">
+                                        {t("lek.fields.quantity")}</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {lekiRecepta.map(x => (
+                                    <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
+                                        key={x.ID_lek}>
+                                        <td className="px-6 py-2 text-center">{x.Nazwa}</td>
+                                        <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                            <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
+                                {t('recepta.fields.recommendations')}</h2>
+                            <textarea className="form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"
+                                      name="Notatka"
+                                      value={recepta.Zalecenia} rows="6"
+                                      disabled/>
+                        </div>
+                    }
                 </div>
             </div>
         )

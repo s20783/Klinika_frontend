@@ -16,14 +16,13 @@ import {getWeterynarzSpecjalizacjaList} from "../../axios/WeterynarzSpecjalizajc
 class SzczegolyWeterynarza extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.params)
         const paramsIdWeterynarz = this.props.params.IdOsoba
         this.state = {
             data: '',
             specjalizacje: [],
             specjalizacje1: [],
             data1: {
-                IdSpecjalizacja: null,
+                IdSpecjalizacja: '',
             },
             errors1: {
                 IdSpecjalizacja: '',
@@ -84,9 +83,15 @@ class SzczegolyWeterynarza extends React.Component {
             helpDiv1.classList.add("hidden");
 
             const data = {...this.state.data1}
-            data['IdSpecjalizacja'] = null
+            data['IdSpecjalizacja'] = ''
             this.setState({
                 data1: data,
+            })
+
+            const errors = {...this.state.errors1}
+            errors['IdSpecjalizacja'] = ''
+            this.setState({
+                errors1: errors,
             })
         }
 
@@ -118,9 +123,37 @@ class SzczegolyWeterynarza extends React.Component {
         })
 
     }
+    validateForm = () => {
+        const data = this.state.data1
+        const errors = this.state.errors1
+
+        for (const fieldName in data) {
+            const fieldValue = data[fieldName]
+            errors[fieldName] = this.validateField(fieldName, fieldValue)
+        }
+
+        this.setState({
+            errors1: errors
+        })
+        return !this.hasErrors();
+    }
+
+    hasErrors = () => {
+        const errors = this.state.errors1
+        console.log(errors)
+        for (const errorField in this.state.errors1) {
+            if (errors[errorField].length > 0) {
+                return true
+            }
+        }
+        return false
+    }
+
     addSpec = async () => {
         const {navigate} = this.props;
-        if (this.state.data1.IdSpecjalizacja !== null) {
+        const isValid = this.validateForm()
+
+        if (isValid) {
 
             try {
                 await addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz)
@@ -154,7 +187,7 @@ class SzczegolyWeterynarza extends React.Component {
 
     render() {
         const {t} = this.props;
-        const {data, idWeterynarz, specjalizacje, specjalizacje1, errors1} = this.state
+        const {data, idWeterynarz, specjalizacje, specjalizacje1, data1, errors1} = this.state
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
@@ -308,11 +341,12 @@ class SzczegolyWeterynarza extends React.Component {
                         <div class="w-full">
                             <select name="IdSpecjalizacja" id="spec-content" onChange={this.handleChange}
                                     className="form-select hidden block w-full focus:bg-white">
-                                <option value="">{t('specjalizacja.selectSpecialization')}</option>
+                                <option value="" >{t('specjalizacja.selectSpecialization')}</option>
                                 {
                                     specjalizacje1.map(spec => (
                                         <option
                                             className={this.checkIfExist(specjalizacje, spec.IdSpecjalizacja) === true ? "text-gray-300" : ""}
+                                            selected={data1.IdSpecjalizacja === spec.IdSpecjalizacja}
                                             value={spec.IdSpecjalizacja}>{spec.Nazwa} - {spec.Opis}</option>
                                     ))}
                             </select>

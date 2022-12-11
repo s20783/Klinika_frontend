@@ -45,7 +45,9 @@
 		"next": "Next",
 		"back": "Back",
 		"confirm": "Confirm",
-		"add": "Add"
+		"add": "Add",
+		"addToDataBase": "Add medicine to data base"
+
 	},
 	"other": {
 		"yes": "yes",
@@ -379,6 +381,40 @@
 			"periodOfValidity": "Period of validity",
 			"application": "Application",
 			"manufacturer": "Manufacturer"
+		}
+	},
+	"szczepienie": {
+		"title": "Vaccinations",
+		"addVaccination": "Adding vaccination",
+		"editVaccination": "Editing vaccination",
+		"selectVaccine": "Select vaccine",
+		"deletingVaccination": "Are you sure you want to delete vaccination?",
+		"deleteVaccination": "Delete vaccination",
+		"button": {
+			"addVaccination": "Add vaccination"
+		},
+		"fields": {
+			"name": "Name",
+			"vaccine": "Vaccine",
+			"application": "application",
+			"date": "Date",
+			"periodOfValidity": "Period of validity",
+			"dose": "Dose"
+		}
+	},
+	"recepta": {
+		"title": "Prescription",
+		"prescriptionDetails": "Prescription details",
+		"writingPrescription": "Writing prescription",
+		"deletingPrescription": "Are you sure you want to delete prescription?",
+		"deletePrescription": "Delete prescription",
+		"fields": {
+			"recommendations": "Recommendations",
+			"medicines": "Medicines",
+			"patient": "Patient",
+			"date":"Prescription date",
+			"vet": "Vet"
+
 		}
 	}
 }

@@ -3,7 +3,9 @@ import api from "./Api";
 export function getUslugaList() {
     return api.get('/Usluga');
 }
-
+export function getUslugaWizytaList(id) {
+    return api.get(`/Usluga/${id}`);
+}
 export function getUslugaDetails(Id) {
     return api.get(`/Usluga/details/${Id}`);
 }
