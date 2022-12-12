@@ -219,36 +219,40 @@ class SzczegolyWizyty extends React.Component {
                         </div>
 
                     </form>
-                    <div className="flex justify-between mt-14">
-                        <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
-                            {t('usluga.title')}</h2>
-                    </div>
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
-                        <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
-                            <thead
-                                className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" className="px-6 uppercase py-3 text-center">
-                                    {t("usluga.fields.name")}</th>
-                                <th scope="col" className="px-6 uppercase py-3 text-center">
-                                    {t("usluga.fields.narcosis")}</th>
-                                <th scope="col" className="px-6 uppercase py-3 text-center">
-                                    {t("usluga.fields.price")}</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {uslugi.map(x => (
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
-                                    key={x.idUsluga}>
-                                    <td className="px-6 py-2 text-center">{x.NazwaUslugi}</td>
-                                    <td className="px-6 py-2 text-center">{x.Narkoza ===false ? t("other.no") : t("other.yes")} </td>
-                                    <td className="px-6 py-2 text-center">{x.Cena}</td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    {(uslugi.length !== 0) &&
+                        <div>
+                            <div className="flex justify-between mt-14">
+                                <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
+                                    {t('usluga.title')}</h2>
+                            </div>
+                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                                <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
+                                    <thead
+                                        className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("usluga.fields.name")}</th>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("usluga.fields.narcosis")}</th>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("usluga.fields.price")}</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {uslugi.map(x => (
+                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                                            key={x.idUsluga}>
+                                            <td className="px-6 py-2 text-center">{x.NazwaUslugi}</td>
+                                            <td className="px-6 py-2 text-center">{x.Narkoza === false ? t("other.no") : t("other.yes")} </td>
+                                            <td className="px-6 py-2 text-center">{x.Cena}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('recepta.title')}</h2>
@@ -328,11 +332,12 @@ class SzczegolyWizyty extends React.Component {
                         </div>
                     </div>
                     {recepta !== '' &&
-                        <div className="border-4 border-blue-200 h-fit ml-3 shadow-xl rounded-md mx-20">
+                        <div className="border-4 border-blue-200  h-fit ml-3 shadow-xl rounded-md mx-20">
 
                             <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
-                            <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
+                            <div className="overflow-x-auto">
+                            <table className="w-full mb-6   text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
@@ -353,6 +358,7 @@ class SzczegolyWizyty extends React.Component {
                                 ))}
                                 </tbody>
                             </table>
+                            </div>
                             <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                 {t('recepta.fields.recommendations')}</h2>
                             <textarea className="form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"

@@ -2,7 +2,7 @@ import React from "react";
 import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import { getLekList} from "../../axios/LekAxiosCalls";
+import {getLekList} from "../../axios/LekAxiosCalls";
 import {
     addRecepta,
     addReceptaLek, deleteReceptaLek,
@@ -17,7 +17,7 @@ class FormularzRecepty extends React.Component {
 
         const paramsIdRecepta = this.props.params.IdRecepta
         const paramsTyp = this.props.params.typ
-        const currentFormMode = paramsTyp ==='edit' ? formMode.EDIT : formMode.NEW
+        const currentFormMode = paramsTyp === 'edit' ? formMode.EDIT : formMode.NEW
         const currentReceptaForm = paramsTyp !== 'add'
 
         console.log(currentFormMode)
@@ -42,7 +42,7 @@ class FormularzRecepty extends React.Component {
             isLoaded: false,
             notice: '',
             formMode: currentFormMode,
-            czyDodana:currentReceptaForm
+            czyDodana: currentReceptaForm
         }
     }
 
@@ -100,12 +100,12 @@ class FormularzRecepty extends React.Component {
         const isValid = this.validateForm()
 
         if (isValid) {
-            if( dane.czyDodana === false ){
+            if (dane.czyDodana === false) {
                 try {
                     await addRecepta(dane.idRecepta, dane.data.Zalecenia)
                     navigate(0, {replace: true});
                     this.setState({
-                        czyDodana:true
+                        czyDodana: true
                     });
                 } catch (error) {
                     console.log(error)
@@ -125,12 +125,12 @@ class FormularzRecepty extends React.Component {
         const {navigate} = this.props;
         const dane = {...this.state}
 
-            try {
-                await deleteReceptaLek(dane.idRecepta, id)
-                navigate(0, {replace: true});
-            } catch (error) {
-                console.log(error)
-            }
+        try {
+            await deleteReceptaLek(dane.idRecepta, id)
+            navigate(0, {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -233,7 +233,7 @@ class FormularzRecepty extends React.Component {
         return false
     }
 
-    confirmRecepta= async () => {
+    confirmRecepta = async () => {
         const dane = this.state
         const {navigate} = this.props;
 
@@ -267,7 +267,7 @@ class FormularzRecepty extends React.Component {
 
 
     render() {
-        const { lekiRecepta, leki, data, errors} = this.state
+        const {lekiRecepta, leki, data, errors} = this.state
         const {t} = this.props;
         const {navigate} = this.props
 
@@ -277,17 +277,18 @@ class FormularzRecepty extends React.Component {
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('recepta.writingPrescription')}</p>
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 mb-8 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className=" lg:w-5/6 w-full p-8 mt-6 mb-8 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
 
                     <div className="flex justify-between mt-2">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('recepta.title')}</h2>
                     </div>
 
-                    <div className="border-4 border-blue-200 h-fit ml-3 shadow-xl rounded-md mx-20 mb-12">
+                    <div
+                        className="border-4 border-blue-200 h-fit ml-3 shadow-xl rounded-md md:mr-20 mb-12">
 
-                        <div className="w-full relative mt-">
-                            <h2 className="w-full  my-12 mb-5 ml-4 text-lg font-bold leading-tight   text-gray-600">
+                        <div className="w-full relative ">
+                            <h2 className="w-full  my-12 mb-5 md:ml-4 text-lg font-bold leading-tight   text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                             <button id="menu-toggle" onClick={() => {
                                 this.showSelect()
@@ -297,58 +298,63 @@ class FormularzRecepty extends React.Component {
                             </button>
                         </div>
                         {lekiRecepta.length !== 0 &&
-                            <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
-                                <thead
-                                    className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("lek.fields.name")}</th>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("lek.fields.quantity")}</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {lekiRecepta.map(x => (
-                                    <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
-                                        key={x.ID_Lek}>
-                                        <td className="px-6 py-2 text-center">{x.Nazwa} {x.ID_Lek}</td>
-                                        <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
-                                        <td className="px-6 py-2 text-center">
-                                            <button onClick={() => {
-                                                this.deleteReceptaLek(x.ID_Lek)
-                                            }}
-                                                  className="list-actions-button-details flex-1">
-                                                <svg className="list-actions-button-delete flex-1"
-                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <rect width="256" height="256" fill="none"></rect>
-                                                    <line className="details-icon-color" x1="215.99609" y1="56"
-                                                          x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                          stroke-linecap="round" strokeLinejoin="round"
-                                                          strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="104" y1="104" x2="104" y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="152" y1="104" x2="152" y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <path className="details-icon-color"
-                                                          d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none"
-                                                          stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                    <path className="details-icon-color"
-                                                          d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                </svg>
-                                            </button>
-                                        </td>
-
+                            <div className="overflow-x-auto">
+                                <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
+                                    <thead
+                                        className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("lek.fields.name")}</th>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("lek.fields.quantity")}</th>
+                                        <th></th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {lekiRecepta.map(x => (
+                                        <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
+                                            key={x.ID_Lek}>
+                                            <td className="px-6 py-2 text-center">{x.Nazwa} {x.ID_Lek}</td>
+                                            <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
+                                            <td className="px-6 py-2 text-center">
+                                                <button onClick={() => {
+                                                    this.deleteReceptaLek(x.ID_Lek)
+                                                }}
+                                                        className="list-actions-button-details flex-1">
+                                                    <svg className="list-actions-button-delete flex-1"
+                                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                         fill="#000000" viewBox="0 0 256 256">
+                                                        <rect width="256" height="256" fill="none"></rect>
+                                                        <line className="details-icon-color" x1="215.99609" y1="56"
+                                                              x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
+                                                              stroke-linecap="round" strokeLinejoin="round"
+                                                              strokeWidth="16"></line>
+                                                        <line className="details-icon-color" x1="104" y1="104" x2="104"
+                                                              y2="168"
+                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></line>
+                                                        <line className="details-icon-color" x1="152" y1="104" x2="152"
+                                                              y2="168"
+                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></line>
+                                                        <path className="details-icon-color"
+                                                              d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
+                                                              fill="none"
+                                                              stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></path>
+                                                        <path className="details-icon-color"
+                                                              d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
+                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></path>
+                                                    </svg>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         }
 
 
@@ -356,7 +362,7 @@ class FormularzRecepty extends React.Component {
                             <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
 
                                 <select name="Lek" id="spec-content" onChange={this.handleChange}
-                                        className="form-select ml-3 w-full focus:bg-white hidden">
+                                        className="form-select ml-3 md:w-full w-2/3 focus:bg-white hidden">
                                     <option value="">Wybierz lek</option>
                                     {
                                         leki.map(lek => (
@@ -369,7 +375,7 @@ class FormularzRecepty extends React.Component {
                                 <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.Lek}</span>
                             </div>
 
-                            <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0 ml-12">
+                            <div className="w-1/3 md:w-1/6 px-3 mb-6 md:mb-0 ml-12">
 
                                 <input
                                     className="hidden form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
@@ -378,16 +384,16 @@ class FormularzRecepty extends React.Component {
                                 <span id="errorDawka" className="errors-text2 mb-4 ">{errors.Ilosc}</span>
                             </div>
 
-                            <div className="relative  w-full mb-12">
+                            <div className="relative  w-full mb-12 ">
                                 <button id="spec-content2" onClick={() => {
                                     this.addLek()
                                 }}
-                                        className="absolute hidden top-0 right-6  h-12 w-46 mt-2 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                        className="absolute hidden md:top-0 bottom-0 right-6  h-12 w-46 mt-2 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                     <span className="text-l font-bold ">+ {t('button.add')}</span>
                                 </button>
                                 <Link to={`/dodajLek`}>
                                     <button id="spec-content2"
-                                            className="absolute  top-0 left-6  h-12 w-46 mt-2 shadow bg-gray-200 hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                            className="absolute  top-0  left-6  h-12 w-46 mt-2 shadow bg-gray-200 hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                         <span className="text-l font-bold ">{t('button.addToDataBase')} </span>
                                     </button>
                                 </Link>
