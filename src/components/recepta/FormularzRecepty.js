@@ -10,6 +10,7 @@ import {
     getReceptaLeki, updateRecepta,
 } from "../../axios/ReceptaAxiosCalls";
 import {Link} from "react-router-dom";
+import {checkNumberRange} from "../helpers/CheckNRange";
 
 class FormularzRecepty extends React.Component {
     constructor(props) {
@@ -33,8 +34,8 @@ class FormularzRecepty extends React.Component {
                 Lek: '',
                 Ilosc: '',
                 Zalecenia: ''
-
             },
+            errorListaLek:'',
             idRecepta: paramsIdRecepta,
             lekiRecepta: [],
             leki: [],
@@ -49,8 +50,9 @@ class FormularzRecepty extends React.Component {
 
     async componentDidMount() {
 
-        if (this.state.formMode === formMode.EDIT) {
-            try {
+        try {
+            if (this.state.formMode === formMode.EDIT) {
+
                 var res = await getReceptaDetails(this.state.idRecepta)
                 var data = await res.data
 
@@ -61,19 +63,19 @@ class FormularzRecepty extends React.Component {
                     data: data1,
                     isLoaded: true,
                 })
-
-                res = await getReceptaLeki(this.state.idRecepta)
-                data = await res.data
-
-                console.log(data)
-                this.setState({
-                    lekiRecepta: data
-                });
-
-            } catch (error) {
-                console.log(error)
             }
+            res = await getReceptaLeki(this.state.idRecepta)
+            data = await res.data
+
+            console.log(data)
+            this.setState({
+                lekiRecepta: data
+            });
+
+        } catch (error) {
+            console.log(error)
         }
+
 
     }
 
@@ -103,7 +105,6 @@ class FormularzRecepty extends React.Component {
             if (dane.czyDodana === false) {
                 try {
                     await addRecepta(dane.idRecepta, dane.data.Zalecenia)
-                    navigate(0, {replace: true});
                     this.setState({
                         czyDodana: true
                     });
@@ -117,7 +118,9 @@ class FormularzRecepty extends React.Component {
             } catch (error) {
                 console.log(error)
             }
-
+            this.setState({
+                errorListaLek: ''
+            });
         }
     }
 
@@ -203,7 +206,9 @@ class FormularzRecepty extends React.Component {
         const {t} = this.props;
         let errorMessage = '';
         if (fieldName === 'Ilosc') {
-
+            if (!checkNumberRange(fieldValue, 0, 99)) {
+                errorMessage = t('validation.max50')
+            }
             if (!fieldValue) {
                 errorMessage = t('validation.required')
             }
@@ -214,9 +219,12 @@ class FormularzRecepty extends React.Component {
             }
         }
         if (fieldName === 'Zalecenia') {
-            if (fieldValue.length > 300) {
-                errorMessage = `${t('validation.max300nullable')}`
+            if (fieldValue !== null) {
+                if (fieldValue.length > 300) {
+                    errorMessage = `${t('validation.max300nullable')}`
+                }
             }
+
         }
 
         return errorMessage;
@@ -237,22 +245,19 @@ class FormularzRecepty extends React.Component {
         const dane = this.state
         const {navigate} = this.props;
 
-        if (dane.errors.Zalecenia === '') {
-            if (dane.czyDodana === false) {
-                try {
-                    await addRecepta(dane.idRecepta, dane.data.Zalecenia)
-                    navigate(`/wizyty/${dane.idRecepta}`, {replace: true});
-                } catch (error) {
-                    console.log(error)
-                }
-            } else {
-                try {
-                    await updateRecepta(dane.idRecepta, dane.data.Zalecenia)
-                    navigate(`/wizyty/${dane.idRecepta}`, {replace: true});
-                } catch (error) {
-                    console.log(error)
-                }
+        if (dane.errors.Zalecenia === '' && dane.lekiRecepta.length !== 0) {
+            try {
+                await updateRecepta(dane.idRecepta, dane.data.Zalecenia)
+                navigate(`/wizyty/${dane.idRecepta}`, {replace: true});
+            } catch (error) {
+                console.log(error)
             }
+
+        }
+        else {
+            this.setState({
+                errorListaLek: 'Lista leków nie może być pusta'
+            });
         }
     }
 
@@ -267,7 +272,7 @@ class FormularzRecepty extends React.Component {
 
 
     render() {
-        const {lekiRecepta, leki, data, errors} = this.state
+        const {lekiRecepta, leki, data, errors, errorListaLek} = this.state
         const {t} = this.props;
         const {navigate} = this.props
 
@@ -296,6 +301,8 @@ class FormularzRecepty extends React.Component {
                                     className="absolute inset-y-0 right-0 mr-2  h-10 w-10 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-gl font-bold ">+</span>
                             </button>
+                            <span id="errorLista" className="errors-text2 mb-3 mt-3">{errorListaLek} </span>
+
                         </div>
                         {lekiRecepta.length !== 0 &&
                             <div className="overflow-x-auto">

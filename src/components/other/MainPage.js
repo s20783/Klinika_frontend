@@ -26,12 +26,12 @@ function MainPage() {
                             </p>
                         </div>
                         <div className="w-full sm:w-1/2 p-6">
-                            <img src="/images/photo1.jpg" alt={"photo1MainPage"}/>
+                            <img src="/images/photo1.jpg" className="shadow-2xl" alt={"photo1MainPage"}/>
                         </div>
                     </div>
                     <div className="flex flex-wrap border-t flex-col-reverse sm:flex-row">
                         <div className="w-full sm:w-1/2 p-6 mt-6">
-                            <img src="/images/photo2.jpg" alt={"photo2MainPage"}/>
+                            <img src="/images/photo2.jpg" className="shadow-2xl" alt={"photo2MainPage"}/>
                         </div>
                         <div className="w-full sm:w-1/2 p-6 mt-6">
                             <div className="align-middle">

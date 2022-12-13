@@ -6,7 +6,7 @@ function PacjentKlientListTable(props) {
     const {t} = useTranslation();
 
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative overflow-x-auto shadow-xl sm:rounded-lg">
             <div className="flex flex-row-reverse pb-3">
 
                 {/*<Link to="/umowWizyte">*/}

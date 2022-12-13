@@ -93,7 +93,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.firstName')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Imie" id="Imie" type="text" value={this.state.data.Imie} placeholder=""/>
 
                         </div>
@@ -102,7 +102,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.lastName')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={this.state.data.Nazwisko}
                                 placeholder=""/>
                         </div>
@@ -113,7 +113,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.phoneNumber')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
                                 value={this.state.data.NumerTelefonu} placeholder=""/>
 
@@ -123,7 +123,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.email')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Email" id="Email" type="text" value={this.state.data.Email} placeholder=""/>
                         </div>
                     </div>
@@ -134,7 +134,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.birthDate')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
                                 value={dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')} placeholder=""/>
                         </div>
@@ -145,7 +145,7 @@ class SzczegolyKlienta extends React.Component {
 
                         <div className="relative  w-1/3 ">
                             <button id="menu-toggle" onClick={() => {this.showSelect()}}
-                                    className="absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
                         </div>
@@ -262,7 +262,7 @@ class SzczegolyKlienta extends React.Component {
                             {t("wizyta.title")}</h2>
                         <div className="relative  w-1/3 ">
                             <button id="menu-toggle" onClick={() => {this.showSelect()}}
-                                    className="absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
                         </div>
@@ -382,7 +382,7 @@ class SzczegolyKlienta extends React.Component {
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t("button.back")}
                             </button>

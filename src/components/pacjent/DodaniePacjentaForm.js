@@ -239,7 +239,7 @@ class DodaniePacjentaForm extends React.Component {
                             </label>
                             <div class="md:w-3/5">
                                 <select name="IdOsoba" id="Wlasciciel" onChange={this.handleChange}
-                                        className={errors.IdOsoba ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
+                                        className={errors.IdOsoba ? "shadow-xl form-select block w-full focus:bg-red" : "shadow-xl form-select block w-full focus:bg-white"}>
                                     <option value="">{t('pacjent.selectOwner')}</option>
                                     {
                                         klienci.map(klient => (
@@ -257,7 +257,7 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.name')}
                             </label>
                             <input
-                                class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
+                                class="shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4  leading-tight focus:outline-none focus:bg-white "
                                 name="Nazwa" id="Nazwa" type="text" value={data.Nazwa}
                                 onChange={this.handleChange} placeholder=""/>
                         </div>
@@ -269,7 +269,7 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.species')}
                             </label>
                             <input
-                                class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                class="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
                                 name="Gatunek" id="Gatunek" type="text" value={data.Gatunek} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.Gatunek}</span>
@@ -280,7 +280,7 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.breed')}
                             </label>
                             <input
-                                class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Rasa" id="Rasa" type="text" value={data.Rasa} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorRasa" className="errors-text2 mb-4 ">{errors.Rasa}</span>
@@ -293,7 +293,7 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.weight')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Waga" id="Waga" step="0.01" type="number" value={data.Waga}
                                 onChange={this.handleChange} placeholder=""/>
                             <span id="errorWaga" className="errors-text2 mb-4 ">{errors.Waga}</span>
@@ -303,7 +303,7 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.color')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Masc" id="Masc" type="text" value={data.Masc} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorMasc" className="errors-text2 mb-4 ">{errors.Masc}</span>
@@ -333,7 +333,7 @@ class DodaniePacjentaForm extends React.Component {
                                 </label>
                                 <label class="inline-flex  items-center">
                                     <input name="Plec" id="Plec" type="radio" checked={data.Plec === "M"}
-                                           class="form-radio text-indigo-600"
+                                           class=" form-radio text-indigo-600"
                                            value="M" onChange={this.handleChange}/>
                                     <span class="ml-2">{t('pacjent.gender.male')}</span>
                                 </label>
@@ -351,7 +351,7 @@ class DodaniePacjentaForm extends React.Component {
                                 </label>
                                 <input type="checkbox" name="Ubezplodnienie"
                                        checked={data.Ubezplodnienie === true}
-                                       class="form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
+                                       class=" form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
                             </div>
                             <div className="border-b mb-6">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
@@ -367,12 +367,12 @@ class DodaniePacjentaForm extends React.Component {
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t('button.back')}
                             </button>
                             <button type="submit"
-                                    className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 {t('button.confirm')}
                             </button>
                         </div>

@@ -1,11 +1,13 @@
 import React from "react";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {Link} from "react-router-dom";
 import {getWizytaDetails} from "../../axios/WizytaAxiosCalls";
 import {getReceptaDetails, getReceptaLeki} from "../../axios/ReceptaAxiosCalls";
 import {getUslugaWizytaList} from "../../axios/UslugaAxiosCalls";
+import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../axios/WizytaChorobaAxiosCalls";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 
 class SzczegolyWizyty extends React.Component {
     constructor(props) {
@@ -26,8 +28,16 @@ class SzczegolyWizyty extends React.Component {
             idWizyta: paramsIdWizyta,
             message: '',
             uslugi: [],
+            choroby: [],
+            chorobyWizyta: [],
             recepta: '',
-            lekiRecepta: []
+            lekiRecepta: [],
+            data1: {
+                IdChoroba: '',
+            },
+            errors: {
+                IdChoroba: '',
+            },
         }
     }
 
@@ -36,7 +46,7 @@ class SzczegolyWizyty extends React.Component {
             const res = await getWizytaDetails(this.state.idWizyta)
             var data = await res.data
 
-            //console.log(data)
+            console.log(data)
             this.setState({
                 isLoaded: true,
                 wizyta: data
@@ -51,7 +61,7 @@ class SzczegolyWizyty extends React.Component {
             var res = await getReceptaDetails(this.state.idWizyta)
             var data = await res.data
 
-            console.log(data)
+            //  console.log(data)
             this.setState({
                 isLoaded: true,
                 recepta: data
@@ -76,10 +86,24 @@ class SzczegolyWizyty extends React.Component {
             const res = await getUslugaWizytaList(this.state.idWizyta)
             var data = await res.data
 
-            console.log(data)
+            //console.log(data)
             this.setState({
                 isLoaded: true,
                 uslugi: data
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    fetchChoroby = async () => {
+        try {
+            const res = await getChorobaWizytaList(this.state.idWizyta)
+            var data = await res.data
+
+            console.log(data)
+            this.setState({
+                isLoaded: true,
+                chorobyWizyta: data
             });
         } catch (error) {
             console.log(error)
@@ -90,10 +114,113 @@ class SzczegolyWizyty extends React.Component {
         this.fetchWizytaDetails()
         this.fetchReceptaDetails()
         this.fetchUslugi()
+        this.fetchChoroby()
+
     }
 
+    async showSelect() {
+        if (this.state.choroby.length === 0) {
+            try {
+                const res = await getChorobaList()
+                const data = await res.data
+                console.log(data)
+                this.setState({
+                    isLoaded: true,
+                    choroby: data
+                });
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        var helpDiv = document.getElementById("spec-content");
+        var helpDiv1 = document.getElementById("spec-content1");
+
+        if (helpDiv.classList.contains("hidden")) {
+            helpDiv.classList.remove("hidden");
+            helpDiv1.classList.remove("hidden");
+
+        } else {
+            helpDiv.classList.add("hidden");
+            helpDiv1.classList.add("hidden");
+
+            const data = {...this.state.data1}
+            data['IdChoroba'] = null
+            this.setState({
+                data1: data,
+            })
+            const errors = {...this.state.errors}
+            errors['IdChoroba'] = ''
+            this.setState({
+                errors: errors,
+            })
+
+        }
+
+    }
+
+    deleteChoroba = async (idChoroba) => {
+
+        const {navigate} = this.props;
+        try {
+            await deleteChorobaWizyta(this.state.idWizyta, idChoroba)
+            await navigate(0, {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    addChoroba = async () => {
+        const {navigate} = this.props;
+        if (this.state.data1.IdChoroba !== '') {
+
+            try {
+                await addChorobaWizyta(this.state.idWizyta, this.state.data1.IdChoroba)
+                await navigate(0, {replace: true});
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+    }
+
+    handleChange = (event) => {
+        const {name, value} = event.target
+        const data = {...this.state.data1}
+        data[name] = value
+
+        const errorMessage = this.validateField(name, value)
+        const errors = {...this.state.errors}
+        errors[name] = errorMessage
+
+        this.setState({
+            data1: data,
+            errors: errors
+        })
+
+    }
+    validateField = (fieldName, fieldValue) => {
+        const {t} = this.props;
+        let errorMessage = '';
+        if (fieldName === 'IdChoroba') {
+            if (!fieldValue) {
+                errorMessage = `${t('validation.required')}`
+            }
+        }
+        return errorMessage;
+    }
+    checkIfExist = (chorobaArray, chorobaID) => {
+        for (let i = 0; i < chorobaArray.length; i++) {
+            if (chorobaArray[i].ID_Choroba === chorobaID) {
+                return true
+            }
+        }
+        return false
+    }
+
+
     render() {
-        const {wizyta, uslugi, recepta, idWizyta, lekiRecepta} = this.state
+        const {wizyta, uslugi, choroby, chorobyWizyta, recepta, idWizyta, lekiRecepta, data1, errors} = this.state
         const {t} = this.props;
 
 
@@ -111,7 +238,7 @@ class SzczegolyWizyty extends React.Component {
                                     {t('wizyta.table.patient')}
                                 </label>
                                 <input
-                                    class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-4 leading-tight focus:outline-none focus:bg-white "
+                                    class=" shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
                                     name="Wlasciciel" id="Wlasciciel" type="text" value={wizyta.Pacjent}
                                     disabled placeholder=""/>
                             </div>
@@ -123,7 +250,7 @@ class SzczegolyWizyty extends React.Component {
                                     {t('wizyta.table.vet')}
                                 </label>
                                 <input
-                                    class="form-textarea appearance-none block w-4/6 bg-gray-200  text-gray-700 border border-gray-200 rounded py-1 px-4 mb-4 leading-tight focus:outline-none focus:bg-white "
+                                    class=" shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200  text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
                                     name="Nazwa" id="Nazwa" type="text" value={wizyta.Weterynarz}
                                     disabled placeholder=""/>
                             </div>
@@ -135,7 +262,7 @@ class SzczegolyWizyty extends React.Component {
                                     {t('wizyta.table.startDate')}
                                 </label>
                                 <input
-                                    class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                    class="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
                                     name="DataRozpoczecia" id="DataRozpoczecia" type="text"
                                     value={wizyta.DataRozpoczecia != null ? getFormattedDateWithHour(wizyta.DataRozpoczecia) : "-"}
                                     placeholder="" disabled/>
@@ -146,7 +273,7 @@ class SzczegolyWizyty extends React.Component {
                                     {t('wizyta.table.endDate')}
                                 </label>
                                 <input
-                                    class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="DataZakonczenia" id="DataZakonczenia" type="text"
                                     value={wizyta.DataZakonczenia != null ? getFormattedDateWithHour(wizyta.DataZakonczenia) : "-"}
                                     placeholder="" disabled/>
@@ -157,7 +284,8 @@ class SzczegolyWizyty extends React.Component {
                                 {t("wizyta.table.description")}
                             </label>
                             <div class="md:w-3/4 mt-5">
-                          <textarea class="form-textarea block w-full focus:bg-white mb-4" id="Opis" name="Opis"
+                          <textarea class="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Opis"
+                                    name="Opis"
                                     value={wizyta.Opis} rows="5" disabled/>
                             </div>
                         </div>
@@ -167,7 +295,7 @@ class SzczegolyWizyty extends React.Component {
                                        form="grid-city">
                                     {t('wizyta.table.clientNote')}
                                 </label>
-                                <textarea class="form-textarea block w-full focus:bg-white mb-4" id="Notatka"
+                                <textarea class="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Notatka"
                                           name="Notatka"
                                           value={wizyta.NotatkaKlient} rows="5"
                                           disabled/>
@@ -179,14 +307,15 @@ class SzczegolyWizyty extends React.Component {
                                         {t('wizyta.table.isPaid')}
                                     </label>
                                     {wizyta.CzyOplacona === true &&
-                                        <svg class="h-8 w-8 text-black mb-5" width="24" height="24" viewBox="0 0 24 24"
+                                        <svg class="h-8 w-8 text-black mb-5 shadow-xl " width="24" height="24"
+                                             viewBox="0 0 24 24"
                                              stroke="currentColor" fill="none" stroke-linecap="round"
                                              strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z"/>
                                             <path d="M5 12l5 5l10 -10"/>
                                         </svg>}
                                     {wizyta.CzyOplacona === false &&
-                                        <svg class="h-8 w-8 text-black mb-5" fill="none" viewBox="0 0 24 24"
+                                        <svg class="h-8 w-8 text-black mb-5 shadow-xl" fill="none" viewBox="0 0 24 24"
                                              stroke="currentColor">
                                             <path stroke-linecap="round" strokeLinejoin="round"
                                                   d="M6 18L18 6M6 6l12 12"/>
@@ -196,36 +325,131 @@ class SzczegolyWizyty extends React.Component {
                         </div>
 
                         <div class="flex flex-wrap  mb-6 ">
-                            <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2">
-                                    {t('wizyta.table.price')}
-                                </label>
-                                <input
-                                    class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
-                                    name="Cena" id="Cena" type="text" value={wizyta.Cena} placeholder=""
-                                    disabled/>
-                            </div>
-                            <div class="w-full md:w-2/6 px-3 ml-8">
+                            <div class="w-full md:w-2/6 px-3 ">
                                 <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2"
                                        form="grid-last-name">
                                     {t('wizyta.table.status')}
                                 </label>
                                 <input
-                                    class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Status" id="Status" type="text"
                                     value={t('wizyta.status.' + wizyta.Status)} placeholder=""
+                                    disabled/>
+                            </div>
+                            <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0 ml-8">
+                                <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2">
+                                    {t('wizyta.table.price')}
+                                </label>
+                                <input
+                                    className="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                    name="Cena" id="Cena" type="text" value={wizyta.Cena} placeholder=""
                                     disabled/>
                             </div>
                         </div>
 
                     </form>
+
+                    <div className="flex justify-between mt-12">
+                        <h2 className=" w-1/3 my-2  mb-6 text-xl font-black leading-tight text-gray-600">
+                            {t('choroba.title')}</h2>
+                        <div className="relative  w-1/3 ">
+                            <button id="menu-toggle" onClick={() => {
+                                this.showSelect()
+                            }}
+                                    className="absolute  top-0 right-0  h-12 w-46  shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                <span className="text-2xl font-bold ">+</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div className="relative overflow-x-auto  shadow-xl sm:rounded-lg ">
+                        <table className="w-full shadow-xl text-sm text-left text-gray-700 dark:text-gray-400">
+                            <thead
+                                className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {chorobyWizyta.map(x => (
+                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                                    key={x.ID_Choroba}>
+                                    <td className=" px-8 py-2 ">• {x.Nazwa}</td>
+                                    <div className="text-center list-actions py-2">
+                                        <div className=" flex">
+                                            <button onClick={() => {
+                                                this.deleteChoroba(x.ID_Choroba)
+                                            }} className="list-actions-button-details flex-1">
+                                                <svg className="list-actions-button-delete flex-1"
+                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                     fill="#000000" viewBox="0 0 256 256">
+                                                    <rect width="256" height="256" fill="none"></rect>
+                                                    <line className="details-icon-color" x1="215.99609" y1="56"
+                                                          x2="39.99609" y2="56.00005" fill="none"
+                                                          stroke="#000000"
+                                                          stroke-linecap="round" strokeLinejoin="round"
+                                                          strokeWidth="16"></line>
+                                                    <line className="details-icon-color" x1="104" y1="104"
+                                                          x2="104"
+                                                          y2="168"
+                                                          fill="none" stroke="#000000" stroke-linecap="round"
+                                                          strokeLinejoin="round" strokeWidth="16"></line>
+                                                    <line className="details-icon-color" x1="152" y1="104"
+                                                          x2="152"
+                                                          y2="168"
+                                                          fill="none" stroke="#000000" stroke-linecap="round"
+                                                          strokeLinejoin="round" strokeWidth="16"></line>
+                                                    <path className="details-icon-color"
+                                                          d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
+                                                          fill="none"
+                                                          stroke="#000000" stroke-linecap="round"
+                                                          strokeLinejoin="round" strokeWidth="16"></path>
+                                                    <path className="details-icon-color"
+                                                          d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
+                                                          fill="none" stroke="#000000" stroke-linecap="round"
+                                                          strokeLinejoin="round" strokeWidth="16"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className=" md:flex mb-6 mt-4 hidden ">
+                        <div className="md:w-full">
+                            <select name="IdChoroba" id="spec-content" onChange={this.handleChange}
+                                    className="form-select hidden block w-full focus:bg-white">
+                                <option value="">{t('choroba.selectDisease')}</option>
+                                {
+                                    choroby.map(choroba => (
+                                        <option selected={choroba.ID_Choroba === data1.IdChoroba}
+                                                className={this.checkIfExist(chorobyWizyta, choroba.ID_Choroba) === true ? "text-gray-300" : ""}
+                                                value={choroba.ID_Choroba}> {choroba.Nazwa}</option>
+                                    ))}
+                            </select>
+                            <span id="errorIdChoroba"
+                                  className="errors-text2 mt-4">{errors.IdChoroba}</span>
+                            <div className="relative  w-full ">
+                                <button id="spec-content1" onClick={() => {
+                                    this.addChoroba()
+                                }}
+                                        className="absolute hidden top-0 right-0  h-12 w-46  shadow-lg bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                    <span className="text-l font-bold ">+ {t('button.add')}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
                     {(uslugi.length !== 0) &&
                         <div>
                             <div className="flex justify-between mt-14">
-                                <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
+                                <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
                                     {t('usluga.title')}</h2>
                             </div>
-                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                            <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                     <thead
                                         className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -254,7 +478,7 @@ class SzczegolyWizyty extends React.Component {
                         </div>
                     }
                     <div className="flex justify-between mt-14">
-                        <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
+                        <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
                             {t('recepta.title')}</h2>
                         <div className="relative  w-1/3 ">
 
@@ -262,7 +486,7 @@ class SzczegolyWizyty extends React.Component {
                                 <div>
                                     <Link to={`/recepta/edit/${idWizyta}`}>
                                         <button id="menu-toggle"
-                                                className="absolute top-16 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                                className="shadow-xl absolute top-16 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">
                                     <svg className="list-actions-button-edit flex-1"
                                          xmlns="http://www.w3.org/2000/svg"
@@ -289,9 +513,8 @@ class SzczegolyWizyty extends React.Component {
                                     </Link>
                                     <Link to={`/recepta/delete/${idWizyta}`}>
                                         <button id="menu-toggle"
-                                                className="absolute top-32 right-0 h-12 w-46 shadow bg-red-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                <span className="text-2xl font-bold ">
-
+                                                className="shadow-xl absolute top-32 right-0 h-12 w-46 shadow bg-red-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                           <span className="text-2xl font-bold ">
                                             <svg className="list-actions-button-delete flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#FFFFFF" viewBox="0 0 256 256">
@@ -315,7 +538,7 @@ class SzczegolyWizyty extends React.Component {
                                                       fill="none" stroke="#FFFFFF" stroke-linecap="round"
                                                       strokeLinejoin="round" strokeWidth="16"></path>
                                             </svg>
-                                </span>
+                                            </span>
                                         </button>
                                     </Link>
                                 </div>
@@ -324,7 +547,7 @@ class SzczegolyWizyty extends React.Component {
                                 <Link to={`/recepta/add/${idWizyta}`}>
 
                                     <button id="menu-toggle"
-                                            className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                            className="shadow-xl absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                         <span className="text-2xl font-bold ">+</span>
                                     </button>
                                 </Link>
@@ -336,34 +559,34 @@ class SzczegolyWizyty extends React.Component {
 
                             <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
-                            <div className="overflow-x-auto">
-                            <table className="w-full mb-6   text-sm text-left text-gray-700 dark:text-gray-400">
-                                <thead
-                                    className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("lek.fields.name")}</th>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("lek.fields.quantity")}</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {lekiRecepta.map(x => (
-                                    <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
-                                        key={x.ID_lek}>
-                                        <td className="px-6 py-2 text-center">{x.Nazwa}</td>
-                                        <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
+                            <div className="overflow-x-auto shadow-xl">
+                                <table className="w-full    text-sm text-left text-gray-700 dark:text-gray-400">
+                                    <thead
+                                        className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("lek.fields.name")}</th>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("lek.fields.quantity")}</th>
+                                        <th></th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {lekiRecepta.map(x => (
+                                        <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
+                                            key={x.ID_lek}>
+                                            <td className="px-6 py-2 text-center">{x.Nazwa}</td>
+                                            <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
                             </div>
                             <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                 {t('recepta.fields.recommendations')}</h2>
-                            <textarea className="form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"
+                            <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"
                                       name="Notatka"
-                                      value={recepta.Zalecenia} rows="6"
+                                      value={recepta.Zalecenia } rows="6"
                                       disabled/>
                         </div>
                     }
@@ -383,5 +606,10 @@ const withRouter = WrappedComponent => props => {
         />
     );
 };
+const withNavigate = Component => props => {
+    const navigate = useNavigate();
+    return <Component {...props} navigate={navigate}/>;
+};
 
-export default withTranslation()(withRouter(SzczegolyWizyty));
+
+export default withTranslation()(withNavigate(withRouter(SzczegolyWizyty)));

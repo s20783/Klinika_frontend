@@ -1,6 +1,5 @@
 import api from "./Api";
 
-
 export async function addChorobaLek(IdChoroba, IdLek) {
     await api.post(`/ChorobaLek/${IdChoroba}/${IdLek}`);
 }

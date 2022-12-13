@@ -38,14 +38,14 @@ function KlientListTable(props) {
                     </div>
                     <label htmlFor="search">
                         <input type="text" id="search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 sm:w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               className="shadow-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 sm:w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                onChange={handleFilter} value={wordEntered}
                                placeholder={t('other.search')}/>
                     </label>
                 </div>
             </div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
+            <div className="relative overflow-x-auto shadow-xl mb-6 sm:rounded-lg">
+                <table className="w-full  text-sm text-left text-gray-700 dark:text-gray-400">
                     <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="text-center px-6 py-3">{t('klient.fields.firstName')}</th>
@@ -58,7 +58,7 @@ function KlientListTable(props) {
                     <tbody>
                     {filteredData.map(klient => (
                         <tr key={klient.IdOsoba}
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
+                            className="shadow-2xl bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
                             <td className="text-center px-6 py-2">{klient.Imie}</td>
                             <td className="text-center px-6 py-2">{klient.Nazwisko}</td>
                             <td className="text-center px-6 py-2">{klient.NumerTelefonu}</td>
@@ -68,7 +68,7 @@ function KlientListTable(props) {
                                     <div className="flex">
                                         <Link to={`/klienci/${klient.IdOsoba}`}
                                               className="list-actions-button-details flex-1">
-                                            <svg className="list-actions-button-details flex-1"
+                                            <svg className="list-actions-button-details flex-1  "
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#000000" viewBox="0 0 256 256">
                                                 <rect width="256" height="256" fill="none"/>

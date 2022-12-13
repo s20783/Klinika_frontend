@@ -64,19 +64,25 @@ class LekDetailsList extends React.Component {
 
         if (helpDiv.classList.contains("hidden")) {
             helpDiv.classList.remove("hidden");
+            helpDiv1.classList.remove("hidden");
+
         } else {
             helpDiv.classList.add("hidden");
+            helpDiv1.classList.add("hidden");
+
             const data = {...this.state.data1}
             data['IdChoroba'] = null
             this.setState({
                 data1: data,
             })
+            const errors = {...this.state.errors}
+            errors['IdChoroba'] = ''
+            this.setState({
+                errors: errors,
+            })
+
         }
-        if (helpDiv1.classList.contains("hidden")) {
-            helpDiv1.classList.remove("hidden");
-        } else {
-            helpDiv1.classList.add("hidden");
-        }
+
     }
 
 
@@ -142,7 +148,7 @@ class LekDetailsList extends React.Component {
     }
 
     render() {
-        const { IdLek, leki, lek, choroby, chorobyLek, errors} = this.state
+        const { IdLek, leki, lek, choroby, chorobyLek, errors, data1} = this.state
         const {t} = this.props;
         const {navigate} = this.props;
 
@@ -338,7 +344,7 @@ class LekDetailsList extends React.Component {
                                         <option value="">{t('choroba.selectDisease')}</option>
                                         {
                                             choroby.map(choroba => (
-                                                <option
+                                                <option selected={choroba.ID_Choroba === data1.IdChoroba}
                                                     className={this.checkIfExist(chorobyLek, choroba.ID_Choroba) === true ? "text-gray-300" : ""}
                                                     value={choroba.ID_Choroba}> {choroba.Nazwa}</option>
                                             ))}

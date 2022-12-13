@@ -13,13 +13,13 @@ function WizytaTableList(props) {
 
                 <Link to="/umowWizyte">
                     <button
-                        class="shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                        class="shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                         type="button">
                         {t("wizyta.button.appointment")}
                     </button>
                 </Link>
             </div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="relative overflow-x-auto shadow-xl sm:rounded-lg mb-6">
 
                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                     <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">

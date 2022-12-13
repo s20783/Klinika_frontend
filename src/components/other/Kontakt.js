@@ -39,8 +39,8 @@ function Kontakt() {
                             </div>
                         </div>
                         <div className="w-full sm:w-1/2 p-6 mt-6 ">
-                           <img className="rounded-md"
-                               src="/images/budynekKliniki.jpg"/>
+                           <img className="rounded-md shadow-2xl"
+                               src="/images/budynekKliniki.jpg" alt={"przychodnia"}/>
                         </div>
                     </div>
                     <div className="align-center">

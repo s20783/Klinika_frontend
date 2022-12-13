@@ -91,7 +91,7 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.owner')}
                                 </label>
                                 <input
-                                    class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
+                                    class="shadow-xl  form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
                                     name="Wlasciciel" id="Wlasciciel" type="text" value="Adam Nowak"
                                     disabled />
                             </div>
@@ -103,7 +103,7 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.name')}
                                 </label>
                                 <input
-                                    class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
+                                    class="shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
                                     name="Nazwa" id="Nazwa" type="text" value={pacjent.Nazwa}
                                     disabled/>
                             </div>
@@ -115,7 +115,7 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.species')}
                                 </label>
                                 <input
-                                    class=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                    class="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
                                     name="Gatunek" id="Gatunek" type="text" value={pacjent.Gatunek}
                                     disabled/>
                             </div>
@@ -125,7 +125,7 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.breed')}
                                 </label>
                                 <input
-                                    class=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Rasa" id="Rasa" type="text" value={pacjent.Rasa} disabled/>
                             </div>
                         </div>
@@ -137,7 +137,7 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.weight')}
                                 </label>
                                 <input
-                                    class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Waga" id="Waga" step="0.01" type="number" value={pacjent.Waga}
                                     disabled/>
 
@@ -148,7 +148,7 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.color')}
                                 </label>
                                 <input
-                                    class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Masc" id="Masc" type="text" value={pacjent.Masc} disabled/>
                             </div>
                         </div>
@@ -159,7 +159,7 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.birthdate')}
                                 </label>
                                 <input
-                                    class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="DataUrodzenia" id="DataUrodzenia" type="text"
                                     value={dayjs(pacjent.DataUrodzenia).format('YYYY-MM-DD')}
                                     disabled/>
@@ -171,14 +171,14 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.infertile')}
                                 </label>
                                 {pacjent.Ubezplodnienie === true &&
-                                    <svg class="h-8 w-8 text-black mb-5" width="24" height="24" viewBox="0 0 24 24"
+                                    <svg class="shadow-xl h-8 w-8 text-black " width="24" height="24" viewBox="0 0 24 24"
                                          stroke="currentColor" fill="none" stroke-linecap="round"
                                          strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z"/>
                                         <path d="M5 12l5 5l10 -10"/>
                                     </svg>}
                                 {pacjent.Ubezplodnienie === false &&
-                                    <svg class="h-8 w-8 text-black mb-5" fill="none" viewBox="0 0 24 24"
+                                    <svg class="shadow-xl h-8 w-8 text-black " fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                         <path stroke-linecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>}                        </div>
@@ -192,7 +192,7 @@ class SzczegolyPacjent extends React.Component {
                                 </label>
                                 {pacjent.Plec === "M" &&
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                         font-weight="bold" class="bi bi-gender-male" viewBox="0 0 16 16">
+                                         font-weight="bold" class=" bi bi-gender-male" viewBox="0 0 16 16">
                                         <path fillRule="evenodd"
                                               d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"
                                               stroke="black" strokeWidth="0.5"/>
@@ -211,14 +211,14 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.aggressive')}
                                 </label>
                                 {pacjent.Agresywne === true &&
-                                    <svg class="h-8 w-8 text-black" width="24" height="24" viewBox="0 0 24 24"
+                                    <svg class="shadow-xl h-8 w-8 text-black" width="24" height="24" viewBox="0 0 24 24"
                                          stroke="currentColor" fill="none" stroke-linecap="round"
                                          strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z"/>
                                         <path d="M5 12l5 5l10 -10"/>
                                     </svg>}
                                 {pacjent.Agresywne === false &&
-                                    <svg class="h-8 w-8 text-black " fill="none" viewBox="0 0 24 24"
+                                    <svg class="shadow-xl h-8 w-8 text-black " fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                         <path stroke-linecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>}
@@ -234,14 +234,14 @@ class SzczegolyPacjent extends React.Component {
                         <div className="relative  w-1/3 ">
                          <Link to={`/szczepienie/${idPacjent}`}>
                              <button id="menu-toggle"
-                                    className="absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
                          </Link>
                         </div>
                     </div>
                     {(szczepienia.length !== 0) &&
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                        <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -335,17 +335,6 @@ class SzczegolyPacjent extends React.Component {
                         </div>
                     }
 
-
-
-
-
-
-
-
-
-
-
-
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('wizyta.title')}</h2>
@@ -354,13 +343,13 @@ class SzczegolyPacjent extends React.Component {
                             <button id="menu-toggle" onClick={() => {
                                 this.mozeDoWizyty()
                             }}
-                                    className="absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
                         </div>
                     </div>
                     {(wizyty.length !== 0) &&
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                        <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
