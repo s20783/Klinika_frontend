@@ -204,6 +204,9 @@ class FormularzSzczepienia extends React.Component {
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit} className="w-full max-w">
 
+
+
+
                         <div className="flex flex-wrap -mx-3 mb-6 border-b">
                             <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
                                 <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2">
@@ -232,6 +235,9 @@ class FormularzSzczepienia extends React.Component {
                                 <span id="errorDawka" className="errors-text2 mb-4 ">{errors.Dawka}</span>
                             </div>
                         </div>
+
+
+
 
                         <div className="flex flex-wrap -mx-3 mb-6 ">
                             <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">

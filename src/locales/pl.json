@@ -24,6 +24,7 @@
     "max50": "To pole wymaga od 2 do 50 znaków",
     "max100": "To pole wymaga od 2 do 100 znaków",
     "max300": "To pole wymaga od 2 do 300 znaków",
+    "max500": "To pole wymaga od 2 do 500 znaków",
     "max300nullable": "To pole wymaga do 300 znaków",
     "max50nullable": "To pole wymaga do 50 znaków",
     "date": "Data nie może byc z przyszłości",
@@ -116,7 +117,12 @@
     "personalData": "Dane osobowe",
     "vacations": "Urlopy",
     "add": "Dodaj ",
-    "update": "Aktualizuj "
+    "update": "Aktualizuj ",
+    "info": "Informacje",
+    "medicines": "Leki",
+    "diseases": "Choroby",
+    "services": "Usługi",
+    "prescription": "Recepta"
   },
   "konto": {
     "myAccount": "Moje konto",
@@ -142,6 +148,7 @@
     "title": "Wizyty",
     "makeAnAppointment": "Umówienie wizyty",
     "visitDetails": "Szczegóły wizyty",
+    "editingVisit": "Edycja wizyty",
     "thankYou": "Dziękujemy!",
     "confirmation": "Potwierdzenie umówienia wizyty.",
     "date": "Termin",
@@ -264,6 +271,7 @@
     "editService": "Edycja uslugi",
     "deletingService": "Czy na pewno chcesz usunąc usluge?",
     "deleteService": "Usuń usluge",
+    "selectService": "Wyberz usluge",
     "addDescription": "Dodaj opis . . .",
     "button": {
       "addService": "Dodaj usluge"
@@ -305,6 +313,7 @@
     "addNewMedicineWarehouse": "Dodanie nowego leku w magazynie",
     "editMedicine": "Edycja leku",
     "editMedicineWarehouse": "Edycja leku w magazynie",
+    "selectMedicine": "Wybierz lek",
     "deletingMedicine": "Czy na pewno chcesz usunąc lek?",
     "deletingMedicineWarehouse": "Czy na pewno chcesz usunąc lek z magazynu?",
     "deleteMedicine": "Usuń lek",

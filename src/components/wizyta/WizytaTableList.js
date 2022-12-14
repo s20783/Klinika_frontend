@@ -65,7 +65,7 @@ function WizytaTableList(props) {
                                                         r="12"></circle>
                                             </svg>
                                         </Link>
-                                        {isWeterynarz() && <Link to={`/wizyty/edit/${x.IdWizyta}`}
+                                        {isWeterynarz() && <Link to={`/wizyty/editInfo/${x.IdWizyta}`}
                                                                              className="list-actions-button-details flex-1">
                                                         <svg className="list-actions-button-edit flex-1"
                                                              xmlns="http://www.w3.org/2000/svg"

@@ -33,7 +33,7 @@ function DropdownMenu(props) {
         <div onMouseEnter={onMouseEnter}
              onMouseLeave={onMouseLeave}>
             <button id="userMenu"
-                    className="flex items-center shadow bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-sm md:text-base font-bold py-2 px-4 rounded"
+                    className="flex items-center shadow-xl bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-sm md:text-base font-bold py-2 px-4 rounded"
                     aria-expanded={dropdown ? "true" : "false"}
                     onClick={() => {
                         setDropdown((prev) => !prev)

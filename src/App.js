@@ -63,6 +63,10 @@ import FormularzRecepty from "./components/recepta/FormularzRecepty";
 import KontoRecepty from "./components/konto/KontoRecepty";
 import SzczegolyRecepta from "./components/recepta/SzczegolyRecepta";
 import UsuniecieRecepty from "./components/recepta/UsuniecieRecepty";
+import Info from "./components/wizyta/FormularzWizyty/Info";
+import LekiChoroby from "./components/wizyta/FormularzWizyty/LekiChoroby";
+import Uslugi from "./components/wizyta/FormularzWizyty/Uslugi";
+import Recepta from "./components/wizyta/FormularzWizyty/Recepta";
 
 class App extends React.Component {
     constructor(props) {
@@ -113,7 +117,6 @@ class App extends React.Component {
                     <Route path="/weterynarze/delete/:IdOsoba" element={<UsuniecieWeterynarza/>}/>
                     <Route path="/godzinyPracyWeterynarz/:IdOsoba" element={<GodzinyPracyWeterynarz/>}/>
 
-
                     <Route path="/godzinyPracy/:IdOsoba" element={<GodzinyPracy/>}/>
                     <Route path="/czyDodacGodziny/:IdOsoba" element={<CzyDodacGodziny/>}/>
                     <Route path="/godzinyPracy/delete/:IdOsoba/:Dzien" element={<UsuniecieGodzinPracy/>}/>
@@ -137,7 +140,6 @@ class App extends React.Component {
                     <Route path="/szczepienie/edit/:idPacjent/:idSzczepienie" element={<FormularzSzczepienia/>}/>
                     <Route path="/szczepienie/delete/:idSzczepienie" element={<UsuniecieSzczepienia/>}/>
 
-
                     <Route path="/uslugi" element={<UslugaList/>}/>
                     <Route path="/dodajUsluge" element={<FormularzUslugi/>}/>
                     <Route path="/uslugi/edycjaUsluga/:idUsluga" element={<FormularzUslugi/>}/>
@@ -156,6 +158,11 @@ class App extends React.Component {
                     <Route path="/wizyty/delete/:idWizyta" element={<UsuniecieWizyty/>}/>
                     <Route path="/wizyty" element={<WizytaList/>}/>
                     <Route path="/wizyty/:IdWizyta" element={<SzczegolyWizyty/>}/>
+                    <Route path="/wizyty/editInfo/:IdWizyta" element={<Info/>}/>
+                    <Route path="/wizyty/editMedDise/:IdWizyta" element={<LekiChoroby/>}/>
+                    <Route path="/wizyty/editServices/:IdWizyta" element={<Uslugi/>}/>
+                    <Route path="/wizyty/editPrescription/:IdWizyta" element={<Recepta/>}/>
+
 
                     <Route path="/recepta/:typ/:IdRecepta" element={<FormularzRecepty/>}/>
                     <Route path="/mojeRecepty" element={<KontoRecepty/>}/>
@@ -179,7 +186,6 @@ class App extends React.Component {
                     <Route path="/leki/magazyn/delete/:IdStanLeku" element={<UsuniecieLekuMagazyn/>}/>
 
                     <Route path="/harmonogram" element={<HarmonogramForm/>}/>
-
 
                     <Route path="/pacjenci" element={<PacjentList/>}/>
                     <Route path="/dodajPacjenta" element={<FormularzPacjenta/>}/>

@@ -111,7 +111,12 @@
 		"checkSchedule": "Check schedule",
 		"workingHours": "Working hours",
 		"add": "Add schedule",
-		"update": "Update schedule"
+		"update": "Update schedule",
+		"info": "Information",
+		"medicines": "Medicines",
+		"diseases": "Diseases",
+		"services": "Services",
+		"prescription": "Prescription"
 	},
 	"konto": {
 		"myAccount": "My account",
@@ -137,6 +142,7 @@
 		"title": "Appointments",
 		"makeAnAppointment": "Make an appointment",
 		"visitDetails": "Visit Details",
+		"editingVisit": "Editing visit",
 		"thankYou": "Thank you!",
 		"confirmation": "Appointment confirmed.",
 		"date": "Date",
@@ -259,6 +265,7 @@
 		"editService": "Editing service",
 		"deletingService": "Are you sure you want to delete service?",
 		"deleteService": "Delete service",
+		"selectService": "Select service",
 		"addDescription":"Add description . . .",
 		"button": {
 			"addService": "Add service"

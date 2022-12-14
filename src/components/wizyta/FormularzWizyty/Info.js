@@ -1,37 +1,31 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getFormattedDateWithHour} from "../other/dateFormat";
+import {getFormattedDateWithHour} from "../../other/dateFormat";
 import {Link} from "react-router-dom";
-import {getWizytaDetails} from "../../axios/WizytaAxiosCalls";
-import {getReceptaDetails, getReceptaLeki} from "../../axios/ReceptaAxiosCalls";
-import {getUslugaWizytaList} from "../../axios/UslugaAxiosCalls";
-import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../axios/WizytaChorobaAxiosCalls";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+import {getWizytaDetails} from "../../../axios/WizytaAxiosCalls";
+import {getReceptaDetails, getReceptaLeki} from "../../../axios/ReceptaAxiosCalls";
+import {getUslugaWizytaList} from "../../../axios/UslugaAxiosCalls";
+import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../../axios/WizytaChorobaAxiosCalls";
+import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
+import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
+import {CheckTextRange} from "../../helpers/CheckTextRange";
 
-class SzczegolyWizyty extends React.Component {
+class Info extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdWizyta = this.props.params.IdWizyta
         this.state = {
-            wizyta: {
-                Pacjent: '',
-                Weterynarz: '',
-                DataRozpoczecia: null,
-                DataZakonczenia: null,
-                Opis: '',
-                NotatkaKlient: '',
-                Cena: null,
-                CzyOplacona: false,
-                Status: '',
+            wizyta:'',
+            data:{
+                Opis: ''
+            },
+            errors:{
+                Opis: ''
             },
             idWizyta: paramsIdWizyta,
             message: '',
-            uslugi: [],
-            chorobyWizyta: [],
-            recepta: '',
-            lekiRecepta: [],
-            leki:[]
+
         }
     }
 
@@ -45,97 +39,64 @@ class SzczegolyWizyty extends React.Component {
                 isLoaded: true,
                 wizyta: data
             });
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    fetchReceptaDetails = async () => {
-        try {
-            var res = await getReceptaDetails(this.state.idWizyta)
-            var data = await res.data
-
-            //  console.log(data)
+            const data1=this.state.data
+            data1['Opis']=data.Opis
             this.setState({
                 isLoaded: true,
-                recepta: data
-            });
-
-            res = await getReceptaLeki(this.state.idWizyta)
-            data = await res.data
-
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                lekiRecepta: data
-            });
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    fetchUslugi = async () => {
-        try {
-            const res = await getUslugaWizytaList(this.state.idWizyta)
-            var data = await res.data
-
-            //console.log(data)
-            this.setState({
-                isLoaded: true,
-                uslugi: data
-            });
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    fetchChoroby = async () => {
-        try {
-            const res = await getChorobaWizytaList(this.state.idWizyta)
-            var data = await res.data
-
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                chorobyWizyta: data
+                data: data1
             });
         } catch (error) {
             console.log(error)
         }
     }
 
-    fetchLeki = async () => {
-
-        /*try {
-            const res = await getLekiWizytaList(this.state.idWizyta)
-            var data = await res.data
-
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                leki: data
-            });
-        } catch (error) {
-            console.log(error)
-        }*/
-    }
     componentDidMount() {
         this.fetchWizytaDetails()
-        this.fetchReceptaDetails()
-        this.fetchUslugi()
-        this.fetchChoroby()
-        this.fetchLeki()
     }
 
+    handleChange = (event) => {
+        const {name, value} = event.target
+        const data = {...this.state.data}
+        data[name] = value
+
+        const errorMessage = this.validateField(name, value)
+        const errors = {...this.state.errors}
+        errors[name] = errorMessage
+
+        this.setState({
+            data: data,
+            errors: errors
+        })
+
+    }
+    validateField = (fieldName, fieldValue) => {
+        const {t} = this.props;
+        let errorMessage = '';
+        if (fieldName === 'Opis') {
+            if (!CheckTextRange(fieldValue, 2, 500)) {
+                errorMessage = t('validation.max500')
+            }
+            if (!fieldValue) {
+                errorMessage = `${t('validation.required')}`
+            }
+        }
+        return errorMessage;
+    }
+
+    updateWizyta = async () => {
+
+    }
 
     render() {
-        const {wizyta, uslugi, chorobyWizyta, recepta, lekiRecepta} = this.state
+        const {wizyta, idWizyta, data, errors} = this.state
         const {t} = this.props;
+
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('wizyta.visitDetails')}</p>
+                    <FormularzWizytaMenu idWizyta={idWizyta}/>
+
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -194,8 +155,9 @@ class SzczegolyWizyty extends React.Component {
                             <div class="md:w-3/4 mt-5">
                           <textarea class="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Opis"
                                     name="Opis"
-                                    value={wizyta.Opis} rows="5" disabled/>
+                                    value={data.Opis} rows="5" onChange={this.handleChange}/>
                             </div>
+                            <span className="errors-text2 my-6">{errors.Opis}</span>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6 border-b">
                             <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
@@ -253,113 +215,27 @@ class SzczegolyWizyty extends React.Component {
                                     name="Cena" id="Cena" type="text" value={wizyta.Cena} placeholder=""
                                     disabled/>
                             </div>
+                            <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0 ml-8">
+                                <button onClick={() => this.zaakceptujCene()}
+                                        className=" ml-4 mt-8 shadow-xl bg-green-400 hover:bg-white  hover:text-green-400  focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    Zaakceptuj cene
+                                </button>
+                            </div>
                         </div>
                     </form>
-
-                    {(chorobyWizyta.length !== 0) &&
-                        <div>
-                            <div className="flex justify-between mt-12">
-                                <h2 className=" w-1/3 my-2  mb-6 text-xl font-black leading-tight text-gray-600">
-                                    {t('choroba.title')}</h2>
-                            </div>
-                            <div className="relative overflow-x-auto  shadow-xl sm:rounded-lg ">
-                                <table className="w-full shadow-xl text-sm text-left text-gray-700 dark:text-gray-400">
-                                    <thead
-                                        className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {chorobyWizyta.map(x => (
-                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
-                                            key={x.ID_Choroba}>
-                                            <td className=" px-8 py-2 ">• {x.Nazwa}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>}
-
-                    {(uslugi.length !== 0) &&
-                        <div>
-                            <div className="flex justify-between mt-14">
-                                <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
-                                    {t('usluga.title')}</h2>
-                            </div>
-                            <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
-                                <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
-                                    <thead
-                                        className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" className="px-6 uppercase py-3 text-center">
-                                            {t("usluga.fields.name")}</th>
-                                        <th scope="col" className="px-6 uppercase py-3 text-center">
-                                            {t("usluga.fields.narcosis")}</th>
-                                        <th scope="col" className="px-6 uppercase py-3 text-center">
-                                            {t("usluga.fields.price")}</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {uslugi.map(x => (
-                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
-                                            key={x.idUsluga}>
-                                            <td className="px-6 py-2 text-center">{x.NazwaUslugi}</td>
-                                            <td className="px-6 py-2 text-center">{x.Narkoza === false ? t("other.no") : t("other.yes")} </td>
-                                            <td className="px-6 py-2 text-center">{x.Cena}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div className=" md:flex mb-6 mt-8 ">
+                        <div className="flex pb-3">
+                            <button
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    type="button">
+                                {t("button.back")}
+                            </button>
+                            <button onClick={() => this.updateWizyta()}
+                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                {t("button.confirm")}
+                            </button>
                         </div>
-                    }
-                    {recepta !== '' &&
-                        <div>
-                        <div className="flex justify-between mt-14">
-                            <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
-                                {t('recepta.title')}</h2>
-                        </div>
-                        <div className="border-4 border-blue-200  h-fit ml-3 shadow-xl rounded-md mx-20">
-
-                            <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
-                                {t('recepta.fields.medicines')}</h2>
-                            <div className="overflow-x-auto shadow-xl">
-                                <table className="w-full    text-sm text-left text-gray-700 dark:text-gray-400">
-                                    <thead
-                                        className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" className="px-6 uppercase py-3 text-center">
-                                            {t("lek.fields.name")}</th>
-                                        <th scope="col" className="px-6 uppercase py-3 text-center">
-                                            {t("lek.fields.quantity")}</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {lekiRecepta.map(x => (
-                                        <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
-                                            key={x.ID_lek}>
-                                            <td className="px-6 py-2 text-center">{x.Nazwa}</td>
-                                            <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
-                                {t('recepta.fields.recommendations')}</h2>
-                            <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4"
-                                      id="Notatka"
-                                      name="Notatka"
-                                      value={recepta.Zalecenia} rows="6"
-                                      disabled/>
-                        </div>
-                        </div>
-                    }
+                    </div>
                 </div>
             </div>
         )
@@ -382,4 +258,4 @@ const withNavigate = Component => props => {
 };
 
 
-export default withTranslation()(withNavigate(withRouter(SzczegolyWizyty)));
+export default withTranslation()(withNavigate(withRouter(Info)));

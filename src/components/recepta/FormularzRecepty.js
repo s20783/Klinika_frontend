@@ -248,7 +248,7 @@ class FormularzRecepty extends React.Component {
         if (dane.errors.Zalecenia === '' && dane.lekiRecepta.length !== 0) {
             try {
                 await updateRecepta(dane.idRecepta, dane.data.Zalecenia)
-                navigate(`/wizyty/${dane.idRecepta}`, {replace: true});
+                navigate(-1, {replace: true});
             } catch (error) {
                 console.log(error)
             }
@@ -306,7 +306,7 @@ class FormularzRecepty extends React.Component {
                         </div>
                         {lekiRecepta.length !== 0 &&
                             <div className="overflow-x-auto shadow-xl">
-                                <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
+                                <table className="w-full  text-sm text-left text-gray-700 dark:text-gray-400">
                                     <thead
                                         className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
@@ -366,7 +366,7 @@ class FormularzRecepty extends React.Component {
 
 
                         <div className="flex flex-wrap -mx-3 mb-6 ">
-                            <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
+                            <div className="w-full md:w-4/6 px-3 mb-6 mt-6 md:mb-0">
 
                                 <select name="Lek" id="spec-content" onChange={this.handleChange}
                                         className="shadow-xl form-select ml-3 md:w-full w-2/3 focus:bg-white hidden">
@@ -382,7 +382,7 @@ class FormularzRecepty extends React.Component {
                                 <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.Lek}</span>
                             </div>
 
-                            <div className="w-1/3 md:w-1/6 px-3 mb-6 md:mb-0 ml-12">
+                            <div className="w-1/3 md:w-1/6 px-3 mb-6 mt-6 md:mb-0 ml-12">
 
                                 <input
                                     className="shadow-xl hidden form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "

@@ -9,12 +9,12 @@ function Dropdown(props) {
     const {t} = useTranslation();
     let navigate = useNavigate();
     return (
-        <ul className="bg-white rounded shadow-md mt-2 absolute mt-12 top-0 left-0 min-w-full overflow-auto z-30">
+        <ul className="bg-white rounded shadow-2xl mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30">
 
             {(isKlient()) && userMenuValues.map((item) => {
                 return <li>
                     <Link to={item.url} key={item.title}
-                          className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">
+                          className="px-8 py-2 block hover:bg-gray-400 no-underline hover:no-underline">
                         {t('userMenu.' + item.title)}
                     </Link>
                 </li>;
@@ -22,7 +22,7 @@ function Dropdown(props) {
             {( isWeterynarz()) && vetMenuValues.map((item) => {
                 return <li>
                     <Link to={item.url} key={item.title}
-                          className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">
+                          className="px-8 py-2 block hover:bg-gray-400 no-underline hover:no-underline">
                         {t('userMenu.' + item.title)}
                     </Link>
                 </li>;
@@ -30,7 +30,7 @@ function Dropdown(props) {
             {isAdmin() && adminMenuValues.map((item) => {
                 return <li>
                     <Link to={item.url} key={item.title}
-                          className="px-4 py-2 block hover:bg-gray-400 no-underline hover:no-underline">
+                          className="px-8 py-2 block hover:bg-gray-400 no-underline hover:no-underline">
                         {t('userMenu.' + item.title)}
                     </Link>
                 </li>;
