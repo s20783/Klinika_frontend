@@ -224,8 +224,7 @@ class GodzinyPracy extends React.Component {
         }
     }
 
-    changeGodzinyPracy = async (event) => {
-        event.preventDefault();
+    changeGodzinyPracy = async () => {
         const {navigate} = this.props;
         const dane = {...this.state}
         const isValid = this.validateForm()

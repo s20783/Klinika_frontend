@@ -42,7 +42,7 @@ class UsuniecieWeterynarza extends React.Component {
 
                     <div class="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
-                                class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
+                                class="shadow-xl px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
                         <button onClick={() => this.removeWeterynarza(idWeterynarz)}
                                 class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('weterynarz.deleteVet')}</button>
                     </div>

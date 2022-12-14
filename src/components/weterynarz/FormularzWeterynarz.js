@@ -247,7 +247,7 @@ class FormularzWeterynarz extends React.Component {
                                 {t('weterynarz.fields.firstName')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Imie" id="Imie" type="text" value={data.Imie}
                                 onChange={this.handleChange} placeholder=""/>
                             <span id="errorImie" className="errors-text2 mb-4 ">{errors.Imie}</span>
@@ -259,7 +259,7 @@ class FormularzWeterynarz extends React.Component {
                                 {t('weterynarz.fields.lastName')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
                                 placeholder="" onChange={this.handleChange}/>
                             <span id="errorNazwisko"
@@ -273,7 +273,7 @@ class FormularzWeterynarz extends React.Component {
                                 {t('weterynarz.fields.phoneNumber')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
                                 value={data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
                             <span id="errorNumerTelefonu"
@@ -285,7 +285,7 @@ class FormularzWeterynarz extends React.Component {
                                 {t('weterynarz.fields.email')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Email" id="Email" type="text" value={data.Email} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Email}</span>
@@ -333,13 +333,13 @@ class FormularzWeterynarz extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
+                    <div class="flex flex-wrap -mx-3 mb-6 ">
                         <div class="w-full md:w-1/3 px-3 mb-6  md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.salary')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Pensja" id="Pensja" type="number" value={data.Pensja}
                                 placeholder="" onChange={this.handleChange}/>
                             <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Pensja}</span>
@@ -348,12 +348,12 @@ class FormularzWeterynarz extends React.Component {
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t("button.back")}
                             </button>
                             <button type="submit"
-                                    className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 {t("button.confirm")}
                             </button>
                         </div>

@@ -38,12 +38,12 @@ function SpecjalizacjaListTable(props) {
                     </div>
                     <label htmlFor="search">
                         <input type="text" id="search"
-                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 md:w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               className="shadow-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 md:w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                onChange={handleFilter} value={wordEntered}
                                placeholder={t('other.search')}/>
                     </label>
                     <Link to="/dodajSpecjalizacje"
-                          className="absolute    top-0 right-0  h-12 w-12 sm:w-56  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                          className="absolute shadow-xl top-0 right-0  h-12 w-12 sm:w-auto  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                         <span className="text-xl">+</span>
                         <span className="invisible sm:visible ">
                             {t('specjalizacja.button.addSpecialization')}
@@ -51,7 +51,7 @@ function SpecjalizacjaListTable(props) {
                     </Link>
                 </div>
             </div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+            <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
 
                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                     <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">

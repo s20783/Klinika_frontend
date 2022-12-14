@@ -47,12 +47,13 @@ class KontoGodzinyPracy extends React.Component {
             <div class="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3">
                 <KontoMenu/>
                 <div
-                    class="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    class="w-full  lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
 
                     <div className="flex justify-between mt-8">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('godzinyPracy.title')}</h2>
                     </div>
+                    <div className="shadow-xl">
                     <table
                         className="w-full text-center flex flex-wrap mb-12 text-gray-700 dark:text-gray-400">
                         <tr></tr>
@@ -152,12 +153,13 @@ class KontoGodzinyPracy extends React.Component {
                             </td>
                         </tr>
                     </table>
+                    </div>
                     <div className="flex justify-between 6">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('urlop.title')}</h2>
                     </div>
                     {(urlopy.length !== 0) &&
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                        <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -172,6 +174,7 @@ class KontoGodzinyPracy extends React.Component {
                                 ))}
                                 </tbody>
                             </table>
+
                         </div>
                     }
                 </div>

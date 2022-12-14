@@ -84,11 +84,11 @@ class Konto extends React.Component {
                                     {t('konto.accountManagement')}</p>
                                 <label className="flex flex-col items-left mt-4">
                                     <Link to="/zmianaDanychKonta"
-                                          className="shadow bg-blue-400 w-60 mb-6 hover:bg-white text-center hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                          className="shadow-xl bg-blue-400 w-60 mb-6 hover:bg-white text-center hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                         {t('konto.button.changeContactData')}
                                     </Link>
                                     <Link to="/zmianaHasla"
-                                          className="shadow bg-blue-400 w-60 mb-6 text-center hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                          className="shadow-xl bg-blue-400 w-60 mb-6 text-center hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                         {t('konto.button.changePassword')}
                                     </Link>
                                 </label>

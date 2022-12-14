@@ -70,12 +70,12 @@ class SzczegolyRecepta extends React.Component {
                             {t('recepta.title')}</h2>
                     </div>
 
-                    <div className="border-4 border-blue-200 h-fit ml-3 shadow-xl rounded-md mx-20 mb-12">
+                    <div className="border-4 border-blue-200 h-fit ml-3 rounded-md mx-20 mb-12">
                         <div className="w-full relative mt-">
                             <h2 className="w-full  my-12 mb-5 ml-4 text-lg font-bold leading-tight   text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                         </div>
-
+                            <div className="shadow-xl">
                             <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -97,9 +97,10 @@ class SzczegolyRecepta extends React.Component {
                                 ))}
                                 </tbody>
                             </table>
+                            </div>
                         <h2 className=" w-1/3 my-8 mb-8 ml-4 text-lg font-bold leading-tight  text-gray-600">
                             {t('recepta.fields.recommendations')}</h2>
-                        <textarea className="form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"
+                        <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"
                                   name="Notatka"
                                   value={data.Zalecenia} rows="6"
                         />
@@ -109,7 +110,7 @@ class SzczegolyRecepta extends React.Component {
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t("button.back")}
                             </button>

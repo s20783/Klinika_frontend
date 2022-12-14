@@ -166,13 +166,14 @@ class LekDetailsList extends React.Component {
                                         {lek.Nazwa} ({lek.JednostkaMiary})</h2>
                                     <div className="relative w-1/3 ">
                                         <Link to={`/leki/magazyn/dodajLek/${IdLek}`}
-                                              className="absolute top-0 right-0  h-12 w-12 md:w-64  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                              className="absolute top-0 right-0  h-12 w-12 md:w-auto  shadow-lg bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                             <span className="text-xl">+ </span>
                                             <span className="invisible md:visible ">
                                                 {t('lek.button.addMedicineInWarehouse')}</span>
                                         </Link>
                                     </div>
                                 </div>
+                                <div className="shadow-xl">
                                 <table className="w-full text-sm text-left text-gray-700  mb-12">
                                     <thead
                                         className="text-s text-gray-700 uppercase bg-gray-100 ">
@@ -266,6 +267,7 @@ class LekDetailsList extends React.Component {
                                     ))}
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
 
 
@@ -276,12 +278,12 @@ class LekDetailsList extends React.Component {
                                     <button id="menu-toggle" onClick={() => {
                                         this.showSelect()
                                     }}
-                                            className="absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                            className="shadow-xl absolute  top-0 right-0  h-12 w-46  bg-blue-400 hover:bg-white  hover:text-blue-400  focus:outline-none text-white font-bold py-2 px-4 rounded">
                                         <span className="text-2xl font-bold ">+</span>
                                     </button>
                                 </div>
                             </div>
-                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                            <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                                 <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                     <thead
                                         className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -355,7 +357,7 @@ class LekDetailsList extends React.Component {
                                         <button id="spec-content1" onClick={() => {
                                             this.addChoroba()
                                         }}
-                                                className="absolute hidden top-0 right-0  h-12 w-46 mt-2 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                                className="absolute hidden top-0 right-0  h-12 w-46 mt-2 shadow-xl bg-white hover:bg-gray-300  hover:text-blue-400  focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                             <span className="text-l font-bold ">+ {t('button.add')}</span>
                                         </button>
                                     </div>
@@ -364,7 +366,7 @@ class LekDetailsList extends React.Component {
 
                             <div className=" md:flex mb-6 mt-8 ">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>

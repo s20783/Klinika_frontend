@@ -171,12 +171,12 @@ class KontoHarmonogram extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("harmonogram.button.check")}
                                 </button>
                             </div>

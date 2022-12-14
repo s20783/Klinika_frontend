@@ -66,7 +66,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                             <div className="absolute top-0 right-0">
                                 <Link to={`/godzinyPracy/${idWeterynarz}`}>
                                     <button
-                                        className=" h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" h-12 w-46 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                         <span className="text-2xl font-bold">+</span>
                                         {(godzinyPracy.length !== 0) ?
                                             <span className="text-l font-bold"> Zmień</span>
@@ -81,14 +81,14 @@ class GodzinyPracyWeterynarz extends React.Component {
                         <table
                             className="w-full text-center flex flex-wrap text-gray-700 dark:text-gray-400">
                             <tr></tr>
-                            <tr>
-                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                            <tr className="shadow-xl">
+                                <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.1")}</span>
                                 </th>
                                 {godzinyPracy.map(x => (
                                     (x.DzienTygodnia === 1) &&
-                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <td className="text-center w-full flex flex-wrap mt-10ki mb-10">
                                         <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
@@ -97,14 +97,14 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="border-b-2 border-t-2">
-                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                            <tr className="shadow-xl border-b-2 border-t-2">
+                                <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.2")}</span>
                                 </th>
                                 {godzinyPracy.map(x => (
                                     (x.DzienTygodnia === 2) &&
-                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <td className="text-center w-full flex flex-wrap mt-10 mb-10">
                                         <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
@@ -113,14 +113,14 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr>
-                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                            <tr className="shadow-xl">
+                                <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.3")}</span>
                                 </th>
                                 {godzinyPracy.map(x => (
                                     (x.DzienTygodnia === 3) &&
-                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <td className="text-center w-full flex flex-wrap mt-10 mb-10">
                                         <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
@@ -129,14 +129,14 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="border-b-2 border-t-2">
-                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                            <tr className="shadow-xl border-b-2 border-t-2">
+                                <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.4")}</span>
                                 </th>
                                 {godzinyPracy.map(x => (
                                     (x.DzienTygodnia === 4) &&
-                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <td className="text-center w-full flex flex-wrap mt-10 mb-10 ">
                                         <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
@@ -145,14 +145,14 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr>
-                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                            <tr className="shadow-xl">
+                                <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.5")}</span>
                                 </th>
                                 {godzinyPracy.map(x => (
                                     (x.DzienTygodnia === 5) &&
-                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <td className="text-center w-full flex flex-wrap  mb-10 mt-10">
                                         <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
@@ -161,12 +161,12 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="border-2">
-                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                            <tr className="border-2 shadow-xl">
+                                <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.6")}</span>
                                 </th>
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                <td className="text-center w-full flex flex-wrap my-2 mb-10 ">
                                     <div className="w-full">
                                         {godzinyPracy.map(x => (
                                             (x.DzienTygodnia === 6) &&
@@ -177,6 +177,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                 </td>
                             </tr>
                         </table>
+
                     }
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
@@ -184,14 +185,14 @@ class GodzinyPracyWeterynarz extends React.Component {
                         <div className="relative  w-1/3 ">
                             <Link to={`/urlop/${idWeterynarz}`}>
                             <button id="menu-toggle"
-                                    className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="absolute top-0 right-0 h-12 w-46 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
                             </Link>
                         </div>
                     </div>
                     {(urlopy.length !== 0) &&
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                        <div className="relative overflow-x-auto shadow-xl  sm:rounded-lg ">
                             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -269,7 +270,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                         <div className="flex pb-3">
                             <Link to={`/weterynarze`}>
                                 <button
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                     {t("button.back")}
                                 </button>

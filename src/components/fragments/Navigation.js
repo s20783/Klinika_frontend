@@ -27,7 +27,7 @@ class Navigation extends React.Component {
                                 Zaloguj się
                             </Link>
                             <Link to="/register"
-                                  className="sm:ml-8 ml-1 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-400">
+                                  className="shadow-xl sm:ml-8 ml-1 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-400">
                                 Zarejestruj się
                             </Link>
                         </div>
@@ -42,7 +42,7 @@ class Navigation extends React.Component {
                         <div className=" flex justify-start xl:flex-auto">
                             <Link to="/">
                                 <img
-                                    className=""
+                                    className="shadow-xl"
                                     src="/images/logo.png"
                                     alt="logo"
                                 />

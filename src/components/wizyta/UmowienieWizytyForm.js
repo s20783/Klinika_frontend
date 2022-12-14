@@ -194,7 +194,7 @@ class UmowienieWizytyForm extends React.Component {
                                 <div className="md:w-3/5">
 
                                     <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
-                                            className={errors.Pacjent ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
+                                            className= "shadow-xl form-select block w-full focus:bg-white">
                                         <option value="">{t("wizyta.selectPatient")}</option>
                                         {
                                             list.map(pacjent => (
@@ -228,19 +228,19 @@ class UmowienieWizytyForm extends React.Component {
                         {t("wizyta.field.description")}
                     </label>
                     <div className="md:w-3/4 mt-5">
-                        <textarea className="form-textarea block w-full focus:bg-white " id="Notatka" name="Notatka"
+                        <textarea className="shadow-xl form-textarea block w-full focus:bg-white " id="Notatka" name="Notatka"
                                   rows="5" onChange={this.handleChange}/>
                     </div>
                     <span id="errorOpis" className="errors-text2">{errors.Notatka}</span>
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t("button.back")}
                             </button>
                             <button type="submit"
-                                    className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 {t("button.next")}
                             </button>
                         </div>

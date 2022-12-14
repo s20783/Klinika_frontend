@@ -13,9 +13,9 @@ function WizytaTableList(props) {
 
                 <Link to="/umowWizyte">
                     <button
-                        class="shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                        class="shadow-xl bg-blue-400 hover:bg-white h-12 w-12 sm:w-auto hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                         type="button">
-                        {t("wizyta.button.appointment")}
+                        + {t("wizyta.button.appointment")}
                     </button>
                 </Link>
             </div>

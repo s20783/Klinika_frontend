@@ -59,7 +59,7 @@ class UsuniecieWizyty extends React.Component {
                         </button>
                         <button
                             onClick={() => this.removeWizyte(idWizyta)}
-                            class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('wizyta.deleteVisit')}
+                            class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('wizyta.deleteVisit')}
                         </button>
                     </div>
                 </div>

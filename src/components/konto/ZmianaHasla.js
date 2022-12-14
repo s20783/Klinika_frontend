@@ -159,11 +159,11 @@ class ZmianaHasla extends React.Component {
                                 <span id="errornewHaslo2" className="errors-text">{this.state.errors.newHaslo2}</span>
                                 <span id="error" className="errors-text2">{this.state.message !== '' ? t('errors.' + this.state.message) : ''}</span>
                                 <div class="flex justify-between">
-                                    <p className=" text-black font-bold  underline text-lg hover:text-red-400 p-2 mt-6">
-                                        <button onClick={() => navigate(-1)}>{t("button.back")}</button>
+                                    <p className=" text-black hover:text-red-400 p-2 mt-6">
+                                        <button className="font-bold  text-lg" onClick={() => navigate(-1)}>{t("button.back")}</button>
                                     </p>
                                     <input type="submit" value={t("konto.saveChanges")}
-                                           className="bg-blue-400 text-white font-bold rounded-lg text-lg hover:bg-black p-2 px-8 mt-6 "/>
+                                           className="bg-blue-400 text-white font-bold rounded-lg text-xl hover:bg-black py-3 px-8 mt-6 "/>
                                 </div>
                             </form>
                             <div className="text-center pt-3">

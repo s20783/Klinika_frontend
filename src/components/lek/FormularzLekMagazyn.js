@@ -183,7 +183,7 @@ class FormularzLekMagazyn extends React.Component {
                                     {t('lek.fields.quantity')}
                                 </label>
                                 <input
-                                    className=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                    className="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
                                     name="Ilosc" id="Ilosc" type="text" value={data.Ilosc}
                                     placeholder=""
                                     onChange={this.handleChange}/>
@@ -215,12 +215,12 @@ class FormularzLekMagazyn extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("button.confirm")}
                                 </button>
                             </div>

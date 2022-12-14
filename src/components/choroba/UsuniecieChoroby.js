@@ -32,7 +32,7 @@ class UsuniecieChoroby extends React.Component {
         return (
             <div class="bg-gray-200 flex items-center justify-center h-screen">
                 <div
-                    class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+                    class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-2xl z-50 overflow-y-auto">
                     <div class="modal-content py-9 px-5">
                         <p class="text-4xl mb-2 text-center font-bold">{t('choroba.deletingDisease')}</p>
                         <img src="/images/znakZapytaniaPies.png" alt={"Znak Zapytania Pies"}/>
@@ -44,7 +44,7 @@ class UsuniecieChoroby extends React.Component {
                                 </button>
                             </Link>
                             <button onClick={() => this.removeChoroba(idChoroba)}
-                                    class=" px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('choroba.deleteDisease')}
+                                    class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('choroba.deleteDisease')}
                             </button>
                         </div>
                     </div>

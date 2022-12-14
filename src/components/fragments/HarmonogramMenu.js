@@ -34,7 +34,7 @@ function HarmonogramMenu(props) {
             <div id="menu-content"
                  class="w-full inset-0 mt-0 z-20">
                 <button
-                    className='ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
+                    className='shadow-xl ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
                     onClick={() => {
                         dodajHarmonogram()
                     }}>
@@ -49,7 +49,7 @@ function HarmonogramMenu(props) {
                     </div>
                 </button>
                 <button
-                    className='ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
+                    className='shadow-xl ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
                     onClick={() => {
                         aktualizujHarmonogram()
                     }}>

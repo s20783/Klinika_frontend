@@ -189,7 +189,7 @@ class HarmonogramForm extends React.Component {
                                 </label>
                                 <div className="md:w-3/5">
                                     <select name="Weterynarz" id="Weterynarz" onChange={this.handleChange}
-                                            className={errors.IdOsoba ? "form-select block w-full focus:bg-red" : "form-select block w-full focus:bg-white"}>
+                                            className= "shadow-xl form-select block w-full focus:bg-white">
                                         <option value="0">{t('harmonogram.all')}</option>
                                         {
                                             weterynarze.map(vet => (
@@ -225,12 +225,12 @@ class HarmonogramForm extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("harmonogram.button.check")}
                                 </button>
                             </div>

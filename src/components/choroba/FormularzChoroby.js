@@ -147,7 +147,7 @@ class FormularzChoroby extends React.Component {
                                 </label>
                                 <div class="md:w-3/5">
                                     <input
-                                        class={this.state.errors.Nazwa ? "form-textarea block w-full focus:bg-red" : "form-textarea block w-full focus:bg-white"}
+                                        class= "shadow-xl form-textarea block w-full focus:bg-white"
                                         name="Nazwa" id="Nazwa" type="text" value={this.state.data.Nazwa}
                                         onChange={this.handleChange} placeholder=""/>
 
@@ -160,7 +160,7 @@ class FormularzChoroby extends React.Component {
                             {t('choroba.fields.description')}
                         </label>
                         <div class="md:w-3/4 mt-5">
-                        <textarea class="form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
+                        <textarea class="shadow-xl form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
                                   placeholder={t('choroba.addDescription')}
                                   rows="5" value={this.state.data.Opis} onChange={this.handleChange}/>
                         </div>
@@ -169,12 +169,12 @@ class FormularzChoroby extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("button.confirm")}
                                 </button>
                             </div>

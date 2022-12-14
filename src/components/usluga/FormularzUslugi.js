@@ -174,7 +174,7 @@ class FormularzUslugi extends React.Component {
                                 </label>
                                 <div class="md:w-3/5">
                                     <input
-                                        class={errors.Nazwa ? "form-textarea block w-full focus:bg-red" : "form-textarea block w-full focus:bg-white"}
+                                        className="shadow-xl form-textarea block w-full focus:bg-white"
                                         name="NazwaUslugi" id="NazwaUslugi" type="text"
                                         value={data.NazwaUslugi} onChange={this.handleChange}
                                         placeholder=""/>
@@ -188,7 +188,7 @@ class FormularzUslugi extends React.Component {
                                 {t('usluga.fields.description')}
                             </label>
                             <div class="md:w-3/4 mt-5">
-                        <textarea class="form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
+                        <textarea class="shadow-xl form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
                                   placeholder={t('usluga.addDescription')}
                                   rows="5" value={data.Opis} onChange={this.handleChange}/>
                             </div>
@@ -196,17 +196,17 @@ class FormularzUslugi extends React.Component {
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6 border-b">
                             <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2 mt-4" form="grid-city">
                                     {t('usluga.fields.price')}
                                 </label>
                                 <input
-                                    class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Cena" id="Cena" step="0.01" type="number" value={data.Cena}
                                     onChange={this.handleChange} placeholder=""/>
                                 <span id="errorCena" className="errors-text2 mb-6 ">{errors.Cena}</span>
                             </div>
                             <div class="w-full md:w-1/3 px-3 mb-6 md:ml-20 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2 mt-4" form="grid-city">
                                     {t('usluga.fields.narcosis')}
                                 </label>
                                 <input type="checkbox" name="Narkoza" checked={data.Narkoza === true}
@@ -245,12 +245,12 @@ class FormularzUslugi extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("button.confirm")}
                                 </button>
                             </div>

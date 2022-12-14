@@ -149,15 +149,7 @@ class ZmianaDanychKonta extends React.Component {
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('konto.changeData')}</p>
-                    <div class="block lg:hidden sticky inset-0">
-                        <button id="menu-toggle"
-                                class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-500 appearance-none focus:outline-none">
-                            <svg class="fill-current h-3 float-right" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                        </button>
-                    </div>
+
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -168,7 +160,7 @@ class ZmianaDanychKonta extends React.Component {
                                     {t('konto.login')}
                                 </label>
                                 <input
-                                    class="form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
+                                    class="shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
                                     name="NazwaUzytkownika" id="NazwaUzytkownika" type="text"
                                     value={this.state.data.NazwaUzytkownika} onChange={this.handleChange}
                                     placeholder=""/>
@@ -183,7 +175,7 @@ class ZmianaDanychKonta extends React.Component {
                                     {t('klient.fields.phoneNumber')}
                                 </label>
                                 <input
-                                    class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="NumerTelefonu" id="NumerTelefonu" type="text"
                                     value={this.state.data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
                                 <span id="errorNumerTelefonu" className="errors-text2 mb-4 ml-4">
@@ -195,7 +187,7 @@ class ZmianaDanychKonta extends React.Component {
                                     {t('klient.fields.email')}
                                 </label>
                                 <input
-                                    class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Email" id="Email" type="text" value={this.state.data.Email} placeholder=""
                                     onChange={this.handleChange}/>
                                 <span id="errorEmail" className="errors-text2 mb-4 ml-4">
@@ -206,10 +198,10 @@ class ZmianaDanychKonta extends React.Component {
                             <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
-                                    {t('konto.field.typePassword')}
+                                    {t('konto.field.typePassword')} *
                                 </label>
                                 <input
-                                    class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Haslo" id="Haslo" type="password" value={this.state.data.Haslo} placeholder=""
                                     onChange={this.handleChange}/>
                             </div>
@@ -222,12 +214,12 @@ class ZmianaDanychKonta extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t('button.confirm')}
                                 </button>
                             </div>

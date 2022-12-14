@@ -290,10 +290,10 @@ class FormularzRecepty extends React.Component {
                     </div>
 
                     <div
-                        className="border-4 border-blue-200 h-fit ml-3 shadow-xl rounded-md md:mr-20 mb-12">
+                        className="border-4 border-blue-200 h-fit ml-3 shadow-2xl rounded-md md:mr-20 mb-12">
 
                         <div className="w-full relative ">
-                            <h2 className="w-full  my-12 mb-5 md:ml-4 text-lg font-bold leading-tight   text-gray-600">
+                            <h2 className=" w-full  my-12 mb-5 md:ml-4 text-lg font-bold leading-tight   text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                             <button id="menu-toggle" onClick={() => {
                                 this.showSelect()
@@ -305,7 +305,7 @@ class FormularzRecepty extends React.Component {
 
                         </div>
                         {lekiRecepta.length !== 0 &&
-                            <div className="overflow-x-auto">
+                            <div className="overflow-x-auto shadow-xl">
                                 <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
                                     <thead
                                         className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -369,7 +369,7 @@ class FormularzRecepty extends React.Component {
                             <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
 
                                 <select name="Lek" id="spec-content" onChange={this.handleChange}
-                                        className="form-select ml-3 md:w-full w-2/3 focus:bg-white hidden">
+                                        className="shadow-xl form-select ml-3 md:w-full w-2/3 focus:bg-white hidden">
                                     <option value="">Wybierz lek</option>
                                     {
                                         leki.map(lek => (
@@ -385,7 +385,7 @@ class FormularzRecepty extends React.Component {
                             <div className="w-1/3 md:w-1/6 px-3 mb-6 md:mb-0 ml-12">
 
                                 <input
-                                    className="hidden form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                    className="shadow-xl hidden form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
                                     name="Ilosc" id="spec-content1" type="number" value={data.Ilosc} placeholder="Ilosc"
                                     onChange={this.handleChange}/>
                                 <span id="errorDawka" className="errors-text2 mb-4 ">{errors.Ilosc}</span>
@@ -395,41 +395,37 @@ class FormularzRecepty extends React.Component {
                                 <button id="spec-content2" onClick={() => {
                                     this.addLek()
                                 }}
-                                        className="absolute hidden md:top-0 bottom-0 right-6  h-12 w-46 mt-2 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                        className="shadow-xl absolute hidden md:top-0 bottom-0 right-6  h-12 w-46 mt-2 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                     <span className="text-l font-bold ">+ {t('button.add')}</span>
                                 </button>
                                 <Link to={`/dodajLek`}>
                                     <button id="spec-content2"
-                                            className="absolute  top-0  left-6  h-12 w-46 mt-2 shadow bg-gray-200 hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                            className="shadow-xl absolute  top-0  left-6  h-12 w-46 mt-2 shadow bg-gray-200 hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                         <span className="text-l font-bold ">{t('button.addToDataBase')} </span>
                                     </button>
                                 </Link>
                             </div>
                         </div>
-
-
-                        <h2 className=" w-1/3 my-8 mb-8 ml-4 text-lg font-bold leading-tight  text-gray-600">
+                        <h2 className=" w-1/3 mt-14 mb-6  ml-4 text-lg font-bold leading-tight  text-gray-600">
                             {t('recepta.fields.recommendations')}</h2>
-                        <textarea className="form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"
+                        <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-8 px-2 ml-4" id="Notatka"
                                   name="Zalecenia" onChange={this.handleChange}
                                   value={data.Zalecenia} rows="6"
                         />
                         <span id="errorZalecenia" className="errors-text2 mb-4 ">{errors.Zalecenia}</span>
 
                     </div>
-
-
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t("button.back")}
                             </button>
                             <button onClick={() => {
                                 this.confirmRecepta()
                             }}
-                                    className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 {t("button.confirm")}
                             </button>
                         </div>

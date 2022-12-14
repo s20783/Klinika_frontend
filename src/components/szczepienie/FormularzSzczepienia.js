@@ -210,7 +210,7 @@ class FormularzSzczepienia extends React.Component {
                                     {t('szczepienie.fields.vaccine')}
                                 </label>
                                 <select name="IdLek" id="IdLek" onChange={this.handleChange}
-                                        className={errors.IdLek ? "form-select  w-full focus:bg-red" : "form-select  w-full focus:bg-white"}>
+                                        className="shadow-xl form-select  w-full focus:bg-white">
                                     <option value="">{t('szczepienie.selectVaccine')}</option>
                                     {
                                         szczepionki.map(szczepionka => (
@@ -218,7 +218,7 @@ class FormularzSzczepienia extends React.Component {
                                                     value={szczepionka.ID_lek}>{szczepionka.Nazwa} - {szczepionka.Zastosowanie}</option>
                                         ))}
                                 </select>
-                                <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.IdLek}</span>
+                                <span id="errorGatunek" className="errors-text2 mb-6 ">{errors.IdLek}</span>
                             </div>
 
                             <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0 ml-12">
@@ -226,7 +226,7 @@ class FormularzSzczepienia extends React.Component {
                                     {t('szczepienie.fields.dose')}
                                 </label>
                                 <input
-                                    className=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                    className="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
                                     name="Dawka" id="Dawka" type="number" value={data.Dawka} placeholder=""
                                     onChange={this.handleChange}/>
                                 <span id="errorDawka" className="errors-text2 mb-4 ">{errors.Dawka}</span>
@@ -254,12 +254,12 @@ class FormularzSzczepienia extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t('button.back')}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t('button.confirm')}
                                 </button>
                             </div>

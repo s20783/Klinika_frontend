@@ -171,7 +171,7 @@ class FormularzLeku extends React.Component {
                                 </label>
                                 <div class="md:w-3/5">
                                     <input
-                                        class={errors.Nazwa ? "form-textarea block w-full focus:bg-red" : "form-textarea block w-full focus:bg-white"}
+                                        class="shadow-xl form-textarea block w-full focus:bg-white"
                                         name="Nazwa" id="Nazwa" type="text" value={data.Nazwa}
                                         onChange={this.handleChange} placeholder=""/>
                                 </div>
@@ -186,7 +186,7 @@ class FormularzLeku extends React.Component {
                                     {t('lek.fields.unitOfMeasure')}
                                 </label>
                                 <input
-                                    className=" form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
+                                    className="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
                                     name="JednostkaMiary" id="JednostkaMiary" type="text" value={data.JednostkaMiary}
                                     placeholder=""
                                     onChange={this.handleChange}/>
@@ -199,7 +199,7 @@ class FormularzLeku extends React.Component {
                                     {t('lek.fields.manufacturer')}
                                 </label>
                                 <input
-                                    className=" form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Producent" id="Producent" type="text" value={data.Producent} placeholder=""
                                     onChange={this.handleChange}/>
                                 <span id="errorProducent" className="errors-text2 mb-4 ">{errors.Producent}</span>
@@ -209,12 +209,12 @@ class FormularzLeku extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("button.confirm")}
                                 </button>
                             </div>

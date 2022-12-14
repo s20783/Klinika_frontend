@@ -202,7 +202,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 {t('weterynarz.fields.firstName')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 disabled name="Imie" id="Imie" type="text" value={data.Imie} placeholder=""/>
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
@@ -210,7 +210,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 {t('weterynarz.fields.lastName')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
                                 disabled placeholder=""/>
                         </div>
@@ -221,7 +221,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 {t('weterynarz.fields.phoneNumber')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
                                 disabled value={data.NumerTelefonu} placeholder=""/>
                         </div>
@@ -230,7 +230,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 {t('weterynarz.fields.email')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 disabled name="Email" id="Email" type="text" value={data.Email} placeholder=""/>
                         </div>
                     </div>
@@ -240,7 +240,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 {t('weterynarz.fields.birthDate')}
                             </label>
                             <input
-                                class=" form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
                                 disabled value={getFormattedDate(data.DataUrodzenia)} placeholder=""/>
 
@@ -250,7 +250,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 {t('weterynarz.fields.salary')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 disabled name="Pensja" id="Pensja" type="number" value={data.Pensja} placeholder=""/>
                         </div>
                     </div>
@@ -260,7 +260,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 {t('weterynarz.fields.employmentDate')}
                             </label>
                             <input
-                                class="appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataZatrudnienia" id="DataZatrudnienia" type="text"
                                 disabled value={getFormattedDate(data.DataZatrudnienia)} placeholder=""/>
                         </div>
@@ -273,13 +273,13 @@ class SzczegolyWeterynarza extends React.Component {
                             <button id="menu-toggle" onClick={() => {
                                 this.showSelect()
                             }}
-                                    className="absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="shadow-xl absolute top-0 right-0 h-12 w-46 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
                         </div>
                     </div>
                     {(specjalizacje.length !== 0) &&
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                        <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -356,7 +356,7 @@ class SzczegolyWeterynarza extends React.Component {
                                 <button id="spec-content1" onClick={() => {
                                     this.addSpec()
                                 }}
-                                        className="absolute hidden top-0 right-0  h-12 w-46 mt-2 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                        className="absolute hidden top-0 right-0  h-12 w-46 mt-2 shadow-xl bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                     <span className="text-l font-bold ">+ {t('button.add')}</span>
                                 </button>
                             </div>
@@ -366,7 +366,7 @@ class SzczegolyWeterynarza extends React.Component {
                         <div className="flex pb-3">
                             <Link to={`/weterynarze`}>
                                 <button
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                     {t("button.back")}
                                 </button>
