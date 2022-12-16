@@ -8,6 +8,8 @@ import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../..
 import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import {getLekList} from "../../../axios/LekAxiosCalls";
+import {addLekWizyta, deleteLekWizyta, getLekWizytaList} from "../../../axios/WizytaLekAxiosCalls";
+import {checkNumberRange} from "../../helpers/CheckNRange";
 
 class LekiChoroby extends React.Component {
     constructor(props) {
@@ -18,17 +20,17 @@ class LekiChoroby extends React.Component {
             message: '',
             choroby: [],
             chorobyWizyta: [],
-            leki:[],
-            lekiWizyta:[],
+            leki: [],
+            lekiWizyta: [],
             data: {
                 IdChoroba: '',
-                IdLek:'',
-                Ilosc:''
+                IdLek: '',
+                Ilosc: ''
             },
             errors: {
                 IdChoroba: '',
-                IdLek:'',
-                Ilosc:''
+                IdLek: '',
+                Ilosc: ''
             }
         }
     }
@@ -48,15 +50,16 @@ class LekiChoroby extends React.Component {
             console.log(error)
         }
     }
+
     fetchLeki = async () => {
         try {
-            const res = await getChorobaWizytaList(this.state.idWizyta)
+            const res = await getLekWizytaList(this.state.idWizyta)
             var data = await res.data
 
             console.log(data)
             this.setState({
                 isLoaded: true,
-                chorobyWizyta: data
+                lekiWizyta: data
             });
         } catch (error) {
             console.log(error)
@@ -65,13 +68,15 @@ class LekiChoroby extends React.Component {
 
     componentDidMount() {
         this.fetchChoroby()
+        this.fetchLeki()
+
 
     }
 
-    async showSelect( x ) {
+    async showSelect(x) {
         var helpDiv, helpDiv1, helpDiv2
         var name, name1
-        if(x === 1) {
+        if (x === 1) {
             if (this.state.choroby.length === 0) {
                 try {
                     const res = await getChorobaList()
@@ -86,11 +91,10 @@ class LekiChoroby extends React.Component {
                 }
             }
 
-             helpDiv = document.getElementById("spec-content");
-             helpDiv1 = document.getElementById("spec-content1");
-             name = 'IdChoroba'
-        }
-        else {
+            helpDiv = document.getElementById("spec-content");
+            helpDiv1 = document.getElementById("spec-content1");
+            name = 'IdChoroba'
+        } else {
             if (this.state.leki.length === 0) {
                 try {
                     const res = await getLekList()
@@ -105,11 +109,11 @@ class LekiChoroby extends React.Component {
                 }
             }
 
-             helpDiv = document.getElementById("spec-content2");
-             helpDiv1 = document.getElementById("spec-content3");
+            helpDiv = document.getElementById("spec-content2");
+            helpDiv1 = document.getElementById("spec-content3");
             helpDiv2 = document.getElementById("spec-content4");
             name = 'IdLek'
-            name1='Ilosc'
+            name1 = 'Ilosc'
         }
 
         if (helpDiv.classList.contains("hidden")) {
@@ -125,7 +129,7 @@ class LekiChoroby extends React.Component {
 
             const data = {...this.state.data}
             data[name] = ''
-            data[name1]=''
+            data[name1] = ''
             this.setState({
                 data: data,
             })
@@ -166,29 +170,40 @@ class LekiChoroby extends React.Component {
     }
     deleteLek = async (idLek) => {
 
-        /*
         const {navigate} = this.props;
         try {
             await deleteLekWizyta(this.state.idWizyta, idLek)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
-        }*/
+        }
     }
 
     addLek = async () => {
-        /*
+        const {t} = this.props;
         const {navigate} = this.props;
-        if (this.state.data.idLek !== '') {
+        const errors = {...this.state.errors}
 
+        if (this.state.data.IdLek === '') {
+            errors['IdLek'] = t('validation.required')
+        }
+        if (this.state.data.Ilosc === '') {
+            errors['Ilosc'] = t('validation.required')
+        }
+        this.setState({
+            errors: errors,
+        })
+        if (!this.hasErrors()) {
             try {
-                await addLekWizyta(this.state.idWizyta, this.state.data.idLek, this.state.data.Ilosc)
+                await addLekWizyta(this.state.idWizyta, this.state.data.IdLek, this.state.data.Ilosc)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
             }
-        }*/
+        }
+
     }
+
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -219,14 +234,27 @@ class LekiChoroby extends React.Component {
             }
         }
         if (fieldName === 'Ilosc') {
+            console.log(this.state.data.Ilosc +" "+checkNumberRange(this.state.data.Ilosc,1,99))
+            if (!checkNumberRange(this.state.data.Ilosc,1,99) ) {
+                errorMessage =  `Pole powinno być liczbą z przedziału od 0 do 1000.`
+            }
             if (!fieldValue) {
                 errorMessage = `${t('validation.required')}`
             }
+
         }
         return errorMessage;
     }
-
-    checkIfExist = (chorobaArray, chorobaID) => {
+    hasErrors = () => {
+        const errors = this.state.errors
+        for (const errorField in this.state.errors) {
+            if (errors[errorField].length > 0) {
+                return true
+            }
+        }
+        return false
+    }
+    checkIfExistChoroba = (chorobaArray, chorobaID) => {
         for (let i = 0; i < chorobaArray.length; i++) {
             if (chorobaArray[i].ID_Choroba === chorobaID) {
                 return true
@@ -235,9 +263,17 @@ class LekiChoroby extends React.Component {
         return false
     }
 
+    checkIfExistLek = (lekArray, lekID) => {
+        for (let i = 0; i < lekArray.length; i++) {
+            if (lekArray[i].IdLek === lekID) {
+                return true
+            }
+        }
+        return false
+    }
 
     render() {
-        const {leki, lekiWizyta, choroby, chorobyWizyta, idWizyta, data, errors } = this.state
+        const {leki, lekiWizyta, choroby, chorobyWizyta, idWizyta, data, errors} = this.state
         const {t} = this.props;
 
         return (
@@ -325,7 +361,7 @@ class LekiChoroby extends React.Component {
                                 {
                                     choroby.map(choroba => (
                                         <option selected={choroba.ID_Choroba === data.IdChoroba}
-                                                className={this.checkIfExist(chorobyWizyta, choroba.ID_Choroba) === true ? "text-gray-300" : ""}
+                                                className={this.checkIfExistChoroba(chorobyWizyta, choroba.ID_Choroba) === true ? "text-gray-300" : ""}
                                                 value={choroba.ID_Choroba}> {choroba.Nazwa}</option>
                                     ))}
                             </select>
@@ -419,34 +455,38 @@ class LekiChoroby extends React.Component {
                     <div className="flex flex-wrap -mx-3 mb-6 mt-6 ">
                         <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
 
-                            <select name="IdLek" id="spec-content2"  onChange={this.handleChange}
+                            <select name="IdLek" id="spec-content2" onChange={this.handleChange}
                                     className="shadow-xl form-select hidden w-full focus:bg-white">
                                 <option value="">{t('lek.selectMedicine')}</option>
                                 {
                                     leki.map(lek => (
-                                        <option selected={data.IdLek === lek.ID_lek}
-                                                value={lek.ID_lek}>{lek.Nazwa} </option>
+                                        <option selected={data.IdLek === lek.IdLek}
+                                                className= {this.checkIfExistLek(lekiWizyta, lek.IdLek) === true ? "text-gray-300" : ""}
+                                                value={lek.IdLek}>{lek.Nazwa} </option>
                                     ))}
                             </select>
-                            <span id="errorGatunek" className="errors-text2 mb-6 ">{errors.IdLek}</span>
+                            <span id="errorGatunek" className="errors-text2  ">{errors.IdLek}</span>
                         </div>
 
-                        <div className="w-full md:w-1/6 px-3  md:mb-0 ml-10">
+                        <div className="w-full md:w-1/6 px-3   ml-10">
                             <input
                                 className="shadow-xl form-textarea hidden appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
-                                name="Ilosc" id="spec-content3"  type="number" value={data.Ilosc} placeholder="Ilość"
+                                name="Ilosc" id="spec-content3" type="number" value={data.Ilosc} placeholder="Ilość"
                                 onChange={this.handleChange}/>
-                            <span id="errorIlosc" className="errors-text2 mb-4 ">{errors.Ilosc}</span>
+                            <span id="errorIlosc" className=" errors-text2 text-sm  ">{errors.Ilosc}</span>
+
                         </div>
                     </div>
+
 
                     <div className="relative w-full pb-4 ">
                         <button id="spec-content4" onClick={() => {
                             this.addLek()
                         }}
-                                className=" absolute hidden bottom-16 right-6  h-12 w-46  shadow-lg bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                className=" absolute hidden bottom-12 right-2  h-12 w-46  shadow-lg bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                             <span className="text-l font-bold ">+ {t('button.add')}</span>
                         </button>
+
                     </div>
 
 
