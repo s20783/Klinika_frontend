@@ -1,13 +1,10 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getWizytaDetails} from "../../../axios/WizytaAxiosCalls";
-import {getReceptaDetails, getReceptaLeki} from "../../../axios/ReceptaAxiosCalls";
-import {getUslugaWizytaList} from "../../../axios/UslugaAxiosCalls";
 import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../../axios/WizytaChorobaAxiosCalls";
 import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
-import {getLekList} from "../../../axios/LekAxiosCalls";
+import { getOnlyLekList} from "../../../axios/LekAxiosCalls";
 import {addLekWizyta, deleteLekWizyta, getLekWizytaList} from "../../../axios/WizytaLekAxiosCalls";
 import {checkNumberRange} from "../../helpers/CheckNRange";
 
@@ -97,7 +94,7 @@ class LekiChoroby extends React.Component {
         } else {
             if (this.state.leki.length === 0) {
                 try {
-                    const res = await getLekList()
+                    const res = await getOnlyLekList()
                     const data = await res.data
                     console.log(data)
                     this.setState({

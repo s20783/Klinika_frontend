@@ -1,7 +1,6 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getFormattedDateWithHour} from "../../other/dateFormat";
 import {Link} from "react-router-dom";
 import {getWizytaDetails} from "../../../axios/WizytaAxiosCalls";
 import {getReceptaDetails, getReceptaLeki} from "../../../axios/ReceptaAxiosCalls";
@@ -221,7 +220,7 @@ class Recepta extends React.Component {
 
 
     render() {
-        const {wizyta, uslugi, choroby, chorobyWizyta, recepta, idWizyta, lekiRecepta, data1, errors} = this.state
+        const { recepta, idWizyta, lekiRecepta} = this.state
         const {t} = this.props;
 
 

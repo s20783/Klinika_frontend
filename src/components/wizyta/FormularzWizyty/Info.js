@@ -2,14 +2,11 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../../other/dateFormat";
-import {Link} from "react-router-dom";
-import {getWizytaDetails} from "../../../axios/WizytaAxiosCalls";
-import {getReceptaDetails, getReceptaLeki} from "../../../axios/ReceptaAxiosCalls";
-import {getUslugaWizytaList} from "../../../axios/UslugaAxiosCalls";
-import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../../axios/WizytaChorobaAxiosCalls";
-import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
+import {getWizytaDetails, updateWizyta} from "../../../axios/WizytaAxiosCalls";
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
+import {deleteSzczepienie} from "../../../axios/SzczepienieAxionCalls";
+import {acceptUslugaWizyta} from "../../../axios/WizytaUslugaAxionCalls";
 
 class Info extends React.Component {
     constructor(props) {
@@ -85,6 +82,24 @@ class Info extends React.Component {
 
     updateWizyta = async () => {
 
+        const {navigate} = this.props;
+        try {
+            await updateWizyta(this.state.idWizyta,this.state.data)
+            await navigate(0, {replace: true});
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    zaakceptujCene = async () => {
+        console.log("accept")
+        /*const {navigate} = this.props;
+        try {
+            await acceptUslugaWizyta(this.state.idWizyta)
+            await navigate(0, {replace: true});
+        } catch (error) {
+            console.log(error)
+        }*/
     }
 
     render() {

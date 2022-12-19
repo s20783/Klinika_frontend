@@ -118,6 +118,8 @@
     "vacations": "Urlopy",
     "add": "Dodaj ",
     "update": "Aktualizuj ",
+    "postpone": "Przełóż ",
+    "cancel": "Odwołaj ",
     "info": "Informacje",
     "medicines": "Leki",
     "diseases": "Choroby",
@@ -154,8 +156,8 @@
     "date": "Termin",
     "selectPatient": "Wybierz pacjenta",
     "selectedDate": "Wybrano termin: ",
-    "deletingVisit": "Czy na pewno chcesz usunąc wizyte?",
-    "deleteVisit": "Usuń wizyte",
+    "cancelingVisit": "Czy na pewno chcesz odwołać wizyte?",
+    "cancelVisit": "Odwołaj wizyte",
     "other": "inny",
     "button": {
       "appointment": "Umów wizytę"

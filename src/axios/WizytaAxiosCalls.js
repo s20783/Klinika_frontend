@@ -24,3 +24,7 @@ export async function umowWizyte(data){
     const dataString = JSON.stringify(data)
     await api.post('/Wizyta/umowWizyte', dataString);
 }
+export async function updateWizyta(idWizyta, data){
+    const dataString = JSON.stringify(data)
+    await api.put(`/Wizyta/${idWizyta}`, dataString);
+}

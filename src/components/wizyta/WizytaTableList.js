@@ -34,10 +34,10 @@ function WizytaTableList(props) {
                     </thead>
                     <tbody>
                     {list.map(x => (
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                        <tr className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                             key={x.IdWizyta}>
 
-                            <td className="text-center px-6 py-2">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
+                            <td className="text-center px-6 py-4">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
                             <td className="text-center px-6 py-2">{x.Pacjent != null ? x.Pacjent : "-"}</td>
                             <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-"}</td>
                             <td className="text-center px-6 py-2">{t("wizyta.status." + x.Status)}</td>
@@ -86,6 +86,7 @@ function WizytaTableList(props) {
                                             </svg>
                                         </Link>
                                         }
+
                                     </div>
                                 </div>
                             </td>

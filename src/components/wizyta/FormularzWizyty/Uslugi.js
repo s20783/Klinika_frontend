@@ -188,14 +188,14 @@ class Uslugi extends React.Component {
                                         <tbody>
                                         {uslugiWizyta.map(x => (
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
-                                                key={x.idUsluga}>
-                                                <td className="px-6 py-2 text-center">{x.NazwaUslugi}</td>
+                                                key={x.ID_Usluga}>
+                                                <td className="px-6 py-2 text-center">{x.NazwaUslugi} </td>
                                                 <td className="px-6 py-2 text-center">{x.Narkoza === false ? t("other.no") : t("other.yes")} </td>
                                                 <td className="px-6 py-2 text-center">{x.Cena}</td>
                                                 <div className="text-center list-actions py-2 px-2">
                                                     <div className=" flex">
                                                         <button onClick={() => {
-                                                            this.deleteUsluga(x.idUsluga)
+                                                            this.deleteUsluga(x.ID_Usluga)
                                                         }} className="list-actions-button-details flex-1">
                                                             <svg className="list-actions-button-delete flex-1"
                                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"

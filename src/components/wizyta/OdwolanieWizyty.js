@@ -2,10 +2,10 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 
-class UsuniecieWizyty extends React.Component {
+class OdwolanieWizyty extends React.Component {
     constructor(props) {
         super(props);
-        const paramsIdWizyta = this.props.params.idWizyta
+        const paramsIdWizyta = this.props.params.IdWizyta
         console.log(paramsIdWizyta)
         this.state = {
             idWizyta: paramsIdWizyta,
@@ -49,7 +49,7 @@ class UsuniecieWizyty extends React.Component {
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
 
                 <div class="modal-content py-9 px-5">
-                    <p class="text-4xl mb-2 text-center font-bold">{t('wizyta.deletingVisit')}</p>
+                    <p class="text-4xl mb-2 text-center font-bold">{t('wizyta.cancelingVisit')}</p>
                     <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
 
                     <div class="flex justify-end pt-2">
@@ -59,7 +59,7 @@ class UsuniecieWizyty extends React.Component {
                         </button>
                         <button
                             onClick={() => this.removeWizyte(idWizyta)}
-                            class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('wizyta.deleteVisit')}
+                            class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('wizyta.cancelVisit')}
                         </button>
                     </div>
                 </div>
@@ -85,4 +85,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(UsuniecieWizyty)));
+export default withTranslation()(withRouter(withNavigate(OdwolanieWizyty)));

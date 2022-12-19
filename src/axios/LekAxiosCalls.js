@@ -4,7 +4,9 @@ const lekURL = 'http://localhost:36989/api/Lek';
 export function getLekList() {
     return api.get(lekURL);
 }
-
+export function getOnlyLekList() {
+    return api.get(`${lekURL}/lekOnly`);
+}
 export function getLekDetails(Id) {
     return api.get(`${lekURL}/${Id}`);
 }

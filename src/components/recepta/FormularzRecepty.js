@@ -2,7 +2,7 @@ import React from "react";
 import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getLekList} from "../../axios/LekAxiosCalls";
+import {getOnlyLekList} from "../../axios/LekAxiosCalls";
 import {
     addRecepta,
     addReceptaLek, deleteReceptaLek,
@@ -140,7 +140,7 @@ class FormularzRecepty extends React.Component {
     async showSelect() {
         if (this.state.leki.length === 0) {
             try {
-                const res = await getLekList()
+                const res = await getOnlyLekList()
                 const data = await res.data
                 console.log(data)
                 this.setState({

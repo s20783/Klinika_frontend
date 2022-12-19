@@ -112,6 +112,8 @@
 		"workingHours": "Working hours",
 		"add": "Add schedule",
 		"update": "Update schedule",
+		"postpone": "Postpone ",
+		"cancel": "Cancel ",
 		"info": "Information",
 		"medicines": "Medicines",
 		"diseases": "Diseases",

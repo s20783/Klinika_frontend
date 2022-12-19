@@ -8,6 +8,7 @@ import {getReceptaDetails, getReceptaLeki} from "../../axios/ReceptaAxiosCalls";
 import {getUslugaWizytaList} from "../../axios/UslugaAxiosCalls";
 import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../axios/WizytaChorobaAxiosCalls";
 import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+import SzczegolyWizytaMenu from "../fragments/SzczegolyWizytaMenu";
 
 class SzczegolyWizyty extends React.Component {
     constructor(props) {
@@ -129,13 +130,14 @@ class SzczegolyWizyty extends React.Component {
 
 
     render() {
-        const {wizyta, uslugi, chorobyWizyta, recepta, lekiRecepta} = this.state
+        const {wizyta, uslugi, chorobyWizyta, recepta, lekiRecepta, idWizyta} = this.state
         const {t} = this.props;
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('wizyta.visitDetails')}</p>
+                    <SzczegolyWizytaMenu idWizyta={idWizyta}/>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">

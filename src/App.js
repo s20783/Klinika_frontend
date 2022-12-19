@@ -35,7 +35,6 @@ import ZmianaDanychKonta from "./components/konto/ZmianaDanychKonta";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
 import WizytaList from "./components/wizyta/WizytaList";
 import SzczegolyWizyty from "./components/wizyta/SzczegolyWizyty";
-import UsuniecieWizyty from "./components/wizyta/UsuniecieWizyty";
 import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
 import FormularzWeterynarz from "./components/weterynarz/FormularzWeterynarz";
@@ -67,6 +66,7 @@ import Info from "./components/wizyta/FormularzWizyty/Info";
 import LekiChoroby from "./components/wizyta/FormularzWizyty/LekiChoroby";
 import Uslugi from "./components/wizyta/FormularzWizyty/Uslugi";
 import Recepta from "./components/wizyta/FormularzWizyty/Recepta";
+import OdwolanieWizyty from "./components/wizyta/OdwolanieWizyty";
 
 class App extends React.Component {
     constructor(props) {
@@ -155,13 +155,13 @@ class App extends React.Component {
 
                     <Route path="/umowWizyte" element={<UmowienieWizyty/>}/>
                     <Route path="/potwierdzenieWizyty" element={<PotwierdzenieUmowieniaWizyty/>}/>
-                    <Route path="/wizyty/delete/:idWizyta" element={<UsuniecieWizyty/>}/>
                     <Route path="/wizyty" element={<WizytaList/>}/>
                     <Route path="/wizyty/:IdWizyta" element={<SzczegolyWizyty/>}/>
                     <Route path="/wizyty/editInfo/:IdWizyta" element={<Info/>}/>
                     <Route path="/wizyty/editMedDise/:IdWizyta" element={<LekiChoroby/>}/>
                     <Route path="/wizyty/editServices/:IdWizyta" element={<Uslugi/>}/>
                     <Route path="/wizyty/editPrescription/:IdWizyta" element={<Recepta/>}/>
+                    <Route path="/wizyty/delete/:IdWizyta" element={<OdwolanieWizyty/>}/>
 
 
                     <Route path="/recepta/:typ/:IdRecepta" element={<FormularzRecepty/>}/>

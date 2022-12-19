@@ -33,6 +33,7 @@ function HarmonogramMenu(props) {
         <div className="">
             <div id="menu-content"
                  class="w-full inset-0 mt-0 z-20">
+
                 <button
                     className='shadow-xl ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
                     onClick={() => {
@@ -41,6 +42,7 @@ function HarmonogramMenu(props) {
                     <div class="relative h-9 w-24  xl:w-36 ">
                             <span className="absolute bottom-0 left-0  text-ml ">{t('userMenu.add')}
                             </span>
+
                         <svg className="h-6 w-6 text-white absolute bottom-0 right-0 xl:visible invisible " fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
                             <path stroke-linecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -48,6 +50,7 @@ function HarmonogramMenu(props) {
                         </svg>
                     </div>
                 </button>
+
                 <button
                     className='shadow-xl ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
                     onClick={() => {

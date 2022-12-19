@@ -6,6 +6,9 @@ export function getUslugaWizytaList(Id){
 export async function addUslugaWizyta(idWizyta, idUsluga){
     await api.post(`/WizytaUsluga/${idWizyta}/${idUsluga}`);
 }
+export async function acceptUslugaWizyta(idWizyta){
+    await api.post(`/WizytaUsluga/accept/${idWizyta}`);
+}
 export async function deleteUslugaWizyta(idWizyta, idUsluga){
-   // await api.delete(`/WizytaUsluga/${idWizyta}/${idUsluga}`);
+    await api.delete(`/WizytaUsluga/${idWizyta}/${idUsluga}`);
 }

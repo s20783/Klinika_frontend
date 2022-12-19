@@ -66,6 +66,16 @@ export const szczegolyVetMenuValues = [
         url: '/godzinyPracyWeterynarz'
     }
 ];
+export const szczegolyWizytaMenuValues = [
+    {
+        title: 'cancel',
+        url: '/wizyty/delete'
+    },
+    {
+        title: 'postpone',
+        url: '/godzinyPracyWeterynarz'
+    }
+];
 export const formularzWizytaMenuValues = [
     {
         title: 'info',
