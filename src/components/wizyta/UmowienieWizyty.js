@@ -16,7 +16,6 @@ class UmowienieWizyty extends React.Component {
     }
 
     async componentDidMount() {
-        const {navigate} = this.props;
         try {
             const res = await getKlientPacjentList2();
             const data = await res.data

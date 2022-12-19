@@ -5,30 +5,35 @@ import {getFormattedDateWithHour} from "../../other/dateFormat";
 import {getWizytaDetails, updateWizyta} from "../../../axios/WizytaAxiosCalls";
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
-import {deleteSzczepienie} from "../../../axios/SzczepienieAxionCalls";
 import {acceptUslugaWizyta} from "../../../axios/WizytaUslugaAxionCalls";
+import {getKlientPacjentList} from "../../../axios/PacjentAxiosCalls";
 
 class Info extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdWizyta = this.props.params.IdWizyta
         this.state = {
-            wizyta:'',
-            data:{
-                Opis: ''
+            wizyta: '',
+            data: {
+                Opis: '',
+                ID_Pacjent:''
             },
-            errors:{
-                Opis: ''
+            errors: {
+                Opis: '',
+                ID_Pacjent:''
+
             },
             idWizyta: paramsIdWizyta,
+            pacjenci: [],
             message: '',
 
         }
     }
 
-    fetchWizytaDetails = async () => {
+
+    componentDidMount = async () => {
         try {
-            const res = await getWizytaDetails(this.state.idWizyta)
+            var res = await getWizytaDetails(this.state.idWizyta)
             var data = await res.data
 
             console.log(data)
@@ -36,19 +41,50 @@ class Info extends React.Component {
                 isLoaded: true,
                 wizyta: data
             });
-            const data1=this.state.data
-            data1['Opis']=data.Opis
+            const data1 = this.state.data
+            data1['Opis'] = data.Opis
+            data1['ID_Pacjent']=data.IdPacjent
             this.setState({
                 isLoaded: true,
                 data: data1
             });
+
+            res = await getKlientPacjentList(this.state.wizyta.IdKlient);
+            data = await res.data
+
+            console.log(data)
+            this.setState({
+                isLoaded: true,
+                pacjenci: data
+            });
         } catch (error) {
             console.log(error)
         }
+
     }
 
-    componentDidMount() {
-        this.fetchWizytaDetails()
+    validateForm = () => {
+        const data = this.state.data
+        const errors = this.state.errors
+        for (const fieldName in data) {
+            const fieldValue = data[fieldName]
+            errors[fieldName] = this.validateField(fieldName, fieldValue)
+        }
+
+        this.setState({
+            errors: errors
+        })
+        return !this.hasErrors();
+    }
+
+    hasErrors = () => {
+        const errors = this.state.errors
+        for (const errorField in this.state.errors) {
+            if (errors[errorField].length > 0) {
+                return true
+            }
+        }
+        return false
     }
 
     handleChange = (event) => {
@@ -77,33 +113,41 @@ class Info extends React.Component {
                 errorMessage = `${t('validation.required')}`
             }
         }
+        if (fieldName === 'ID_Pacjent') {
+            if (!fieldValue) {
+                errorMessage = `${t('validation.required')}`
+            }
+        }
         return errorMessage;
     }
 
     updateWizyta = async () => {
 
-        const {navigate} = this.props;
-        try {
-            await updateWizyta(this.state.idWizyta,this.state.data)
-            await navigate(0, {replace: true});
-        } catch (error) {
-            console.log(error)
+        if(this.validateForm()) {
+            const {navigate} = this.props;
+            try {
+                await updateWizyta(this.state.idWizyta, this.state.data)
+                await navigate(`/wizyty/${this.state.idWizyta}`, {replace: true});
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
     zaakceptujCene = async () => {
         console.log("accept")
-        /*const {navigate} = this.props;
+        const {navigate} = this.props;
         try {
             await acceptUslugaWizyta(this.state.idWizyta)
             await navigate(0, {replace: true});
+
         } catch (error) {
             console.log(error)
-        }*/
+        }
     }
 
     render() {
-        const {wizyta, idWizyta, data, errors} = this.state
+        const {wizyta, idWizyta, data, errors, pacjenci} = this.state
         const {t} = this.props;
 
 
@@ -115,18 +159,28 @@ class Info extends React.Component {
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                    <form className="w-full max-w">
-                        <div class="flex flex-wrap -mx-3 mb-4 border-b">
-                            <div class="w-full px-3">
-                                <label class="block tracking-wide text-gray-600 text-s font-bold mb-2">
-                                    {t('wizyta.table.patient')}
+                        <section className="bg-white-100 border-b  mb-7">
+                            <div className=" md:flex mb-6 mt-4">
+                                <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
+                                       htmlFor="Pacjent">
+                                    {t("wizyta.field.patient")}
                                 </label>
-                                <input
-                                    class=" shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
-                                    name="Wlasciciel" id="Wlasciciel" type="text" value={wizyta.Pacjent}
-                                    disabled placeholder=""/>
+                                <div className="md:w-3/5">
+
+                                    <select name="ID_Pacjent" id="Pacjent" onChange={this.handleChange}
+                                            className="shadow-xl form-select block w-full focus:bg-white">
+                                        <option value="">{t("wizyta.selectPatient")}</option>
+                                        {
+                                            pacjenci.map(pacjent => (
+                                                <option
+                                                    selected={pacjent.IdPacjent === data.ID_Pacjent}
+                                                    value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
+                                            ))}
+                                    </select>
+                                </div>
+                                <span id="errorPacjent" className="errors-text2">{errors.ID_Pacjent}</span>
                             </div>
-                        </div>
+                        </section>
 
                         <div class="flex flex-wrap -mx-3 mb-4 border-b">
                             <div class="w-full px-3">
@@ -230,19 +284,20 @@ class Info extends React.Component {
                                     name="Cena" id="Cena" type="text" value={wizyta.Cena} placeholder=""
                                     disabled/>
                             </div>
-                            <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0 ml-8">
-                                <button onClick={() => this.zaakceptujCene()}
-                                        className=" ml-4 mt-8 shadow-xl bg-green-400 hover:bg-white  hover:text-green-400  focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                    Zaakceptuj cene
-                                </button>
-                            </div>
+                            {wizyta.CzyZaakceptowanaCena === false &&
+                                <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0 ml-8">
+                                    <button onClick={() => this.zaakceptujCene()}
+                                            className=" ml-4 mt-8 shadow-xl bg-green-400 hover:bg-white  hover:text-green-400  focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        Zaakceptuj cene
+                                    </button>
+                                </div>
+                            }
                         </div>
-                    </form>
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button
-                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                    type="button">
+                                className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                type="button">
                                 {t("button.back")}
                             </button>
                             <button onClick={() => this.updateWizyta()}

@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {getPacjentDetails} from "../../axios/PacjentAxiosCalls";
 import {getPacjentWizytaList} from "../../axios/WizytaAxiosCalls";
 import {getSzczepienieList} from "../../axios/SzczepienieAxionCalls";
+import {getUslugiPacjenta} from "../../axios/UslugaAxiosCalls";
 
 class SzczegolyPacjent extends React.Component {
     constructor(props) {
@@ -28,8 +29,9 @@ class SzczegolyPacjent extends React.Component {
             },
             idPacjent: paramsIdPacjent,
             message: '',
-            szczepienia:[],
-            wizyty: []
+            szczepienia: [],
+            wizyty: [],
+            uslugi: []
         }
     }
 
@@ -47,10 +49,7 @@ class SzczegolyPacjent extends React.Component {
         }
     }
 
-    async componentDidMount() {
-
-      await  this.fetchPatientDetails();
-
+    fetchWizyty = async () => {
         try {
             var res = await getPacjentWizytaList(this.state.idPacjent)
             var data = await res.data
@@ -60,8 +59,15 @@ class SzczegolyPacjent extends React.Component {
                 wizyty: data
             });
 
-             res = await getSzczepienieList(this.state.idPacjent)
-             data = await res.data
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    fetchSzczepienia = async () => {
+        try {
+            const res = await getSzczepienieList(this.state.idPacjent)
+            const data = await res.data
 
             this.setState({
                 isLoaded: true,
@@ -73,8 +79,32 @@ class SzczegolyPacjent extends React.Component {
         }
     }
 
+    fetchUslugi = async () => {
+        try {
+            const res = await getUslugiPacjenta(this.state.idPacjent)
+            const data = await res.data
+console.log(data)
+            this.setState({
+                isLoaded: true,
+                uslugi: data
+            });
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async componentDidMount() {
+
+        await this.fetchPatientDetails();
+        await this.fetchWizyty();
+        await this.fetchSzczepienia();
+        await this.fetchUslugi();
+
+    }
+
     render() {
-        const { pacjent, wizyty,idPacjent, szczepienia} = this.state
+        const {pacjent, wizyty, idPacjent, szczepienia, uslugi} = this.state
         const {t} = this.props;
 
         return (
@@ -93,7 +123,7 @@ class SzczegolyPacjent extends React.Component {
                                 <input
                                     class="shadow-xl  form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
                                     name="Wlasciciel" id="Wlasciciel" type="text" value="Adam Nowak"
-                                    disabled />
+                                    disabled/>
                             </div>
                         </div>
 
@@ -171,7 +201,8 @@ class SzczegolyPacjent extends React.Component {
                                     {t('pacjent.fields.infertile')}
                                 </label>
                                 {pacjent.Ubezplodnienie === true &&
-                                    <svg class="shadow-xl h-8 w-8 text-black " width="24" height="24" viewBox="0 0 24 24"
+                                    <svg class="shadow-xl h-8 w-8 text-black " width="24" height="24"
+                                         viewBox="0 0 24 24"
                                          stroke="currentColor" fill="none" stroke-linecap="round"
                                          strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z"/>
@@ -227,17 +258,52 @@ class SzczegolyPacjent extends React.Component {
                     </form>
 
 
+                    {(uslugi.length !== 0) &&
+                        <div>
+                            <div className="flex justify-between mt-14">
+                                <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
+                                    {t('usluga.title')}</h2>
+                            </div>
+                            <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
+                                <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
+                                    <thead
+                                        className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("usluga.fields.name")}</th>
+                                        <th scope="col" className="px-6 uppercase py-3 text-center">
+                                            {t("usluga.fields.date")}</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {uslugi.map(x => (
+                                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                                            key={x.ID_Usluga}>
+                                            <td className="px-6 py-2 text-center">
+                                                {x.NazwaUslugi}</td>
+                                            <td className="px-6 py-2 text-center">
+                                                {x.Data != null ? getFormattedDate(x.Data) : "-"}</td>
+
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('szczepienie.title')}</h2>
 
                         <div className="relative  w-1/3 ">
-                         <Link to={`/szczepienie/${idPacjent}`}>
-                             <button id="menu-toggle"
-                                    className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                <span className="text-2xl font-bold ">+</span>
-                            </button>
-                         </Link>
+                            <Link to={`/szczepienie/${idPacjent}`}>
+                                <button id="menu-toggle"
+                                        className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    <span className="text-2xl font-bold ">+</span>
+                                </button>
+                            </Link>
                         </div>
                     </div>
                     {(szczepienia.length !== 0) &&
@@ -272,7 +338,8 @@ class SzczegolyPacjent extends React.Component {
                                         <td className="px-6 py-2 text-center">
                                             {x.DataWaznosci != null ? getFormattedDate(x.DataWaznosci) : "-"}</td>
                                         <td className="px-6 py-2 text-center">
-                                            {x.Dawka} ml</td>
+                                            {x.Dawka} ml
+                                        </td>
                                         <div className="list-actions text-center py-2">
                                             <div className=" flex">
 

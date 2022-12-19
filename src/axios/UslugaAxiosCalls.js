@@ -9,7 +9,9 @@ export function getUslugaWizytaList(id) {
 export function getUslugaDetails(Id) {
     return api.get(`/Usluga/details/${Id}`);
 }
-
+export function getUslugiPacjenta(Id) {
+    return api.get(`/Usluga/pacjent/${Id}`);
+}
 export async function addUsluga(usluga) {
     const uslugaString = JSON.stringify(usluga)
     await api.post('/Usluga', uslugaString);
