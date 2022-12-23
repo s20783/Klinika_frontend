@@ -21,7 +21,6 @@ function HarmonogramMenu(props) {
 
         try {
             await updateHarmonogram()
-            navigate(0)
 
         } catch (error ) {
             console.log(error )

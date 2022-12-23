@@ -3,6 +3,7 @@ import WizytaTableList from "../wizyta/WizytaTableList";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getKlientWizytaList} from "../../axios/WizytaAxiosCalls";
+import {getCurrentUser} from "../other/authHelper";
 
 class KontoWizyty extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class KontoWizyty extends React.Component {
             error: '',
             message: '',
             user: '',
-            wizyty: []
+            wizyty: [],
+            idVet:''
         }
     }
 
@@ -29,10 +31,20 @@ class KontoWizyty extends React.Component {
         } catch (error) {
             console.log(error)
         }
+        try {
+            const user = await getCurrentUser();
+            let token = user.Token
+            console.log(JSON.parse(atob(token.split('.')[1])).idUser)
+            this.setState({
+                idVet: JSON.parse(atob(token.split('.')[1])).idUser
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
-        const {error, isLoaded, wizyty} = this.state
+        const {error, isLoaded, wizyty, idVet} = this.state
         let content;
         const {t} = this.props;
 
@@ -41,7 +53,7 @@ class KontoWizyty extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <WizytaTableList wizyty={wizyty}/>
+            content = <WizytaTableList wizyty={wizyty} idVet={idVet}/>
         }
 
         return (

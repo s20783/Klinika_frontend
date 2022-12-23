@@ -28,3 +28,7 @@ export async function updateWizyta(idWizyta, data){
     const dataString = JSON.stringify(data)
     await api.put(`/Wizyta/${idWizyta}`, dataString);
 }
+export async function przelozWizyte(idWizyta, data){
+    const dataString = JSON.stringify(data)
+    await api.put(`/Wizyta/przeloz/${idWizyta}`, dataString);
+}

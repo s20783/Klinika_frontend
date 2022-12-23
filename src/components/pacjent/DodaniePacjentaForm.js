@@ -61,7 +61,7 @@ class DodaniePacjentaForm extends React.Component {
     }
 
     componentDidMount() {
-        if (this.state.idPacjent) {
+        if (this.state.formMode === formMode.EDIT) {
             this.fetchPatientDetails();
         }
     }

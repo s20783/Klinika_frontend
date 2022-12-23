@@ -25,6 +25,7 @@ class SzczegolyWizyty extends React.Component {
                 Cena: null,
                 CzyOplacona: false,
                 Status: '',
+                IdKlient:''
             },
             idWizyta: paramsIdWizyta,
             message: '',
@@ -137,7 +138,9 @@ class SzczegolyWizyty extends React.Component {
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('wizyta.visitDetails')}</p>
-                    <SzczegolyWizytaMenu idWizyta={idWizyta}/>
+                    {wizyta.Status === 'Zaplanowana' &&
+                        <SzczegolyWizytaMenu idWizyta={idWizyta} idKlient={wizyta.IdKlient}/>
+                    }
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">

@@ -1,16 +1,18 @@
 import {Link} from "react-router-dom";
-import {isWeterynarz} from "../other/authHelper";
+import {getCurrentUser, isKlient, isWeterynarz} from "../other/authHelper";
 import {getFormattedDateWithHour} from "../other/dateFormat";
 import {useTranslation} from "react-i18next";
 
 function WizytaTableList(props) {
     const {t} = useTranslation();
     const list = props.wizyty
+    var idVet = props.idVet
+
 
     return (
         <div>
             <div className="flex justify-end pb-3">
-
+                { isKlient() &&
                 <Link to="/umowWizyte">
                     <button
                         class="shadow-xl bg-blue-400 hover:bg-white h-12 w-12 sm:w-auto hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
@@ -18,6 +20,7 @@ function WizytaTableList(props) {
                         + {t("wizyta.button.appointment")}
                     </button>
                 </Link>
+                }
             </div>
             <div className="relative overflow-x-auto shadow-xl sm:rounded-lg mb-6">
 
@@ -39,7 +42,7 @@ function WizytaTableList(props) {
 
                             <td className="text-center px-6 py-4">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
                             <td className="text-center px-6 py-2">{x.Pacjent != null ? x.Pacjent : "-"}</td>
-                            <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-"}</td>
+                            <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz  : "-" } </td>
                             <td className="text-center px-6 py-2">{t("wizyta.status." + x.Status)}</td>
                             <td className="text-center px-6 py-2">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
 
@@ -65,8 +68,9 @@ function WizytaTableList(props) {
                                                         r="12"></circle>
                                             </svg>
                                         </Link>
-                                        {isWeterynarz() && <Link to={`/wizyty/editInfo/${x.IdWizyta}`}
-                                                                             className="list-actions-button-details flex-1">
+                                        {(isWeterynarz() && idVet === x.IdWeterynarz) &&
+                                            <Link to={`/wizyty/editInfo/${x.IdWizyta}`}
+                                                        className="list-actions-button-details flex-1">
                                                         <svg className="list-actions-button-edit flex-1"
                                                              xmlns="http://www.w3.org/2000/svg"
                                                              width="20" height="20" fill="#000000" viewBox="0 0 256 256">

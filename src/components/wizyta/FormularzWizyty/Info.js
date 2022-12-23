@@ -167,7 +167,7 @@ class Info extends React.Component {
                                 </label>
                                 <div className="md:w-3/5">
 
-                                    <select name="ID_Pacjent" id="Pacjent" onChange={this.handleChange}
+                                    <select  name="ID_Pacjent" id="Pacjent" onChange={this.handleChange}
                                             className="shadow-xl form-select block w-full focus:bg-white">
                                         <option value="">{t("wizyta.selectPatient")}</option>
                                         {

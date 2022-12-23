@@ -149,6 +149,7 @@
   "wizyta": {
     "title": "Wizyty",
     "makeAnAppointment": "Umówienie wizyty",
+    "postpone": "Przełożenie wizyty",
     "visitDetails": "Szczegóły wizyty",
     "editingVisit": "Edycja wizyty",
     "thankYou": "Dziękujemy!",

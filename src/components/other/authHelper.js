@@ -1,5 +1,5 @@
 export function getCurrentUser() {
-    // console.log(JSON.parse(localStorage.getItem('user')))
+    //console.log(JSON.parse(localStorage.getItem('user')))
     return JSON.parse(localStorage.getItem('user'));
 }
 
@@ -7,6 +7,15 @@ export function getImie() {
     const user = getCurrentUser()
     if (user) {
         return user.Imie
+    } else {
+        return undefined
+    }
+}
+export function getId() {
+    const user = getCurrentUser()
+    let token = user.Token
+    if (user) {
+        return JSON.parse(atob(token.split('.')[1])).idUser
     } else {
         return undefined
     }

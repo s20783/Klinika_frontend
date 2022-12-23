@@ -8,6 +8,7 @@ import {getPacjentDetails} from "../../axios/PacjentAxiosCalls";
 import {getPacjentWizytaList} from "../../axios/WizytaAxiosCalls";
 import {getSzczepienieList} from "../../axios/SzczepienieAxionCalls";
 import {getUslugiPacjenta} from "../../axios/UslugaAxiosCalls";
+import {getId, isWeterynarz} from "../other/authHelper";
 
 class SzczegolyPacjent extends React.Component {
     constructor(props) {
@@ -31,7 +32,8 @@ class SzczegolyPacjent extends React.Component {
             message: '',
             szczepienia: [],
             wizyty: [],
-            uslugi: []
+            uslugi: [],
+            idVet:''
         }
     }
 
@@ -83,7 +85,7 @@ class SzczegolyPacjent extends React.Component {
         try {
             const res = await getUslugiPacjenta(this.state.idPacjent)
             const data = await res.data
-console.log(data)
+
             this.setState({
                 isLoaded: true,
                 uslugi: data
@@ -96,6 +98,15 @@ console.log(data)
 
     async componentDidMount() {
 
+        try {
+            const userId = await getId()
+            this.setState({
+                idVet: userId
+            });
+        } catch (error) {
+            console.log(error)
+        }
+
         await this.fetchPatientDetails();
         await this.fetchWizyty();
         await this.fetchSzczepienia();
@@ -104,7 +115,7 @@ console.log(data)
     }
 
     render() {
-        const {pacjent, wizyty, idPacjent, szczepienia, uslugi} = this.state
+        const {pacjent, wizyty, idPacjent, szczepienia, uslugi,idVet} = this.state
         const {t} = this.props;
 
         return (
@@ -418,105 +429,73 @@ console.log(data)
                     {(wizyty.length !== 0) &&
                         <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
-                                <thead
-                                    className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("wizyta.table.startDate")}</th>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("wizyta.table.vet")}</th>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("wizyta.table.status")}</th>
-                                    <th scope="col" className="px-6 uppercase py-3 text-center">
-                                        {t("wizyta.table.isPaid")}</th>
-                                    <th></th>
+                                    <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.startDate")}</th>
+                                    <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.vet")}</th>
+                                    <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.status")}</th>
+                                    <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.isPaid")}</th>
+                                    <th scope="col" className="text-center px-6 py-3"/>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {wizyty.map(x => (
-                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
-                                        key={x.idWizyta}>
-                                        <td className="px-6 py-2 text-center">
-                                            {x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
-                                        <td className="px-6 py-2 text-center">
-                                            {x.Weterynarz}</td>
-                                        <td className="px-6 py-2 text-center">
-                                            {t("wizyta.status." + x.Status)}</td>
-                                        <td className="px-6 py-2 text-center">
-                                            {x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
-                                        <div className="list-actions text-center py-2">
-                                            <div className=" flex">
-                                                <Link to={`/wizyty/${x.IdWizyta}`}
-                                                      className="list-actions-button-details flex-1">
-                                                    <svg className="list-actions-button-details flex-1"
-                                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                         fill="#000000" viewBox="0 0 256 256">
-                                                        <rect width="256" height="256" fill="none"/>
-                                                        <g className="details-icon-color" opacity="0.1"></g>
-                                                        <circle className="details-icon-color hover:white-100" cx="128"
-                                                                cy="128" r="96"
-                                                                fill="none" stroke="#000000" strokeLinecap="round"
-                                                                strokeLinejoin="round" strokeWidth="16"></circle>
-                                                        <polyline className="details-icon-color"
-                                                                  points="120 120 128 120 128 176 136 176" fill="none"
-                                                                  stroke="#000000" strokeLinecap="round"
-                                                                  strokeLinejoin="round" strokeWidth="16"></polyline>
-                                                        <circle className="details-icon-color dot" cx="126" cy="84"
-                                                                r="12"></circle>
-                                                    </svg>
-                                                </Link>
-                                                <Link to={`/wizyty/edit/${x.IdWizyta}`}
-                                                      className="list-actions-button-details flex-1">
-                                                    <svg className="list-actions-button-edit flex-1"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                                                        <rect className="details-icon-color" width="256" height="256"
-                                                              fill="none"></rect>
-                                                        <path className="details-icon-color"
-                                                              d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
-                                                              fill="none" stroke="#000000" strokeLinecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></path>
-                                                        <line className="details-icon-color" x1="136" y1="64" x2="192"
-                                                              y2="120"
-                                                              fill="none" stroke="#000000" strokeLinecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></line>
-                                                        <polyline className="details-icon-color"
-                                                                  points="216 216 96 216 40.509 160.509" fill="none"
-                                                                  stroke="#000000" strokeLinecap="round"
-                                                                  strokeLinejoin="round" strokeWidth="16"></polyline>
-                                                    </svg>
-                                                </Link>
-                                                <Link to={`/wizyty/delete/${x.IdWizyta}`}
-                                                      className="list-actions-button-details flex-1">
-                                                    <svg className="list-actions-button-delete flex-1"
-                                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                         fill="#000000" viewBox="0 0 256 256">
-                                                        <rect width="256" height="256" fill="none"></rect>
-                                                        <line className="details-icon-color" x1="215.99609" y1="56"
-                                                              x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                              stroke-linecap="round" strokeLinejoin="round"
-                                                              strokeWidth="16"></line>
-                                                        <line className="details-icon-color" x1="104" y1="104" x2="104"
-                                                              y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></line>
-                                                        <line className="details-icon-color" x1="152" y1="104" x2="152"
-                                                              y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></line>
-                                                        <path className="details-icon-color"
-                                                              d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
-                                                              fill="none"
-                                                              stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></path>
-                                                        <path className="details-icon-color"
-                                                              d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></path>
-                                                    </svg>
-                                                </Link>
+                                    <tr className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                                        key={x.IdWizyta}>
+
+                                        <td className="text-center px-6 py-2">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
+                                        <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-" } </td>
+                                        <td className="text-center px-6 py-2">{t("wizyta.status." + x.Status)}</td>
+                                        <td className="text-center px-6 py-2">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
+
+                                        <td className="px-6 py-1">
+                                            <div className="list-actions">
+                                                <div className=" flex">
+                                                    <Link to={`/wizyty/${x.IdWizyta}`}
+                                                          className="list-actions-button-details flex-1">
+                                                        <svg className="list-actions-button-details flex-1"
+                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                             fill="#000000" viewBox="0 0 256 256">
+                                                            <rect width="256" height="256" fill="none"/>
+                                                            <g className="details-icon-color" opacity="0.1"></g>
+                                                            <circle className="details-icon-color hover:white-100" cx="128" cy="128"
+                                                                    r="96"
+                                                                    fill="none" stroke="#000000" strokeLinecap="round"
+                                                                    strokeLinejoin="round" strokeWidth="16"></circle>
+                                                            <polyline className="details-icon-color"
+                                                                      points="120 120 128 120 128 176 136 176" fill="none"
+                                                                      stroke="#000000" strokeLinecap="round"
+                                                                      strokeLinejoin="round" strokeWidth="16"></polyline>
+                                                            <circle className="details-icon-color dot" cx="126" cy="84"
+                                                                    r="12"></circle>
+                                                        </svg>
+                                                    </Link>
+                                                    {(isWeterynarz() && idVet === x.IdWeterynarz) &&
+                                                        <Link to={`/wizyty/editInfo/${x.IdWizyta}`}
+                                                              className="list-actions-button-details flex-1">
+                                                            <svg className="list-actions-button-edit flex-1"
+                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                                 width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                                                                <rect className="details-icon-color" width="256" height="256"
+                                                                      fill="none"></rect>
+                                                                <path className="details-icon-color"
+                                                                      d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
+                                                                      fill="none" stroke="#000000" strokeLinecap="round"
+                                                                      strokeLinejoin="round" strokeWidth="16"></path>
+                                                                <line className="details-icon-color" x1="136" y1="64" x2="192" y2="120"
+                                                                      fill="none" stroke="#000000" strokeLinecap="round"
+                                                                      strokeLinejoin="round" strokeWidth="16"></line>
+                                                                <polyline className="details-icon-color"
+                                                                          points="216 216 96 216 40.509 160.509" fill="none"
+                                                                          stroke="#000000" strokeLinecap="round"
+                                                                          strokeLinejoin="round" strokeWidth="16"></polyline>
+                                                            </svg>
+                                                        </Link>
+                                                    }
+
+                                                </div>
                                             </div>
-                                        </div>
+                                        </td>
                                     </tr>
                                 ))}
                                 </tbody>

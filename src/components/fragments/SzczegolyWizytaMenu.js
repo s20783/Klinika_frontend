@@ -5,12 +5,13 @@ import {Link} from "react-router-dom";
 function SzczegolyWizytaMenu(props) {
     const {t} = useTranslation();
     const idWizyta=props.idWizyta
+    const idKlient=props.idKlient
 
     return (
         <div className="">
             <div id="menu-content"
                  class="w-full inset-0 mt-0 z-20">
-                <Link to={`/`}>
+                <Link to={ idKlient !== undefined ? `/przelozWizyte/${idWizyta}/${idKlient}` : `/przelozWizyte/${idWizyta}`}>
                     <button
                         className='shadow-xl ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'>
                         <div class="relative h-9 w-24  xl:w-36 ">

@@ -154,6 +154,9 @@ class App extends React.Component {
                     <Route path="/zmianaDanychKonta" element={<ZmianaDanychKonta/>}/>
 
                     <Route path="/umowWizyte" element={<UmowienieWizyty/>}/>
+                    <Route path="/umowWizyte/:IdKlient" element={<UmowienieWizyty/>}/>
+                    <Route path="/przelozWizyte/:IdWizyta" element={<UmowienieWizyty/>}/>
+                    <Route path="/przelozWizyte/:IdWizyta/:IdKlient" element={<UmowienieWizyty/>}/>
                     <Route path="/potwierdzenieWizyty" element={<PotwierdzenieUmowieniaWizyty/>}/>
                     <Route path="/wizyty" element={<WizytaList/>}/>
                     <Route path="/wizyty/:IdWizyta" element={<SzczegolyWizyty/>}/>

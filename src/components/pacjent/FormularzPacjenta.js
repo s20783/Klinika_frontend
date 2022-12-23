@@ -8,6 +8,8 @@ import {getKlientList} from "../../axios/KlientAxiosCalls";
 class FormularzPacjenta extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props)
+
         const paramsIdPacjent = this.props.params.idPacjent
         const currentFormMode = paramsIdPacjent ? formMode.EDIT : formMode.NEW
         this.state = {

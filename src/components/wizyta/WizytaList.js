@@ -3,6 +3,8 @@ import {useNavigate} from "react-router";
 import WizytaTableList from "./WizytaTableList";
 import {withTranslation} from "react-i18next";
 import {getWizytaList} from "../../axios/WizytaAxiosCalls";
+import {getKontoData} from "../../axios/AuthAxiosCalls";
+import {getCurrentUser, getId} from "../other/authHelper";
 
 class WizytaList extends React.Component {
     constructor(props) {
@@ -10,7 +12,8 @@ class WizytaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            wizyty: []
+            wizyty: [],
+            idVet:''
         }
     }
 
@@ -19,7 +22,7 @@ class WizytaList extends React.Component {
         try {
             const res = await getWizytaList();
             var data = await res.data
-
+            console.log(data)
             this.setState({
                 isLoaded: true,
                 wizyty: data
@@ -27,10 +30,20 @@ class WizytaList extends React.Component {
         } catch (error) {
             console.log(error)
         }
+
+        try {
+            const userId = await getId()
+            this.setState({
+                idVet: userId
+            });
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     render() {
-        const {error, isLoaded, wizyty} = this.state
+        const {error, isLoaded, wizyty, idVet} = this.state
         let content;
         const {t} = this.props;
 
@@ -39,7 +52,7 @@ class WizytaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <WizytaTableList wizyty={wizyty}/>
+            content = <WizytaTableList wizyty={wizyty} idVet={idVet}/>
         }
 
         return (
