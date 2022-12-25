@@ -32,3 +32,6 @@ export async function przelozWizyte(idWizyta, data){
     const dataString = JSON.stringify(data)
     await api.put(`/Wizyta/przeloz/${idWizyta}`, dataString);
 }
+export function odwolajWizyte(IdWizyta,idOsoba){
+    return api.delete(`/Wizyta/${IdWizyta}?ID_klient=${idOsoba}`);
+}

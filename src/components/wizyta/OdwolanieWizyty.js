@@ -1,51 +1,47 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
+import {odwolajWizyte} from "../../axios/WizytaAxiosCalls";
+import {isKlient} from "../other/authHelper";
 
 class OdwolanieWizyty extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdWizyta = this.props.params.IdWizyta
+        const paramsIdKlient = this.props.params.IdKlient
+
         console.log(paramsIdWizyta)
         this.state = {
             idWizyta: paramsIdWizyta,
+            idKlient:paramsIdKlient,
             error: '',
             isLoaded: false,
             notice: '',
         }
     }
 
-    removeWizyte = (idWizyta) => {
-       // const {navigate} = this.props;
-        //let response;
-        /*
-        console.log(idWizyta)
-        deleteWizyta(idWizyta)
-            .then(res => {
-                console.log(res)
-                if (res.status === 204) {
-                    console.log(res.status)
-                    navigate(-1, {replace: true});
-
-                } else if (res.status === 401) {
-                    console.log(res)
-
-                } else {
-                    console.log(res)
-
-                }
-            })*/
+    removeWizyte = async () => {
+        const {navigate} = this.props;
+        try {
+            await odwolajWizyte(this.state.idWizyta, this.state.idKlient)
+            if(isKlient()){
+                await navigate(`/mojeWizyty`, {replace: true});
+            }else {
+                await navigate(`/wizyty`, {replace: true});
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
-        const {error, idWizyta} = this.state
         const {t} = this.props;
         const {navigate} = this.props;
 
         return (
             <body class="bg-gray-200 flex items-center justify-center h-screen">
 
-            <div class="modal-overlay absolute w-full h-full bg-gray-500 opacity-50"></div>
+            <div class="modal-overlay absolute w-full h-full  opacity-50"></div>
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
 
                 <div class="modal-content py-9 px-5">
@@ -58,7 +54,7 @@ class OdwolanieWizyty extends React.Component {
                             {t('button.back')}
                         </button>
                         <button
-                            onClick={() => this.removeWizyte(idWizyta)}
+                            onClick={() => this.removeWizyte()}
                             class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('wizyta.cancelVisit')}
                         </button>
                     </div>

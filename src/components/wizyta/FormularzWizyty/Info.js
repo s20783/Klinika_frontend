@@ -176,6 +176,8 @@ class Info extends React.Component {
                                                     selected={pacjent.IdPacjent === data.ID_Pacjent}
                                                     value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
                                             ))}
+                                        <option value="0">{t("wizyta.other")}</option>
+
                                     </select>
                                 </div>
                                 <span id="errorPacjent" className="errors-text2">{errors.ID_Pacjent}</span>

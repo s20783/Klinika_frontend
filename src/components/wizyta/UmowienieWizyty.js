@@ -42,7 +42,7 @@ class UmowienieWizyty extends React.Component {
             day: '',
             idWizyta: paramsIdWizyta,
             formMode: currentFormMode,
-            idKlient:paramsIdKlient
+            idKlient: paramsIdKlient
         }
     }
 
@@ -53,9 +53,9 @@ class UmowienieWizyty extends React.Component {
                 const res = await getWizytaDetails(this.state.idWizyta);
                 var data = await res.data
                 const data1 = {...this.state.data}
-                data1['Pacjent']=data.IdPacjent
-                data1['Notatka']=data.NotatkaKlient
-                data1['ID_klient']=data.IdKlient
+                data1['Pacjent'] = data.IdPacjent
+                data1['Notatka'] = data.NotatkaKlient
+                data1['ID_klient'] = data.IdKlient
 
                 this.setState({
                     data: data1
@@ -69,33 +69,33 @@ class UmowienieWizyty extends React.Component {
 
 
         }
-            if (isKlient()) {
-                try {
-                    const res = await getKlientPacjentList2();
-                    const data = await res.data
-                  //  console.log(data)
+        if (isKlient()) {
+            try {
+                const res = await getKlientPacjentList2();
+                const data = await res.data
+                //  console.log(data)
 
-                    this.setState({
-                        isLoaded: true,
-                        list: data
-                    });
-                } catch (error) {
-                    console.log(error)
-                }
-            } else {
-                try {
-                    const res = await getKlientPacjentList(this.state.idKlient);
-                    const data = await res.data
-                   // console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        list: data,
-
-                    });
-                } catch (error) {
-                    console.log(error)
-                }
+                this.setState({
+                    isLoaded: true,
+                    list: data
+                });
+            } catch (error) {
+                console.log(error)
             }
+        } else {
+            try {
+                const res = await getKlientPacjentList(this.state.idKlient);
+                const data = await res.data
+                // console.log(data)
+                this.setState({
+                    isLoaded: true,
+                    list: data,
+
+                });
+            } catch (error) {
+                console.log(error)
+            }
+        }
 
     }
 
@@ -177,9 +177,9 @@ class UmowienieWizyty extends React.Component {
 
             console.log(newData)
             try {
-                if(this.state.formMode === formMode.NEW) {
+                if (this.state.formMode === formMode.NEW) {
                     await umowWizyte(newData)
-                }else {
+                } else {
                     await przelozWizyte(this.state.idWizyta, newData)
                 }
                 navigate(
@@ -209,7 +209,7 @@ class UmowienieWizyty extends React.Component {
     onChange = async (date) => {
         this.setState({selectedDate: date});
 
-        if(date > new Date()) {
+        if (date > new Date()) {
             try {
                 const res = await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'));
                 var data = await res.data
@@ -254,29 +254,29 @@ class UmowienieWizyty extends React.Component {
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>
-                            <section className="bg-white-100 border-b  mb-7">
-                                <div className=" md:flex mb-6 mt-4">
-                                    <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
-                                           htmlFor="Pacjent">
-                                        {t("wizyta.field.patient")}
-                                    </label>
-                                    <div className="md:w-3/5">
+                        <section className="bg-white-100 border-b  mb-7">
+                            <div className=" md:flex mb-6 mt-4">
+                                <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
+                                       htmlFor="Pacjent">
+                                    {t("wizyta.field.patient")}
+                                </label>
+                                <div className="md:w-3/5">
 
-                                        <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
-                                                className="shadow-xl form-select block w-full focus:bg-white">
-                                            <option value="">{t("wizyta.selectPatient")}</option>
-                                            {
-                                                list.map(pacjent => (
-                                                    <option
-                                                        selected={pacjent.IdPacjent === data.Pacjent}
-                                                        value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
-                                                ))}
-                                            <option value="0">{t("wizyta.other")}</option>
-                                        </select>
-                                    </div>
-                                    <span id="errorPacjent" className="errors-text2">{errors.Pacjent}</span>
+                                    <select name="Pacjent" id="Pacjent" onChange={this.handleChange}
+                                            className="shadow-xl form-select block w-full focus:bg-white">
+                                        <option value="">{t("wizyta.selectPatient")}</option>
+                                        {
+                                            list.map(pacjent => (
+                                                <option
+                                                    selected={pacjent.IdPacjent === data.Pacjent}
+                                                    value={pacjent.IdPacjent}>{pacjent.Nazwa}</option>
+                                            ))}
+                                        <option value="0">{t("wizyta.other")}</option>
+                                    </select>
                                 </div>
-                            </section>
+                                <span id="errorPacjent" className="errors-text2">{errors.Pacjent}</span>
+                            </div>
+                        </section>
                         <section className="bg-white-100 border-b mt-7">
                             <label className="block  text-gray-600 font-bold md:text-left mb-6" form="my-select">
                                 {t("wizyta.field.date")}
@@ -294,14 +294,18 @@ class UmowienieWizyty extends React.Component {
                             </span>
                             </div>
                         </section>
-                        <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
-                            {t("wizyta.field.description")}
-                        </label>
-                        <div className="md:w-3/4 mt-5">
-                        <textarea className="shadow-xl form-textarea block w-full focus:bg-white " id="Notatka"
-                                  name="Notatka" value={data.Notatka}
-                                  rows="5" onChange={this.handleChange}/>
-                        </div>
+                        {isKlient() &&
+                            <div>
+                                <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
+                                    {t("wizyta.field.description")}
+                                </label>
+                                <div className="md:w-3/4 mt-5">
+                            <textarea className="shadow-xl form-textarea block w-full focus:bg-white " id="Notatka"
+                                      name="Notatka" value={data.Notatka}
+                                      rows="5" onChange={this.handleChange}/>
+                                </div>
+                            </div>
+                        }
                         <span id="errorOpis" className="errors-text2">{errors.Notatka}</span>
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
@@ -322,6 +326,7 @@ class UmowienieWizyty extends React.Component {
         )
     }
 }
+
 const withRouter = WrappedComponent => props => {
     const params = useParams();
 

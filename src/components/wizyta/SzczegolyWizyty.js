@@ -152,7 +152,7 @@ class SzczegolyWizyty extends React.Component {
                                 </label>
                                 <input
                                     class=" shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
-                                    name="Wlasciciel" id="Wlasciciel" type="text" value={wizyta.Pacjent}
+                                    name="Wlasciciel" id="Wlasciciel" type="text" value={wizyta.Pacjent ? wizyta.Pacjent : "-"}
                                     disabled placeholder=""/>
                             </div>
                         </div>

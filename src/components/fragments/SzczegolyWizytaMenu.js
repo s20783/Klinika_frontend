@@ -30,7 +30,7 @@ function SzczegolyWizytaMenu(props) {
                         </div>
                     </button>
                 </Link>
-                <Link to={`/wizyty/delete/${idWizyta}`}>
+                <Link to={`/wizyty/cancel/${idWizyta}/${idKlient}`}>
                     <button
                         className='shadow-xl ml-2 column-1 mb-2 shadow bg-red-300 hover:bg-white  hover:text-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'>
                         <div className="relative h-9 w-24  xl:w-36">

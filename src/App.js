@@ -164,7 +164,7 @@ class App extends React.Component {
                     <Route path="/wizyty/editMedDise/:IdWizyta" element={<LekiChoroby/>}/>
                     <Route path="/wizyty/editServices/:IdWizyta" element={<Uslugi/>}/>
                     <Route path="/wizyty/editPrescription/:IdWizyta" element={<Recepta/>}/>
-                    <Route path="/wizyty/delete/:IdWizyta" element={<OdwolanieWizyty/>}/>
+                    <Route path="/wizyty/cancel/:IdWizyta/:IdKlient" element={<OdwolanieWizyty/>}/>
 
 
                     <Route path="/recepta/:typ/:IdRecepta" element={<FormularzRecepty/>}/>
