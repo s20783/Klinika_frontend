@@ -239,10 +239,12 @@
   "klient": {
     "title": "Klienci",
     "addNewClient": "Dodanie nowego klienta",
-    "editClient": "Edycja klienta",
     "detailsClient": "Szczegóły klienta",
     "deletingClient": "Czy na pewno chcesz usunąc klienta?",
     "deleteClient": "Usuń klienta",
+    "button": {
+      "addClient": "Dodaj klienta"
+    },
     "fields": {
       "firstName": "Imię",
       "lastName": "Nazwisko",

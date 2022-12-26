@@ -67,6 +67,7 @@ import LekiChoroby from "./components/wizyta/FormularzWizyty/LekiChoroby";
 import Uslugi from "./components/wizyta/FormularzWizyty/Uslugi";
 import Recepta from "./components/wizyta/FormularzWizyty/Recepta";
 import OdwolanieWizyty from "./components/wizyta/OdwolanieWizyty";
+import FormularzKlient from "./components/klient/FormularzKlient";
 
 class App extends React.Component {
     constructor(props) {
@@ -108,6 +109,8 @@ class App extends React.Component {
 
                     <Route path="/klienci" element={<KlientList/>}/>
                     <Route path="/klienci/:IdOsoba" element={<SzczegolyKlienta/>}/>
+                    <Route path="/dodajKlienta" element={<FormularzKlient/>}/>
+
 
                     <Route path="/weterynarze" element={<WeterynarzList/>}/>
                     <Route path="/weterynarze/:IdOsoba" element={<SzczegolyWeterynarza/>}/>

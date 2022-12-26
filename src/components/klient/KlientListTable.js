@@ -25,10 +25,10 @@ function KlientListTable(props) {
 
     return (
         <div>
-            <div className="p-4">
-                <label form="table-search" className="sr-only"></label>
-                <div className="relative mt-1">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <div className="p-4 ">
+                <div className="relative mt-1 flex flex-wrap">
+                    <label form="table-search" className="sr-only shrink">Search</label>
+                    <div className="absolute  inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
                              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd"
@@ -38,10 +38,15 @@ function KlientListTable(props) {
                     </div>
                     <label htmlFor="search">
                         <input type="text" id="search"
-                               className="shadow-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 sm:w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               className="shadow-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 md:w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                onChange={handleFilter} value={wordEntered}
                                placeholder={t('other.search')}/>
+
                     </label>
+                    <Link to="/dodajKlienta"
+                          className="absolute top-0 right-0  h-12 w-12 sm:w-auto shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <span className="text-xl">+</span><span className="invisible sm:visible "> {t('klient.button.addClient')}</span>
+                    </Link>
                 </div>
             </div>
             <div className="relative overflow-x-auto shadow-xl mb-6 sm:rounded-lg">

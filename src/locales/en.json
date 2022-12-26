@@ -236,6 +236,9 @@
 		"detailsClient": "Client Details",
 		"deletingClient": "Are you sure you want to delete client?",
 		"deleteClient": "Delete Client",
+		"button": {
+			"addClient": "Add client"
+		},
 		"fields": {
 			"firstName": "First Name",
 			"lastName": "Last Name",

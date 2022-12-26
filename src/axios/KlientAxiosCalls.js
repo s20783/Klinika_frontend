@@ -8,6 +8,10 @@ export function getKlientList() {
 export function getKlientDetails(Id) {
     return api.get(`/Klient/${Id}`);
 }
+export async function addKlient(klient) {
+    const klientString = JSON.stringify(klient)
+    await api.post('/Klient/Klinika', klientString);
+}
 
 export async function registerCall(user) {
     const userString = JSON.stringify(user)
