@@ -2,7 +2,8 @@ import React from "react";
 import {useNavigate} from "react-router";
 import KlientListTable from "./KlientListTable";
 import {withTranslation} from "react-i18next";
-import {getKlientList} from "../../axios/KlientAxiosCalls";
+import {cancelTokenFuncton, getKlientList} from "../../axios/KlientAxiosCalls";
+import axios, {CancelToken} from "axios";
 
 class KlientList extends React.Component {
     constructor(props) {
@@ -11,20 +12,42 @@ class KlientList extends React.Component {
             error: '',
             isLoaded: false,
             klienci: [],
-            notice: ''
+            notice: '',
+            x: false
         }
+
     }
 
+
     async componentDidMount() {
-        const res = await getKlientList();
-        var data = await res.data
-
         this.setState({
-            isLoaded: true,
-            klienci: data
+            x: true
         });
+        try {
 
-        //const {navigate} = this.props;
+            var res = await getKlientList()
+            console.log(res)
+            //const data = await res.data;
+            //console.log(data)
+
+            this.setState({
+                isLoaded: true,
+             //   klienci: data
+            });
+        }catch (e){
+            console.log(e)
+        }
+
+    }
+
+    async componentWillUnmount() {
+      //  console.log(this.state.x)
+        if (this.state.x) {
+            console.log("dsds")
+
+            cancelTokenFuncton()
+
+        }
     }
 
     render() {

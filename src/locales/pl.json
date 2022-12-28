@@ -355,6 +355,8 @@
     "checkingTheVetsSchedule": "Sprawdzenie harmonogramu",
     "selectVet": "Wybierz weterynarza",
     "all": "Wszyscy weterynarze",
+    "afterAddingSchedule": "Pomyślnie dodano harmonogram",
+    "afterUpdatingSchedule": "Pomyślnie aktualizowano harmonogram",
     "button": {
       "check": "Sprawdź"
     },

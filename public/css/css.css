@@ -168,41 +168,16 @@ tr:nth-child(od) {
 }
 
 .react-calendar__tile:disabled {
-    background-color: rgb(219 234 254);
+    background-color: rgb(115 215 255);
 }
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-    background-color: rgb(219 234 254);
-}
-
-.react-calendar__tile--now {
-    /* background: #ffff76; */
-    background-color: rgb(219 234 254);
-}
-
-.react-calendar__tile--now:enabled:hover,
-.react-calendar__tile--now:enabled:focus {
-    background: rgb(219 234 254);
+    background-color: rgb(115 215 255);
 }
 
 .react-calendar__tile--hasActive {
-    background: rgb(219 234 254);
-}
-
-.react-calendar__tile--hasActive:enabled:hover,
-.react-calendar__tile--hasActive:enabled:focus {
-    background: rgb(0 171 240);
-}
-
-.react-calendar__tile--active {
-    background: rgb(0 171 240);
-    color: white;
-}
-
-.react-calendar__tile--active:enabled:hover,
-.react-calendar__tile--active:enabled:focus {
-    background: rgb(0 171 240);
+    background: rgb(115 215 255);
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {

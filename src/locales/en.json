@@ -345,6 +345,8 @@
 		"checkingTheVetsSchedule": "Checking the schedule",
 		"workingHour": "Working hours",
 		"changingWorkingHour":"Changing vet's working hour",
+		"afterAddingSchedule": "Schedule added successfully",
+		"afterUpdatingSchedule": "The schedule was successfully updated",
 		"selectVet": "Select vet",
 		"all": "All vets",
 		"button": {

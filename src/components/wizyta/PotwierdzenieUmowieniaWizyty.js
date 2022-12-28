@@ -1,6 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import React from "react";
 import {useTranslation} from "react-i18next";
+import {isKlient} from "../other/authHelper";
 
 function PotwierdzenieUmowieniaWizyty() {
     const {t} = useTranslation();
@@ -19,7 +20,7 @@ function PotwierdzenieUmowieniaWizyty() {
                             <p class="text-2xl font-bold">{t("wizyta.date") + ": " + wybranaData.replaceAll("-", ".")}</p>
                             <img src="/images/gti.png" alt={"gti"}></img>
                             <div class="flex justify-end pt-2">
-                                <Link to="/mojeWizyty">
+                                <Link to={isKlient() ? "/mojeWizyty":"/wizyty" }>
                                     <button
                                         class="px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t("button.back")}
                                     </button>

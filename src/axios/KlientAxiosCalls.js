@@ -1,10 +1,16 @@
 import api from "./Api";
-import axios from "axios";
+import axios, { CancelToken } from "axios";
+
+const cancelToken = CancelToken.source();
 
 export function getKlientList() {
-    return api.get('/Klient');
+    return api.get('/Test/cancellation', {
+        cancelToken: cancelToken.token
+    })
 }
-
+export function cancelTokenFuncton() {
+    cancelToken.cancel();
+}
 export function getKlientDetails(Id) {
     return api.get(`/Klient/${Id}`);
 }

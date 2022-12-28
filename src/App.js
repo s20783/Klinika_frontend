@@ -68,6 +68,7 @@ import Uslugi from "./components/wizyta/FormularzWizyty/Uslugi";
 import Recepta from "./components/wizyta/FormularzWizyty/Recepta";
 import OdwolanieWizyty from "./components/wizyta/OdwolanieWizyty";
 import FormularzKlient from "./components/klient/FormularzKlient";
+import PoDodaniuAktualizacjiHarmonogramu from "./components/harmonogram/PoDodaniuAktualizacjiHarmonogramu";
 
 class App extends React.Component {
     constructor(props) {
@@ -192,6 +193,7 @@ class App extends React.Component {
                     <Route path="/leki/magazyn/delete/:IdStanLeku" element={<UsuniecieLekuMagazyn/>}/>
 
                     <Route path="/harmonogram" element={<HarmonogramForm/>}/>
+                    <Route path="/poHarmonogram/:akcja" element={<PoDodaniuAktualizacjiHarmonogramu/>}/>
 
                     <Route path="/pacjenci" element={<PacjentList/>}/>
                     <Route path="/dodajPacjenta" element={<FormularzPacjenta/>}/>

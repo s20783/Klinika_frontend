@@ -10,17 +10,18 @@ function HarmonogramMenu(props) {
         console.log("dodajHarmonogram")
         try {
             await addHarmonogram()
-            navigate(0)
+            navigate('/poHarmonogram/d')
         } catch (error) {
             console.log(error)
         }
     }
 
     const aktualizujHarmonogram = async () => {
-        console.log("aktualizujHarmonogram")
+        console.log()
 
         try {
             await updateHarmonogram()
+            navigate('/poHarmonogram/a')
 
         } catch (error ) {
             console.log(error )

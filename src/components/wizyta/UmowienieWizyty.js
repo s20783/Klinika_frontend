@@ -124,6 +124,7 @@ class UmowienieWizyty extends React.Component {
             }
         }
         if (fieldName === 'Termin') {
+
             if (!fieldValue) {
                 errorMessage = `${t('validation.required')}`
             }
@@ -208,6 +209,7 @@ class UmowienieWizyty extends React.Component {
 
     onChange = async (date) => {
         this.setState({selectedDate: date});
+        const errors = {...this.state.errors}
 
         if (date > new Date()) {
             try {
@@ -221,7 +223,14 @@ class UmowienieWizyty extends React.Component {
             } catch (error) {
                 console.log(error)
             }
+            errors["Termin"] = ""
         }
+        else{
+            errors["Termin"] = "Data musi byc z przyszłosci"
+        }
+        this.setState({
+            errors: errors
+        })
     }
 
     handleHarmonogramSelect = (harmonogram) => {
