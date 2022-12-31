@@ -15,10 +15,8 @@ class UmowienieWizyty extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdWizyta = this.props.params.IdWizyta
-        console.log(paramsIdWizyta)
         const currentFormMode = paramsIdWizyta ? formMode.EDIT : formMode.NEW
         const paramsIdKlient = this.props.params.IdKlient
-        console.log(currentFormMode)
 
         this.state = {
             data: {
@@ -34,7 +32,8 @@ class UmowienieWizyty extends React.Component {
             },
             wizyta: {
                 Data: '',
-                Dzien: ''
+                Dzien: '',
+                weterynarz: ''
             },
             list: [],
             date: new Date(),
@@ -48,7 +47,6 @@ class UmowienieWizyty extends React.Component {
 
     async componentDidMount() {
         if (this.state.formMode === formMode.EDIT) {
-
             try {
                 const res = await getWizytaDetails(this.state.idWizyta);
                 var data = await res.data
@@ -66,8 +64,6 @@ class UmowienieWizyty extends React.Component {
             } catch (error) {
                 console.log(error)
             }
-
-
         }
         if (isKlient()) {
             try {
@@ -89,14 +85,12 @@ class UmowienieWizyty extends React.Component {
                 // console.log(data)
                 this.setState({
                     isLoaded: true,
-                    list: data,
-
+                    list: data
                 });
             } catch (error) {
                 console.log(error)
             }
         }
-
     }
 
     handleChange = (event) => {
@@ -116,7 +110,6 @@ class UmowienieWizyty extends React.Component {
 
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
-        const {list} = this.state
         let errorMessage = '';
         if (fieldName === 'Pacjent') {
             if (!fieldValue) {
@@ -215,7 +208,6 @@ class UmowienieWizyty extends React.Component {
             try {
                 const res = await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'));
                 var data = await res.data
-                console.log(data)
                 this.setState({
                     isLoaded: true,
                     harmonogram: data
@@ -224,8 +216,7 @@ class UmowienieWizyty extends React.Component {
                 console.log(error)
             }
             errors["Termin"] = ""
-        }
-        else{
+        } else {
             errors["Termin"] = "Data musi byc z przyszłosci"
         }
         this.setState({
@@ -238,10 +229,12 @@ class UmowienieWizyty extends React.Component {
         const wizyta = {...this.state.wizyta}
         const errors = {...this.state.errors}
 
+        console.log(harmonogram)
         errors["Data"] = ''
         data["Termin"] = harmonogram.IdHarmonogram
         wizyta["Data"] = getFormattedDateWithHour(harmonogram.Data)
         wizyta["Dzien"] = harmonogram.Dzien
+        wizyta["Weterynarz"] = harmonogram.Weterynarz
         this.setState({
             wizyta: wizyta,
             data: data,
@@ -299,11 +292,10 @@ class UmowienieWizyty extends React.Component {
                                        timeChange={this.handleHarmonogramSelect}/>}
                                 <span id="errorData" className="errors-text2 mb-4">{errors.Termin}</span>
                                 <span id="" className="">{wizyta.Data === '' ? '' :
-                                    t("wizyta.selectedDate") + wizyta.Data.replaceAll("-", ".") + " (" + t('other.day.' + wizyta.Dzien) + ")"}
+                                    t("wizyta.selectedDate") + wizyta.Data.replaceAll("-", ".") + " (" + t('other.day.' + wizyta.Dzien) + ") - " + wizyta.Weterynarz}
                             </span>
                             </div>
                         </section>
-                        {isKlient() &&
                             <div>
                                 <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Notatka">
                                     {t("wizyta.field.description")}
@@ -314,7 +306,6 @@ class UmowienieWizyty extends React.Component {
                                       rows="5" onChange={this.handleChange}/>
                                 </div>
                             </div>
-                        }
                         <span id="errorOpis" className="errors-text2">{errors.Notatka}</span>
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
@@ -327,6 +318,7 @@ class UmowienieWizyty extends React.Component {
                                         className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("button.next")}
                                 </button>
+                                <span id="errorForm" className="errors-text2">{this.hasErrors() ? t("validation.formError") : ""}</span>
                             </div>
                         </div>
                     </form>
@@ -338,7 +330,6 @@ class UmowienieWizyty extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

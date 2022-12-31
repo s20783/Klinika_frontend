@@ -20,6 +20,7 @@
 		"policy": "Privacy policy"
 	},
 	"validation": {
+		"formError": "Form has errors",
 		"required": "This field is required",
 		"max30": "This field requires from 2 to 30 characters",
 		"max50": "This field requires from 2 to 50 characters",

@@ -19,6 +19,7 @@
     "policy": "Polityka prywatności"
   },
   "validation": {
+    "formError": "Formularz zawiera błędy",
     "required": "Pole wymagane",
     "max30": "To pole wymaga od 2 do 30 znaków",
     "max50": "To pole wymaga od 2 do 50 znaków",
