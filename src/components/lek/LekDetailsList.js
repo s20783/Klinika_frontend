@@ -6,7 +6,9 @@ import {addChorobaLek, deleteChorobaLek} from "../../axios/ChorobaLekAxiosCalls"
 import {Link} from "react-router-dom";
 import {getFormattedDate} from "../other/dateFormat";
 import {getLekDetails} from "../../axios/LekAxiosCalls";
-
+import axios from "axios";
+let CancelToken
+let source
 class LekDetailsList extends React.Component {
     constructor(props) {
         super(props);
@@ -30,30 +32,43 @@ class LekDetailsList extends React.Component {
 
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
-            const res = await getLekDetails(this.state.IdLek)
-            const data = await res.data
-            console.log(data.LekList)
-            this.setState({
-                isLoaded: true,
-                lek: data,
-                leki: data.LekList,
-                chorobyLek: data.Choroby
-            });
+
+            await getLekDetails(this.state.IdLek, source)
+                .then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        lek: res.data,
+                        leki: res.data.LekList,
+                        chorobyLek: res.data.Choroby
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     async showSelect() {
         if (this.state.choroby.length === 0) {
             try {
-                const res = await getChorobaList()
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    choroby: data
-                });
+                await getChorobaList(source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            choroby: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
@@ -90,7 +105,7 @@ class LekDetailsList extends React.Component {
 
         const {navigate} = this.props;
         try {
-            await deleteChorobaLek(idChoroba, this.state.IdLek)
+            await deleteChorobaLek(idChoroba, this.state.IdLek, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -102,7 +117,7 @@ class LekDetailsList extends React.Component {
         if (this.state.data1.IdChoroba !== '') {
 
             try {
-                await addChorobaLek(this.state.data1.IdChoroba, this.state.IdLek)
+                await addChorobaLek(this.state.data1.IdChoroba, this.state.IdLek, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -151,7 +166,6 @@ class LekDetailsList extends React.Component {
         const { IdLek, leki, lek, choroby, chorobyLek, errors, data1} = this.state
         const {t} = this.props;
         const {navigate} = this.props;
-
 
         return (
             <main>

@@ -11,7 +11,10 @@ import {
 } from "../../axios/ReceptaAxiosCalls";
 import {Link} from "react-router-dom";
 import {checkNumberRange} from "../helpers/CheckNRange";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzRecepty extends React.Component {
     constructor(props) {
         super(props);
@@ -49,34 +52,42 @@ class FormularzRecepty extends React.Component {
 
 
     async componentDidMount() {
-
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
             if (this.state.formMode === formMode.EDIT) {
 
-                var res = await getReceptaDetails(this.state.idRecepta)
-                var data = await res.data
-
-                const data1 = {...this.state.data}
-                console.log(data)
-                data1['Zalecenia'] = data.Zalecenia
-                this.setState({
-                    data: data1,
-                    isLoaded: true,
+                await getReceptaDetails(this.state.idRecepta, source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        const data1 = {...this.state.data}
+                        data1['Zalecenia'] = res.data.Zalecenia
+                        this.setState({
+                            data: data1,
+                            isLoaded: true,
+                        })
+                    }
                 })
             }
-            res = await getReceptaLeki(this.state.idRecepta)
-            data = await res.data
 
-            console.log(data)
-            this.setState({
-                lekiRecepta: data
-            });
-
+            await getReceptaLeki(this.state.idRecepta, source)
+                .then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        lekiRecepta: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
-
-
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
     }
 
 
@@ -104,7 +115,7 @@ class FormularzRecepty extends React.Component {
         if (isValid) {
             if (dane.czyDodana === false) {
                 try {
-                    await addRecepta(dane.idRecepta, dane.data.Zalecenia)
+                    await addRecepta(dane.idRecepta, dane.data.Zalecenia,source)
                     this.setState({
                         czyDodana: true
                     });
@@ -113,7 +124,7 @@ class FormularzRecepty extends React.Component {
                 }
             }
             try {
-                await addReceptaLek(dane.idRecepta, dane.data.Lek, dane.data.Ilosc)
+                await addReceptaLek(dane.idRecepta, dane.data.Lek, dane.data.Ilosc,source)
                 navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -129,7 +140,7 @@ class FormularzRecepty extends React.Component {
         const dane = {...this.state}
 
         try {
-            await deleteReceptaLek(dane.idRecepta, id)
+            await deleteReceptaLek(dane.idRecepta, id, source)
             navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -140,13 +151,16 @@ class FormularzRecepty extends React.Component {
     async showSelect() {
         if (this.state.leki.length === 0) {
             try {
-                const res = await getOnlyLekList()
-                const data = await res.data
-                console.log(data)
-                this.setState({
-                    isLoaded: true,
-                    leki: data
-                });
+
+                await getOnlyLekList(source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            leki: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
@@ -224,7 +238,6 @@ class FormularzRecepty extends React.Component {
                     errorMessage = `${t('validation.max300nullable')}`
                 }
             }
-
         }
 
         return errorMessage;
@@ -247,7 +260,7 @@ class FormularzRecepty extends React.Component {
 
         if (dane.errors.Zalecenia === '' && dane.lekiRecepta.length !== 0) {
             try {
-                await updateRecepta(dane.idRecepta, dane.data.Zalecenia)
+                await updateRecepta(dane.idRecepta, dane.data.Zalecenia, source)
                 navigate(-1, {replace: true});
             } catch (error) {
                 console.log(error)

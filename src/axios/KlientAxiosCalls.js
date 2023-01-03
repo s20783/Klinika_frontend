@@ -1,25 +1,44 @@
 import api from "./Api";
-import axios, { CancelToken } from "axios";
+import axios from "axios";
 
-const cancelToken = CancelToken.source();
 
-export function getKlientList() {
-    return api.get('/Test/cancellation', {
-        cancelToken: cancelToken.token
+export function getKlientList(source) {
+    return api.get('/Klient', {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
     })
 }
-export function cancelTokenFuncton() {
-    cancelToken.cancel();
+
+export function getKlientDetails(Id, source) {
+    return api.get(`/Klient/${Id}`,{
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    });
 }
-export function getKlientDetails(Id) {
-    return api.get(`/Klient/${Id}`);
-}
-export async function addKlient(klient) {
+export async function addKlient(klient,source) {
     const klientString = JSON.stringify(klient)
-    await api.post('/Klient/Klinika', klientString);
+    await api.post('/Klient/Klinika', klientString,{
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    });
 }
 
-export async function registerCall(user) {
+export async function registerCall(user, source) {
     const userString = JSON.stringify(user)
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:36989/api',
@@ -28,5 +47,13 @@ export async function registerCall(user) {
         }
     })
 
-    await axiosInstance.post('/Klient', userString);
+    await axiosInstance.post('/Klient', userString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    });
 }

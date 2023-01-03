@@ -2,8 +2,10 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
-import {deleteChoroba} from "../../axios/ChorobaAxiosCalls";
-
+import {deleteChoroba, getChorobaDetails} from "../../axios/ChorobaAxiosCalls";
+import axios from "axios";
+let CancelToken
+let source
 class UsuniecieChoroby extends React.Component {
     constructor(props) {
         super(props);
@@ -14,17 +16,27 @@ class UsuniecieChoroby extends React.Component {
             isLoaded: false
         }
     }
+    async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
+    }
 
     removeChoroba = async (idChoroba) => {
+
         const {navigate} = this.props;
         try {
-            await deleteChoroba(idChoroba)
-            await navigate("/choroby", {replace: true});
+            await deleteChoroba(idChoroba, source)
+           await navigate("/choroby", {replace: true});
         } catch (error) {
             console.log(error)
         }
-    }
 
+    }
+    componentWillUnmount() {
+        source.cancel('Operation canceled by the user.');
+
+    }
     render() {
         const {idChoroba} = this.state
         const {t} = this.props;

@@ -7,7 +7,10 @@ import {addLekMagazyn, getLekMagazyn, updateLekMagazyn} from "../../axios/LekWMa
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
 import {getLekDetails} from "../../axios/LekAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzLekMagazyn extends React.Component {
     constructor(props) {
         super(props);
@@ -38,24 +41,35 @@ class FormularzLekMagazyn extends React.Component {
 
 
     async componentDidMount() {
-
-        console.log(this.state.formMode)
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
         if (this.state.formMode === formMode.EDIT) {
             try {
-                const res = await getLekMagazyn(this.state.idStanLeku)
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    data: data
-                });
+
+                await getLekMagazyn(this.state.idStanLeku, source)
+                    .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
+
         }
 
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -145,14 +159,14 @@ class FormularzLekMagazyn extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addLekMagazyn(dane.idLek, dane.data)
+                    await addLekMagazyn(dane.idLek, dane.data, source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateLekMagazyn(dane.data, dane.idStanLeku)
+                    await updateLekMagazyn(dane.data, dane.idStanLeku, source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

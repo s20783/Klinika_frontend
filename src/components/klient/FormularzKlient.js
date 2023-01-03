@@ -5,7 +5,9 @@ import {CheckTextRange} from "../helpers/CheckTextRange";
 import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {addKlient} from "../../axios/KlientAxiosCalls";
-
+import axios from "axios";
+let CancelToken
+let source
 class FormularzKlient extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +34,17 @@ class FormularzKlient extends React.Component {
         }
     }
 
+    async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+
+    }
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -131,7 +143,7 @@ class FormularzKlient extends React.Component {
         if (isValid) {
 
             try {
-                await addKlient(dane.data)
+                await addKlient(dane.data, source)
                 await navigate(-1, {replace: true});
 
             } catch (error) {

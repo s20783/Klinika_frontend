@@ -2,6 +2,9 @@ import React from "react";
 import {deleteLek} from "../../axios/LekAxiosCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
+import axios from "axios";
+let CancelToken
+let source
 
 class UsuniecieLeku extends React.Component {
     constructor(props) {
@@ -15,12 +18,20 @@ class UsuniecieLeku extends React.Component {
             notice: '',
         }
     }
+    async componentDidMount() {
 
-
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     removeLek = async (idLek) => {
         const {navigate} = this.props;
         try {
-            await deleteLek(idLek)
+            await deleteLek(idLek, source)
             await navigate("/leki", {replace: true});
         } catch (error) {
             console.log(error)

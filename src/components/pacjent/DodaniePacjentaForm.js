@@ -6,7 +6,9 @@ import {CheckTextRange} from "../helpers/CheckTextRange";
 import formMode from "../helpers/FormMode";
 import {withTranslation} from "react-i18next";
 import {addPacjent, getPacjentDetails, updatePacjent} from "../../axios/PacjentAxiosCalls";
-
+import axios from "axios";
+let CancelToken
+let source
 
 class DodaniePacjentaForm extends React.Component {
     constructor(props) {
@@ -42,30 +44,40 @@ class DodaniePacjentaForm extends React.Component {
             date: new Date(),
             idPacjent: paramsIdPacjent,
             formMode: currentFormMode,
-            message: ''
+            message: '',
         }
     }
 
     fetchPatientDetails = async () => {
         try{
-            const res = await getPacjentDetails(this.state.idPacjent);
-            var data = await res.data
+            await getPacjentDetails(this.state.idPacjent, source)
+                .then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        data: res.data
+                    });
+                }
+            })
 
-            this.setState({
-                isLoaded: true,
-                data: data
-            });
         } catch (error){
             console.log(error)
         }
     }
 
     componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             this.fetchPatientDetails();
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -194,14 +206,14 @@ class DodaniePacjentaForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addPacjent(dane.data);
+                    await addPacjent(dane.data, source)
                     await navigate("/pacjenci", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updatePacjent(dane.data, dane.idPacjent)
+                    await updatePacjent(dane.data, dane.idPacjent, source)
                     await navigate("/pacjenci", {replace: true});
                 } catch (error) {
                     console.log(error)

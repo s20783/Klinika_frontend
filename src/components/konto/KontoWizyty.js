@@ -4,7 +4,10 @@ import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getKlientWizytaList} from "../../axios/WizytaAxiosCalls";
 import {getCurrentUser} from "../other/authHelper";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class KontoWizyty extends React.Component {
     constructor(props) {
         super(props);
@@ -19,19 +22,21 @@ class KontoWizyty extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         const {navigate} = this.props;
         try {
-            const res = await getKlientWizytaList()
-            var data = await res.data
 
-            this.setState({
-                isLoaded: true,
-                wizyty: data
-            });
-        } catch (error) {
-            console.log(error)
-        }
-        try {
+                await getKlientWizytaList(source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            wizyty: res.data
+                        });
+                    }
+                })
+
             const user = await getCurrentUser();
             let token = user.Token
             console.log(JSON.parse(atob(token.split('.')[1])).idUser)
@@ -42,7 +47,11 @@ class KontoWizyty extends React.Component {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, wizyty, idVet} = this.state
         let content;

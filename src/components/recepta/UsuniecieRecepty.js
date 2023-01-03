@@ -2,7 +2,9 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {deleteRecepta} from "../../axios/ReceptaAxiosCalls";
-
+import axios from "axios";
+let CancelToken
+let source
 class UsuniecieRecepty extends React.Component {
     constructor(props) {
         super(props);
@@ -13,11 +15,20 @@ class UsuniecieRecepty extends React.Component {
             isLoaded: false
         }
     }
+    async componentDidMount() {
 
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     removeRecepta = async () => {
         const {navigate} = this.props;
         try {
-            await deleteRecepta(this.state.idRecepta)
+            await deleteRecepta(this.state.idRecepta, source)
             await navigate(-1, {replace: true});
         } catch (error) {
             console.log(error)

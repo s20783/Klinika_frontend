@@ -3,6 +3,9 @@ import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 import ChorobaListTable from "./ChorobaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
+import axios from "axios";
+let CancelToken
+let source
 
 class ChorobaList extends React.Component {
     constructor(props) {
@@ -10,20 +13,34 @@ class ChorobaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            choroby: []
+            choroby: [],
         }
     }
 
     async componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
         try {
-            const res = await getChorobaList()
-            const data = await res.data
-            this.setState({
-                isLoaded: true,
-                choroby: data
-            });
-        } catch (error) {
-            console.log(error)
+            await getChorobaList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        choroby: res.data
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
         }
     }
 

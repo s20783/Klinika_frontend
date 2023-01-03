@@ -4,7 +4,10 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {addUsluga, getUslugaDetails, updateUsluga} from "../../axios/UslugaAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzUslugi extends React.Component {
     constructor(props) {
         super(props);
@@ -34,18 +37,28 @@ class FormularzUslugi extends React.Component {
 
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                const res = await getUslugaDetails(this.state.idUsluga);
-                const data = await res.data
 
-                this.setState({
-                    data: data,
-                    isLoaded: true
-                });
+                await getUslugaDetails(this.state.idUsluga, source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
+        }
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
         }
     }
 
@@ -136,14 +149,14 @@ class FormularzUslugi extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addUsluga(dane.data);
+                    await addUsluga(dane.data, source);
                     await navigate("/uslugi", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateUsluga(dane.data, this.state.idUsluga)
+                    await updateUsluga(dane.data, this.state.idUsluga, source)
                     await navigate("/uslugi", {replace: true});
                 } catch (error) {
                     console.log(error)

@@ -8,7 +8,10 @@ import dayjs from "dayjs";
 import Calendar from "react-calendar";
 import {addSzczepienie, getSzczepienieDetails, updateSzczepienie} from "../../axios/SzczepienieAxionCalls";
 import {getPacjentDetails} from "../../axios/PacjentAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzSzczepienia extends React.Component {
     constructor(props) {
         super(props);
@@ -41,19 +44,25 @@ class FormularzSzczepienia extends React.Component {
 
     fetchSzczepionkiList = async () => {
         try {
-            const res = await getSzczepionkaList();
-            var data = await res.data
+            await getSzczepionkaList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        szczepionki: res.data
+                    });
+                }
+            })
 
-            this.setState({
-                isLoaded: true,
-                szczepionki: data
-            });
         } catch (error) {
             console.log(error)
         }
     }
 
     componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
          this.fetchSzczepionkiList()
 
         if (this.state.idSzczepienie) {
@@ -61,16 +70,24 @@ class FormularzSzczepienia extends React.Component {
         }
 
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     fetchSzczepienieDetails = async () => {
         try{
-            const res = await getSzczepienieDetails(this.state.idSzczepienie);
-            var data = await res.data
 
-            this.setState({
-                isLoaded: true,
-                data: data
-            });
+            await getSzczepienieDetails(this.state.idSzczepienie,source)
+                .then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        data: res.data
+                    });
+                }
+            })
         } catch (error){
             console.log(error)
         }
@@ -159,14 +176,14 @@ class FormularzSzczepienia extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addSzczepienie(dane.data);
+                    await addSzczepienie(dane.data, source);
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateSzczepienie(dane.data, dane.idSzczepienie)
+                    await updateSzczepienie(dane.data, dane.idSzczepienie, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

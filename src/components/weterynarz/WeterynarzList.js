@@ -4,7 +4,10 @@ import {getWeterynarzList} from "../../axios/WeterynarzAxionCalls";
 import WeterynarzListTable from "./WeterynarzListTable";
 import {withTranslation} from "react-i18next";
 import {getKlientList} from "../../axios/KlientAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class WeterynarzList extends React.Component {
     constructor(props) {
         super(props);
@@ -17,16 +20,29 @@ class WeterynarzList extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
-        const res = await getWeterynarzList();
-        var data = await res.data
+        try {
+            await getWeterynarzList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        weterynarze: res.data
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
 
-        this.setState({
-            isLoaded: true,
-            weterynarze: data
-        });
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, weterynarze} = this.state
         let content;

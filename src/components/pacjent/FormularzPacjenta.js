@@ -4,7 +4,9 @@ import formMode from "../helpers/FormMode";
 import {useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getKlientList} from "../../axios/KlientAxiosCalls";
-
+import axios from "axios";
+let CancelToken
+let source
 class FormularzPacjenta extends React.Component {
     constructor(props) {
         super(props);
@@ -24,19 +26,29 @@ class FormularzPacjenta extends React.Component {
 
     fetchKlientList = async () => {
         try {
-            const res = await getKlientList();
-            var data = await res.data
 
-            this.setState({
-                isLoaded: true,
-                klienci: data
-            });
+            await getKlientList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        klienci: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         this.fetchKlientList()
     }
 
@@ -50,7 +62,7 @@ class FormularzPacjenta extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <DodaniePacjentaForm klienci={klienci} idPacjent={idPacjent}/>
+            content = <DodaniePacjentaForm klienci={klienci} idPacjent={idPacjent} />
         }
 
         const pageTitle = this.state.formMode === formMode.NEW ? t('pacjent.addNewPatient') : t('pacjent.editPatient')

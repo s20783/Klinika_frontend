@@ -3,7 +3,10 @@ import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getMojeRecepty} from "../../axios/ReceptaAxiosCalls";
 import ReceptaTableList from "../recepta/ReceptaTableList";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class KontoRecepty extends React.Component {
     constructor(props) {
         super(props);
@@ -17,21 +20,29 @@ class KontoRecepty extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         const {navigate} = this.props;
         try {
-            const res = await getMojeRecepty()
-            var data = await res.data
-            console.log(data)
 
-            this.setState({
-                isLoaded: true,
-                recepty: data
-            });
+            await getMojeRecepty(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        recepty: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, recepty} = this.state
         let content;

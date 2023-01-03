@@ -3,7 +3,10 @@ import PacjentListTable from "./PacjentListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getPacjentList} from "../../axios/PacjentAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class PacjentList extends React.Component {
     constructor(props) {
         super(props);
@@ -16,15 +19,28 @@ class PacjentList extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await getPacjentList();
-        var data = await res.data
-        console.log(data)
-        this.setState({
-            isLoaded: true,
-            pacjenci:  data
-        });
-    }
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
+        try {
+            await getPacjentList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        pacjenci: res.data
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, pacjenci} = this.state
         const {t} = this.props;

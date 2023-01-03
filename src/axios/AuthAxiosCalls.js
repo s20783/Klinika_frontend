@@ -13,8 +13,16 @@ export async function loginCall(user) {
     return await axiosInstance.post('/Konto/login', userString);
 }
 
-export function getKontoData() {
-    return api.get('/Konto');
+export function getKontoData(source) {
+    return api.get('/Konto',{
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
 export async function changePassword(user) {

@@ -4,6 +4,10 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {addSzczepionka, getSzczepionkaDetails, updateSzczepionka} from "../../axios/SzczepionkaAxiosCalls";
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 
 class FormularzSzczepionki extends React.Component {
     constructor(props) {
@@ -36,20 +40,32 @@ class FormularzSzczepionki extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
         if (this.state.formMode === formMode.EDIT) {
             try {
-                const res = await getSzczepionkaDetails(this.state.idSzczepionka)
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    data: data
-                });
+
+                await getSzczepionkaDetails(this.state.idSzczepionka, source)
+                    .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -140,14 +156,14 @@ class FormularzSzczepionki extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addSzczepionka(dane.data)
+                    await addSzczepionka(dane.data, source)
                     navigate("/szczepionki", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateSzczepionka(dane.data, dane.idSzczepionka)
+                    await updateSzczepionka(dane.data, dane.idSzczepionka, source)
                     navigate("/szczepionki", {replace: true});
                 } catch (error) {
                     console.log(error)

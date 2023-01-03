@@ -10,7 +10,11 @@ import {
 import {ValidateTime} from "../helpers/ValidateTime";
 import {Link} from "react-router-dom";
 import {getGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
+import axios from "axios";
+import {getKlientList} from "../../axios/KlientAxiosCalls";
 
+let CancelToken
+let source
 
 class GodzinyPracy extends React.Component {
     constructor(props) {
@@ -56,45 +60,59 @@ class GodzinyPracy extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await getGodzinyPracyList(this.state.idWeterynarz)
-        var data = res.data
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
-        res.data.map((x) => {
-            console.log()
-            if (x.DzienTygodnia === 1) {
-                this.setState({
-                    pon: x
-                });
-            } else if (x.DzienTygodnia === 2) {
-                this.setState({
-                    wt: x
-                });
-            } else if (x.DzienTygodnia === 3) {
-                this.setState({
-                    sr: x
-                });
-            } else if (x.DzienTygodnia === 4) {
-                this.setState({
-                    czw: x
-                });
-            } else if (x.DzienTygodnia === 5) {
-                this.setState({
-                    pt: x
-                });
-            } else if (x.DzienTygodnia === 6) {
-                this.setState({
-                    sob: x
-                });
-            }
-        })
+        try {
+            await getGodzinyPracyList(this.state.idWeterynarz, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    res.data.map((x) => {
+                        console.log()
+                        if (x.DzienTygodnia === 1) {
+                            this.setState({
+                                pon: x
+                            });
+                        } else if (x.DzienTygodnia === 2) {
+                            this.setState({
+                                wt: x
+                            });
+                        } else if (x.DzienTygodnia === 3) {
+                            this.setState({
+                                sr: x
+                            });
+                        } else if (x.DzienTygodnia === 4) {
+                            this.setState({
+                                czw: x
+                            });
+                        } else if (x.DzienTygodnia === 5) {
+                            this.setState({
+                                pt: x
+                            });
+                        } else if (x.DzienTygodnia === 6) {
+                            this.setState({
+                                sob: x
+                            });
+                        }
+                    })
 
-        this.setState({
-            isLoaded: true,
-            godzinyPracy: data
-        });
+                    this.setState({
+                        isLoaded: true,
+                        godzinyPracy: res.data
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
 
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     showInputs(dzien, godzinaRozpoczecia, godzinaZakonczenia) {
 
@@ -216,7 +234,7 @@ class GodzinyPracy extends React.Component {
         if (this.state.idWeterynarz !== null) {
 
             try {
-                await addDomyslneGodzinyPracy(this.state.idWeterynarz)
+                await addDomyslneGodzinyPracy(this.state.idWeterynarz,source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -232,7 +250,7 @@ class GodzinyPracy extends React.Component {
         if (isValid) {
             if (this.state.czyEdycja) {
                 try {
-                    await editGodzinyPracy(this.state.idWeterynarz, dane)
+                    await editGodzinyPracy(this.state.idWeterynarz, dane,source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
@@ -240,7 +258,7 @@ class GodzinyPracy extends React.Component {
             }
             else {
                 try {
-                    await addGodzinyPracy(this.state.idWeterynarz, dane)
+                    await addGodzinyPracy(this.state.idWeterynarz, dane, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

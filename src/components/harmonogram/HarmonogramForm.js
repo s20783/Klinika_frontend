@@ -7,6 +7,10 @@ import {getHarmonogramVet, getHarmonogram} from "../../axios/HarmonogramAxiosCal
 import {getWeterynarzList} from "../../axios/WeterynarzAxionCalls";
 import Harmonogram from "./Harmonogram";
 import HarmonogramMenu from "../fragments/HarmonogramMenu";
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 
 
 class HarmonogramForm extends React.Component {
@@ -36,16 +40,29 @@ class HarmonogramForm extends React.Component {
 
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
-        const res = await getWeterynarzList();
-        var data = await res.data
-
-        this.setState({
-            isLoaded: true,
-            weterynarze: data
-        });
+        try {
+            await getWeterynarzList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        weterynarze: res.data
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -127,30 +144,40 @@ class HarmonogramForm extends React.Component {
 
         if (isValid) {
             if (dane.data.Weterynarz === '0') {
+
                 try {
-                    const res = await getHarmonogram(dane.data.Data)
-                    const data = await res.data
-                    this.setState({
-                        isLoaded: true,
-                        harmonogram: data.harmonogramy,
-                        start: data.Start,
-                        end: data.End
-                    });
-                } catch (error) {
-                    console.log(error)
+                    await getHarmonogram(dane.data.Data, source)
+                        .then((res) => {
+                        if (res) {
+                            console.log(res.data)
+                            this.setState({
+                                isLoaded: true,
+                                harmonogram: res.data.harmonogramy,
+                                start: res.data.Start,
+                                end: res.data.End
+                            });
+                        }
+                    })
+                } catch (e) {
+                    console.log(e)
                 }
             } else {
+
                 try {
-                    const res = await getHarmonogramVet(dane.data.Weterynarz, dane.data.Data)
-                    const data = await res.data
-                    this.setState({
-                        isLoaded: true,
-                        harmonogram: data.harmonogramy,
-                        start: data.Start,
-                        end: data.End
-                    });
-                } catch (error) {
-                    console.log(error)
+                    await getHarmonogramVet(dane.data.Weterynarz, dane.data.Data, source)
+                        .then((res) => {
+                            if (res) {
+                                console.log(res.data)
+                                this.setState({
+                                    isLoaded: true,
+                                    harmonogram: res.data.harmonogramy,
+                                    start: res.data.Start,
+                                    end: res.data.End
+                                });
+                            }
+                        })
+                } catch (e) {
+                    console.log(e)
                 }
             }
         }
@@ -165,7 +192,7 @@ class HarmonogramForm extends React.Component {
         let content;
 
         if (harmonogram.length !== 0) {
-            content = <Harmonogram harmonogram={harmonogram} start={start} end={end}/>
+            content = <Harmonogram harmonogram={harmonogram} start={start} end={end} />
         } else {
             content = <div></div>
         }
@@ -175,7 +202,7 @@ class HarmonogramForm extends React.Component {
                 <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">
                         {t('harmonogram.title')}</p>
-                    <HarmonogramMenu navigate={navigate}/>
+                    <HarmonogramMenu navigate={navigate} source={source}/>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">

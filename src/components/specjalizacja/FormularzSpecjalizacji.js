@@ -4,7 +4,10 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {getSpecjalizacjaDetails, addSpecjalizacja, updateSpecjalizacja} from "../../axios/SpecjalizacjaAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzSpecjalizacji extends React.Component {
     constructor(props) {
         super(props);
@@ -30,20 +33,31 @@ class FormularzSpecjalizacji extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                const res = await getSpecjalizacjaDetails(this.state.idSpecjalizacja)
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    data: data
-                });
+
+                await getSpecjalizacjaDetails(this.state.idSpecjalizacja, source).
+                then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -113,14 +127,14 @@ class FormularzSpecjalizacji extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addSpecjalizacja(dane.data)
+                    await addSpecjalizacja(dane.data, source)
                     navigate("/specjalizacje", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateSpecjalizacja(dane.data, dane.idSpecjalizacja)
+                    await updateSpecjalizacja(dane.data, dane.idSpecjalizacja, source)
                     navigate("/specjalizacje", {replace: true});
                 } catch (error) {
                     console.log(error)

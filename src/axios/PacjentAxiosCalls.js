@@ -1,31 +1,97 @@
 import api from "./Api";
+import axios from "axios";
 
-export function getPacjentList() {
-    return api.get('/Pacjent');
+export function getPacjentList(source) {
+    return api.get('/Pacjent', {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
-export function getPacjentDetails(Id) {
-    return api.get(`/Pacjent/details/${Id}`);
+export function getPacjentDetails(Id,source) {
+    return api.get(`/Pacjent/details/${Id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
-export function getKlientPacjentList(Id) {
-    return api.get(`/Pacjent/klient/${Id}`);
+export function getKlientPacjentList(Id,source) {
+    return api.get(`/Pacjent/klient/${Id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
-export function getKlientPacjentList2() {
-    return api.get(`/Pacjent/klient`);
+export function getKlientPacjentList2(source) {
+    return api.get(`/Pacjent/klient`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
-export async function addPacjent(patient) {
+export async function addPacjent(patient,source) {
+    /*const patientString = JSON.stringify(patient)
+    await api.post('/Pacjent', patientString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })*/
+    return api.get(`/Test/cancellation`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
+export async function updatePacjent(patient, idPacjent,source) {
     const patientString = JSON.stringify(patient)
-    await api.post('/Pacjent', patientString);
+    await api.put(`/Pacjent/${idPacjent}`, patientString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
-export async function updatePacjent(patient, idPacjent) {
-    const patientString = JSON.stringify(patient)
-    await api.put(`/Pacjent/${idPacjent}`, patientString);
-}
-
-export async function deletePacjent(idPacjent) {
-    await api.delete(`/Pacjent/${idPacjent}`);
+export async function deletePacjent(idPacjent,source) {
+    await api.delete(`/Pacjent/${idPacjent}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }

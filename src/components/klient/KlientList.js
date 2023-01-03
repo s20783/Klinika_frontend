@@ -2,8 +2,11 @@ import React from "react";
 import {useNavigate} from "react-router";
 import KlientListTable from "./KlientListTable";
 import {withTranslation} from "react-i18next";
-import {cancelTokenFuncton, getKlientList} from "../../axios/KlientAxiosCalls";
-import axios, {CancelToken} from "axios";
+import { getKlientList} from "../../axios/KlientAxiosCalls";
+import axios from "axios";
+
+let CancelToken
+let source
 
 class KlientList extends React.Component {
     constructor(props) {
@@ -20,35 +23,31 @@ class KlientList extends React.Component {
 
 
     async componentDidMount() {
-        this.setState({
-            x: true
-        });
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
         try {
-
-            var res = await getKlientList()
-            console.log(res)
-            //const data = await res.data;
-            //console.log(data)
-
-            this.setState({
-                isLoaded: true,
-             //   klienci: data
-            });
-        }catch (e){
+            await getKlientList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        klienci: res.data
+                    });
+                }
+            })
+        } catch (e) {
             console.log(e)
         }
-
     }
 
-    async componentWillUnmount() {
-      //  console.log(this.state.x)
-        if (this.state.x) {
-            console.log("dsds")
-
-            cancelTokenFuncton()
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
         }
     }
+
 
     render() {
         const {error, isLoaded, klienci} = this.state

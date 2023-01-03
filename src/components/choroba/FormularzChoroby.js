@@ -3,8 +3,11 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
-import {addChoroba, getChorobaDetails, updateChoroba} from "../../axios/ChorobaAxiosCalls";
+import {addChoroba, getChorobaDetails, getChorobaList, updateChoroba} from "../../axios/ChorobaAxiosCalls";
+import axios from "axios";
 
+let CancelToken
+let source
 class FormularzChoroby extends React.Component {
     constructor(props) {
         super(props);
@@ -27,18 +30,32 @@ class FormularzChoroby extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
+
             try {
-                const res = await getChorobaDetails(this.state.idChoroba)
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    data: data
-                });
-            } catch (error) {
-                console.log(error)
+                await getChorobaDetails(this.state.idChoroba, source)
+                    .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
+            } catch (e) {
+                console.log(e)
             }
         }
+    }
+
+     componentWillUnmount() {
+         if (source) {
+             source.cancel('Operation canceled by the user.');
+         }
+
     }
 
     handleChange = (event) => {
@@ -90,8 +107,7 @@ class FormularzChoroby extends React.Component {
         const errors = this.state.errors
         for (const fieldName in data) {
             const fieldValue = data[fieldName]
-            const errorMessage = this.validateField(fieldName, fieldValue)
-            errors[fieldName] = errorMessage
+            errors[fieldName] = this.validateField(fieldName, fieldValue)
         }
 
         this.setState({
@@ -110,14 +126,15 @@ class FormularzChoroby extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addChoroba(dane.data)
-                    await navigate(-1, {replace: true});
-                } catch (error) {
-                    console.log(error)
+                     await addChoroba(dane.data, source)
+                     await navigate(-1, {replace: true});
+                } catch (e) {
+                    console.log(e)
                 }
             } else if (dane.formMode === formMode.EDIT) {
+
                 try {
-                    await updateChoroba(dane.data, dane.idChoroba)
+                    await updateChoroba(dane.data, dane.idChoroba, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

@@ -5,6 +5,11 @@ import {
     getReceptaDetails,
     getReceptaLeki
 } from "../../axios/ReceptaAxiosCalls";
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
+let CancelToken
+let source
 
 class SzczegolyRecepta extends React.Component {
     constructor(props) {
@@ -21,37 +26,47 @@ class SzczegolyRecepta extends React.Component {
             error: '',
             isLoaded: false,
             notice: '',
-            idRecepta:paramsIdRecepta
+            idRecepta: paramsIdRecepta
         }
     }
 
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+        try {
 
-            try {
-                var res = await getReceptaDetails(this.state.idRecepta)
-                var data = await res.data
+            await getReceptaDetails(this.state.idRecepta, source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
 
-                console.log(data === '')
-                this.setState({
-                    isLoaded: true,
-                    data: data
-                });
-
-                res = await getReceptaLeki(this.state.idRecepta)
-                data = await res.data
-
-                //console.log(data)
-                this.setState({
-                    isLoaded: true,
-                    leki: data
-                });
-
-            } catch (error) {
-                console.log(error)
-            }
+            await getReceptaLeki(this.state.idRecepta, source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            leki: res.data
+                        });
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     render() {
         const {data, leki} = this.state
@@ -75,7 +90,7 @@ class SzczegolyRecepta extends React.Component {
                             <h2 className="w-full  my-12 mb-5 ml-4 text-lg font-bold leading-tight   text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                         </div>
-                            <div className="shadow-xl">
+                        <div className="shadow-xl">
                             <table className="w-full mb-6 text-sm text-left text-gray-700 dark:text-gray-400">
                                 <thead
                                     className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -97,10 +112,11 @@ class SzczegolyRecepta extends React.Component {
                                 ))}
                                 </tbody>
                             </table>
-                            </div>
+                        </div>
                         <h2 className=" w-1/3 my-8 mb-8 ml-4 text-lg font-bold leading-tight  text-gray-600">
                             {t('recepta.fields.recommendations')}</h2>
-                        <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4" id="Notatka"
+                        <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4"
+                                  id="Notatka"
                                   name="Notatka"
                                   value={data.Zalecenia} rows="6"
                         />

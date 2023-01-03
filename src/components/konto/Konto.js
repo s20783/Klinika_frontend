@@ -3,6 +3,11 @@ import React from "react";
 import {getKontoData} from "../../axios/AuthAxiosCalls";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
+import axios from "axios";
+import {getKlientList} from "../../axios/KlientAxiosCalls";
+
+let CancelToken
+let source
 
 class Konto extends React.Component {
     constructor(props) {
@@ -16,15 +21,26 @@ class Konto extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
         try {
-            const res = await getKontoData()
-            this.setState({
-                isLoaded: true,
-                user: res.data
-            });
-        } catch (error) {
-            console.log(error)
+            await getKontoData(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        user: res.data
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
         }
+    }
+
+    componentWillUnmount() {
+        source.cancel('Operation canceled by the user.');
     }
 
     render() {

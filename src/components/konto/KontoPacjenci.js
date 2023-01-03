@@ -2,6 +2,11 @@ import React from "react";
 import PacjentKlientListTable from "../pacjent/PacjentKlientListTable";
 import {getKlientPacjentList2} from "../../axios/PacjentAxiosCalls";
 import KontoMenu from "../fragments/KontoMenu";
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
+let CancelToken
+let source
 
 class KontoPacjenci extends React.Component {
     constructor(props) {
@@ -17,20 +22,30 @@ class KontoPacjenci extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         const {navigate} = this.props;
         try {
-            const res = await getKlientPacjentList2();
-            const data = await res.data
 
-            this.setState({
-                pacjenci: data,
-                isLoaded:true
-            });
+            await getKlientPacjentList2(source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            pacjenci: res.data
+                        });
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, pacjenci} = this.state
         let content;

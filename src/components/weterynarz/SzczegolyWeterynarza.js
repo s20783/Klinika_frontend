@@ -12,7 +12,10 @@ import {getFormattedDate} from "../other/dateFormat";
 import {Link} from "react-router-dom";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
 import {getWeterynarzSpecjalizacjaList} from "../../axios/WeterynarzSpecjalizajcaAziosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class SzczegolyWeterynarza extends React.Component {
     constructor(props) {
         super(props);
@@ -38,34 +41,50 @@ class SzczegolyWeterynarza extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
-        var res = await getWeterynarzDetails(this.state.idWeterynarz);
-        var data = await res.data
-
-        this.setState({
-            isLoaded: true,
-            data: data
-        });
-
-         res = await getWeterynarzSpecjalizacjaList(this.state.idWeterynarz);
-         data = await res.data
-
-        this.setState({
-            isLoaded: true,
-            specjalizacje: data
-        });
-
+        try {
+            await getWeterynarzDetails(this.state.idWeterynarz, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        data: res.data
+                    });
+                }
+            })
+            await getWeterynarzSpecjalizacjaList(this.state.idWeterynarz, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        specjalizacje: res.data
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     async showSelect() {
         if (this.state.specjalizacje1.length === 0) {
             try {
-                const res = await getSpecjalizacjaList()
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    specjalizacje1: data
-                });
+
+                await getSpecjalizacjaList(source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            specjalizacje1: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
@@ -101,7 +120,7 @@ class SzczegolyWeterynarza extends React.Component {
 
         const {navigate} = this.props;
         try {
-            await deleteWeterynarzSpecjalizacja(idSpec, this.state.idWeterynarz)
+            await deleteWeterynarzSpecjalizacja(idSpec, this.state.idWeterynarz, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -156,7 +175,7 @@ class SzczegolyWeterynarza extends React.Component {
         if (isValid) {
 
             try {
-                await addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz)
+                await addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz,source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)

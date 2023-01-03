@@ -5,7 +5,10 @@ import dayjs from 'dayjs';
 import {addUrlop, getUrlopDetails, editUrlop} from "../../axios/UrlopAxiosCalls";
 import formMode from "../helpers/FormMode";
 import {withTranslation} from "react-i18next";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzUrlop extends React.Component {
     constructor(props) {
         super(props);
@@ -29,19 +32,30 @@ class FormularzUrlop extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.idUrlop) {
             try {
-                const res = await getUrlopDetails(this.state.idUrlop)
-                this.setState({
-                    data: res.data,
-                    isLoaded: true
+
+                await getUrlopDetails(this.state.idUrlop, source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
                 })
             } catch (error) {
                 console.log(error)
             }
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -104,14 +118,14 @@ class FormularzUrlop extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addUrlop(dane.data)
+                    await addUrlop(dane.data, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await editUrlop(dane.idUrlop, dane.data)
+                    await editUrlop(dane.idUrlop, dane.data, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

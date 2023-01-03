@@ -9,6 +9,11 @@ import {getPacjentWizytaList} from "../../axios/WizytaAxiosCalls";
 import {getSzczepienieList} from "../../axios/SzczepienieAxionCalls";
 import {getUslugiPacjenta} from "../../axios/UslugaAxiosCalls";
 import {getId, isWeterynarz} from "../other/authHelper";
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
+let CancelToken
+let source
 
 class SzczegolyPacjent extends React.Component {
     constructor(props) {
@@ -33,19 +38,23 @@ class SzczegolyPacjent extends React.Component {
             szczepienia: [],
             wizyty: [],
             uslugi: [],
-            idVet:''
+            idVet: ''
         }
     }
 
     fetchPatientDetails = async () => {
         try {
-            const res = await getPacjentDetails(this.state.idPacjent);
-            var data = await res.data
 
-            this.setState({
-                isLoaded: true,
-                pacjent: data
-            });
+            await getPacjentDetails(this.state.idPacjent, source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            pacjent: res.data
+                        });
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
@@ -53,29 +62,35 @@ class SzczegolyPacjent extends React.Component {
 
     fetchWizyty = async () => {
         try {
-            var res = await getPacjentWizytaList(this.state.idPacjent)
-            var data = await res.data
-
-            this.setState({
-                isLoaded: true,
-                wizyty: data
-            });
 
 
+            await getPacjentWizytaList(this.state.idPacjent, source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            wizyty: res.data
+                        });
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
     fetchSzczepienia = async () => {
         try {
-            const res = await getSzczepienieList(this.state.idPacjent)
-            const data = await res.data
 
-            this.setState({
-                isLoaded: true,
-                szczepienia: data
-            });
-
+            await getSzczepienieList(this.state.idPacjent, source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            szczepienia: res.data
+                        });
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
@@ -83,20 +98,25 @@ class SzczegolyPacjent extends React.Component {
 
     fetchUslugi = async () => {
         try {
-            const res = await getUslugiPacjenta(this.state.idPacjent)
-            const data = await res.data
 
-            this.setState({
-                isLoaded: true,
-                uslugi: data
-            });
-
+            await getUslugiPacjenta(this.state.idPacjent, source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            uslugi: res.data
+                        });
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
         try {
             const userId = await getId()
@@ -114,8 +134,14 @@ class SzczegolyPacjent extends React.Component {
 
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
     render() {
-        const {pacjent, wizyty, idPacjent, szczepienia, uslugi,idVet} = this.state
+        const {pacjent, wizyty, idPacjent, szczepienia, uslugi, idVet} = this.state
         const {t} = this.props;
 
         return (
@@ -429,7 +455,8 @@ class SzczegolyPacjent extends React.Component {
                     {(wizyty.length !== 0) &&
                         <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
                             <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
-                                <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                <thead
+                                    className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.startDate")}</th>
                                     <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.vet")}</th>
@@ -444,7 +471,7 @@ class SzczegolyPacjent extends React.Component {
                                         key={x.IdWizyta}>
 
                                         <td className="text-center px-6 py-2">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
-                                        <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-" } </td>
+                                        <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-"} </td>
                                         <td className="text-center px-6 py-2">{t("wizyta.status." + x.Status)}</td>
                                         <td className="text-center px-6 py-2">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
 
@@ -458,14 +485,17 @@ class SzczegolyPacjent extends React.Component {
                                                              fill="#000000" viewBox="0 0 256 256">
                                                             <rect width="256" height="256" fill="none"/>
                                                             <g className="details-icon-color" opacity="0.1"></g>
-                                                            <circle className="details-icon-color hover:white-100" cx="128" cy="128"
+                                                            <circle className="details-icon-color hover:white-100"
+                                                                    cx="128" cy="128"
                                                                     r="96"
                                                                     fill="none" stroke="#000000" strokeLinecap="round"
                                                                     strokeLinejoin="round" strokeWidth="16"></circle>
                                                             <polyline className="details-icon-color"
-                                                                      points="120 120 128 120 128 176 136 176" fill="none"
+                                                                      points="120 120 128 120 128 176 136 176"
+                                                                      fill="none"
                                                                       stroke="#000000" strokeLinecap="round"
-                                                                      strokeLinejoin="round" strokeWidth="16"></polyline>
+                                                                      strokeLinejoin="round"
+                                                                      strokeWidth="16"></polyline>
                                                             <circle className="details-icon-color dot" cx="126" cy="84"
                                                                     r="12"></circle>
                                                         </svg>
@@ -475,20 +505,25 @@ class SzczegolyPacjent extends React.Component {
                                                               className="list-actions-button-details flex-1">
                                                             <svg className="list-actions-button-edit flex-1"
                                                                  xmlns="http://www.w3.org/2000/svg"
-                                                                 width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                                                                <rect className="details-icon-color" width="256" height="256"
+                                                                 width="20" height="20" fill="#000000"
+                                                                 viewBox="0 0 256 256">
+                                                                <rect className="details-icon-color" width="256"
+                                                                      height="256"
                                                                       fill="none"></rect>
                                                                 <path className="details-icon-color"
                                                                       d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
                                                                       fill="none" stroke="#000000" strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></path>
-                                                                <line className="details-icon-color" x1="136" y1="64" x2="192" y2="120"
+                                                                <line className="details-icon-color" x1="136" y1="64"
+                                                                      x2="192" y2="120"
                                                                       fill="none" stroke="#000000" strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></line>
                                                                 <polyline className="details-icon-color"
-                                                                          points="216 216 96 216 40.509 160.509" fill="none"
+                                                                          points="216 216 96 216 40.509 160.509"
+                                                                          fill="none"
                                                                           stroke="#000000" strokeLinecap="round"
-                                                                          strokeLinejoin="round" strokeWidth="16"></polyline>
+                                                                          strokeLinejoin="round"
+                                                                          strokeWidth="16"></polyline>
                                                             </svg>
                                                         </Link>
                                                     }

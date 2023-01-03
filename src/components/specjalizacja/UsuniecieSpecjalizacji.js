@@ -2,7 +2,9 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {deleteSpecjalizacja} from "../../axios/SpecjalizacjaAxiosCalls";
-
+import axios from "axios";
+let CancelToken
+let source
 class UsuniecieSpecjalizacji extends React.Component {
     constructor(props) {
         super(props);
@@ -14,10 +16,22 @@ class UsuniecieSpecjalizacji extends React.Component {
         }
     }
 
+    async componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
     removeSpecjalizacja = async (idSpecjalizacja) => {
         const {navigate} = this.props;
         try {
-            await deleteSpecjalizacja(idSpecjalizacja)
+            await deleteSpecjalizacja(idSpecjalizacja, source)
             await navigate("/specjalizacje", {replace: true});
         } catch (error) {
             console.log(error)

@@ -3,7 +3,10 @@ import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
 import SpecjalizacjaListTable from "./SpecjalizacjaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class SpecjalizacjaList extends React.Component {
     constructor(props) {
         super(props);
@@ -15,18 +18,28 @@ class SpecjalizacjaList extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
         try {
-            const res = await getSpecjalizacjaList()
-            const data = await res.data
-            this.setState({
-                isLoaded: true,
-                specjalizacje: data
-            });
+            await getSpecjalizacjaList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        specjalizacje: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, specjalizacje} = this.state
         const {t} = this.props;

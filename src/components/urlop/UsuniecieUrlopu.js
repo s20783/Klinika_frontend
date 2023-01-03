@@ -2,7 +2,9 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {deleteUrlop} from "../../axios/UrlopAxiosCalls";
-
+import axios from "axios";
+let CancelToken
+let source
 class UsuniecieUrlopu extends React.Component {
     constructor(props) {
         super(props);
@@ -13,11 +15,20 @@ class UsuniecieUrlopu extends React.Component {
             isLoaded: false,
         }
     }
+    async componentDidMount() {
 
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     removeUrlop = async (idUrlop) => {
         const {navigate} = this.props;
         try {
-            await deleteUrlop(idUrlop)
+            await deleteUrlop(idUrlop,source)
             await navigate(-1, {replace: true});
         } catch (error) {
             console.log(error)

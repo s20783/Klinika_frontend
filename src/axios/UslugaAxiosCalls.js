@@ -1,27 +1,84 @@
 import api from "./Api";
+import axios from "axios";
 
-export function getUslugaList() {
-    return api.get('/Usluga');
+export function getUslugaList(source) {
+    return api.get('/Usluga', {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
-export function getUslugaWizytaList(id) {
-    return api.get(`/Usluga/${id}`);
+export function getUslugaWizytaList(id,source) {
+    return api.get(`/Usluga/${id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
-export function getUslugaDetails(Id) {
-    return api.get(`/Usluga/details/${Id}`);
+export function getUslugaDetails(Id,source) {
+    return api.get(`/Usluga/details/${Id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
-export function getUslugiPacjenta(Id) {
-    return api.get(`/Usluga/pacjent/${Id}`);
+export function getUslugiPacjenta(Id,source) {
+    return api.get(`/Usluga/pacjent/${Id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
-export async function addUsluga(usluga) {
+export async function addUsluga(usluga,source) {
     const uslugaString = JSON.stringify(usluga)
-    await api.post('/Usluga', uslugaString);
+    await api.post('/Usluga', uslugaString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
-export async function updateUsluga(usluga, Id) {
+export async function updateUsluga(usluga, Id,source) {
     const uslugaString = JSON.stringify(usluga)
-    await api.put(`/Usluga/${Id}`, uslugaString);
+    await api.put(`/Usluga/${Id}`, uslugaString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }
 
-export async function deleteUsluga(Id) {
-    await api.delete(`/Usluga/${Id}`);
+export async function deleteUsluga(Id,source) {
+    await api.delete(`/Usluga/${Id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
 }

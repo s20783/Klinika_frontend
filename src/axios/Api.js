@@ -25,7 +25,8 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(resp => resp, async error => {
     const originalConfig = error.config;
-    if(error.response) {
+
+    if (error.response) {
         if (error.response.status === 401 && !originalConfig._retry) {
             originalConfig._retry = true
             const user = getCurrentUser()
@@ -49,9 +50,9 @@ instance.interceptors.response.use(resp => resp, async error => {
                 return instance(error.config);
             }
         }
-
-    await Promise.reject(error);
     }
+    await Promise.reject(error);
+
 });
 
 export default instance;

@@ -10,7 +10,10 @@ import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {checkNumberRange} from "../helpers/CheckNRange";
 import {getFormattedDate} from "../other/dateFormat";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzWeterynarz extends React.Component {
     constructor(props) {
         super(props);
@@ -47,20 +50,32 @@ class FormularzWeterynarz extends React.Component {
     }
 
     async componentDidMount() {
-
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
 
-            const res = await getWeterynarzDetails(this.state.idWeterynarz);
-            var data = await res.data
 
-            this.setState({
-                isLoaded: true,
-                data: data
-            });
+            try {
+                await getWeterynarzDetails(this.state.idWeterynarz, source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -207,7 +222,7 @@ class FormularzWeterynarz extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    const response = await addWeterynarz(dane.data)
+                    const response = await addWeterynarz(dane.data, source)
                     console.log(response.data.ID)
                     await navigate(`/czyDodacGodziny/${response.data.ID}`, {replace: true});
                 } catch (error) {
@@ -215,7 +230,7 @@ class FormularzWeterynarz extends React.Component {
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateWeterynarz(dane.data, this.state.idWeterynarz)
+                    await updateWeterynarz(dane.data, this.state.idWeterynarz, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

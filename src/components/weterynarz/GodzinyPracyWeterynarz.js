@@ -6,7 +6,10 @@ import {getGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
 import {Link} from "react-router-dom";
 import {getUrlopList} from "../../axios/UrlopAxiosCalls";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 
 class GodzinyPracyWeterynarz extends React.Component {
     constructor(props) {
@@ -25,27 +28,41 @@ class GodzinyPracyWeterynarz extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await getGodzinyPracyList(this.state.idWeterynarz)
-        var data = res.data
-
-        this.setState({
-            isLoaded: true,
-            godzinyPracy: data
-        });
-
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
 
         try {
-            const res = await getUrlopList(this.state.idWeterynarz)
-            const data = res.data
-            this.setState({
-                isLoaded: true,
-                urlopy: data
-            });
+
+            await getGodzinyPracyList(this.state.idWeterynarz, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        godzinyPracy: res.data
+                    });
+                }
+            })
+
+
+            await getUrlopList(this.state.idWeterynarz, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        urlopy: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     render() {
         const {t} = this.props;

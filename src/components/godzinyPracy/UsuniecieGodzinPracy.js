@@ -2,7 +2,9 @@ import React from "react";
 import {deleteGodzinyPracy} from "../../axios/GodzinyPracyAxiosCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-
+import axios from "axios";
+let CancelToken
+let source
 class UsuniecieGodzinPracy extends React.Component {
     constructor(props) {
         super(props);
@@ -17,11 +19,20 @@ class UsuniecieGodzinPracy extends React.Component {
             notice: '',
         }
     }
+    async componentDidMount() {
 
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     removeGodzinyPracy = async (idWeterynarz, dzien) => {
         const {navigate} = this.props;
         try {
-            await deleteGodzinyPracy(idWeterynarz, dzien)
+            await deleteGodzinyPracy(idWeterynarz, dzien, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)

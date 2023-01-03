@@ -3,7 +3,9 @@ import {deleteUsluga} from "../../axios/UslugaAxiosCalls";
 import {useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
-
+import axios from "axios";
+let CancelToken
+let source
 class UsuniecieUslugi extends React.Component {
     constructor(props) {
         super(props);
@@ -15,10 +17,22 @@ class UsuniecieUslugi extends React.Component {
         }
     }
 
+    async componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
     removeUsluga = async (idUsluga) => {
         const {navigate} = this.props;
         try {
-            await deleteUsluga(idUsluga);
+            await deleteUsluga(idUsluga, source);
             await navigate("/uslugi", {replace: true});
         } catch (error) {
             console.log(error)

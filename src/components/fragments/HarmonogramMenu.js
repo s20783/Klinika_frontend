@@ -5,19 +5,20 @@ import {addHarmonogram, updateHarmonogram} from "../../axios/HarmonogramAxiosCal
 function HarmonogramMenu(props) {
     const {t} = useTranslation();
     let navigate = props.navigate
+    let source = props.source
 
     const dodajHarmonogram = async () => {
-        console.log("dodajHarmonogram")
+
         try {
-            await addHarmonogram()
+            await addHarmonogram(source)
             navigate('/poHarmonogram/d')
-        } catch (error) {
-            console.log(error)
+
+        } catch (e) {
+            console.log(e)
         }
     }
 
     const aktualizujHarmonogram = async () => {
-        console.log()
 
         try {
             await updateHarmonogram()

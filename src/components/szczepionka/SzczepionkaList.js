@@ -3,7 +3,10 @@ import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getSzczepionkaList} from "../../axios/SzczepionkaAxiosCalls";
 import SzczepionkaListTable from "./SzczepionkaListTable";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class SzczepionkaList extends React.Component {
     constructor(props) {
         super(props);
@@ -15,19 +18,29 @@ class SzczepionkaList extends React.Component {
     }
 
     async componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
-            const res = await getSzczepionkaList()
-            const data = await res.data
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                szczepionki: data
-            });
+
+            await getSzczepionkaList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        szczepionki: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, szczepionki} = this.state
         const {t} = this.props;

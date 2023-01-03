@@ -19,7 +19,7 @@ class PoDodaniuAktualizacjiHarmonogramu extends React.Component {
         const {t} = this.props;
         const {navigate} = this.props;
 
-        const pageText = akcja === 'a' ?t('harmonogram.afterUpdatingSchedule'): t('harmonogram.afterAddingSchedule')
+        const pageText = akcja === 'a' ? t('harmonogram.afterUpdatingSchedule') : t('harmonogram.afterAddingSchedule')
 
         return (
             <div class="bg-gray-200 flex items-center justify-center h-screen">

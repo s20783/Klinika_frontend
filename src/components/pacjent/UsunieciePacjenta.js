@@ -2,6 +2,9 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {deletePacjent} from "../../axios/PacjentAxiosCalls";
+import axios from "axios";
+let CancelToken
+let source
 
 class UsunieciePacjenta extends React.Component {
     constructor(props) {
@@ -13,11 +16,22 @@ class UsunieciePacjenta extends React.Component {
             isLoaded: false
         }
     }
+    async componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     removePacjent = async (idPacjent) => {
         const {navigate} = this.props;
         try {
-            await deletePacjent(idPacjent)
+            await deletePacjent(idPacjent, source)
             await navigate("/pacjenci", {replace: true});
         } catch (error) {
             console.log(error)

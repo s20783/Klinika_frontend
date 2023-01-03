@@ -4,7 +4,10 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {addLek, getLekDetails, updateLek} from "../../axios/LekAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class FormularzLeku extends React.Component {
     constructor(props) {
         super(props);
@@ -31,18 +34,29 @@ class FormularzLeku extends React.Component {
             formMode: currentFormMode
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     async componentDidMount() {
 
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                const res = await getLekDetails(this.state.idLek)
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    data: data
-                });
+
+                await getLekDetails(this.state.idLek, source)
+                    .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            data: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
@@ -133,14 +147,14 @@ class FormularzLeku extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addLek(dane.data)
+                    await addLek(dane.data,source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateLek(dane.data, dane.idLek)
+                    await updateLek(dane.data, dane.idLek, source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

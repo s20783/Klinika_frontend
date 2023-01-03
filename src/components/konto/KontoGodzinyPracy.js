@@ -4,6 +4,10 @@ import {withTranslation} from "react-i18next";
 import {getKontoGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
 import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
 import {getKontoUrlopList} from "../../axios/UrlopAxiosCalls";
+import axios from "axios";
+
+let CancelToken
+let source
 
 class KontoGodzinyPracy extends React.Component {
     constructor(props) {
@@ -14,31 +18,45 @@ class KontoGodzinyPracy extends React.Component {
             message: '',
             user: '',
             godzinyPracy: [],
-            urlopy:[]
+            urlopy: []
         }
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         const {navigate} = this.props;
         try {
-            var res = await getKontoGodzinyPracyList()
-            var data = await res.data
-            this.setState({
-                isLoaded: true,
-                godzinyPracy: data
-            });
 
-             res = await getKontoUrlopList()
-             data = await res.data
-            this.setState({
-                isLoaded: true,
-                urlopy: data
-            });
+            await getKontoGodzinyPracyList(source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            godzinyPracy: res.data
+                        });
+                    }
+                })
+            await getKontoUrlopList(source)
+                .then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            urlopy: res.data
+                        });
+                    }
+                })
+
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, urlopy, godzinyPracy} = this.state
         const {t} = this.props;
@@ -54,105 +72,105 @@ class KontoGodzinyPracy extends React.Component {
                             {t('godzinyPracy.title')}</h2>
                     </div>
                     <div className="shadow-xl">
-                    <table
-                        className="w-full text-center flex flex-wrap mb-12 text-gray-700 dark:text-gray-400">
-                        <tr></tr>
-                        <tr>
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                        <table
+                            className="w-full text-center flex flex-wrap mb-12 text-gray-700 dark:text-gray-400">
+                            <tr></tr>
+                            <tr>
+                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.1")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 1) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
+                                </th>
+                                {godzinyPracy.map(x => (
+                                    (x.DzienTygodnia === 1) &&
+                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                        <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
                                             </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr className="border-b-2 border-t-2">
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                        </div>
+                                    </td>
+                                ))}
+                            </tr>
+                            <tr className="border-b-2 border-t-2">
+                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.2")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 2) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
+                                </th>
+                                {godzinyPracy.map(x => (
+                                    (x.DzienTygodnia === 2) &&
+                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                        <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
                                             </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                        </div>
+                                    </td>
+                                ))}
+                            </tr>
+                            <tr>
+                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.3")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 3) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
+                                </th>
+                                {godzinyPracy.map(x => (
+                                    (x.DzienTygodnia === 3) &&
+                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                        <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
                                             </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr className="border-b-2 border-t-2">
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                        </div>
+                                    </td>
+                                ))}
+                            </tr>
+                            <tr className="border-b-2 border-t-2">
+                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.4")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 4) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
+                                </th>
+                                {godzinyPracy.map(x => (
+                                    (x.DzienTygodnia === 4) &&
+                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                        <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
                                             </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                        </div>
+                                    </td>
+                                ))}
+                            </tr>
+                            <tr>
+                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.5")}</span>
-                            </th>
-                            {godzinyPracy.map(x => (
-                                (x.DzienTygodnia === 5) &&
-                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                    <div className="w-full">
+                                </th>
+                                {godzinyPracy.map(x => (
+                                    (x.DzienTygodnia === 5) &&
+                                    <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                        <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
                                             </span>
-                                    </div>
-                                </td>
-                            ))}
-                        </tr>
-                        <tr className="border-2">
-                            <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                                        </div>
+                                    </td>
+                                ))}
+                            </tr>
+                            <tr className="border-2">
+                                <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.6")}</span>
-                            </th>
-                            <td className="text-center w-full flex flex-wrap my-2 mb-10">
-                                <div className="w-full">
-                                    {godzinyPracy.map(x => (
-                                        (x.DzienTygodnia === 6) &&
-                                        <span className=' text-s '>
+                                </th>
+                                <td className="text-center w-full flex flex-wrap my-2 mb-10">
+                                    <div className="w-full">
+                                        {godzinyPracy.map(x => (
+                                            (x.DzienTygodnia === 6) &&
+                                            <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}
                                         </span>))}
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div className="flex justify-between 6">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">

@@ -3,7 +3,9 @@ import {getUslugaList} from "../../axios/UslugaAxiosCalls";
 import UslugaListTable from "./UslugaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
-
+import axios from "axios";
+let CancelToken
+let source
 class UslugaList extends React.Component {
     constructor(props) {
         super(props);
@@ -15,19 +17,28 @@ class UslugaList extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
-            const res = await getUslugaList();
-            const data = await res.data
 
-            this.setState({
-                uslugi: data,
-                isLoaded: true
-            });
+            await getUslugaList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        uslugi: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, uslugi} = this.state
         const {t} = this.props;

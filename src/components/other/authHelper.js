@@ -1,5 +1,5 @@
 export function getCurrentUser() {
-    //console.log(JSON.parse(localStorage.getItem('user')))
+    //console.log(localStorage.getItem('user'))
     return JSON.parse(localStorage.getItem('user'));
 }
 

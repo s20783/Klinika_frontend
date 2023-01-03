@@ -6,8 +6,11 @@ import dayjs from "dayjs";
 import { getHarmonogram} from "../../axios/HarmonogramAxiosCalls";
 import Harmonogram from "../harmonogram/Harmonogram";
 import KontoMenu from "../fragments/KontoMenu";
+import axios from "axios";
+import {getChorobaDetails} from "../../axios/ChorobaAxiosCalls";
 
-
+let CancelToken
+let source
 class KontoHarmonogram extends React.Component {
     constructor(props) {
         super(props);
@@ -32,10 +35,15 @@ class KontoHarmonogram extends React.Component {
 
 
     componentDidMount() {
-
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
     }
 
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -112,14 +120,18 @@ class KontoHarmonogram extends React.Component {
 
         if (isValid) {
             try {
-                const res = await getHarmonogram(dane.data.Data)
-                const data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    harmonogram: data.harmonogramy,
-                    start:data.Start,
-                    end:data.End
-                });
+                await getHarmonogram(dane.data.Data, source)
+                    .then((res) => {
+                        if (res) {
+                            console.log(res.data)
+                            this.setState({
+                                isLoaded: true,
+                                harmonogram: res.data.harmonogramy,
+                                start:res.data.Start,
+                                end:res.data.End
+                            });
+                        }
+                    })
             } catch (error) {
                 console.log(error)
             }

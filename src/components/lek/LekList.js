@@ -4,7 +4,10 @@ import LekListTable from "./LekListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class LekList extends React.Component {
     constructor(props) {
         super(props);
@@ -17,18 +20,28 @@ class LekList extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
-            const res = await getLekList()
-            const data = await res.data
-            this.setState({
-                isLoaded: true,
-                leki: data
-            });
+
+            await getLekList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        leki: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, leki} = this.state
         let content;

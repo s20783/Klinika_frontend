@@ -1,6 +1,5 @@
 import {Link} from "react-router-dom";
-import {isWeterynarz} from "../other/authHelper";
-import {getFormattedDate, getFormattedDateWithHour} from "../other/dateFormat";
+import {getFormattedDate} from "../other/dateFormat";
 import {useTranslation} from "react-i18next";
 
 function ReceptaTableList(props) {
