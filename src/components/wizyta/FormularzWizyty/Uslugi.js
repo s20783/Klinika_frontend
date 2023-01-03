@@ -4,7 +4,10 @@ import {withTranslation} from "react-i18next";
 import {getUslugaList, getUslugaWizytaList} from "../../../axios/UslugaAxiosCalls";
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import {addUslugaWizyta, deleteUslugaWizyta} from "../../../axios/WizytaUslugaAxionCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class Uslugi extends React.Component {
     constructor(props) {
         super(props);
@@ -25,34 +28,40 @@ class Uslugi extends React.Component {
 
     fetchUslugi = async () => {
         try {
-            const res = await getUslugaWizytaList(this.state.idWizyta)
-            var data = await res.data
 
-            //console.log(data)
-            this.setState({
-                isLoaded: true,
-                uslugiWizyta: data
-            });
+            await getUslugaWizytaList(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        uslugiWizyta: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
 
     componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         this.fetchUslugi()
     }
 
     async showSelect() {
         if (this.state.uslugi.length === 0) {
             try {
-                const res = await getUslugaList()
-                const data = await res.data
-                console.log(data)
 
-                this.setState({
-                    isLoaded: true,
-                    uslugi: data
-                });
+                await getUslugaList(source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            uslugi: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
@@ -84,11 +93,16 @@ class Uslugi extends React.Component {
 
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     deleteUsluga = async (idUsluga) => {
 
         const {navigate} = this.props;
         try {
-           await deleteUslugaWizyta(this.state.idWizyta, idUsluga)
+           await deleteUslugaWizyta(this.state.idWizyta, idUsluga, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -100,7 +114,7 @@ class Uslugi extends React.Component {
         if (this.state.data.IdUsluga !== '') {
 
             try {
-                await addUslugaWizyta(this.state.idWizyta, this.state.data.IdUsluga)
+                await addUslugaWizyta(this.state.idWizyta, this.state.data.IdUsluga, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)

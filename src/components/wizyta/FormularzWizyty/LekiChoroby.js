@@ -7,6 +7,9 @@ import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import { getOnlyLekList} from "../../../axios/LekAxiosCalls";
 import {addLekWizyta, deleteLekWizyta, getLekWizytaList} from "../../../axios/WizytaLekAxiosCalls";
 import {checkNumberRange} from "../../helpers/CheckNRange";
+import axios from "axios";
+let CancelToken
+let source
 
 class LekiChoroby extends React.Component {
     constructor(props) {
@@ -35,14 +38,16 @@ class LekiChoroby extends React.Component {
 
     fetchChoroby = async () => {
         try {
-            const res = await getChorobaWizytaList(this.state.idWizyta)
-            var data = await res.data
 
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                chorobyWizyta: data
-            });
+            await getChorobaWizytaList(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        chorobyWizyta: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
@@ -50,39 +55,48 @@ class LekiChoroby extends React.Component {
 
     fetchLeki = async () => {
         try {
-            const res = await getLekWizytaList(this.state.idWizyta)
-            var data = await res.data
 
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                lekiWizyta: data
-            });
+            await getLekWizytaList(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        lekiWizyta: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
 
     componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         this.fetchChoroby()
         this.fetchLeki()
-
-
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     async showSelect(x) {
         var helpDiv, helpDiv1, helpDiv2
         var name, name1
         if (x === 1) {
             if (this.state.choroby.length === 0) {
                 try {
-                    const res = await getChorobaList()
-                    const data = await res.data
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        choroby: data
-                    });
+
+                    await getChorobaList(source).then((res) => {
+                        if (res) {
+                            console.log(res.data)
+                            this.setState({
+                                isLoaded: true,
+                                choroby: res.data
+                            });
+                        }
+                    })
                 } catch (error) {
                     console.log(error)
                 }
@@ -94,13 +108,16 @@ class LekiChoroby extends React.Component {
         } else {
             if (this.state.leki.length === 0) {
                 try {
-                    const res = await getOnlyLekList()
-                    const data = await res.data
-                    console.log(data)
-                    this.setState({
-                        isLoaded: true,
-                        leki: data
-                    });
+
+                    await getOnlyLekList(source).then((res) => {
+                        if (res) {
+                            console.log(res.data)
+                            this.setState({
+                                isLoaded: true,
+                                leki: res.data
+                            });
+                        }
+                    })
                 } catch (error) {
                     console.log(error)
                 }
@@ -145,7 +162,7 @@ class LekiChoroby extends React.Component {
 
         const {navigate} = this.props;
         try {
-            await deleteChorobaWizyta(this.state.idWizyta, idChoroba)
+            await deleteChorobaWizyta(this.state.idWizyta, idChoroba, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -157,7 +174,7 @@ class LekiChoroby extends React.Component {
         if (this.state.data.IdChoroba !== '') {
 
             try {
-                await addChorobaWizyta(this.state.idWizyta, this.state.data.IdChoroba)
+                await addChorobaWizyta(this.state.idWizyta, this.state.data.IdChoroba, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -169,7 +186,7 @@ class LekiChoroby extends React.Component {
 
         const {navigate} = this.props;
         try {
-            await deleteLekWizyta(this.state.idWizyta, idLek)
+            await deleteLekWizyta(this.state.idWizyta, idLek, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -192,7 +209,7 @@ class LekiChoroby extends React.Component {
         })
         if (!this.hasErrors()) {
             try {
-                await addLekWizyta(this.state.idWizyta, this.state.data.IdLek, this.state.data.Ilosc)
+                await addLekWizyta(this.state.idWizyta, this.state.data.IdLek, this.state.data.Ilosc, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)

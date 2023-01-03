@@ -10,6 +10,10 @@ import {getWizytaDetails, przelozWizyte, umowWizyte} from "../../axios/WizytaAxi
 import formMode from "../helpers/FormMode";
 import {getKlientPacjentList, getKlientPacjentList2} from "../../axios/PacjentAxiosCalls";
 import {isKlient, isWeterynarz} from "../other/authHelper";
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 
 class UmowienieWizyty extends React.Component {
     constructor(props) {
@@ -46,6 +50,8 @@ class UmowienieWizyty extends React.Component {
     }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
                 const res = await getWizytaDetails(this.state.idWizyta);
@@ -59,6 +65,20 @@ class UmowienieWizyty extends React.Component {
                     data: data1
                 });
 
+                await getWizytaDetails(this.state.idWizyta ,source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        const data1 = {...this.state.data}
+                        data1['Pacjent'] = res.data.IdPacjent
+                        data1['Notatka'] = res.data.NotatkaKlient
+                        data1['ID_klient'] = res.data.IdKlient
+
+                        this.setState({
+                            data: data1
+                        });
+                    }
+                })
+
                 console.log({...this.state.data})
                 console.log(data)
             } catch (error) {
@@ -67,26 +87,31 @@ class UmowienieWizyty extends React.Component {
         }
         if (isKlient()) {
             try {
-                const res = await getKlientPacjentList2();
-                const data = await res.data
-                //  console.log(data)
 
-                this.setState({
-                    isLoaded: true,
-                    list: data
-                });
+                await getKlientPacjentList2(source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            list: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
         } else {
             try {
-                const res = await getKlientPacjentList(this.state.idKlient);
-                const data = await res.data
-                // console.log(data)
-                this.setState({
-                    isLoaded: true,
-                    list: data
-                });
+
+                await getKlientPacjentList(this.state.idKlient, source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            list: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
@@ -172,9 +197,9 @@ class UmowienieWizyty extends React.Component {
             console.log(newData)
             try {
                 if (this.state.formMode === formMode.NEW) {
-                    await umowWizyte(newData)
+                    await umowWizyte(newData, source)
                 } else {
-                    await przelozWizyte(this.state.idWizyta, newData)
+                    await przelozWizyte(this.state.idWizyta, newData, source)
                 }
                 navigate(
                     "/potwierdzenieWizyty",
@@ -188,7 +213,11 @@ class UmowienieWizyty extends React.Component {
             }
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     hasErrors = () => {
         const errors = this.state.errors
         for (const errorField in this.state.errors) {
@@ -206,12 +235,16 @@ class UmowienieWizyty extends React.Component {
 
         if (date > new Date()) {
             try {
-                const res = await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'));
-                var data = await res.data
-                this.setState({
-                    isLoaded: true,
-                    harmonogram: data
-                });
+
+                await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'),source).then((res) => {
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            harmonogram: res.data
+                        });
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }

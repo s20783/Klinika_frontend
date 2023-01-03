@@ -3,7 +3,9 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {odwolajWizyte} from "../../axios/WizytaAxiosCalls";
 import {isKlient} from "../other/authHelper";
-
+import axios from "axios";
+let CancelToken
+let source
 class OdwolanieWizyty extends React.Component {
     constructor(props) {
         super(props);
@@ -19,11 +21,16 @@ class OdwolanieWizyty extends React.Component {
             notice: '',
         }
     }
+    async componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+    }
 
     removeWizyte = async () => {
         const {navigate} = this.props;
         try {
-            await odwolajWizyte(this.state.idWizyta, this.state.idKlient)
+            await odwolajWizyte(this.state.idWizyta, this.state.idKlient, source)
             if(isKlient()){
                 await navigate(`/mojeWizyty`, {replace: true});
             }else {
@@ -33,7 +40,11 @@ class OdwolanieWizyty extends React.Component {
             console.log(error)
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {t} = this.props;
         const {navigate} = this.props;

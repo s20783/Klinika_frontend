@@ -3,9 +3,10 @@ import {useNavigate} from "react-router";
 import WizytaTableList from "./WizytaTableList";
 import {withTranslation} from "react-i18next";
 import {getWizytaList} from "../../axios/WizytaAxiosCalls";
-import {getKontoData} from "../../axios/AuthAxiosCalls";
-import {getCurrentUser, getId} from "../other/authHelper";
-
+import { getId} from "../other/authHelper";
+import axios from "axios";
+let CancelToken
+let source
 class WizytaList extends React.Component {
     constructor(props) {
         super(props);
@@ -18,15 +19,19 @@ class WizytaList extends React.Component {
     }
 
     async componentDidMount() {
-
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
-            const res = await getWizytaList();
-            var data = await res.data
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                wizyty: data
-            });
+
+            await getWizytaList(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        wizyty: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
@@ -41,7 +46,11 @@ class WizytaList extends React.Component {
         }
 
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     render() {
         const {error, isLoaded, wizyty, idVet} = this.state
         let content;

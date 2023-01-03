@@ -7,7 +7,10 @@ import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
 import {acceptUslugaWizyta} from "../../../axios/WizytaUslugaAxionCalls";
 import {getKlientPacjentList} from "../../../axios/PacjentAxiosCalls";
-
+import axios from "axios";
+import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class Info extends React.Component {
     constructor(props) {
         super(props);
@@ -32,6 +35,8 @@ class Info extends React.Component {
 
 
     componentDidMount = async () => {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
             var res = await getWizytaDetails(this.state.idWizyta)
             var data = await res.data
@@ -48,19 +53,40 @@ class Info extends React.Component {
                 isLoaded: true,
                 data: data1
             });
+            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        wizyta: res.data
+                    });
+                    const data1 = this.state.data
+                    data1['Opis'] = res.data.Opis
+                    data1['ID_Pacjent']=res.data.IdPacjent
+                    this.setState({
+                        isLoaded: true,
+                        data: data1
+                    });
+                }
+            })
 
-            res = await getKlientPacjentList(this.state.wizyta.IdKlient);
-            data = await res.data
-
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                pacjenci: data
-            });
+            await getKlientPacjentList(this.state.wizyta.IdKlient, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        pacjenci: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
-
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
     }
 
     validateForm = () => {
@@ -126,7 +152,7 @@ class Info extends React.Component {
         if(this.validateForm()) {
             const {navigate} = this.props;
             try {
-                await updateWizyta(this.state.idWizyta, this.state.data)
+                await updateWizyta(this.state.idWizyta, this.state.data, source)
                 await navigate(`/wizyty/${this.state.idWizyta}`, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -138,7 +164,7 @@ class Info extends React.Component {
         console.log("accept")
         const {navigate} = this.props;
         try {
-            await acceptUslugaWizyta(this.state.idWizyta)
+            await acceptUslugaWizyta(this.state.idWizyta, source)
             await navigate(0, {replace: true});
 
         } catch (error) {

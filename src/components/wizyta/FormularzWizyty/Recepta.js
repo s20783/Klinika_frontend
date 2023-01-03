@@ -8,7 +8,9 @@ import {getUslugaWizytaList} from "../../../axios/UslugaAxiosCalls";
 import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../../axios/WizytaChorobaAxiosCalls";
 import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
-
+import axios from "axios";
+let CancelToken
+let source
 class Recepta extends React.Component {
     constructor(props) {
         super(props);
@@ -41,183 +43,50 @@ class Recepta extends React.Component {
         }
     }
 
-    fetchWizytaDetails = async () => {
-        try {
-            const res = await getWizytaDetails(this.state.idWizyta)
-            var data = await res.data
-
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                wizyta: data
-            });
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     fetchReceptaDetails = async () => {
         try {
-            var res = await getReceptaDetails(this.state.idWizyta)
-            var data = await res.data
 
-            //  console.log(data)
-            this.setState({
-                isLoaded: true,
-                recepta: data
-            });
-
-            res = await getReceptaLeki(this.state.idWizyta)
-            data = await res.data
-
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                lekiRecepta: data
-            });
+            await getReceptaDetails(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        recepta: res.data
+                    });
+                }
+            })
+            await getReceptaLeki(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        lekiRecepta: res.data
+                    });
+                }
+            })
 
         } catch (error) {
             console.log(error)
         }
     }
 
-    fetchUslugi = async () => {
-        try {
-            const res = await getUslugaWizytaList(this.state.idWizyta)
-            var data = await res.data
 
-            //console.log(data)
-            this.setState({
-                isLoaded: true,
-                uslugi: data
-            });
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    fetchChoroby = async () => {
-        try {
-            const res = await getChorobaWizytaList(this.state.idWizyta)
-            var data = await res.data
 
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                chorobyWizyta: data
-            });
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     componentDidMount() {
-        this.fetchWizytaDetails()
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         this.fetchReceptaDetails()
-        this.fetchUslugi()
-        this.fetchChoroby()
 
     }
 
-    async showSelect() {
-        if (this.state.choroby.length === 0) {
-            try {
-                const res = await getChorobaList()
-                const data = await res.data
-                console.log(data)
-                this.setState({
-                    isLoaded: true,
-                    choroby: data
-                });
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        var helpDiv = document.getElementById("spec-content");
-        var helpDiv1 = document.getElementById("spec-content1");
-
-        if (helpDiv.classList.contains("hidden")) {
-            helpDiv.classList.remove("hidden");
-            helpDiv1.classList.remove("hidden");
-
-        } else {
-            helpDiv.classList.add("hidden");
-            helpDiv1.classList.add("hidden");
-
-            const data = {...this.state.data1}
-            data['IdChoroba'] = null
-            this.setState({
-                data1: data,
-            })
-            const errors = {...this.state.errors}
-            errors['IdChoroba'] = ''
-            this.setState({
-                errors: errors,
-            })
-
-        }
-
-    }
-
-    deleteChoroba = async (idChoroba) => {
-
-        const {navigate} = this.props;
-        try {
-            await deleteChorobaWizyta(this.state.idWizyta, idChoroba)
-            await navigate(0, {replace: true});
-        } catch (error) {
-            console.log(error)
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
         }
     }
-
-    addChoroba = async () => {
-        const {navigate} = this.props;
-        if (this.state.data1.IdChoroba !== '') {
-
-            try {
-                await addChorobaWizyta(this.state.idWizyta, this.state.data1.IdChoroba)
-                await navigate(0, {replace: true});
-            } catch (error) {
-                console.log(error)
-            }
-
-        }
-    }
-
-    handleChange = (event) => {
-        const {name, value} = event.target
-        const data = {...this.state.data1}
-        data[name] = value
-
-        const errorMessage = this.validateField(name, value)
-        const errors = {...this.state.errors}
-        errors[name] = errorMessage
-
-        this.setState({
-            data1: data,
-            errors: errors
-        })
-
-    }
-    validateField = (fieldName, fieldValue) => {
-        const {t} = this.props;
-        let errorMessage = '';
-        if (fieldName === 'IdChoroba') {
-            if (!fieldValue) {
-                errorMessage = `${t('validation.required')}`
-            }
-        }
-        return errorMessage;
-    }
-    checkIfExist = (chorobaArray, chorobaID) => {
-        for (let i = 0; i < chorobaArray.length; i++) {
-            if (chorobaArray[i].ID_Choroba === chorobaID) {
-                return true
-            }
-        }
-        return false
-    }
-
 
     render() {
         const { recepta, idWizyta, lekiRecepta} = this.state

@@ -2,14 +2,16 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../other/dateFormat";
-import {Link} from "react-router-dom";
 import {getWizytaDetails} from "../../axios/WizytaAxiosCalls";
 import {getReceptaDetails, getReceptaLeki} from "../../axios/ReceptaAxiosCalls";
 import {getUslugaWizytaList} from "../../axios/UslugaAxiosCalls";
-import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../axios/WizytaChorobaAxiosCalls";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+import { getChorobaWizytaList} from "../../axios/WizytaChorobaAxiosCalls";
 import SzczegolyWizytaMenu from "../fragments/SzczegolyWizytaMenu";
-
+import {getLekWizytaList} from "../../axios/WizytaLekAxiosCalls";
+import axios from "axios";
+import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+let CancelToken
+let source
 class SzczegolyWizyty extends React.Component {
     constructor(props) {
         super(props);
@@ -39,14 +41,16 @@ class SzczegolyWizyty extends React.Component {
 
     fetchWizytaDetails = async () => {
         try {
-            const res = await getWizytaDetails(this.state.idWizyta)
-            var data = await res.data
 
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                wizyta: data
-            });
+            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        wizyta: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
@@ -54,23 +58,24 @@ class SzczegolyWizyty extends React.Component {
 
     fetchReceptaDetails = async () => {
         try {
-            var res = await getReceptaDetails(this.state.idWizyta)
-            var data = await res.data
-
-            //  console.log(data)
-            this.setState({
-                isLoaded: true,
-                recepta: data
-            });
-
-            res = await getReceptaLeki(this.state.idWizyta)
-            data = await res.data
-
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                lekiRecepta: data
-            });
+            await getReceptaDetails(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        recepta: res.data
+                    });
+                }
+            })
+            await getReceptaLeki(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        lekiRecepta: res.data
+                    });
+                }
+            })
 
         } catch (error) {
             console.log(error)
@@ -79,28 +84,32 @@ class SzczegolyWizyty extends React.Component {
 
     fetchUslugi = async () => {
         try {
-            const res = await getUslugaWizytaList(this.state.idWizyta)
-            var data = await res.data
 
-            //console.log(data)
-            this.setState({
-                isLoaded: true,
-                uslugi: data
-            });
+            await getUslugaWizytaList(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        uslugi: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
     fetchChoroby = async () => {
         try {
-            const res = await getChorobaWizytaList(this.state.idWizyta)
-            var data = await res.data
 
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                chorobyWizyta: data
-            });
+            await getChorobaWizytaList(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        chorobyWizyta: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }
@@ -108,20 +117,25 @@ class SzczegolyWizyty extends React.Component {
 
     fetchLeki = async () => {
 
-        /*try {
-            const res = await getLekiWizytaList(this.state.idWizyta)
-            var data = await res.data
+        try {
 
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                leki: data
-            });
+            await getLekWizytaList(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        leki: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
-        }*/
+        }
     }
     componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
         this.fetchWizytaDetails()
         this.fetchReceptaDetails()
         this.fetchUslugi()
@@ -129,6 +143,11 @@ class SzczegolyWizyty extends React.Component {
         this.fetchLeki()
     }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     render() {
         const {wizyta, uslugi, chorobyWizyta, recepta, lekiRecepta, idWizyta} = this.state
