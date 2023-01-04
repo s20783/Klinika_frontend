@@ -69,6 +69,10 @@ export function deleteKlientKonto(source) {
     }).catch(function (thrown) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
-        }
+        } else {
+        console.log(thrown.response.data)
+       // throw new Error(thrown.response.data)
+            throw new Error(thrown.response.data.message)
+    }
     });
 }

@@ -13,6 +13,8 @@ class UsuniecieKonta extends React.Component {
             error: '',
             isLoaded: false,
             notice: '',
+            message: ''
+
         }
     }
 
@@ -34,7 +36,10 @@ class UsuniecieKonta extends React.Component {
             this.props.handleLogout()
             await navigate("/", {replace: true});
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
+            this.setState({
+                message: error.message
+            })
         }
     }
 
@@ -48,6 +53,8 @@ class UsuniecieKonta extends React.Component {
                 <div class="modal-content py-9 px-5">
                     <p class="text-4xl mb-2 text-center font-bold">{t('konto.deletingAccont')}</p>
                     <img src="/images/znakZapytaniaPies.png" alt={"ZnakZapytaniaPies"}/>
+                    <span id="error" className="errors-text2">{this.state.message !== '' ? t('errors.' + this.state.message) : ''}
+                    </span>
 
                     <div class="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
