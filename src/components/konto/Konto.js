@@ -4,7 +4,7 @@ import {getKontoData} from "../../axios/AuthAxiosCalls";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
-import {getKlientList} from "../../axios/KlientAxiosCalls";
+import {isKlient} from "../other/authHelper";
 
 let CancelToken
 let source
@@ -107,6 +107,12 @@ class Konto extends React.Component {
                                           className="shadow-xl bg-blue-400 w-60 mb-6 text-center hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                         {t('konto.button.changePassword')}
                                     </Link>
+                                    {isKlient() &&
+                                        <Link to="/usuniecieKonta"
+                                              className="shadow-xl bg-red-300 w-60 mb-6 text-center hover:bg-white hover:text-red-300 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                            {t('konto.button.deleteAccont')}
+                                        </Link>
+                                    }
                                 </label>
                             </div>
                         </div>

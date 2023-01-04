@@ -135,7 +135,9 @@
 		"login": "Login",
 		"button": {
 			"changeContactData": "Change contact details",
-			"changePassword" : "Change password"
+			"changePassword" : "Change password",
+			"deleteAccont": "Usuń konto"
+
 		},
 		"field": {
 			"typePassword": "Password",

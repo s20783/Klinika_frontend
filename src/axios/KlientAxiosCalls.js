@@ -60,3 +60,15 @@ export async function registerCall(user,source) {
         }
     })
 }
+export function deleteKlientKonto(source) {
+    return api.delete(`/Klient`,{
+        cancelToken: source.token
+    }).then((response) => {
+        console.log(response)
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    });
+}

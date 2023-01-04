@@ -61,6 +61,7 @@ export async function changeDaneKonta(user, source) {
             console.log('Request canceled', thrown.message);
         }else {
             throw new Error(thrown.response.data.message)
+            //return thrown.response.data.message
         }
     })
 }

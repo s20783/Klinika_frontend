@@ -137,9 +137,12 @@
     "forgotPassword": "Nie pamiętasz hasła?",
     "changeData": "Zmiana danych konta",
     "login": "Nazwa użytkownika",
+    "deletingAccont": "Czy na pewno chcesz usunąc konto?",
+    "deleteAccont": "Usuń konto",
     "button": {
       "changeContactData": "Zmień dane kontaktowe",
-      "changePassword": "Zmień hasło"
+      "changePassword": "Zmień hasło",
+      "deleteAccont": "Usuń konto"
     },
     "field": {
       "typePassword": "Podaj hasło",

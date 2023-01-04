@@ -69,6 +69,7 @@ import Recepta from "./components/wizyta/FormularzWizyty/Recepta";
 import OdwolanieWizyty from "./components/wizyta/OdwolanieWizyty";
 import FormularzKlient from "./components/klient/FormularzKlient";
 import PoDodaniuAktualizacjiHarmonogramu from "./components/harmonogram/PoDodaniuAktualizacjiHarmonogramu";
+import UsuniecieKonta from "./components/konto/UsuniecieKonta";
 
 class App extends React.Component {
     constructor(props) {
@@ -156,6 +157,7 @@ class App extends React.Component {
                     <Route path="/godzinyPracy" element={<KontoGodzinyPracy/>}/>
                     <Route path="/zmianaHasla" element={<ZmianaHasla/>}/>
                     <Route path="/zmianaDanychKonta" element={<ZmianaDanychKonta/>}/>
+                    <Route path="/usuniecieKonta" element={<UsuniecieKonta  handleLogout={this.handleLogout}/>}/>
 
                     <Route path="/umowWizyte" element={<UmowienieWizyty/>}/>
                     <Route path="/umowWizyte/:IdKlient" element={<UmowienieWizyty/>}/>
