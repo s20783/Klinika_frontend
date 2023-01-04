@@ -245,8 +245,8 @@
     "title": "Klienci",
     "addNewClient": "Dodanie nowego klienta",
     "detailsClient": "Szczegóły klienta",
-    "deletingClient": "Czy na pewno chcesz usunąc klienta?",
-    "deleteClient": "Usuń klienta",
+    "deletingClient": "Czy na pewno chcesz usunąc konto klienta?",
+    "deleteClient": "Usuń konto klienta",
     "button": {
       "addClient": "Dodaj klienta"
     },

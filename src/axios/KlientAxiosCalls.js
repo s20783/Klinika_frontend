@@ -71,8 +71,24 @@ export function deleteKlientKonto(source) {
             console.log('Request canceled', thrown.message);
         } else {
         console.log(thrown.response.data)
-       // throw new Error(thrown.response.data)
+       // throw new Error(thrown.response.data)??????????????????
             throw new Error(thrown.response.data.message)
     }
+    });
+}
+export function deleteKlientKontoByAdmin(id,source){
+    return api.delete(`/Klient/admin/${id}`,{
+        cancelToken: source.token
+    }).then((response) => {
+        console.log(response)
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        } else {
+            console.log(thrown.response.data)
+            // throw new Error(thrown.response.data)
+            throw new Error(thrown.response.data.message)
+        }
     });
 }

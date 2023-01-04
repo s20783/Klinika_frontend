@@ -70,6 +70,7 @@ import OdwolanieWizyty from "./components/wizyta/OdwolanieWizyty";
 import FormularzKlient from "./components/klient/FormularzKlient";
 import PoDodaniuAktualizacjiHarmonogramu from "./components/harmonogram/PoDodaniuAktualizacjiHarmonogramu";
 import UsuniecieKonta from "./components/konto/UsuniecieKonta";
+import UsuniecieKlienta from "./components/klient/UsuniecieKlienta";
 
 class App extends React.Component {
     constructor(props) {
@@ -112,6 +113,7 @@ class App extends React.Component {
                     <Route path="/klienci" element={<KlientList/>}/>
                     <Route path="/klienci/:IdOsoba" element={<SzczegolyKlienta/>}/>
                     <Route path="/dodajKlienta" element={<FormularzKlient/>}/>
+                    <Route path="/klienci/delete/:IdOsoba" element={<UsuniecieKlienta/>}/>
 
 
                     <Route path="/weterynarze" element={<WeterynarzList/>}/>
