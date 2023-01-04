@@ -38,7 +38,7 @@ export async function addKlient(klient,source) {
     });
 }
 
-export async function registerCall(user, source) {
+export async function registerCall(user,source) {
     const userString = JSON.stringify(user)
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:36989/api',
@@ -54,6 +54,9 @@ export async function registerCall(user, source) {
     }).catch(function (thrown) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
+        }else {
+            console.log(thrown.response.data)
+            throw new Error(thrown.response.data)
         }
-    });
+    })
 }

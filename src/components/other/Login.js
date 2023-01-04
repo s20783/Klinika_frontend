@@ -3,7 +3,9 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {loginCall} from "../../axios/AuthAxiosCalls";
 import {withTranslation} from "react-i18next";
-
+import axios from "axios";
+let CancelToken
+let source
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -19,6 +21,11 @@ class Login extends React.Component {
             error: '',
             message: ''
         }
+    }
+    async componentDidMount() {
+
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
     }
 
     handleChange = (event) => {
@@ -42,7 +49,7 @@ class Login extends React.Component {
         const isValid = this.validateForm()
         if (isValid) {
             try {
-                const res = await loginCall(this.state.user)
+                const res = await loginCall(this.state.user,source)
                 const data = await res.data
 
                 //if (data.Token) {
@@ -50,15 +57,19 @@ class Login extends React.Component {
                     this.props.handleLogin(userString)
                     navigate("/", {replace: true});
                 //}
-            } catch (error) {
-                console.log(error)
+            }  catch (error) {
+                console.log(error.message)
                 this.setState({
-                    message: error.response.data.message
+                    message: error.message
                 })
             }
         }
     }
-
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
         let errorMessage = '';

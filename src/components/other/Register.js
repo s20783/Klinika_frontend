@@ -6,7 +6,9 @@ import {withTranslation} from "react-i18next";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {ValidateHaslo} from "../helpers/ValidateHaslo";
 import {CheckTextRange} from "../helpers/CheckTextRange";
-
+import axios from "axios";
+let CancelToken
+let source
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -60,10 +62,13 @@ class Register extends React.Component {
             //let response;
             //let promise;
             try {
-                await registerCall(user);
+                await registerCall(user, source);
                 navigate("/afterRegister", {replace: true});
             } catch (error) {
-                console.log(error)
+                console.log(error.message)
+                this.setState({
+                    message: error.message
+                })
             }
 
             // promise = registerCall(user);
@@ -107,6 +112,15 @@ class Register extends React.Component {
             //             })
             //}
         }
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+    async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
     }
 
     validateField = (fieldName, fieldValue) => {

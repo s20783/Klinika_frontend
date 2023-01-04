@@ -6,8 +6,11 @@ import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {getKontoData} from "../../axios/AuthAxiosCalls";
+import axios from "axios";
+import {getKlientList} from "../../axios/KlientAxiosCalls";
 
-
+let CancelToken
+let source
 class ZmianaDanychKonta extends React.Component {
     constructor(props) {
         super(props);
@@ -117,25 +120,35 @@ class ZmianaDanychKonta extends React.Component {
         if (isValid) {
             const data = this.state.data
             try {
-                await changeDaneKonta(data)
+                await changeDaneKonta(data, source)
                 await navigate("/konto", {replace: true});
             } catch (error) {
-                console.log(error.response)
+                console.log(error.message)
                 this.setState({
-                    message: error.response.data.message
+                   message: error.message
                 })
             }
         }
     }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
 
     async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
         try {
-            const res = await getKontoData()
-            const data1 = await res.data
-            this.setState({
-                isLoaded: true,
-                data: data1
-            });
+            await getKontoData(source).then((res) => {
+                if (res) {
+                    console.log(res.data)
+                    this.setState({
+                        isLoaded: true,
+                        data: res.data
+                    });
+                }
+            })
         } catch (error) {
             console.log(error)
         }

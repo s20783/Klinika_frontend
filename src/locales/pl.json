@@ -42,9 +42,10 @@
   },
   "errors": {
     "Incorrect": "Niepoprawne hasło lub login",
-    "Incorrect1": "Niepoprawne hasło",
     "Not unique": "Ta nazwa jest już zajęta",
-    "Incorrect password": "Niepoprawne hasło"
+    "Incorrect password": "Niepoprawne hasło",
+    "Account blocked": "Konto jest zablokowane"
+
   },
   "button": {
     "next": "Dalej",

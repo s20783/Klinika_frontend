@@ -25,9 +25,10 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(resp => resp, async error => {
     const originalConfig = error.config;
-
     if (error.response) {
         if (error.response.status === 401 && !originalConfig._retry) {
+            console.log(error.response)
+
             originalConfig._retry = true
             const user = getCurrentUser()
             let token
@@ -51,6 +52,7 @@ instance.interceptors.response.use(resp => resp, async error => {
             }
         }
     }
+   // console.log(Promise.reject(error))
     await Promise.reject(error);
 
 });

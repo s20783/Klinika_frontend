@@ -5,7 +5,9 @@ import {changePassword} from "../../axios/AuthAxiosCalls";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {ValidateHaslo} from "../helpers/ValidateHaslo";
 import {withTranslation} from "react-i18next";
-
+import axios from "axios";
+let CancelToken
+let source
 class ZmianaHasla extends React.Component {
     constructor(props) {
         super(props);
@@ -46,15 +48,25 @@ class ZmianaHasla extends React.Component {
         const isValid = this.validateForm()
         if (isValid) {
             try {
-                await changePassword(this.state.user)
+                await changePassword(this.state.user,source)
                 await navigate("/konto", {replace: true});
-            } catch (error) {
-                console.log(error.response)
+            }  catch (error) {
+                console.log(error.message)
                 this.setState({
-                    message: error.response.data.message
+                    message: error.message
                 })
             }
         }
+    }
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
+    async componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
     }
 
     validateField = (fieldName, fieldValue) => {

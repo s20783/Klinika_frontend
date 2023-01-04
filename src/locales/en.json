@@ -40,7 +40,10 @@
 	"errors": {
 		"Incorrect": "Incorrect password or login",
 		"Not unique": "This username is already taken",
-		"Incorrect password": "Incorrect password"
+		"Incorrect password": "Incorrect password",
+		"Account blocked": "Account is blocked"
+
+
 	},
 	"button": {
 		"next": "Next",
