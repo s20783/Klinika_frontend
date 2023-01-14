@@ -11,7 +11,6 @@ import formMode from "../helpers/FormMode";
 import {getKlientPacjentList, getKlientPacjentList2} from "../../axios/PacjentAxiosCalls";
 import {isKlient, isWeterynarz} from "../other/authHelper";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 
@@ -22,6 +21,7 @@ class UmowienieWizyty extends React.Component {
         const currentFormMode = paramsIdWizyta ? formMode.EDIT : formMode.NEW
         const paramsIdKlient = this.props.params.IdKlient
 
+        console.log(currentFormMode)
         this.state = {
             data: {
                 Pacjent: '',
@@ -52,18 +52,9 @@ class UmowienieWizyty extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
+
         if (this.state.formMode === formMode.EDIT) {
             try {
-                const res = await getWizytaDetails(this.state.idWizyta);
-                var data = await res.data
-                const data1 = {...this.state.data}
-                data1['Pacjent'] = data.IdPacjent
-                data1['Notatka'] = data.NotatkaKlient
-                data1['ID_klient'] = data.IdKlient
-
-                this.setState({
-                    data: data1
-                });
 
                 await getWizytaDetails(this.state.idWizyta ,source).then((res) => {
                     if (res) {
@@ -79,8 +70,6 @@ class UmowienieWizyty extends React.Component {
                     }
                 })
 
-                console.log({...this.state.data})
-                console.log(data)
             } catch (error) {
                 console.log(error)
             }
@@ -218,6 +207,7 @@ class UmowienieWizyty extends React.Component {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     hasErrors = () => {
         const errors = this.state.errors
         for (const errorField in this.state.errors) {
@@ -236,7 +226,7 @@ class UmowienieWizyty extends React.Component {
         if (date > new Date()) {
             try {
 
-                await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'),source).then((res) => {
+                await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'), source).then((res) => {
                     if (res) {
                         console.log(res.data)
                         this.setState({

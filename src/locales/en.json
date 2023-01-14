@@ -133,11 +133,12 @@
 		"forgotPassword": "Forgot password?",
 		"changeData": "Change user data",
 		"login": "Login",
+		"deletingAccont": "Are you sure you want to delete account?",
+		"deleteAccont": "Delete accont",
 		"button": {
 			"changeContactData": "Change contact details",
 			"changePassword" : "Change password",
-			"deleteAccont": "Usuń konto"
-
+			"deleteAccont": "Delete accont"
 		},
 		"field": {
 			"typePassword": "Password",
@@ -424,6 +425,7 @@
 	},
 	"recepta": {
 		"title": "Prescription",
+		"title1": "Prescriptions",
 		"prescriptionDetails": "Prescription details",
 		"writingPrescription": "Writing prescription",
 		"deletingPrescription": "Are you sure you want to delete prescription?",

@@ -2,6 +2,7 @@ import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import React from "react";
 import {getFormattedDate1} from "../other/dateFormat"
+import {Link} from "react-router-dom";
 
 function Harmonogram(props) {
     const {t} = useTranslation();
@@ -53,12 +54,14 @@ function Harmonogram(props) {
                                 ' border-l-4 border-red-300 mx-2 w-full'
                             }>
                                 <div className="w-full">
+                                    <Link to={x.IdWizyta ? `/wizyty/editInfo/${x.IdWizyta}`: ''}>
                                             <span className={(x.Weterynarz === null || weterynarz === null)
                                                 ? ' text-s ' :
                                                 'text-s font-bold'
                                             }>
                                                 {dayjs(x.Data).format("HH:mm")} - {dayjs(x.Data).add(30, "minute").format("HH:mm")}
                                             </span>
+                                    </Link>
                                 </div>
                                 <span className="w-full text-s">{x.Weterynarz}</span>
                             </div>

@@ -205,6 +205,8 @@ class DodaniePacjentaForm extends React.Component {
 
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
+                console.log(dane.formMode)
+
                 try {
                     await addPacjent(dane.data, source)
                     await navigate("/pacjenci", {replace: true});

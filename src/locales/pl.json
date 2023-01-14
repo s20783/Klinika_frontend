@@ -432,6 +432,7 @@
   },
   "recepta": {
     "title": "Recepta",
+    "title1": "Recepty",
     "prescriptionDetails": "Szczegóły recepty",
     "writingPrescription": "Wypisanie recepty",
     "deletingPrescription": "Czy na pewno chcesz usunąc recepte?",

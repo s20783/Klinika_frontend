@@ -73,7 +73,7 @@ export async function umowWizyte(data,source){
         }
     })
 }
-export async function updateWizyta(idWizyta, data,source){
+export async function updateWizyta(idWizyta, data, source){
     const dataString = JSON.stringify(data)
     await api.put(`/Wizyta/${idWizyta}`, dataString, {
         cancelToken: source.token
@@ -85,8 +85,8 @@ export async function updateWizyta(idWizyta, data,source){
         }
     })
 }
-export async function przelozWizyte(idWizyta, data,source){
-    const dataString = JSON.stringify(data)
+export async function przelozWizyte(idWizyta, data, source){
+   const dataString = JSON.stringify(data)
     await api.put(`/Wizyta/przeloz/${idWizyta}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
@@ -94,10 +94,13 @@ export async function przelozWizyte(idWizyta, data,source){
     }).catch(function (thrown) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
+        }else {
+            console.log(thrown)
+            throw new Error(thrown)
         }
     })
 }
-export function odwolajWizyte(IdWizyta,idOsoba,source){
+export function odwolajWizyte(IdWizyta,idOsoba, source){
     return api.delete(`/Wizyta/${IdWizyta}?ID_klient=${idOsoba}`, {
         cancelToken: source.token
     }).then((response) => {

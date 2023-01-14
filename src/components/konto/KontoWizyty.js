@@ -76,8 +76,8 @@ class KontoWizyty extends React.Component {
                                 <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"/>
                             </div>
                             <div className="flex flex-wrap">
-                                <div className="w-full p-6">
-                                    <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
+                                <div className="w-full ">
+                                    <h3 className="text-3xl text-gray-800 font-bold leading-none mb-4">
                                         {t("wizyta.title")}
                                     </h3>
                                     {content}

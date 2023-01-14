@@ -38,7 +38,7 @@ class Info extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            var res = await getWizytaDetails(this.state.idWizyta)
+            var res = await getWizytaDetails(this.state.idWizyta,source)
             var data = await res.data
 
             console.log(data)

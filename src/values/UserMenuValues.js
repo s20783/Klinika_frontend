@@ -4,10 +4,6 @@ export const userMenuValues = [
         url: '/konto'
     },
     {
-        title: 'notifications',
-        url: '/powiadomienia'
-    },
-    {
         title: 'appointments',
         url: '/mojeWizyty'
     },
@@ -24,10 +20,6 @@ export const vetMenuValues = [
     {
         title: 'myAccount',
         url: '/konto'
-    },
-    {
-        title: 'notifications',
-        url: '/powiadomienia'
     },
     {
         title: 'schedule',
@@ -49,10 +41,6 @@ export const adminMenuValues = [
     {
         title: 'myAccount',
         url: '/konto'
-    },
-    {
-        title: 'notifications',
-        url: '/powiadomienia'
     }
 ];
 export const szczegolyVetMenuValues = [
@@ -72,8 +60,8 @@ export const formularzWizytaMenuValues = [
         url: '/wizyty/editInfo'
     },
     {
-        title: 'medicines',
-        title1: 'diseases',
+        title: 'diseases',
+        title1: 'medicines',
         url: '/wizyty/editMedDise'
     },
     {
