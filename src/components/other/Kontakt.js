@@ -1,4 +1,4 @@
-import {useTranslation} from "react-i18next";
+ import {useTranslation} from "react-i18next";
 
 function Kontakt() {
     const {t} = useTranslation();
@@ -29,7 +29,7 @@ function Kontakt() {
                                      medpet@gmail.pl
                                  </p>
                                  <p className="text-gray-800 font-bold mb-2">
-                                      Numer konta:
+                                     {t('kontakt.accountNumber')}
                                  </p>
                                  <p className="text-gray-600 mb-6">
                                      Milenium
@@ -45,11 +45,10 @@ function Kontakt() {
                     </div>
                     <div className="align-center">
                        <h1 className="text-2xl text-center text-gray-800 font-bold mt-10 mb-6">
-                            Godziny otwarcia </h1>
+                           {t('kontakt.openingHours')} </h1>
                        <p className=" whitespace-pre text-center text-gray-600  mb-16">
-                            Poniedziałek - Piątek: 09:00–21:00 {"\n"}
-                            Sobota: 09:00–21:00 {"\n"}
-                            Niedziela: 09:00–21:00
+                           {t('kontakt.pon-pt')}: 09:00–21:00 {"\n"}
+                           {t('kontakt.sob')}: 09:00–21:00
                        </p>
                     </div>
                 </div>

@@ -158,12 +158,11 @@ class UmowienieWizyty extends React.Component {
         return !this.hasErrors();
     }
 
-    handleSubmit = async (event) => {
+    handleVisit = async () => {
         const {navigate} = this.props;
         const data = {...this.state.data}
         const wizyta = {...this.state.wizyta}
 
-        event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
             let newData
@@ -220,6 +219,7 @@ class UmowienieWizyty extends React.Component {
 
 
     onChange = async (date) => {
+        const {t} = this.props;
         this.setState({selectedDate: date});
         const errors = {...this.state.errors}
 
@@ -240,10 +240,22 @@ class UmowienieWizyty extends React.Component {
             }
             errors["Termin"] = ""
         } else {
+
+            const wizyta = {...this.state.wizyta}
+            const data = {...this.state.data}
+
+            errors["Termin"] =`${t('validation.date1')}`
+            data["Termin"] = ''
+            wizyta["Data"] = ''
+            wizyta["Dzien"] = ''
+            wizyta["Weterynarz"] = ''
             this.setState({
-                harmonogram: []
+                harmonogram: [],
+                data: data,
+                wizyta: wizyta,
+                errors: errors
             });
-            errors["Termin"] = "Data musi byc z przyszłosci"
+
         }
         this.setState({
             errors: errors
@@ -281,7 +293,6 @@ class UmowienieWizyty extends React.Component {
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                    <form onSubmit={this.handleSubmit}>
                         <section className="bg-white-100 border-b  mb-7">
                             <div className=" md:flex mb-6 mt-4">
                                 <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
@@ -340,14 +351,12 @@ class UmowienieWizyty extends React.Component {
                                         type="button">
                                     {t("button.back")}
                                 </button>
-                                <button type="submit"
+                                <button onClick={() => this.handleVisit()}
                                         className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("button.next")}
                                 </button>
-                                <span id="errorForm" className="errors-text2">{this.hasErrors() ? t("validation.formError") : ""}</span>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         )

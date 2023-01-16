@@ -71,11 +71,11 @@ class KontoGodzinyPracy extends React.Component {
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('godzinyPracy.title')}</h2>
                     </div>
-                    <div className="shadow-xl">
+                    <div className="">
                         <table
                             className="w-full text-center flex flex-wrap mb-12 text-gray-700 dark:text-gray-400">
                             <tr></tr>
-                            <tr>
+                            <tr className="shadow-xl">
                                 <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.1")}</span>
@@ -91,7 +91,7 @@ class KontoGodzinyPracy extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="border-b-2 border-t-2">
+                            <tr className="border-b-2 border-t-2 shadow-xl">
                                 <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.2")}</span>
@@ -107,7 +107,7 @@ class KontoGodzinyPracy extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr>
+                            <tr className="shadow-xl">
                                 <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.3")}</span>
@@ -123,7 +123,7 @@ class KontoGodzinyPracy extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="border-b-2 border-t-2">
+                            <tr className="border-b-2 border-t-2 shadow-xl">
                                 <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.4")}</span>
@@ -139,7 +139,7 @@ class KontoGodzinyPracy extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr>
+                            <tr className="shadow-xl">
                                 <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.5")}</span>
@@ -155,7 +155,7 @@ class KontoGodzinyPracy extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="border-2">
+                            <tr className="border-2 shadow-xl">
                                 <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.6")}</span>

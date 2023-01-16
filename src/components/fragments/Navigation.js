@@ -24,11 +24,11 @@ class Navigation extends React.Component {
                         <div className="relative text-sm">
                             <Link to="/login"
                                   className="whitespace-nowrap sm:ml-1 ml-8 text-base font-medium text-gray-500 hover:text-blue-400">
-                                Zaloguj się
+                                {t('navigation.login')}
                             </Link>
                             <Link to="/register"
                                   className="shadow-xl sm:ml-8 ml-1 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-400">
-                                Zarejestruj się
+                                {t('navigation.register')}
                             </Link>
                         </div>
                     </div>

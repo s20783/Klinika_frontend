@@ -12,7 +12,9 @@
 		"medicines": "Medicines",
 		"vaccinations": "Vaccinations",
 		"schedule": "Schedule",
-		"specializations":"Specializations"
+		"specializations":"Specializations",
+		"login": "Log in",
+		"register": "Register"
 
 	},
 	"footer": {
@@ -27,6 +29,7 @@
 		"max300": "This field requires from 2 to 300 characters",
 		"max300nullable": "This field requires max 300 characters",
 		"date": "The date cannot be from the future",
+		"date1": "The date cannot be from the past",
 		"from5to50": "This field requires from 5 to 50 characters",
 		"from6to50": "This field requires from 6 to 50 characters",
 		"from8to50": "This field requires from 8 to 50 characters",
@@ -67,6 +70,12 @@
 			"6": "Saturday",
 			"7": "Sunday"
 		}
+	},
+	"kontakt": {
+		"accountNumber": "Account number:",
+		"openingHours": "Opening hours",
+		"pon-pt": "Monday - Friday",
+		"sob": "Saturday"
 	},
 	"login": {
 		"title": "Welcome to PetMed clinic",
@@ -111,6 +120,7 @@
 		"referrals": "Referrals",
 		"payments": "Payments",
 		"schedule": "Schedule",
+		"vacations": "Vacations",
 		"logout": "Log out",
 		"checkSchedule": "Check schedule",
 		"workingHours": "Working hours",
@@ -150,6 +160,7 @@
 	"wizyta": {
 		"title": "Appointments",
 		"makeAnAppointment": "Make an appointment",
+		"postpone": "Postponing the visit",
 		"visitDetails": "Visit Details",
 		"editingVisit": "Editing visit",
 		"thankYou": "Thank you!",
@@ -157,8 +168,8 @@
 		"date": "Date",
 		"selectedDate": "Selected date: ",
 		"selectPatient": "Select patient",
-		"deletingVisit": "Are you sure you want to delete visit?",
-		"deleteVisit": "Delete visit",
+		"cancelingVisit": "Are you sure you want to postopne visit?",
+		"cancelVisit": "ostopne visit",
 		"other": "other",
 		"button": {
 			"appointment": "Make an appointment"

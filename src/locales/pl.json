@@ -12,7 +12,9 @@
     "medicines": "Leki",
     "vaccinations": "Szczepionki",
     "schedule": "Harmonogram",
-    "specializations": "Specjalizacje"
+    "specializations": "Specjalizacje",
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się"
   },
   "footer": {
     "regulations": "Regulamin",
@@ -68,6 +70,12 @@
       "6": "Sobota",
       "7": "Niedziela"
     }
+  },
+  "kontakt": {
+    "accountNumber": "Numer konta:",
+    "openingHours": "Godziny otwarcia",
+    "pon-pt": "Poniedziałek - Piątek",
+    "sob": "Sobota"
   },
   "login": {
     "title": "Witamy w klinice PetMed",
