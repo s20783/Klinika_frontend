@@ -240,6 +240,9 @@ class UmowienieWizyty extends React.Component {
             }
             errors["Termin"] = ""
         } else {
+            this.setState({
+                harmonogram: []
+            });
             errors["Termin"] = "Data musi byc z przyszłosci"
         }
         this.setState({
