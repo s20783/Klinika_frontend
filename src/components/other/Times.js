@@ -8,11 +8,11 @@ function Times(props) {
     }
 
     return (
-        <div class="px-2 mt-3 mb-3">
-            <div class="grid grid-cols-5 gap-3 mx-10">
+        <div class="md:px-2 mt-3 mb-3">
+            <div class="grid grid-cols-4 md:grid-cols-5 gap-1 md:gap-3 md:mx-10">
                 {props.harmonogram.map(time => (
                     <div key={time.IdHarmonogram}>
-                        <button className="bg-purple-400 hover:bg-green-400 text-white py-1 px-3 rounded"
+                        <button className="bg-purple-400 hover:bg-green-400 text-white py-1 rounded w-full h-full"
                                onClick={() => props.timeChange(time)}>
                             <span className="font-bold">{getHour(time.Data)} </span>{time.Weterynarz}
                         </button>
