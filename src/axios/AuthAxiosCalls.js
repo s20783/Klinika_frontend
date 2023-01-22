@@ -4,7 +4,7 @@ import axios from "axios";
 export async function loginCall(user,source) {
     const userString = JSON.stringify(user)
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:36989/api',
+        baseURL: 'https://petmedapi.azurewebsites.net/api',
         headers: {
             'Content-Type': 'application/json'
         }

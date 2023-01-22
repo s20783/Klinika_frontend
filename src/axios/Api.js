@@ -2,7 +2,7 @@ import {getCurrentUser} from "../components/other/authHelper";
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:36989/api'
+    baseURL: 'https://petmedapi.azurewebsites.net/api'
 });
 
 instance.interceptors.request.use(
@@ -25,10 +25,8 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(resp => resp, async error => {
     const originalConfig = error.config;
-    if (error.response) {
+    if(error.response) {
         if (error.response.status === 401 && !originalConfig._retry) {
-            console.log(error.response)
-
             originalConfig._retry = true
             const user = getCurrentUser()
             let token
@@ -51,10 +49,8 @@ instance.interceptors.response.use(resp => resp, async error => {
                 return instance(error.config);
             }
         }
-    }
-   // console.log(Promise.reject(error))
     await Promise.reject(error);
-
+    }
 });
 
 export default instance;
