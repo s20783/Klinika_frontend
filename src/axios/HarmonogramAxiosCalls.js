@@ -1,9 +1,8 @@
 import api from "./Api";
 import axios from "axios";
-const harmonogramURL = 'http://localhost:36989/api/Harmonogram';
 
 export function getHarmonogramWizyta(Date,source) {
-    return api.get(`${harmonogramURL}?date=${Date}`, {
+    return api.get(`/Harmonogram?date=${Date}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -15,7 +14,7 @@ export function getHarmonogramWizyta(Date,source) {
 }
 
 export function getHarmonogramVet(idVet, Date,source) {
-    return api.get(`${harmonogramURL}/klinika/${idVet}?Date=${Date}`, {
+    return api.get(`/Harmonogram/klinika/${idVet}?Date=${Date}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -27,7 +26,7 @@ export function getHarmonogramVet(idVet, Date,source) {
 }
 
 export function getHarmonogram(Date, source) {
-    return api.get(`${harmonogramURL}/klinika?date=${Date}`, {
+    return api.get(`/Harmonogram/klinika?date=${Date}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -41,7 +40,7 @@ export function getHarmonogram(Date, source) {
 
 export async function addHarmonogram(source) {
 
-    await api.post(`${harmonogramURL}/auto`, {
+    await api.post(`/Harmonogram/auto`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -53,7 +52,7 @@ export async function addHarmonogram(source) {
 }
 
 export async function updateHarmonogram(source) {
-   await api.put(`${harmonogramURL}/auto` , {
+   await api.put(`/Harmonogram/auto` , {
         cancelToken: source.token
     }).then((response) => {
         return response

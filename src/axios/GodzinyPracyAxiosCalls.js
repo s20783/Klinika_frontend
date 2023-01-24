@@ -1,10 +1,8 @@
 import api from "./Api";
 import axios from "axios";
 
-const godzinyPracyURL = 'http://localhost:36989/api/GodzinyPracy';
-
 export function getGodzinyPracyList(id,source) {
-    return api.get(`${godzinyPracyURL}/list/${id}`, {
+    return api.get(`/GodzinyPracy/list/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -17,7 +15,7 @@ export function getGodzinyPracyList(id,source) {
 }
 
 export function getKontoGodzinyPracyList(source) {
-    return api.get(`${godzinyPracyURL}/moje_godziny`, {
+    return api.get(`/GodzinyPracy/moje_godziny`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -30,7 +28,7 @@ export function getKontoGodzinyPracyList(source) {
 
 export async function addGodzinyPracy(idVet, dane,source) {
     const patientString = JSON.stringify(dane)
-    await api.post(`${godzinyPracyURL}/${idVet}`, patientString, {
+    await api.post(`/GodzinyPracy/${idVet}`, patientString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -42,7 +40,7 @@ export async function addGodzinyPracy(idVet, dane,source) {
 }
 
 export async function addDomyslneGodzinyPracy(idVet, source) {
-    await api.post(`${godzinyPracyURL}/default/${idVet}`, {
+    await api.post(`/GodzinyPracy/default/${idVet}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -55,7 +53,7 @@ export async function addDomyslneGodzinyPracy(idVet, source) {
 
 export async function editGodzinyPracy(idVet, dane,source) {
     const patientString = JSON.stringify(dane)
-    await api.put(`${godzinyPracyURL}/${idVet}`, patientString, {
+    await api.put(`/GodzinyPracy/${idVet}`, patientString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -67,7 +65,7 @@ export async function editGodzinyPracy(idVet, dane,source) {
 }
 
 export async function deleteGodzinyPracy(id, dzien,source ) {
-    await api.delete(`${godzinyPracyURL}/${id}?dzien=${dzien}`, {
+    await api.delete(`/GodzinyPracy/${id}?dzien=${dzien}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

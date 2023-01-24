@@ -1,9 +1,8 @@
 import api from "./Api";
 import axios from "axios";
-const lekURL = 'http://localhost:36989/api/Lek';
 
 export function getLekList(source) {
-    return api.get(lekURL, {
+    return api.get('/Lek', {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +13,7 @@ export function getLekList(source) {
     })
 }
 export function getOnlyLekList(source) {
-    return api.get(`${lekURL}/lekOnly`, {
+    return api.get(`/Lek/lekOnly`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -25,7 +24,7 @@ export function getOnlyLekList(source) {
     })
 }
 export function getLekDetails(Id,source) {
-    return api.get(`${lekURL}/${Id}`, {
+    return api.get(`/Lek/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,7 +37,7 @@ export function getLekDetails(Id,source) {
 
 export async function addLek(lek,source) {
     const lekString = JSON.stringify(lek)
-    await api.post(`${lekURL}`, lekString, {
+    await api.post(`/Lek`, lekString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -51,7 +50,7 @@ export async function addLek(lek,source) {
 
 export async function updateLek(lek, Id,source) {
     const lekString = JSON.stringify(lek)
-    await api.put(`${lekURL}/${Id}`, lekString, {
+    await api.put(`/Lek/${Id}`, lekString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -62,7 +61,7 @@ export async function updateLek(lek, Id,source) {
     })
 }
 export async function deleteLek(Id,source) {
-    await api.delete(`${lekURL}/${Id}`, {
+    await api.delete(`/Lek/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

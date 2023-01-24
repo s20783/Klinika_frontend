@@ -5,7 +5,7 @@ const lekURL = 'http://localhost:36989/api/LekWMagazynie';
 
 
 export function getLekMagazyn(Id,source) {
-    return api.get(`${lekURL}/${Id}`, {
+    return api.get(`/LekWMagazynie/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -18,7 +18,7 @@ export function getLekMagazyn(Id,source) {
 
 export async function addLekMagazyn(IdLek, lek,source) {
     const lekString = JSON.stringify(lek)
-    await api.post(`${lekURL}/${IdLek}`, lekString, {
+    await api.post(`/LekWMagazynie/${IdLek}`, lekString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -31,7 +31,7 @@ export async function addLekMagazyn(IdLek, lek,source) {
 
 export async function updateLekMagazyn(lek, Id,source) {
     const lekString = JSON.stringify(lek)
-    await api.put(`${lekURL}/${Id}`, lekString, {
+    await api.put(`/LekWMagazynie/${Id}`, lekString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -43,7 +43,7 @@ export async function updateLekMagazyn(lek, Id,source) {
 }
 
 export async function deleteLekMagazyn(Id,source) {
-    await api.delete(`${lekURL}/${Id}`, {
+    await api.delete(`/LekWMagazynie/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
