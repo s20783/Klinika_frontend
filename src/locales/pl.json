@@ -172,6 +172,7 @@
     "selectedDate": "Wybrano termin: ",
     "cancelingVisit": "Czy na pewno chcesz odwołać wizyte?",
     "cancelVisit": "Odwołaj wizyte",
+    "4hvisitNotification": "(Następnym razem prosimy o wcześniejsze odwołanie wizyty)",
     "other": "inny",
     "button": {
       "appointment": "Umów wizytę"

@@ -1,9 +1,10 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {odwolajWizyte} from "../../axios/WizytaAxiosCalls";
+import {getWizytaDetails, odwolajWizyte} from "../../axios/WizytaAxiosCalls";
 import {isKlient} from "../other/authHelper";
 import axios from "axios";
+import dayjs from "dayjs";
 let CancelToken
 let source
 class OdwolanieWizyty extends React.Component {
@@ -19,14 +20,30 @@ class OdwolanieWizyty extends React.Component {
             error: '',
             isLoaded: false,
             notice: '',
+
         }
     }
     async componentDidMount() {
-
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-    }
+        this.getWizyta()
 
+    }
+    getWizyta = async () => {
+        const {t} = this.props;
+
+        try {
+            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+                if(dayjs(new Date()).diff(dayjs(res.data.DataRozpoczecia),'hour') <= 4  ){
+                    this.setState({
+                        notice: t('wizyta.4hvisitNotification')
+                    });
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
     removeWizyte = async () => {
         const {navigate} = this.props;
         try {
@@ -58,6 +75,7 @@ class OdwolanieWizyty extends React.Component {
                 <div class="modal-content py-9 px-5">
                     <p class="text-4xl mb-2 text-center font-bold">{t('wizyta.cancelingVisit')}</p>
                     <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
+                    <p className="text-lg mb-2 text-center text-gray-400 font-bold">{this.state.notice}</p>
 
                     <div class="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
