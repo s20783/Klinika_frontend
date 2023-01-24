@@ -1,9 +1,6 @@
 import api from "./Api";
 import axios from "axios";
 
-const lekURL = 'http://localhost:36989/api/LekWMagazynie';
-
-
 export function getLekMagazyn(Id,source) {
     return api.get(`/LekWMagazynie/${Id}`, {
         cancelToken: source.token
