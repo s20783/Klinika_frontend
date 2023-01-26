@@ -5,7 +5,7 @@ import {getUslugaList, getUslugaWizytaList} from "../../../axios/UslugaAxiosCall
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import {addUslugaWizyta, deleteUslugaWizyta} from "../../../axios/WizytaUslugaAxionCalls";
 import axios from "axios";
-import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
+import {getWizytaDetails} from "../../../axios/WizytaAxiosCalls";
 let CancelToken
 let source
 class Uslugi extends React.Component {
@@ -22,7 +22,8 @@ class Uslugi extends React.Component {
             },
             errors: {
                 IdUsluga: '',
-            }
+            },
+            czyZaakceptowanaCena:''
         }
     }
 
@@ -43,10 +44,26 @@ class Uslugi extends React.Component {
         }
     }
 
+    fetchWizyta = async () => {
+        await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+            if (res) {
+                console.log(res.data)
+                this.setState({
+                    isLoaded: true,
+                    czyZaakceptowanaCena: res.data.CzyZaakceptowanaCena
+                });
+
+            }
+        })
+    }
+
+
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         this.fetchUslugi()
+        this.fetchWizyta()
+
     }
 
     async showSelect() {
@@ -160,7 +177,7 @@ class Uslugi extends React.Component {
 
 
     render() {
-        const {uslugi, uslugiWizyta, idWizyta, data, errors} = this.state
+        const {uslugi, uslugiWizyta, idWizyta, data, errors, czyZaakceptowanaCena} = this.state
         const {t} = this.props;
 
 
@@ -175,14 +192,16 @@ class Uslugi extends React.Component {
                             <div className="flex justify-between mt-6">
                                 <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
                                     {t('usluga.title')}</h2>
-                                <div className="relative  w-1/3 ">
-                                    <button id="menu-toggle" onClick={() => {
-                                        this.showSelect()
-                                    }}
-                                            className="absolute  top-0 right-0  h-12 w-46  shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                        <span className="text-2xl font-bold ">+</span>
-                                    </button>
-                                </div>
+                                {!czyZaakceptowanaCena &&
+                                    <div className="relative  w-1/3 ">
+                                        <button id="menu-toggle" onClick={() => {
+                                            this.showSelect()
+                                        }}
+                                                className="absolute  top-0 right-0  h-12 w-46  shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                            <span className="text-2xl font-bold ">+</span>
+                                        </button>
+                                    </div>
+                                }
                             </div>
                             {(uslugiWizyta.length !== 0) &&
                                 <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">

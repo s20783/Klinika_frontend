@@ -38,21 +38,7 @@ class Info extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            var res = await getWizytaDetails(this.state.idWizyta,source)
-            var data = await res.data
 
-            console.log(data)
-            this.setState({
-                isLoaded: true,
-                wizyta: data
-            });
-            const data1 = this.state.data
-            data1['Opis'] = data.Opis
-            data1['ID_Pacjent']=data.IdPacjent
-            this.setState({
-                isLoaded: true,
-                data: data1
-            });
             await getWizytaDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
