@@ -111,8 +111,8 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.firstName')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Imie" id="Imie" type="text" value={this.state.data.Imie} placeholder=""/>
+                                class="shadow-xl  form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                name="Imie" id="Imie" type="text" value={this.state.data.Imie} disabled/>
 
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
@@ -122,7 +122,7 @@ class SzczegolyKlienta extends React.Component {
                             <input
                                 class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={this.state.data.Nazwisko}
-                                placeholder=""/>
+                                disabled/>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6 border-b">
@@ -133,7 +133,7 @@ class SzczegolyKlienta extends React.Component {
                             <input
                                 class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
-                                value={this.state.data.NumerTelefonu} placeholder=""/>
+                                value={this.state.data.NumerTelefonu} disabled/>
 
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
@@ -142,7 +142,7 @@ class SzczegolyKlienta extends React.Component {
                             </label>
                             <input
                                 class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Email" id="Email" type="text" value={this.state.data.Email} placeholder=""/>
+                                name="Email" id="Email" type="text" value={this.state.data.Email} disabled/>
                         </div>
                     </div>
 
@@ -154,7 +154,7 @@ class SzczegolyKlienta extends React.Component {
                             <input
                                 class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
-                                value={dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')} placeholder=""/>
+                                value={dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')} disabled/>
                         </div>
                     </div>
                     <div className="flex justify-between mt-14">
@@ -162,12 +162,11 @@ class SzczegolyKlienta extends React.Component {
                             {t("pacjent.title")}</h2>
 
                         <div className="relative  w-1/3 ">
-                            <button id="menu-toggle" onClick={() => {
-                                this.showSelect()
-                            }}
+                           <Link to={'/dodajPacjenta'} ><button id="menu-toggle"
                                     className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 <span className="text-2xl font-bold ">+</span>
                             </button>
+                           </Link>
                         </div>
                     </div>
                     {(pacjenci.length !== 0) &&

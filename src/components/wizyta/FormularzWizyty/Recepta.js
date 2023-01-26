@@ -2,11 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {getWizytaDetails} from "../../../axios/WizytaAxiosCalls";
 import {getReceptaDetails, getReceptaLeki} from "../../../axios/ReceptaAxiosCalls";
-import {getUslugaWizytaList} from "../../../axios/UslugaAxiosCalls";
-import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../../axios/WizytaChorobaAxiosCalls";
-import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
 import FormularzWizytaMenu from "../../fragments/FormularzWizytaMenu";
 import axios from "axios";
 let CancelToken

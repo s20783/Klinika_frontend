@@ -12,7 +12,6 @@ import {
 import {Link} from "react-router-dom";
 import {checkNumberRange} from "../helpers/CheckNRange";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 class FormularzRecepty extends React.Component {
@@ -221,7 +220,7 @@ class FormularzRecepty extends React.Component {
         let errorMessage = '';
         if (fieldName === 'Ilosc') {
             if (!checkNumberRange(fieldValue, 0, 99)) {
-                errorMessage = t('validation.max50')
+                errorMessage = t('validation.quantity')
             }
             if (!fieldValue) {
                 errorMessage = t('validation.required')
@@ -401,7 +400,7 @@ class FormularzRecepty extends React.Component {
                                     className="shadow-xl hidden form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
                                     name="Ilosc" id="spec-content1" type="number" value={data.Ilosc} placeholder="Ilosc"
                                     onChange={this.handleChange}/>
-                                <span id="errorDawka" className="errors-text2 mb-4 ">{errors.Ilosc}</span>
+                                <span id="errorDawka" className="errors-text2 text-sm ">{errors.Ilosc}</span>
                             </div>
 
                             <div className="relative  w-full mb-12 ">

@@ -40,7 +40,9 @@
     "format": "Niepoprawny format",
     "password": "Pole wymaga minimum 8 znaków, wielkiej litery i cyfry",
     "salary": "To pole musi być liczbą z przedziału od 0 do 100000",
-    "weight": "To pole musi być liczbą z przedziału od 0 do 10000"
+    "weight": "To pole musi być liczbą z przedziału od 0 do 10000",
+    "quantity": "To pole musi być liczbą z przedziału od 0 do 1000"
+
   },
   "errors": {
     "Incorrect": "Niepoprawne hasło lub login",
@@ -202,7 +204,7 @@
   },
   "pacjent": {
     "title": "Pacjenci",
-    "addNewPatient": "Adding new patient",
+    "addNewPatient": "Dodanie nowego pacjenta",
     "editPatient": "Edycja pacjenta",
     "detailsPatient": "Szczegóły pacjenta",
     "selectOwner": "Wybierz właściciela",

@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import React, {useState} from 'react';
 import {useTranslation} from "react-i18next";
-import axios from "axios";
 import {isAdmin} from "../other/authHelper";
 
 function KlientListTable(props) {

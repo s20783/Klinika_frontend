@@ -34,7 +34,7 @@ class OdwolanieWizyty extends React.Component {
 
         try {
             await getWizytaDetails(this.state.idWizyta, source).then((res) => {
-                if(dayjs(new Date()).diff(dayjs(res.data.DataRozpoczecia),'hour') <= 4  ){
+                if(dayjs(res.data.DataRozpoczecia).diff(dayjs(new Date()),'hour') <= 4  ){
                     this.setState({
                         notice: t('wizyta.4hvisitNotification')
                     });

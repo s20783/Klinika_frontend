@@ -25,7 +25,6 @@ class KontoPacjenci extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        const {navigate} = this.props;
         try {
 
             await getKlientPacjentList2(source)
@@ -73,7 +72,7 @@ class KontoPacjenci extends React.Component {
                             </div>
                             <div className="flex flex-wrap">
                                 <div className="w-full ">
-                                    <h3 className="text-3xl text-gray-800 font-bold leading-none ">
+                                    <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
                                         {t("pacjent.title")}
                                     </h3>
                                     {content}

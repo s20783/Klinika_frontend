@@ -334,14 +334,16 @@ class SzczegolyPacjent extends React.Component {
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('szczepienie.title')}</h2>
 
-                        <div className="relative  w-1/3 ">
-                            <Link to={`/szczepienie/${idPacjent}`}>
-                                <button id="menu-toggle"
-                                        className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                    <span className="text-2xl font-bold ">+</span>
-                                </button>
-                            </Link>
-                        </div>
+                        {isWeterynarz() &&
+                            <div className="relative  w-1/3 ">
+                                <Link to={`/szczepienie/${idPacjent}`}>
+                                    <button id="menu-toggle"
+                                            className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        <span className="text-2xl font-bold ">+</span>
+                                    </button>
+                                </Link>
+                            </div>
+                        }
                     </div>
                     {(szczepienia.length !== 0) &&
                         <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">
@@ -377,61 +379,70 @@ class SzczegolyPacjent extends React.Component {
                                         <td className="px-6 py-2 text-center">
                                             {x.Dawka} ml
                                         </td>
-                                        <div className="list-actions text-center py-2">
-                                            <div className=" flex">
+                                        {isWeterynarz() &&
+                                            <div className="list-actions text-center py-2">
+                                                <div className=" flex">
 
-                                                <Link to={`/szczepienie/edit/${idPacjent}/${x.IdSzczepienie}`}
-                                                      className="list-actions-button-details flex-1">
-                                                    <svg className="list-actions-button-edit flex-1"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                                                        <rect className="details-icon-color" width="256" height="256"
-                                                              fill="none"></rect>
-                                                        <path className="details-icon-color"
-                                                              d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
-                                                              fill="none" stroke="#000000" strokeLinecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></path>
-                                                        <line className="details-icon-color" x1="136" y1="64" x2="192"
-                                                              y2="120"
-                                                              fill="none" stroke="#000000" strokeLinecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></line>
-                                                        <polyline className="details-icon-color"
-                                                                  points="216 216 96 216 40.509 160.509" fill="none"
-                                                                  stroke="#000000" strokeLinecap="round"
-                                                                  strokeLinejoin="round" strokeWidth="16"></polyline>
-                                                    </svg>
-                                                </Link>
-                                                <Link to={`/szczepienie/delete/${x.IdSzczepienie}`}
-                                                      className="list-actions-button-details flex-1">
-                                                    <svg className="list-actions-button-delete flex-1"
-                                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                         fill="#000000" viewBox="0 0 256 256">
-                                                        <rect width="256" height="256" fill="none"></rect>
-                                                        <line className="details-icon-color" x1="215.99609" y1="56"
-                                                              x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                              stroke-linecap="round" strokeLinejoin="round"
-                                                              strokeWidth="16"></line>
-                                                        <line className="details-icon-color" x1="104" y1="104" x2="104"
-                                                              y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></line>
-                                                        <line className="details-icon-color" x1="152" y1="104" x2="152"
-                                                              y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></line>
-                                                        <path className="details-icon-color"
-                                                              d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
-                                                              fill="none"
-                                                              stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></path>
-                                                        <path className="details-icon-color"
-                                                              d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
-                                                              strokeLinejoin="round" strokeWidth="16"></path>
-                                                    </svg>
-                                                </Link>
+                                                    <Link to={`/szczepienie/edit/${idPacjent}/${x.IdSzczepienie}`}
+                                                          className="list-actions-button-details flex-1">
+                                                        <svg className="list-actions-button-edit flex-1"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             width="20" height="20" fill="#000000"
+                                                             viewBox="0 0 256 256">
+                                                            <rect className="details-icon-color" width="256"
+                                                                  height="256"
+                                                                  fill="none"></rect>
+                                                            <path className="details-icon-color"
+                                                                  d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></path>
+                                                            <line className="details-icon-color" x1="136" y1="64"
+                                                                  x2="192"
+                                                                  y2="120"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></line>
+                                                            <polyline className="details-icon-color"
+                                                                      points="216 216 96 216 40.509 160.509" fill="none"
+                                                                      stroke="#000000" strokeLinecap="round"
+                                                                      strokeLinejoin="round"
+                                                                      strokeWidth="16"></polyline>
+                                                        </svg>
+                                                    </Link>
+                                                    <Link to={`/szczepienie/delete/${x.IdSzczepienie}`}
+                                                          className="list-actions-button-details flex-1">
+                                                        <svg className="list-actions-button-delete flex-1"
+                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                             fill="#000000" viewBox="0 0 256 256">
+                                                            <rect width="256" height="256" fill="none"></rect>
+                                                            <line className="details-icon-color" x1="215.99609" y1="56"
+                                                                  x2="39.99609" y2="56.00005" fill="none"
+                                                                  stroke="#000000"
+                                                                  stroke-linecap="round" strokeLinejoin="round"
+                                                                  strokeWidth="16"></line>
+                                                            <line className="details-icon-color" x1="104" y1="104"
+                                                                  x2="104"
+                                                                  y2="168"
+                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></line>
+                                                            <line className="details-icon-color" x1="152" y1="104"
+                                                                  x2="152"
+                                                                  y2="168"
+                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></line>
+                                                            <path className="details-icon-color"
+                                                                  d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
+                                                                  fill="none"
+                                                                  stroke="#000000" stroke-linecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></path>
+                                                            <path className="details-icon-color"
+                                                                  d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
+                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  strokeLinejoin="round" strokeWidth="16"></path>
+                                                        </svg>
+                                                    </Link>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
                                     </tr>
                                 ))}
                                 </tbody>
@@ -443,14 +454,6 @@ class SzczegolyPacjent extends React.Component {
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('wizyta.title')}</h2>
 
-                        <div className="relative  w-1/3 ">
-                            <button id="menu-toggle" onClick={() => {
-                                this.mozeDoWizyty()
-                            }}
-                                    className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                <span className="text-2xl font-bold ">+</span>
-                            </button>
-                        </div>
                     </div>
                     {(wizyty.length !== 0) &&
                         <div className="relative overflow-x-auto shadow-xl sm:rounded-lg ">

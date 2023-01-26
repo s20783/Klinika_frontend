@@ -249,8 +249,8 @@ class LekiChoroby extends React.Component {
         }
         if (fieldName === 'Ilosc') {
             console.log(this.state.data.Ilosc +" "+checkNumberRange(this.state.data.Ilosc,1,99))
-            if (!checkNumberRange(this.state.data.Ilosc,1,99) ) {
-                errorMessage =  `Pole powinno być liczbą z przedziału od 0 do 1000.`
+            if (!checkNumberRange(this.state.data.Ilosc,0,999) ) {
+                errorMessage =  t('validation.quantity')
             }
             if (!fieldValue) {
                 errorMessage = `${t('validation.required')}`
@@ -297,7 +297,7 @@ class LekiChoroby extends React.Component {
 
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white   ">
 
                     <div className="flex justify-between mt-6">
                         <h2 className=" w-1/3 my-2  mb-6 text-xl font-black leading-tight text-gray-600">
@@ -317,12 +317,11 @@ class LekiChoroby extends React.Component {
                                 className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th></th>
-                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             {chorobyWizyta.map(x => (
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
+                                <tr className="bg-white dark:bg-gray-800 dark:hover:bg-gray-600"
                                     key={x.ID_Choroba}>
                                     <td className=" px-8 py-2 ">• {x.Nazwa}</td>
                                     <div className="text-center list-actions py-2">
@@ -412,6 +411,7 @@ class LekiChoroby extends React.Component {
                                 <tr>
                                     <th className=" text-center px-6 uppercase py-3">{t('lek.fields.name')}</th>
                                     <th className=" text-center px-6 uppercase py-3">{t('lek.fields.quantity')}</th>
+                                    <th className=" text-center px-6 uppercase py-3">{t('lek.fields.unitOfMeasure')}</th>
                                     <th className=" text-center px-6 uppercase py-3"></th>
 
                                 </tr>
@@ -422,6 +422,8 @@ class LekiChoroby extends React.Component {
                                         key={x.IdLek}>
                                         <td className=" px-8 py-2 text-center">{x.Nazwa} </td>
                                         <td className=" px-8 py-2 text-center">{x.Ilosc}</td>
+                                        <td className=" px-8 py-2 text-center">{x.JednostkaMiary}</td>
+
                                         <div className="text-center list-actions py-2">
                                             <div className=" flex">
                                                 <button onClick={() => {
@@ -476,7 +478,7 @@ class LekiChoroby extends React.Component {
                                     leki.map(lek => (
                                         <option selected={data.IdLek === lek.IdLek}
                                                 className= {this.checkIfExistLek(lekiWizyta, lek.IdLek) === true ? "text-gray-300" : ""}
-                                                value={lek.IdLek}>{lek.Nazwa} </option>
+                                                value={lek.IdLek}>{lek.Nazwa} ({lek.JednostkaMiary})</option>
                                     ))}
                             </select>
                             <span id="errorGatunek" className="errors-text2  ">{errors.IdLek}</span>
