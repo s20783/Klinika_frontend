@@ -8,7 +8,7 @@ import {CheckTextRange} from "../../helpers/CheckTextRange";
 import {acceptUslugaWizyta} from "../../../axios/WizytaUslugaAxionCalls";
 import {getKlientPacjentList} from "../../../axios/PacjentAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../../axios/ChorobaAxiosCalls";
+
 let CancelToken
 let source
 class Info extends React.Component {
@@ -28,8 +28,7 @@ class Info extends React.Component {
             },
             idWizyta: paramsIdWizyta,
             pacjenci: [],
-            message: '',
-
+            message: ''
         }
     }
 
@@ -38,33 +37,31 @@ class Info extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-
-            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
-                if (res) {
-                    console.log(res.data)
+            let klientId;
+            const res1 = await getWizytaDetails(this.state.idWizyta, source)
+                if (res1) {
+                    klientId = res1.data.IdKlient
                     this.setState({
                         isLoaded: true,
-                        wizyta: res.data
+                        wizyta: res1.data
                     });
                     const data1 = this.state.data
-                    data1['Opis'] = res.data.Opis
-                    data1['ID_Pacjent']=res.data.IdPacjent
+                    data1['Opis'] = res1.data.Opis
+                    data1['ID_Pacjent']= res1.data.IdPacjent
                     this.setState({
                         isLoaded: true,
                         data: data1
                     });
                 }
-            })
 
-            await getKlientPacjentList(this.state.wizyta.IdKlient, source).then((res) => {
-                if (res) {
-                    console.log(res.data)
+
+            const res2 = await getKlientPacjentList(klientId, source)
+                if (res2) {
                     this.setState({
                         isLoaded: true,
-                        pacjenci: res.data
+                        pacjenci: res2.data
                     });
                 }
-            })
         } catch (error) {
             console.log(error)
         }

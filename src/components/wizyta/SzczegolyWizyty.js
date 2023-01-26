@@ -9,7 +9,6 @@ import { getChorobaWizytaList} from "../../axios/WizytaChorobaAxiosCalls";
 import SzczegolyWizytaMenu from "../fragments/SzczegolyWizytaMenu";
 import {getLekWizytaList} from "../../axios/WizytaLekAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 import dayjs from "dayjs";
 let CancelToken
 let source
@@ -42,7 +41,6 @@ class SzczegolyWizyty extends React.Component {
 
     fetchWizytaDetails = async () => {
         try {
-
             await getWizytaDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -77,7 +75,6 @@ class SzczegolyWizyty extends React.Component {
                     });
                 }
             })
-
         } catch (error) {
             console.log(error)
         }
@@ -85,7 +82,6 @@ class SzczegolyWizyty extends React.Component {
 
     fetchUslugi = async () => {
         try {
-
             await getUslugaWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -99,9 +95,9 @@ class SzczegolyWizyty extends React.Component {
             console.log(error)
         }
     }
+
     fetchChoroby = async () => {
         try {
-
             await getChorobaWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -117,9 +113,7 @@ class SzczegolyWizyty extends React.Component {
     }
 
     fetchLeki = async () => {
-
         try {
-
             await getLekWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -142,8 +136,6 @@ class SzczegolyWizyty extends React.Component {
         this.fetchUslugi()
         this.fetchChoroby()
         this.fetchLeki()
-
-
     }
 
     componentWillUnmount() {
