@@ -281,7 +281,7 @@ class SzczegolyKlienta extends React.Component {
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t("wizyta.title")}</h2>
                         <div className="relative  w-1/3 ">
-                            <Link to={`/umowWizyte/${idKlient}`}>
+                            <Link to={`/umowWizyte/${idKlient}`} >
                                 <button
                                     className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     <span className="text-2xl font-bold ">+</span>

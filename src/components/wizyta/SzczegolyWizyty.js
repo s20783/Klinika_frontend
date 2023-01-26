@@ -160,7 +160,7 @@ class SzczegolyWizyty extends React.Component {
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('wizyta.visitDetails')}</p>
-                    {dayjs(dayjs(wizyta.DataRozpoczecia)).isAfter(new Date()) &&
+                    {dayjs(dayjs(wizyta.DataRozpoczecia)).isAfter(new Date()) && wizyta.Status === 'Zaplanowana' &&
 
                         <SzczegolyWizytaMenu idWizyta={idWizyta} idKlient={wizyta.IdKlient}/>
                     }

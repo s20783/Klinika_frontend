@@ -9,7 +9,7 @@ import {withTranslation} from "react-i18next";
 import {getWizytaDetails, przelozWizyte, umowWizyte} from "../../axios/WizytaAxiosCalls";
 import formMode from "../helpers/FormMode";
 import {getKlientPacjentList, getKlientPacjentList2} from "../../axios/PacjentAxiosCalls";
-import {isKlient, isWeterynarz} from "../other/authHelper";
+import {isAdmin, isKlient, isWeterynarz} from "../other/authHelper";
 import axios from "axios";
 let CancelToken
 let source
@@ -21,13 +21,12 @@ class UmowienieWizyty extends React.Component {
         const currentFormMode = paramsIdWizyta ? formMode.EDIT : formMode.NEW
         const paramsIdKlient = this.props.params.IdKlient
 
-        console.log(currentFormMode)
+        console.log(this.props)
         this.state = {
             data: {
                 Pacjent: '',
                 Notatka: '',
-                Termin: '',
-                ID_klient: ''
+                Termin: ''
             },
             errors: {
                 Pacjent: '',
@@ -39,6 +38,7 @@ class UmowienieWizyty extends React.Component {
                 Dzien: '',
                 weterynarz: ''
             },
+            ID_klient: paramsIdKlient,
             list: [],
             date: new Date(),
             harmonogram: [],
@@ -166,19 +166,19 @@ class UmowienieWizyty extends React.Component {
         const isValid = this.validateForm()
         if (isValid) {
             let newData
-            if (isWeterynarz()) {
+            if (isWeterynarz() || isAdmin()) {
                 newData = {
                     ID_Harmonogram: data["Termin"],
                     ID_Pacjent: data["Pacjent"],
                     Notatka: data["Notatka"],
-                    ID_klient: this.state.idKlient
+                    ID_Klient: this.state.idKlient
                 }
             } else {
                 newData = {
                     ID_Harmonogram: data["Termin"],
                     ID_Pacjent: data["Pacjent"],
-                    Notatka: data["Notatka"],
-                    ID_klient: data["ID_Klient"]
+                    Notatka: data["Notatka"]
+                    //ID_klient: ''
                 }
             }
 
