@@ -3,6 +3,7 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {deleteSpecjalizacja} from "../../axios/SpecjalizacjaAxiosCalls";
 import axios from "axios";
+import {deleteSzczepionka} from "../../axios/SzczepionkaAxiosCalls";
 let CancelToken
 let source
 
@@ -30,7 +31,7 @@ class UsuniecieSpecjalizacji extends React.Component {
     removeSzczepionka = async (idSzczepionka) => {
         const {navigate} = this.props;
         try {
-            await deleteSpecjalizacja(idSzczepionka,source)
+            await deleteSzczepionka(idSzczepionka,source)
             await navigate("/szczepionki", {replace: true});
         } catch (error) {
             console.log(error)

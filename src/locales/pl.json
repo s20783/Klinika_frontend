@@ -38,7 +38,7 @@
     "from8to30": "To pole wymaga od 8 do 30 znaków",
     "notSame": "Hasła nie są takie same",
     "format": "Niepoprawny format",
-    "password": "Pole wymaga minimum 8 znaków, wielkiej litery i cyfry",
+    "password": "Pole wymaga minimum 5 znaków, wielkiej litery i cyfry",
     "salary": "To pole musi być liczbą z przedziału od 0 do 100000",
     "weight": "To pole musi być liczbą z przedziału od 0 do 10000",
     "quantity": "To pole musi być liczbą z przedziału od 0 do 1000"

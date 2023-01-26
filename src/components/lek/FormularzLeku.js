@@ -105,9 +105,6 @@ class FormularzLeku extends React.Component {
             if (!CheckTextRange(fieldValue, 0, 50)) {
                 errorMessage = t('validation.max50')
             }
-            if (!fieldValue) {
-                errorMessage = t('validation.required')
-            }
         }
         return errorMessage;
     }

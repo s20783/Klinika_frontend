@@ -41,7 +41,7 @@ export async function addKlient(klient,source) {
 export async function registerCall(user,source) {
     const userString = JSON.stringify(user)
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:36989/api',
+        baseURL: 'https://petmedapi.azurewebsites.net/api',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -71,9 +71,8 @@ export function deleteKlientKonto(source) {
             console.log('Request canceled', thrown.message);
         } else {
         console.log(thrown.response.data)
-       // throw new Error(thrown.response.data)??????????????????
             throw new Error(thrown.response.data.message)
-    }
+        }
     });
 }
 export function deleteKlientKontoByAdmin(id,source){
@@ -87,7 +86,6 @@ export function deleteKlientKontoByAdmin(id,source){
             console.log('Request canceled', thrown.message);
         } else {
             console.log(thrown.response.data)
-            // throw new Error(thrown.response.data)
             throw new Error(thrown.response.data.message)
         }
     });

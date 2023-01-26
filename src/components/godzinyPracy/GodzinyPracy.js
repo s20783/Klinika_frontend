@@ -250,7 +250,7 @@ class GodzinyPracy extends React.Component {
         if (isValid) {
             if (this.state.czyEdycja) {
                 try {
-                    await editGodzinyPracy(this.state.idWeterynarz, dane,source)
+                    await editGodzinyPracy(this.state.idWeterynarz, dane.data, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
@@ -258,7 +258,7 @@ class GodzinyPracy extends React.Component {
             }
             else {
                 try {
-                    await addGodzinyPracy(this.state.idWeterynarz, dane, source)
+                    await addGodzinyPracy(this.state.idWeterynarz, dane.data, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

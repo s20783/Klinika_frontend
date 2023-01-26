@@ -36,7 +36,7 @@
 		"from8to30": "This field requires from 8 to 30 characters",
 		"notSame": "Passwords are not the same",
 		"format": "Incorrect format",
-		"password": "Password requires min 8 characters, capital letter and a digit",
+		"password": "Password requires min 5 characters, capital letter and a digit",
 		"salary": "This field must be a number between 0 and 100 000"
 
 	},

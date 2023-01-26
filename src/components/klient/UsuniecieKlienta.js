@@ -1,9 +1,8 @@
 import React from "react";
-import {deleteLekMagazyn} from "../../axios/LekWMagazynieAxiosCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
-import {deleteKlientKonto, deleteKlientKontoByAdmin} from "../../axios/KlientAxiosCalls";
+import { deleteKlientKontoByAdmin} from "../../axios/KlientAxiosCalls";
 let CancelToken
 let source
 class UsuniecieKonta extends React.Component {
