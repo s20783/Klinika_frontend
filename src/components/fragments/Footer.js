@@ -2,9 +2,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 import {withTranslation} from "react-i18next";
 
-
 class Footer extends React.Component {
-
     handleLanguageChange = (language) => {
         const {i18n} = this.props
         i18n.changeLanguage(language, (err, t) => {

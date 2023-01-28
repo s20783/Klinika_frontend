@@ -9,7 +9,6 @@ import {getFormattedDateWithHour} from "../other/dateFormat";
 import {getKlientWizytaListForDetails} from "../../axios/WizytaAxiosCalls";
 import {getId, isWeterynarz} from "../other/authHelper";
 import axios from "axios";
-import {getChorobaDetails} from "../../axios/ChorobaAxiosCalls";
 
 let CancelToken
 let source
