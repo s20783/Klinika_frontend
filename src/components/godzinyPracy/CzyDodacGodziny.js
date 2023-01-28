@@ -7,7 +7,6 @@ class CzyDodacGodziny extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdWeterynarz = this.props.params.IdOsoba
-        console.log(paramsIdWeterynarz)
         this.state = {
             idWeterynarz: paramsIdWeterynarz,
             error: '',

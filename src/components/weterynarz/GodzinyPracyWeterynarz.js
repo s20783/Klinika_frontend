@@ -7,14 +7,12 @@ import {Link} from "react-router-dom";
 import {getUrlopList} from "../../axios/UrlopAxiosCalls";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 
 class GodzinyPracyWeterynarz extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.params)
         const paramsIdWeterynarz = this.props.params.IdOsoba
         this.state = {
             godzinyPracy: [],
@@ -105,7 +103,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                 </th>
                                 {godzinyPracy.map(x => (
                                     (x.DzienTygodnia === 1) &&
-                                    <td className="text-center w-full flex flex-wrap mt-10ki mb-10">
+                                    <td className="text-center w-full flex flex-wrap mt-10 mb-10">
                                         <div className="w-full">
                                             <span className=' text-s '>
                                                 {getFormattedHour(x.GodzinaRozpoczecia)} - {getFormattedHour(x.GodzinaZakonczenia)}

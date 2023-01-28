@@ -13,10 +13,10 @@ function Kontakt() {
                         <div className="w-full sm:w-1/2 p-12 mt-6">
                             <div className="align-middle">
                                  <h1 className="text-2xl text-gray-800 font-bold leading-none mb-7">
-                                      MED PET
+                                      PETMED
                                  </h1>
-                                 <p className="text-gray-600 mb-2">
-                                     Klinika Weterynaryjna</p>
+                                 {/*<p className="text-gray-600 mb-2">
+                                     Klinika Weterynaryjna</p>*/}
                                  <p className="text-gray-600 mb-10">
                                      Al. Solidarności 24/30, Warszawa Mokotów<br/>
                                  </p>
