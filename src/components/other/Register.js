@@ -7,6 +7,8 @@ import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {ValidateHaslo} from "../helpers/ValidateHaslo";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import axios from "axios";
+import Lottie from 'react-lottie';
+import * as loading from '../../Loading.json';
 let CancelToken
 let source
 class Register extends React.Component {
@@ -33,9 +35,19 @@ class Register extends React.Component {
             },
             error: '',
             redirect: false,
-            message: ''
+            message: '',
+            isLoading:false
         }
     }
+     defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: loading.default,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    }
+
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -59,58 +71,19 @@ class Register extends React.Component {
         if (isValid) {
             const user = this.state.user
             console.log(user)
-            //let response;
-            //let promise;
+            this.setState({
+                isLoading: true
+            })
             try {
                 await registerCall(user, source);
                 navigate("/afterRegister", {replace: true});
             } catch (error) {
                 console.log(error.message)
                 this.setState({
-                    message: error.message
+                    message: error.message,
+                    isLoading: false
                 })
             }
-
-            // promise = registerCall(user);
-            // if (promise) {
-            //     promise
-            //         .then(res => {
-            //             response = res
-            //             console.log(response)
-            //             console.log(response.status)
-            //             if (response.status === 200) {
-            //                 this.setState({redirect: true})
-            //                 navigate("/afterRegister")
-            //             }
-            //             return res.json()
-            //         })
-            //         .then(
-            //             (data) => {
-            //                 console.log(data)
-            //                 this.setState({
-            //                     message: data.message
-            //                 })
-            //                 if (response.status === 500) {
-            //                     for (const i in data) {
-            //                         const errorItem = data[i]
-            //                         const errorMessage = errorItem.message
-            //                         const fieldName = errorItem.path
-            //                         const errors = {...this.state.errors}
-            //                         errors[fieldName] = errorMessage
-            //                         this.setState({
-            //                             errors: errors,
-            //                             error: null
-            //                         })
-            //                     }
-            //                 }
-            //             },
-            //             (error) => {
-            //                 this.setState({
-            //                     //isLoaded: true,
-            //                     error: error
-            //                 })
-            //             })
-            //}
         }
     }
     componentWillUnmount() {
@@ -219,7 +192,7 @@ class Register extends React.Component {
     }
 
     render() {
-        const {redirect} = this.state
+        const {redirect,isLoading} = this.state
         const {t} = this.props;
         if (redirect) {
             return (
@@ -313,9 +286,11 @@ class Register extends React.Component {
 
                                 {this.state.message !== '' && <span id="error"
                                                                     className="errors-text2">{t('errors.' + this.state.message)}</span>}
-
                                 <input type="submit" value={t('register.signUpButton')}
                                        className="modal-open bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
+                                {isLoading &&
+                                    <Lottie options={this.defaultOptions} height={120} width={120}/>
+                                }
                             </form>
                         </div>
                     </div>
