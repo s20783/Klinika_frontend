@@ -131,7 +131,6 @@ class Info extends React.Component {
     }
 
     updateWizyta = async () => {
-
         if(this.validateForm()) {
             const {navigate} = this.props;
             try {
@@ -144,12 +143,10 @@ class Info extends React.Component {
     }
 
     zaakceptujCene = async () => {
-        console.log("accept")
         const {navigate} = this.props;
         try {
             await acceptUslugaWizyta(this.state.idWizyta, source)
-            await navigate(0, {replace: true});
-
+            navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
         }
@@ -158,7 +155,6 @@ class Info extends React.Component {
     render() {
         const {wizyta, idWizyta, data, errors, pacjenci} = this.state
         const {t} = this.props;
-
 
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">

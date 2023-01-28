@@ -29,7 +29,6 @@ class Uslugi extends React.Component {
 
     fetchUslugi = async () => {
         try {
-
             await getUslugaWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -52,24 +51,20 @@ class Uslugi extends React.Component {
                     isLoaded: true,
                     czyZaakceptowanaCena: res.data.CzyZaakceptowanaCena
                 });
-
             }
         })
     }
-
 
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         this.fetchUslugi()
         this.fetchWizyta()
-
     }
 
     async showSelect() {
         if (this.state.uslugi.length === 0) {
             try {
-
                 await getUslugaList(source).then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -105,9 +100,7 @@ class Uslugi extends React.Component {
             this.setState({
                 errors: errors,
             })
-
         }
-
     }
 
     componentWillUnmount() {
@@ -115,8 +108,8 @@ class Uslugi extends React.Component {
             source.cancel('Operation canceled by the user.');
         }
     }
-    deleteUsluga = async (idUsluga) => {
 
+    deleteUsluga = async (idUsluga) => {
         const {navigate} = this.props;
         try {
            await deleteUslugaWizyta(this.state.idWizyta, idUsluga, source)
@@ -129,14 +122,12 @@ class Uslugi extends React.Component {
     addUsluga = async () => {
         const {navigate} = this.props;
         if (this.state.data.IdUsluga !== '') {
-
             try {
                 await addUslugaWizyta(this.state.idWizyta, this.state.data.IdUsluga, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
             }
-
         }
     }
 
@@ -174,7 +165,6 @@ class Uslugi extends React.Component {
         }
         return false
     }
-
 
     render() {
         const {uslugi, uslugiWizyta, idWizyta, data, errors, czyZaakceptowanaCena} = this.state
@@ -226,7 +216,7 @@ class Uslugi extends React.Component {
                                                 <td className="px-6 py-2 text-center">{x.Narkoza === false ? t("other.no") : t("other.yes")} </td>
                                                 <td className="px-6 py-2 text-center">{x.Cena}</td>
                                                 <div className="text-center list-actions py-2 px-2">
-                                                    <div className=" flex">
+                                                    {!czyZaakceptowanaCena && <div className=" flex">
                                                         <button onClick={() => {
                                                             this.deleteUsluga(x.ID_Usluga)
                                                         }} className="list-actions-button-details flex-1">
@@ -261,8 +251,8 @@ class Uslugi extends React.Component {
                                                             </svg>
                                                         </button>
                                                     </div>
+                                                    }
                                                 </div>
-
                                             </tr>
                                         ))}
                                         </tbody>

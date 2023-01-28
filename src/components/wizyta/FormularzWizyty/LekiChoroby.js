@@ -35,10 +35,8 @@ class LekiChoroby extends React.Component {
         }
     }
 
-
     fetchChoroby = async () => {
         try {
-
             await getChorobaWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -55,7 +53,6 @@ class LekiChoroby extends React.Component {
 
     fetchLeki = async () => {
         try {
-
             await getLekWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -87,7 +84,6 @@ class LekiChoroby extends React.Component {
         if (x === 1) {
             if (this.state.choroby.length === 0) {
                 try {
-
                     await getChorobaList(source).then((res) => {
                         if (res) {
                             console.log(res.data)
@@ -108,7 +104,6 @@ class LekiChoroby extends React.Component {
         } else {
             if (this.state.leki.length === 0) {
                 try {
-
                     await getOnlyLekList(source).then((res) => {
                         if (res) {
                             console.log(res.data)
@@ -153,17 +148,14 @@ class LekiChoroby extends React.Component {
             this.setState({
                 errors: errors,
             })
-
         }
-
     }
 
     deleteChoroba = async (idChoroba) => {
-
         const {navigate} = this.props;
         try {
             await deleteChorobaWizyta(this.state.idWizyta, idChoroba, source)
-            await navigate(0, {replace: true});
+            navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
         }
@@ -172,22 +164,19 @@ class LekiChoroby extends React.Component {
     addChoroba = async () => {
         const {navigate} = this.props;
         if (this.state.data.IdChoroba !== '') {
-
             try {
                 await addChorobaWizyta(this.state.idWizyta, this.state.data.IdChoroba, source)
-                await navigate(0, {replace: true});
+                navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
             }
-
         }
     }
     deleteLek = async (idLek) => {
-
         const {navigate} = this.props;
         try {
             await deleteLekWizyta(this.state.idWizyta, idLek, source)
-            await navigate(0, {replace: true});
+            navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
         }
@@ -210,7 +199,7 @@ class LekiChoroby extends React.Component {
         if (!this.hasErrors()) {
             try {
                 await addLekWizyta(this.state.idWizyta, this.state.data.IdLek, this.state.data.Ilosc, source)
-                await navigate(0, {replace: true});
+                navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
             }

@@ -146,10 +146,10 @@ class Login extends React.Component {
                                 <input type="submit" value={t('login.signIn')}
                                        className="bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
                             </form>
-                            <div className="text-center pt-3">
+                            {/*<div className="text-center pt-3">
                                 <p><Link to="#" className="underline font-semibold">{t('login.forgotPassword')}</Link>
                                 </p>
-                            </div>
+                            </div>*/}
                             <div className="text-center pt-12 pb-12">
                                 <p>{t('login.text')} <Link to="/register"
                                                            className="underline font-semibold">{t('login.register')}.</Link>

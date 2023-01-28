@@ -42,7 +42,6 @@ class Recepta extends React.Component {
 
     fetchReceptaDetails = async () => {
         try {
-
             await getReceptaDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -68,14 +67,10 @@ class Recepta extends React.Component {
     }
 
 
-
-
     componentDidMount() {
-
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         this.fetchReceptaDetails()
-
     }
 
     componentWillUnmount() {
@@ -177,7 +172,6 @@ class Recepta extends React.Component {
                     </div>
                     {recepta !== '' &&
                         <div className="border-4 border-blue-200  h-fit ml-3 shadow-xl rounded-md mx-20">
-
                             <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                             <div className="overflow-x-auto shadow-xl">
