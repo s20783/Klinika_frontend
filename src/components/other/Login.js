@@ -4,8 +4,12 @@ import {Link} from "react-router-dom";
 import {loginCall} from "../../axios/AuthAxiosCalls";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
+import Lottie from "react-lottie";
+import * as loading from '../../Loading.json';
+
 let CancelToken
 let source
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +23,18 @@ class Login extends React.Component {
                 Haslo: ''
             },
             error: '',
-            message: ''
+            message: '',
+            isLoading: false
+
+        }
+    }
+
+    defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: loading.default,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
         }
     }
     async componentDidMount() {
@@ -48,28 +63,35 @@ class Login extends React.Component {
         event.preventDefault();
         const isValid = this.validateForm()
         if (isValid) {
+            this.setState({
+                isLoading: true
+            })
             try {
-                const res = await loginCall(this.state.user,source)
+                const res = await loginCall(this.state.user, source)
                 const data = await res.data
 
-                //if (data.Token) {
-                    const userString = JSON.stringify(data)
-                    this.props.handleLogin(userString)
-                    navigate("/", {replace: true});
-                //}
-            }  catch (error) {
+                const userString = JSON.stringify(data)
+                this.props.handleLogin(userString)
+                navigate("/", {replace: true});
+
+            } catch (error) {
                 console.log(error.message)
                 this.setState({
-                    message: error.message
+                    message: error.message,
+                    isLoading: false
+
                 })
             }
         }
+
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
         let errorMessage = '';
@@ -111,6 +133,8 @@ class Login extends React.Component {
 
     render() {
         const {t} = this.props;
+        const {isLoading} = this.state
+
         return (
             <main>
                 <div className="w-full flex flex-wrap ">
@@ -146,15 +170,15 @@ class Login extends React.Component {
                                 <input type="submit" value={t('login.signIn')}
                                        className="bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
                             </form>
-                            {/*<div className="text-center pt-3">
-                                <p><Link to="#" className="underline font-semibold">{t('login.forgotPassword')}</Link>
-                                </p>
-                            </div>*/}
+
                             <div className="text-center pt-12 pb-12">
                                 <p>{t('login.text')} <Link to="/register"
                                                            className="underline font-semibold">{t('login.register')}.</Link>
                                 </p>
                             </div>
+                            {isLoading &&
+                                <Lottie options={this.defaultOptions} height={120} width={120}/>
+                            }
                         </div>
                     </div>
                 </div>
