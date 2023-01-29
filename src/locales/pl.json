@@ -39,9 +39,10 @@
     "notSame": "Hasła nie są takie same",
     "format": "Niepoprawny format",
     "password": "Pole wymaga minimum 5 znaków, wielkiej litery i cyfry",
-    "salary": "To pole musi być liczbą z przedziału od 0 do 100000",
-    "weight": "To pole musi być liczbą z przedziału od 0 do 10000",
-    "quantity": "To pole musi być liczbą z przedziału od 0 do 1000"
+    "salary": "To pole musi być liczbą z przedziału od 0 do 100 000",
+    "weight": "To pole musi być liczbą z przedziału od 0 do 10 000",
+    "quantity": "To pole musi być liczbą z przedziału od 0 do 1000",
+    "quantity1": "To pole musi być liczbą z przedziału od 0 do 500"
 
   },
   "errors": {

@@ -106,7 +106,7 @@ class FormularzLekMagazyn extends React.Component {
         let errorMessage = '';
         if (fieldName === 'Ilosc') {
             if (!checkNumberRange(fieldValue, 0, 500)) {
-                errorMessage = t('validation.max50')
+                errorMessage = t('validation.quantity1')
             }
             if (!fieldValue) {
                 errorMessage = t('validation.required')

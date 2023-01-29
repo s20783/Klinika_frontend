@@ -37,7 +37,10 @@
 		"notSame": "Passwords are not the same",
 		"format": "Incorrect format",
 		"password": "Password requires min 5 characters, capital letter and a digit",
-		"salary": "This field must be a number between 0 and 100 000"
+		"salary": "This field must be a number between 0 and 100 000",
+		"weight": "This field must be a number between 0 and 10 000",
+		"quantity": "This field must be a number between 0 and 1000",
+		"quantity1": "This field must be a number between 0 and 500"
 
 	},
 	"errors": {
