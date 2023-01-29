@@ -5,7 +5,6 @@ import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {addUsluga, getUslugaDetails, updateUsluga} from "../../axios/UslugaAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 class FormularzUslugi extends React.Component {
@@ -41,7 +40,6 @@ class FormularzUslugi extends React.Component {
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-
                 await getUslugaDetails(this.state.idUsluga, source).then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -172,15 +170,15 @@ class FormularzUslugi extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('usluga.addNewService') : t('usluga.editService')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>
-                        <section class="bg-white-100 border-b  mb-7">
-                            <div class=" flex flex-wrap md:flex mb-6 mt-4">
+                        <section className="bg-white-100 border-b  mb-7">
+                            <div className=" flex flex-wrap md:flex mb-6 mt-4">
                                 <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
                                        htmlFor="Nazwa">
                                     {t('usluga.fields.name')}
@@ -200,56 +198,58 @@ class FormularzUslugi extends React.Component {
                             <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
                                 {t('usluga.fields.description')}
                             </label>
-                            <div class="md:w-3/4 mt-5">
-                        <textarea class="shadow-xl form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
+                            <div className="md:w-3/4 mt-5">
+                        <textarea className="shadow-xl form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
                                   placeholder={t('usluga.addDescription')}
                                   rows="5" value={data.Opis} onChange={this.handleChange}/>
                             </div>
                             <span id="errorOpis" className="errors-text2 my-6  ">{errors.Opis}</span>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2 mt-4" form="grid-city">
+                        <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2 mt-4" form="grid-city">
                                     {t('usluga.fields.price')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Cena" id="Cena" step="0.01" type="number" value={data.Cena}
                                     onChange={this.handleChange} placeholder=""/>
                                 <span id="errorCena" className="errors-text2 mb-6 ">{errors.Cena}</span>
                             </div>
-                            <div class="w-full md:w-1/3 px-3 mb-6 md:ml-20 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2 mt-4" form="grid-city">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:ml-20 md:mb-0">
+                                <label className="block tracking-wide text-gray-700 text-s font-bold mb-2 mt-4" form="grid-city">
                                     {t('usluga.fields.narcosis')}
                                 </label>
                                 <input type="checkbox" name="Narkoza" checked={data.Narkoza === true}
-                                       class="form-checkbox mb-4 w-8 h-8 mt-3 text-blue-600" onChange={this.onChange1}/>
+                                       className="form-checkbox mb-4 w-8 h-8 mt-3 text-blue-600" onChange={this.onChange1}/>
                             </div>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6">
-                            <div class="w-full md:w-full px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-4"
+                        <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full md:w-full px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-4"
                                        form="grid-city">
                                     {t('usluga.fields.painScale')}
                                 </label>
-                                <label class="inline-flex  items-center">
+                                <label className="inline-flex  items-center">
                                     <input name="Dolegliwosc" id="Dolegliwosc" type="radio"
                                            checked={data.Dolegliwosc === "Niska"}
-                                           class="form-radio text-indigo-600"
+                                           className="form-radio"
                                            value="Niska" onChange={this.handleChange}/>
-                                    <span class="ml-2">{t('usluga.fields.painScaleEnum.low')}</span>
+                                    <span className="ml-2">{t('usluga.fields.painScaleEnum.low')}</span>
                                 </label>
-                                <label class="inline-flex items-center  ml-14 mb-5">
-                                    <input name="Dolegliwosc" id="Dolegliwosc" type="radio" class="form-radio"
-                                           checked={data.Dolegliwosc === "Średnia"}
-                                           value="Średnia" onChange={this.handleChange}/>
-                                    <span class="ml-2">{t('usluga.fields.painScaleEnum.medium')}</span>
+                                <label className="inline-flex items-center  ml-14 mb-5">
+                                    <input name="Dolegliwosc" id="Dolegliwosc" type="radio"
+                                           className="form-radio"
+                                           checked={data.Dolegliwosc === "Srednia"}
+                                           value="Srednia" onChange={this.handleChange}/>
+                                    <span className="ml-2">{t('usluga.fields.painScaleEnum.medium')}</span>
                                 </label>
-                                <label class="inline-flex items-center  ml-14 mb-4">
-                                    <input name="Dolegliwosc" id="Dolegliwosc" type="radio" class="form-radio"
+                                <label className="inline-flex items-center  ml-14 mb-4">
+                                    <input name="Dolegliwosc" id="Dolegliwosc" type="radio"
+                                           className="form-radio"
                                            checked={data.Dolegliwosc === "Wysoka"}
                                            value="Wysoka" onChange={this.handleChange}/>
-                                    <span class="ml-2">{t('usluga.fields.painScaleEnum.high')}</span>
+                                    <span className="ml-2">{t('usluga.fields.painScaleEnum.high')}</span>
                                     <span id="errorDolegliwosc"
                                           className="errors-text2 ml-20 mt-1">{errors.Dolegliwosc}</span>
                                 </label>

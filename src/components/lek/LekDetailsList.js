@@ -7,8 +7,10 @@ import {Link} from "react-router-dom";
 import {getFormattedDate} from "../other/dateFormat";
 import {getLekDetails} from "../../axios/LekAxiosCalls";
 import axios from "axios";
+
 let CancelToken
 let source
+
 class LekDetailsList extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +20,6 @@ class LekDetailsList extends React.Component {
             isLoaded: false,
             lek: '',
             leki: [],
-            notice: '',
             chorobyLek: [],
             choroby: [],
             data1: {
@@ -30,33 +31,33 @@ class LekDetailsList extends React.Component {
         }
     }
 
-
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-
             await getLekDetails(this.state.IdLek, source)
                 .then((res) => {
-                if (res) {
-                    console.log(res.data)
-                    this.setState({
-                        isLoaded: true,
-                        lek: res.data,
-                        leki: res.data.LekList,
-                        chorobyLek: res.data.Choroby
-                    });
-                }
-            })
+                    if (res) {
+                        console.log(res.data)
+                        this.setState({
+                            isLoaded: true,
+                            lek: res.data,
+                            leki: res.data.LekList,
+                            chorobyLek: res.data.Choroby
+                        });
+                    }
+                })
         } catch (error) {
             console.log(error)
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     async showSelect() {
         if (this.state.choroby.length === 0) {
             try {
@@ -95,14 +96,11 @@ class LekDetailsList extends React.Component {
             this.setState({
                 errors: errors,
             })
-
         }
-
     }
 
 
     deleteChoroba = async (idChoroba) => {
-
         const {navigate} = this.props;
         try {
             await deleteChorobaLek(idChoroba, this.state.IdLek, source)
@@ -115,7 +113,6 @@ class LekDetailsList extends React.Component {
     addChoroba = async () => {
         const {navigate} = this.props;
         if (this.state.data1.IdChoroba !== '') {
-
             try {
                 await addChorobaLek(this.state.data1.IdChoroba, this.state.IdLek, source)
                 await navigate(0, {replace: true});
@@ -125,7 +122,6 @@ class LekDetailsList extends React.Component {
 
         }
     }
-
 
     checkIfExist = (chorobaArray, chorobaID) => {
         for (let i = 0; i < chorobaArray.length; i++) {
@@ -163,7 +159,7 @@ class LekDetailsList extends React.Component {
     }
 
     render() {
-        const { IdLek, leki, lek, choroby, chorobyLek, errors, data1} = this.state
+        const {IdLek, leki, lek, choroby, chorobyLek, errors, data1} = this.state
         const {t} = this.props;
         const {navigate} = this.props;
 
@@ -188,28 +184,29 @@ class LekDetailsList extends React.Component {
                                     </div>
                                 </div>
                                 <div className="shadow-xl">
-                                <table className="w-full text-sm text-left text-gray-700  mb-12">
-                                    <thead
-                                        className="text-s text-gray-700 uppercase bg-gray-100 ">
-                                    <tr>
-                                        <th scope="col"
-                                            className="text-center px-6 py-3">{t('lek.fields.quantity')}</th>
-                                        <th scope="col"
-                                            className="text-center px-6 py-3">{t('lek.fields.expirationDate')}</th>
-                                        {/*<th scope="col" className="px-6 py-3">Choroby</th>*/}
-                                        <th scope="col" className="text-center px-6 py-3"/>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {leki.map(lek => (
-                                        <tr key={lek.IdStanLeku}
-                                            className="bg-white border-b ">
-                                            <td className="text-center px-6 py-2">{lek.Ilosc}</td>
-                                            <td
-                                                className="text-center px-6 py-2">{lek.DataWaznosci ? getFormattedDate(lek.DataWaznosci) : "-"}</td>
+                                    <table className="w-full text-sm text-left text-gray-700  mb-12">
+                                        <thead
+                                            className="text-s text-gray-700 uppercase bg-gray-100 ">
+                                        <tr>
+                                            <th scope="col"
+                                                className="text-center px-6 py-3">{t('lek.fields.quantity')}</th>
+                                            <th scope="col"
+                                                className="text-center px-6 py-3">{t('lek.fields.expirationDate')}</th>
+                                            {/*<th scope="col" className="px-6 py-3">Choroby</th>*/}
+                                            <th scope="col" className="text-center px-6 py-3"/>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {leki.map(lek => (
+                                            <tr key={lek.IdStanLeku}
+                                                className="bg-white border-b ">
+                                                <td className="text-center px-6 py-2">{lek.Ilosc}</td>
+                                                <td
+                                                    className="text-center px-6 py-2">{lek.DataWaznosci ? getFormattedDate(lek.DataWaznosci) : "-"}
+                                                </td>
 
-                                            <td className=" text-center  py-1">
-                                                <div className="list-actions">
+                                                <td className=" text-center  py-1">
+
                                                     <div className="flex">
                                                         <Link to={`/leki/magazyn/edit/${lek.IdStanLeku}`}
                                                               className="mr-3">
@@ -223,17 +220,17 @@ class LekDetailsList extends React.Component {
                                                                 <path className="details-icon-color"
                                                                       d="M96,216H48a8,8,0,0,1-8-8V163.31371a8,8,0,0,1,2.34315-5.65686l120-120a8,8,0,0,1,11.3137,0l44.6863,44.6863a8,8,0,0,1,0,11.3137Z"
                                                                       fill="none" stroke="#000000"
-                                                                      stroke-linecap="round"
+                                                                      strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></path>
                                                                 <line className="details-icon-color" x1="136" y1="64"
                                                                       x2="192" y2="120"
                                                                       fill="none" stroke="#000000"
-                                                                      stroke-linecap="round"
+                                                                      strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></line>
                                                                 <polyline className="details-icon-color"
                                                                           points="216 216 96 216 40.509 160.509"
                                                                           fill="none"
-                                                                          stroke="#000000" stroke-linecap="round"
+                                                                          stroke="#000000" strokeLinecap="round"
                                                                           strokeLinejoin="round"
                                                                           strokeWidth="16"></polyline>
                                                             </svg>
@@ -250,40 +247,38 @@ class LekDetailsList extends React.Component {
                                                                       y1="56"
                                                                       x2="39.99609" y2="56.00005" fill="none"
                                                                       stroke="#000000"
-                                                                      stroke-linecap="round" strokeLinejoin="round"
+                                                                      strokeLinecap="round" strokeLinejoin="round"
                                                                       strokeWidth="16"></line>
                                                                 <line className="details-icon-color" x1="104" y1="104"
                                                                       x2="104" y2="168"
                                                                       fill="none" stroke="#000000"
-                                                                      stroke-linecap="round"
+                                                                      strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></line>
                                                                 <line className="details-icon-color" x1="152" y1="104"
                                                                       x2="152" y2="168"
                                                                       fill="none" stroke="#000000"
-                                                                      stroke-linecap="round"
+                                                                      strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></line>
                                                                 <path className="details-icon-color"
                                                                       d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                                       fill="none"
-                                                                      stroke="#000000" stroke-linecap="round"
+                                                                      stroke="#000000" strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></path>
                                                                 <path className="details-icon-color"
                                                                       d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
                                                                       fill="none" stroke="#000000"
-                                                                      stroke-linecap="round"
+                                                                      strokeLinecap="round"
                                                                       strokeLinejoin="round" strokeWidth="16"></path>
                                                             </svg>
                                                         </Link>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-
 
                             <div className="flex justify-between mt-12">
                                 <h2 className=" w-1/3 my-2 mb-6 text-l font-black leading-tight text-gray-600">
@@ -323,26 +318,26 @@ class LekDetailsList extends React.Component {
                                                             <line className="details-icon-color" x1="215.99609" y1="56"
                                                                   x2="39.99609" y2="56.00005" fill="none"
                                                                   stroke="#000000"
-                                                                  stroke-linecap="round" strokeLinejoin="round"
+                                                                  strokeLinecap="round" strokeLinejoin="round"
                                                                   strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="104" y1="104"
                                                                   x2="104"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="152" y1="104"
                                                                   x2="152"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <path className="details-icon-color"
                                                                   d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                                   fill="none"
-                                                                  stroke="#000000" stroke-linecap="round"
+                                                                  stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                             <path className="details-icon-color"
                                                                   d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                         </svg>
                                                     </button>
@@ -361,8 +356,8 @@ class LekDetailsList extends React.Component {
                                         {
                                             choroby.map(choroba => (
                                                 <option selected={choroba.ID_Choroba === data1.IdChoroba}
-                                                    className={this.checkIfExist(chorobyLek, choroba.ID_Choroba) === true ? "text-gray-300" : ""}
-                                                    value={choroba.ID_Choroba}> {choroba.Nazwa}</option>
+                                                        className={this.checkIfExist(chorobyLek, choroba.ID_Choroba) === true ? "text-gray-300" : ""}
+                                                        value={choroba.ID_Choroba}> {choroba.Nazwa}</option>
                                             ))}
                                     </select>
                                     <span id="errorIdChoroba"

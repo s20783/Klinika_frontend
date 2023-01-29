@@ -5,14 +5,13 @@ import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {addSzczepionka, getSzczepionkaDetails, updateSzczepionka} from "../../axios/SzczepionkaAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+import {checkNumberRange} from "../helpers/CheckNRange";
 let CancelToken
 let source
 
 class FormularzSzczepionki extends React.Component {
     constructor(props) {
         super(props);
-
         const paramsIdSzczepionka = this.props.params.idSzczepionka
         const currentFormMode = paramsIdSzczepionka ? formMode.EDIT : formMode.NEW
 
@@ -20,14 +19,14 @@ class FormularzSzczepionki extends React.Component {
             data: {
                 Nazwa: '',
                 Zastosowanie: '',
-                CzyObowazkowa: false,
-                OkresWaznosci: '',
+                CzyObowiazkowa: false,
+                OkresWaznosci: 0,
                 Producent: '',
             },
             errors: {
                 Nazwa: '',
                 Zastosowanie: '',
-                CzyObowazkowa: '',
+                CzyObowiazkowa: '',
                 OkresWaznosci: '',
                 Producent: '',
             },
@@ -45,7 +44,6 @@ class FormularzSzczepionki extends React.Component {
 
         if (this.state.formMode === formMode.EDIT) {
             try {
-
                 await getSzczepionkaDetails(this.state.idSzczepionka, source)
                     .then((res) => {
                     if (res) {
@@ -100,15 +98,16 @@ class FormularzSzczepionki extends React.Component {
                 errorMessage = t('validation.required')
             }
         }
-        if (fieldName === 'Producent') {
-            if (!CheckTextRange(fieldValue, 0, 50)) {
-                errorMessage = t('validation.max50nullable')
-            }
-            if (!fieldValue) {
-                errorMessage = ''
+        if (fieldName === 'OkresWaznosci') {
+            if (!checkNumberRange(fieldValue, 0, 1000)) {
+                errorMessage = t('validation.quantity')
             }
         }
-
+        if (fieldName === 'Producent') {
+            if (fieldValue.length > 50) {
+                errorMessage = t('validation.max50nullable')
+            }
+        }
         return errorMessage;
     }
 
@@ -154,6 +153,7 @@ class FormularzSzczepionki extends React.Component {
         const isValid = this.validateForm()
 
         if (isValid) {
+            console.log(dane.data)
             if (dane.formMode === formMode.NEW) {
                 try {
                     await addSzczepionka(dane.data, source)
@@ -179,22 +179,22 @@ class FormularzSzczepionki extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('szczepionka.addNewVaccine') : t('szczepionka.editVaccine')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>
-                        <section class="bg-white-100 border-b  mb-7">
-                            <div class=" flex flex-wrap md:flex mb-6 mt-4">
+                        <section className="bg-white-100 border-b  mb-7">
+                            <div className=" flex flex-wrap md:flex mb-6 mt-4">
                                 <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
                                        htmlFor="Nazwa">
                                     {t('szczepionka.fields.name')}
                                 </label>
-                                <div class="md:w-3/5">
+                                <div className="md:w-3/5">
                                     <input
-                                        class= "shadow-xl form-textarea block w-full focus:bg-white"
+                                        className= "shadow-xl form-textarea block w-full focus:bg-white"
                                         name="Nazwa" id="Nazwa" type="text" value={data.Nazwa}
                                         onChange={this.handleChange} placeholder=""/>
                                 </div>
@@ -225,7 +225,7 @@ class FormularzSzczepionki extends React.Component {
 
                                         <input type="checkbox" name="CzyObowiazkowa"
                                                checked={data.CzyObowiazkowa === true}
-                                               className=" form-checkbox mb-4 w-8 h-8 text-blue-600"
+                                               className="form-checkbox mb-4 w-8 h-8 text-blue-600"
                                                onChange={this.onChange1}/>
                                 </div>
                             </div>
