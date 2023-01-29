@@ -20,7 +20,7 @@ class FormularzSzczepionki extends React.Component {
             data: {
                 Nazwa: '',
                 Zastosowanie: '',
-                CzyObowazkowa: '',
+                CzyObowazkowa: false,
                 OkresWaznosci: '',
                 Producent: '',
             },
