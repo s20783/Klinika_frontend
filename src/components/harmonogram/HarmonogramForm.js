@@ -8,10 +8,8 @@ import {getWeterynarzList} from "../../axios/WeterynarzAxionCalls";
 import Harmonogram from "./Harmonogram";
 import HarmonogramMenu from "../fragments/HarmonogramMenu";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
-
 
 class HarmonogramForm extends React.Component {
     constructor(props) {
@@ -144,7 +142,6 @@ class HarmonogramForm extends React.Component {
 
         if (isValid) {
             if (dane.data.Weterynarz === '0') {
-
                 try {
                     await getHarmonogram(dane.data.Data, source)
                         .then((res) => {
@@ -162,7 +159,6 @@ class HarmonogramForm extends React.Component {
                     console.log(e)
                 }
             } else {
-
                 try {
                     await getHarmonogramVet(dane.data.Weterynarz, dane.data.Data, source)
                         .then((res) => {
@@ -198,7 +194,7 @@ class HarmonogramForm extends React.Component {
         }
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">
                         {t('harmonogram.title')}</p>

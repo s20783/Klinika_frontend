@@ -20,7 +20,7 @@ class FormularzSzczepionki extends React.Component {
                 Nazwa: '',
                 Zastosowanie: '',
                 CzyObowiazkowa: false,
-                OkresWaznosci: 0,
+                OkresWaznosci: '',
                 Producent: '',
             },
             errors: {
@@ -99,13 +99,17 @@ class FormularzSzczepionki extends React.Component {
             }
         }
         if (fieldName === 'OkresWaznosci') {
-            if (!checkNumberRange(fieldValue, 0, 1000)) {
-                errorMessage = t('validation.quantity')
+            if(fieldValue){
+                if (fieldValue > 1000) {
+                    errorMessage = t('validation.quantity')
+                }
             }
         }
         if (fieldName === 'Producent') {
-            if (fieldValue.length > 50) {
-                errorMessage = t('validation.max50nullable')
+            if(fieldValue){
+                if (fieldValue.length > 50) {
+                    errorMessage = t('validation.max50nullable')
+                }
             }
         }
         return errorMessage;

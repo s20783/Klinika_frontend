@@ -8,33 +8,27 @@ function HarmonogramMenu(props) {
     let source = props.source
 
     const dodajHarmonogram = async () => {
-
         try {
             await addHarmonogram(source)
             navigate('/poHarmonogram/d')
-
         } catch (e) {
             console.log(e)
         }
     }
 
     const aktualizujHarmonogram = async () => {
-
         try {
-            await updateHarmonogram()
+            await updateHarmonogram(source)
             navigate('/poHarmonogram/a')
-
         } catch (error ) {
             console.log(error )
         }
-
     }
 
     return (
         <div className="">
             <div id="menu-content"
                  class="w-full inset-0 mt-0 z-20">
-
                 <button
                     className='shadow-xl ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
                     onClick={() => {
@@ -74,6 +68,5 @@ function HarmonogramMenu(props) {
         </div>
     );
 }
-
 
 export default HarmonogramMenu;

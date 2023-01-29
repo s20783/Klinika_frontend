@@ -35,11 +35,9 @@ export function getHarmonogram(Date, source) {
             console.log('Request canceled', thrown.message);
         }
     })
-
 }
 
 export async function addHarmonogram(source) {
-
     await api.post(`/Harmonogram/auto`, {
         cancelToken: source.token
     }).then((response) => {
