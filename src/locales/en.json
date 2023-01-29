@@ -26,6 +26,7 @@
 		"required": "This field is required",
 		"max30": "This field requires from 2 to 30 characters",
 		"max50": "This field requires from 2 to 50 characters",
+		"max100": "This field requires from 2 to 100 characters",
 		"max300": "This field requires from 2 to 300 characters",
 		"max300nullable": "This field requires max 300 characters",
 		"date": "The date cannot be from the future",

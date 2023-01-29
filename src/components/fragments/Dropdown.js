@@ -10,7 +10,6 @@ function Dropdown(props) {
     let navigate = useNavigate();
     return (
         <ul className="bg-white rounded shadow-2xl mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30">
-
             {(isKlient()) && userMenuValues.map((item) => {
                 return <li>
                     <Link to={item.url} key={item.title}

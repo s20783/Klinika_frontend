@@ -11,7 +11,6 @@ import {ValidateTime} from "../helpers/ValidateTime";
 import {Link} from "react-router-dom";
 import {getGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
 import axios from "axios";
-import {getKlientList} from "../../axios/KlientAxiosCalls";
 
 let CancelToken
 let source
@@ -53,9 +52,7 @@ class GodzinyPracy extends React.Component {
             idWeterynarz: paramsIdWeterynarz,
             error: '',
             isLoaded: false,
-            notice: '',
             czyEdycja: false
-
         }
     }
 
@@ -105,7 +102,6 @@ class GodzinyPracy extends React.Component {
         } catch (e) {
             console.log(e)
         }
-
     }
 
     componentWillUnmount() {
@@ -115,13 +111,11 @@ class GodzinyPracy extends React.Component {
     }
 
     showInputs(dzien, godzinaRozpoczecia, godzinaZakonczenia) {
-
         const helpDiv = document.getElementById("spec-content2");
         const helpDiv1 = document.getElementById("spec-content3");
         const helpDiv2 = document.getElementById("spec-content4");
         const helpDiv3 = document.getElementById("spec-content5");
         const helpDiv4 = document.getElementById("spec-content6");
-
 
         if (helpDiv.classList.contains("hidden")) {
             helpDiv.classList.remove("hidden");
@@ -147,8 +141,6 @@ class GodzinyPracy extends React.Component {
             });
         }
 
-        console.log(this.state.czyEdycja)
-
         const data = {...this.state.data}
         data['DzienTygodnia'] = dzien
         data['GodzinaRozpoczecia'] = godzinaRozpoczecia
@@ -166,7 +158,6 @@ class GodzinyPracy extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -209,7 +200,6 @@ class GodzinyPracy extends React.Component {
         const {t} = this.props;
         let errorMessage = '';
         if (fieldName === 'GodzinaRozpoczecia') {
-
             if (!ValidateTime(fieldValue)) {
                 errorMessage = t('godzinyPracy.wrongTimeFormat')
             }
@@ -229,13 +219,11 @@ class GodzinyPracy extends React.Component {
     }
 
     dodajDomyslne = async () => {
-
         const {navigate} = this.props;
         if (this.state.idWeterynarz !== null) {
-
             try {
                 await addDomyslneGodzinyPracy(this.state.idWeterynarz,source)
-                await navigate(0, {replace: true});
+                navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
             }
@@ -251,7 +239,7 @@ class GodzinyPracy extends React.Component {
             if (this.state.czyEdycja) {
                 try {
                     await editGodzinyPracy(this.state.idWeterynarz, dane.data, source)
-                    await navigate(-1, {replace: true});
+                    navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
@@ -259,7 +247,7 @@ class GodzinyPracy extends React.Component {
             else {
                 try {
                     await addGodzinyPracy(this.state.idWeterynarz, dane.data, source)
-                    await navigate(-1, {replace: true});
+                    navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }

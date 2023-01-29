@@ -9,7 +9,6 @@ function KontoMenu() {
 
     const showMenu = () => {
         var helpMenuDiv = document.getElementById("menu-content");
-
         if (helpMenuDiv.classList.contains("hidden")) {
             helpMenuDiv.classList.remove("hidden");
         } else {
@@ -22,18 +21,18 @@ function KontoMenu() {
             <p className="text-base font-bold py-2 lg:pb-2 text-gray-700 lg:visible ">
                 Menu
             </p>
-            <div class="block lg:hidden sticky inset-0">
+            <div className="block lg:hidden sticky inset-0">
                 <button id="menu-toggle" onClick={() => {
                     showMenu()
                 }}
-                        class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-blue-400 appearance-none focus:outline-none">
-                    <svg class="fill-current h-3 float-right" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        className="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-blue-400 appearance-none focus:outline-none">
+                    <svg className="fill-current h-3 float-right" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                     </svg>
                 </button>
             </div>
             <div id="menu-content"
-                 class="w-full sticky inset-0  hidden  overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20">
+                 className="w-full sticky inset-0  hidden  overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20">
                 <ul className="list-reset">
                     {(isKlient()) && userMenuValues.map((item) => {
                         return <NavLink className={({isActive}) =>

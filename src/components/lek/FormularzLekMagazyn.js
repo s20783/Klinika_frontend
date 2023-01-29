@@ -60,9 +60,7 @@ class FormularzLekMagazyn extends React.Component {
             } catch (error) {
                 console.log(error)
             }
-
         }
-
     }
 
     componentWillUnmount() {

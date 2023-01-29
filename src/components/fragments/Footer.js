@@ -63,7 +63,7 @@ class Footer extends React.Component {
                 <div className="flex items-center justify-center sm:justify-between md:ml-4 ml-2 md:mr-4 mr-2 mb-1">
                     <p className="flex flex-wrap items-center mb-4 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
                         <i className="fa-regular fa-copyright"></i>
-                        Klinika PetMed 2022
+                        PetMed 2023
                     </p>
                 </div>
             </footer>

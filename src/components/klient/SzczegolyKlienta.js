@@ -88,14 +88,14 @@ class SzczegolyKlienta extends React.Component {
         const {navigate} = this.props
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">
                         {t('klient.detailsClient')}</p>
-                    <div class="block lg:hidden sticky inset-0">
+                    <div className="block lg:hidden sticky inset-0">
                         <button id="menu-toggle"
-                                class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-500 appearance-none focus:outline-none">
-                            <svg class="fill-current h-3 float-right" viewBox="0 0 20 20"
+                                className="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-500 appearance-none focus:outline-none">
+                            <svg className="fill-current h-3 float-right" viewBox="0 0 20 20"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                             </svg>
@@ -104,54 +104,54 @@ class SzczegolyKlienta extends React.Component {
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.firstName')}
                             </label>
                             <input
-                                class="shadow-xl  form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl  form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Imie" id="Imie" type="text" value={this.state.data.Imie} disabled/>
 
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.lastName')}
                             </label>
                             <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={this.state.data.Nazwisko}
                                 disabled/>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.phoneNumber')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
                                 value={this.state.data.NumerTelefonu} disabled/>
 
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.email')}
                             </label>
                             <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Email" id="Email" type="text" value={this.state.data.Email} disabled/>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap -mx-3 mb-6 ">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6 ">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.birthDate')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
                                 value={dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')} disabled/>
                         </div>
@@ -306,13 +306,11 @@ class SzczegolyKlienta extends React.Component {
                                 {wizyty.map(x => (
                                     <tr className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                         key={x.IdWizyta}>
-
                                         <td className="text-center px-6 py-2">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
                                         <td className="text-center px-6 py-2">{x.Pacjent != null ? x.Pacjent : "-"}</td>
                                         <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-"} </td>
                                         <td className="text-center px-6 py-2">{t("wizyta.status." + x.Status)}</td>
                                         <td className="text-center px-6 py-2">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
-
                                         <td className="px-6 py-1">
                                             <div className="list-actions">
                                                 <div className=" flex">

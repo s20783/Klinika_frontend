@@ -18,19 +18,15 @@ class KlientList extends React.Component {
             notice: '',
             x: false
         }
-
     }
 
-
     async componentDidMount() {
-
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
 
         try {
             await getKlientList(source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         klienci: res.data
@@ -47,7 +43,6 @@ class KlientList extends React.Component {
             source.cancel('Operation canceled by the user.');
         }
     }
-
 
     render() {
         const {error, isLoaded, klienci} = this.state
