@@ -10,7 +10,7 @@ export async function loginCall(user,source) {
         }
     })
 
-    return await axiosInstance.post('/Konto/login', userString,{
+    return axiosInstance.post('/Konto/login', userString,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -61,7 +61,6 @@ export async function changeDaneKonta(user, source) {
             console.log('Request canceled', thrown.message);
         }else {
             throw new Error(thrown.response.data.message)
-            //return thrown.response.data.message
         }
     })
 }
