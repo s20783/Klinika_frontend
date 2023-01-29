@@ -53,7 +53,6 @@ class DodaniePacjentaForm extends React.Component {
             await getPacjentDetails(this.state.idPacjent, source)
                 .then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         data: res.data
@@ -160,7 +159,6 @@ class DodaniePacjentaForm extends React.Component {
 
     onChange = (date) => {
         const data = {...this.state.data}
-        console.log(dayjs(date).format())
         data['DataUrodzenia'] = dayjs(date).format()
 
         const errorMessage = this.validateField('DataUrodzenia', date)
@@ -205,8 +203,6 @@ class DodaniePacjentaForm extends React.Component {
 
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
-                console.log(dane.formMode)
-
                 try {
                     await addPacjent(dane.data, source)
                     await navigate("/pacjenci", {replace: true});
@@ -245,8 +241,8 @@ class DodaniePacjentaForm extends React.Component {
             <div
                 className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                 <form onSubmit={this.handleSubmit} className="w-full max-w">
-                    <section class="bg-white-100 border-b  mb-5">
-                        <div class=" md:flex mb-6 mt-4">
+                    <section className="bg-white-100 border-b  mb-5">
+                        <div className=" md:flex mb-6 mt-4">
                             <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
                                    htmlFor="Wlasciciel">
                                 {t('pacjent.fields.owner')}
@@ -257,7 +253,7 @@ class DodaniePacjentaForm extends React.Component {
                                     <option value="">{t('pacjent.selectOwner')}</option>
                                     {
                                         klienci.map(klient => (
-                                            <option selected={data.IdOsoba === klient.IdOsoba}
+                                            <option key={klient.IdOsoba} selected={data.IdOsoba === klient.IdOsoba}
                                                     value={klient.IdOsoba}>{klient.Imie} {klient.Nazwisko}</option>
                                         ))}
                                 </select>
@@ -265,8 +261,8 @@ class DodaniePacjentaForm extends React.Component {
                             <span id="errorWlasciciel" className="errors-text2 mt-4">{errors.IdOsoba}</span>
                         </div>
                     </section>
-                    <div class="flex flex-wrap -mx-3 mb-4 border-b">
-                        <div class="w-full px-3">
+                    <div className="flex flex-wrap -mx-3 mb-4 border-b">
+                        <div className="w-full px-3">
                             <label class="block tracking-wide text-gray-600 text-s font-bold mb-2">
                                 {t('pacjent.fields.name')}
                             </label>
@@ -277,55 +273,55 @@ class DodaniePacjentaForm extends React.Component {
                         </div>
                         <span id="errorNazwa" className="errors-text2 mb-4 ml-4">{errors.Nazwa}</span>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+                    <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                        <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2">
                                 {t('pacjent.fields.species')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
+                                className="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
                                 name="Gatunek" id="Gatunek" type="text" value={data.Gatunek} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.Gatunek}</span>
                         </div>
-                        <div class="w-full md:w-2/6 px-3 ml-8">
+                        <div className="w-full md:w-2/6 px-3 ml-8">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2"
                                    form="grid-last-name">
                                 {t('pacjent.fields.breed')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Rasa" id="Rasa" type="text" value={data.Rasa} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorRasa" className="errors-text2 mb-4 ">{errors.Rasa}</span>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('pacjent.fields.weight')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Waga" id="Waga" step="0.01" type="number" value={data.Waga}
                                 onChange={this.handleChange} placeholder=""/>
                             <span id="errorWaga" className="errors-text2 mb-4 ">{errors.Waga}</span>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('pacjent.fields.color')}
                             </label>
                             <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Masc" id="Masc" type="text" value={data.Masc} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorMasc" className="errors-text2 mb-4 ">{errors.Masc}</span>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 ">
-                        <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6 ">
+                        <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('pacjent.fields.birthdate')}
                             </label>
                             <Calendar className="mb-7 calendarForm"
@@ -340,19 +336,19 @@ class DodaniePacjentaForm extends React.Component {
                                 {errors.DataUrodzenia}
                             </span>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 mt-6 ml-2 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 mt-6 ml-2 md:mb-0">
                             <div className="border-b mb-4">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                     {t('pacjent.fields.gender')}
                                 </label>
-                                <label class="inline-flex  items-center">
+                                <label className="inline-flex  items-center">
                                     <input name="Plec" id="Plec" type="radio" checked={data.Plec === "M"}
-                                           class=" form-radio text-indigo-600"
+                                           className="form-radio"
                                            value="M" onChange={this.handleChange}/>
                                     <span class="ml-2">{t('pacjent.gender.male')}</span>
                                 </label>
-                                <label class="inline-flex items-center  ml-4 mb-4">
-                                    <input name="Plec" id="Plec" type="radio" class="form-radio"
+                                <label className="inline-flex items-center  ml-4 mb-4">
+                                    <input name="Plec" id="Plec" type="radio" className="form-radio"
                                            checked={data.Plec === "F"}
                                            value="F" onChange={this.handleChange}/>
                                     <span class="ml-2">{t('pacjent.gender.female')}</span>
@@ -365,16 +361,16 @@ class DodaniePacjentaForm extends React.Component {
                                 </label>
                                 <input type="checkbox" name="Ubezplodnienie"
                                        checked={data.Ubezplodnienie === true}
-                                       class=" form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
+                                       className=" form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
                             </div>
                             <div className="border-b mb-6">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('pacjent.fields.aggressive')}
                                 </label>
                                 <input type="checkbox" value="1" name="Agresywne"
                                        checked={data.Agresywne === true}
-                                       class=" form-checkbox  mb-8  text-blue-600" onChange={this.onChange1}/>
+                                       className="form-checkbox  mb-8  text-blue-600" onChange={this.onChange1}/>
                             </div>
                         </div>
                     </div>

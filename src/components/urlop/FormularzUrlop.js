@@ -6,7 +6,6 @@ import {addUrlop, getUrlopDetails, editUrlop} from "../../axios/UrlopAxiosCalls"
 import formMode from "../helpers/FormMode";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 class FormularzUrlop extends React.Component {
@@ -162,9 +161,9 @@ class FormularzUrlop extends React.Component {
                     <form onSubmit={this.handleSubmit} className="w-full max-w">
                         <div class="flex flex-wrap -mx-3 mb-6 ">
                             <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
-                                <abel class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                     Data urlopu
-                                </abel>
+                                </label>
                                 <Calendar className="mb-7 calendarForm"
                                           value={date}
                                           onClickDay={this.onChange}

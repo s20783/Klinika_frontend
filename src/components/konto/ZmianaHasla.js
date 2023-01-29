@@ -1,6 +1,5 @@
 import {useNavigate, useParams} from "react-router";
 import React from "react";
-import {Link} from "react-router-dom";
 import {changePassword} from "../../axios/AuthAxiosCalls";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {ValidateHaslo} from "../helpers/ValidateHaslo";
@@ -178,11 +177,11 @@ class ZmianaHasla extends React.Component {
                                            className="bg-blue-400 text-white font-bold rounded-lg text-xl hover:bg-black py-3 px-8 mt-6 "/>
                                 </div>
                             </form>
-                            <div className="text-center pt-3">
+                            {/*<div className="text-center pt-3">
                                 <p><Link to="#"
                                          className="underline font-semibold hover:text-blue-400">{t("konto.forgotPassword")}</Link>
                                 </p>
-                            </div>
+                            </div>*/}
                         </div>
                     </div>
                 </div>

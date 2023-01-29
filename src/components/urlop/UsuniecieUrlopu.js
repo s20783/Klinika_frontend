@@ -16,7 +16,6 @@ class UsuniecieUrlopu extends React.Component {
         }
     }
     async componentDidMount() {
-
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
     }

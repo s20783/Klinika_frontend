@@ -10,7 +10,6 @@ class UsuniecieLeku extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdLek = this.props.params.IdLek
-
         this.state = {
             idLek: paramsIdLek,
             error: '',
@@ -19,7 +18,6 @@ class UsuniecieLeku extends React.Component {
         }
     }
     async componentDidMount() {
-
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
     }
@@ -48,7 +46,6 @@ class UsuniecieLeku extends React.Component {
                 <div class="modal-content py-9 px-5">
                     <p class="text-4xl mb-2 text-center font-bold">{t('lek.deletingMedicine')}</p>
                     <img src="/images/znakZapytaniaPies.png" alt={"ZnakZapytaniaPies"}/>
-
                     <div class="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
                                 class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>

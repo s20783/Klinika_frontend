@@ -5,16 +5,13 @@ import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {addLek, getLekDetails, updateLek} from "../../axios/LekAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 class FormularzLeku extends React.Component {
     constructor(props) {
         super(props);
-
         const paramsIdLek = this.props.params.IdLek
         const currentFormMode = paramsIdLek ? formMode.EDIT : formMode.NEW
-
         this.state = {
             data: {
                 Nazwa: '',
@@ -41,7 +38,6 @@ class FormularzLeku extends React.Component {
     }
 
     async componentDidMount() {
-
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
@@ -50,7 +46,6 @@ class FormularzLeku extends React.Component {
                 await getLekDetails(this.state.idLek, source)
                     .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             data: res.data
@@ -61,7 +56,6 @@ class FormularzLeku extends React.Component {
                 console.log(error)
             }
         }
-
     }
 
 
@@ -102,8 +96,8 @@ class FormularzLeku extends React.Component {
             }
         }
         if (fieldName === 'Producent') {
-            if (!CheckTextRange(fieldValue, 0, 50)) {
-                errorMessage = t('validation.max50')
+            if (fieldValue.length > 50) {
+                errorMessage = t('validation.max50nullable')
             }
         }
         return errorMessage;
@@ -127,7 +121,6 @@ class FormularzLeku extends React.Component {
             const fieldValue = data[fieldName]
             errors[fieldName] = this.validateField(fieldName, fieldValue)
         }
-
         this.setState({
             errors: errors
         })
@@ -165,7 +158,6 @@ class FormularzLeku extends React.Component {
         const {t} = this.props;
         const {navigate} = this.props
         const pageTitle = this.state.formMode === formMode.NEW ? t('lek.addNewMedicine') : t('lek.editMedicine')
-
         return (
             <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
                 <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
