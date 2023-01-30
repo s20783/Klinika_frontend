@@ -5,7 +5,6 @@ import {withTranslation} from "react-i18next";
 import {getKlientWizytaList} from "../../axios/WizytaAxiosCalls";
 import {getCurrentUser} from "../other/authHelper";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 class KontoWizyty extends React.Component {
@@ -24,9 +23,7 @@ class KontoWizyty extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        const {navigate} = this.props;
         try {
-
                 await getKlientWizytaList(source).then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -39,7 +36,7 @@ class KontoWizyty extends React.Component {
 
             const user = await getCurrentUser();
             let token = user.Token
-            console.log(JSON.parse(atob(token.split('.')[1])).idUser)
+
             this.setState({
                 idVet: JSON.parse(atob(token.split('.')[1])).idUser
             });

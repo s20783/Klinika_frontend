@@ -31,6 +31,7 @@
 		"max300nullable": "This field requires max 300 characters",
 		"date": "The date cannot be from the future",
 		"date1": "The date cannot be from the past",
+		"from5to30": "This field requires from 5 to 30 characters",
 		"from5to50": "This field requires from 5 to 50 characters",
 		"from6to50": "This field requires from 6 to 50 characters",
 		"from8to50": "This field requires from 8 to 50 characters",

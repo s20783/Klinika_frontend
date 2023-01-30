@@ -282,7 +282,6 @@ class FormularzRecepty extends React.Component {
         return false
     }
 
-
     render() {
         const {lekiRecepta, leki, data, errors, errorListaLek} = this.state
         const {t} = this.props;
@@ -295,7 +294,6 @@ class FormularzRecepty extends React.Component {
                 </div>
                 <div
                     className=" lg:w-5/6 w-full p-8 mt-6 mb-8 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-
                     <div className="flex justify-between mt-2">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('recepta.title')}</h2>
@@ -305,7 +303,7 @@ class FormularzRecepty extends React.Component {
                         className="border-4 border-blue-200 h-fit ml-3 shadow-2xl rounded-md md:mr-20 mb-12">
 
                         <div className="w-full relative ">
-                            <h2 className=" w-full  my-12 mb-5 md:ml-4 text-lg font-bold leading-tight   text-gray-600">
+                            <h2 className=" w-full  my-12 mb-5 md:ml-4 text-lg font-bold leading-tight text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                             <button id="menu-toggle" onClick={() => {
                                 this.showSelect()
@@ -314,7 +312,6 @@ class FormularzRecepty extends React.Component {
                                 <span className="text-gl font-bold ">+</span>
                             </button>
                             <span id="errorLista" className="errors-text2 mb-3 mt-3">{errorListaLek} </span>
-
                         </div>
                         {lekiRecepta.length !== 0 &&
                             <div className="overflow-x-auto shadow-xl">
@@ -333,7 +330,7 @@ class FormularzRecepty extends React.Component {
                                     {lekiRecepta.map(x => (
                                         <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
                                             key={x.ID_Lek}>
-                                            <td className="px-6 py-2 text-center">{x.Nazwa} {x.ID_Lek}</td>
+                                            <td className="px-6 py-2 text-center">{x.Nazwa}</td>
                                             <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
                                             <td className="px-6 py-2 text-center">
                                                 <button onClick={() => {

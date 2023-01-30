@@ -104,7 +104,7 @@ class ZmianaDanychKonta extends React.Component {
         }
         if (fieldName === 'Haslo') {
             if (!CheckTextRange(fieldValue, 5, 30)) {
-                errorMessage = `${t('validation.from8to30')}`
+                errorMessage = `${t('validation.from5to30')}`
             }
             if (!fieldValue) {
                 errorMessage = `${t('validation.required')}`

@@ -110,7 +110,6 @@ class HarmonogramForm extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -136,7 +135,6 @@ class HarmonogramForm extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        const {navigate} = this.props;
         const dane = {...this.state}
         const isValid = this.validateForm()
 
@@ -146,7 +144,6 @@ class HarmonogramForm extends React.Component {
                     await getHarmonogram(dane.data.Data, source)
                         .then((res) => {
                         if (res) {
-                            console.log(res.data)
                             this.setState({
                                 isLoaded: true,
                                 harmonogram: res.data.harmonogramy,
@@ -186,7 +183,6 @@ class HarmonogramForm extends React.Component {
         const {i18n} = this.props;
         let language = i18n.language;
         let content;
-
         if (harmonogram.length !== 0) {
             content = <Harmonogram harmonogram={harmonogram} start={start} end={end} />
         } else {
@@ -203,7 +199,6 @@ class HarmonogramForm extends React.Component {
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>
-
                         <section className="bg-white-100 border-b  mb-5">
                             <div className=" md:flex mb-6 mt-4">
                                 <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
