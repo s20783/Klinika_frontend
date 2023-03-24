@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {isAdmin, isAuthenticated, isKlient, isWeterynarz} from "../other/authHelper";
+import {isAdmin, isAuthenticated, isKlient, isWeterynarz} from "../helpers/authHelper";
 import {useNavigate, useParams} from "react-router";
 import DropdownMenu from "./DropdownMenu";
 import {withTranslation} from "react-i18next";

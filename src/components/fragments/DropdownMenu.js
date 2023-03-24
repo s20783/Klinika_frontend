@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {getImie} from "../other/authHelper";
+import {getImie} from "../helpers/authHelper";
 import Dropdown from "./Dropdown";
 
 function DropdownMenu(props) {

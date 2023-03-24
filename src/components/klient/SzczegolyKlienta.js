@@ -5,9 +5,9 @@ import {getKlientDetails} from "../../axios/KlientAxiosCalls";
 import {getKlientPacjentList} from "../../axios/PacjentAxiosCalls";
 import dayjs from 'dayjs';
 import {Link} from "react-router-dom";
-import {getFormattedDateWithHour} from "../other/dateFormat";
+import {getFormattedDateWithHour} from "../helpers/dateFormat";
 import {getKlientWizytaListForDetails} from "../../axios/WizytaAxiosCalls";
-import {getId, isWeterynarz} from "../other/authHelper";
+import {getId, isWeterynarz} from "../helpers/authHelper";
 import axios from "axios";
 
 let CancelToken

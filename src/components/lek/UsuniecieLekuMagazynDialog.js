@@ -5,7 +5,7 @@ import {withTranslation} from "react-i18next";
 import axios from "axios";
 let CancelToken
 let source
-class UsuniecieLekuMagazyn extends React.Component {
+class UsuniecieLekuMagazynDialog extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdStanLeku = this.props.params.IdStanLeku
@@ -79,4 +79,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(UsuniecieLekuMagazyn)));
+export default withTranslation()(withRouter(withNavigate(UsuniecieLekuMagazynDialog)));

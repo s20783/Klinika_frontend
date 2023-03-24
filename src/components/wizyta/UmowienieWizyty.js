@@ -4,12 +4,12 @@ import {useNavigate, useParams} from "react-router";
 import Time from "../other/Time";
 import dayjs from 'dayjs';
 import {getHarmonogramWizyta} from "../../axios/HarmonogramAxiosCalls";
-import {getFormattedDateWithHour} from "../other/dateFormat";
+import {getFormattedDateWithHour} from "../helpers/dateFormat";
 import {withTranslation} from "react-i18next";
 import {getWizytaDetails, przelozWizyte, umowWizyte} from "../../axios/WizytaAxiosCalls";
 import formMode from "../helpers/FormMode";
 import {getKlientPacjentList, getKlientPacjentList2} from "../../axios/PacjentAxiosCalls";
-import {isAdmin, isKlient, isWeterynarz} from "../other/authHelper";
+import {isAdmin, isKlient, isWeterynarz} from "../helpers/authHelper";
 import axios from "axios";
 let CancelToken
 let source

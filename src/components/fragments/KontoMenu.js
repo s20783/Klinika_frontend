@@ -2,7 +2,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import {adminMenuValues, userMenuValues, vetMenuValues} from "../../values/UserMenuValues";
 import {useTranslation} from "react-i18next";
-import {isAdmin, isKlient, isWeterynarz} from "../other/authHelper";
+import {isAdmin, isKlient, isWeterynarz} from "../helpers/authHelper";
 
 function KontoMenu() {
     const {t} = useTranslation();

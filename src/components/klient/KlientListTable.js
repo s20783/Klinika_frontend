@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import React, {useState} from 'react';
 import {useTranslation} from "react-i18next";
-import {isAdmin} from "../other/authHelper";
+import {isAdmin} from "../helpers/authHelper";
 
 function KlientListTable(props) {
     const {t} = useTranslation();

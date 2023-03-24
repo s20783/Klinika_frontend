@@ -2,7 +2,7 @@ import React from "react";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getKontoGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
-import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
+import {getFormattedDate, getFormattedHour} from "../helpers/dateFormat";
 import {getKontoUrlopList} from "../../axios/UrlopAxiosCalls";
 import axios from "axios";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getFormattedDate, getFormattedHour} from "../other/dateFormat";
+import {getFormattedDate, getFormattedHour} from "../helpers/dateFormat";
 import {getGodzinyPracyList} from "../../axios/GodzinyPracyAxiosCalls";
 import {Link} from "react-router-dom";
 import {getUrlopList} from "../../axios/UrlopAxiosCalls";

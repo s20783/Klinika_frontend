@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {getFormattedDate} from "../other/dateFormat";
+import {getFormattedDate} from "../helpers/dateFormat";
 import {useTranslation} from "react-i18next";
 
 function ReceptaTableList(props) {

@@ -37,8 +37,8 @@ class Login extends React.Component {
             preserveAspectRatio: 'xMidYMid slice'
         }
     }
-    async componentDidMount() {
 
+    async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
     }
@@ -73,17 +73,14 @@ class Login extends React.Component {
                 const userString = JSON.stringify(data)
                 this.props.handleLogin(userString)
                 navigate("/", {replace: true});
-
             } catch (error) {
                 console.log(error.message)
                 this.setState({
                     message: error.message,
                     isLoading: false
-
                 })
             }
         }
-
     }
 
     componentWillUnmount() {

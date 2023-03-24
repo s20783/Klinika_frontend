@@ -15,7 +15,6 @@ class KlientList extends React.Component {
             error: '',
             isLoaded: false,
             klienci: [],
-            notice: '',
             x: false
         }
     }
@@ -23,7 +22,6 @@ class KlientList extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
         try {
             await getKlientList(source).then((res) => {
                 if (res) {
@@ -59,9 +57,9 @@ class KlientList extends React.Component {
 
         return (
             <main>
-                <section className="bg-gray-100 border-b  ">
-                    <div className="container w-full max-w-6xl  mx-auto px-2 py-8">
-                        <div id='recipients' className="p-4 mt-6 lg:mt-0 rounded shadow bg-white">
+                <section className="bg-gray-100 border-b">
+                    <div className="container w-full max-w-7xl mx-auto px-1 py-8">
+                        <div className="px-0.5 md:px-8 py-4 md:py-8 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
                                 {t('klient.title')}</h2>
                             {content}

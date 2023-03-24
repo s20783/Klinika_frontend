@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getWizytaDetails, odwolajWizyte} from "../../axios/WizytaAxiosCalls";
-import {isKlient} from "../other/authHelper";
+import {isKlient} from "../helpers/authHelper";
 import axios from "axios";
 import dayjs from "dayjs";
 let CancelToken

@@ -3,7 +3,7 @@ import React from "react";
 import {useNavigate} from "react-router";
 import {adminMenuValues, userMenuValues, vetMenuValues} from "../../values/UserMenuValues";
 import {useTranslation} from "react-i18next";
-import {isAdmin, isKlient, isWeterynarz} from "../other/authHelper";
+import {isAdmin, isKlient, isWeterynarz} from "../helpers/authHelper";
 
 function Dropdown(props) {
     const {t} = useTranslation();

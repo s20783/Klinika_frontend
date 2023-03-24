@@ -4,7 +4,7 @@ import {withTranslation} from "react-i18next";
 import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 import {addChorobaLek, deleteChorobaLek} from "../../axios/ChorobaLekAxiosCalls";
 import {Link} from "react-router-dom";
-import {getFormattedDate} from "../other/dateFormat";
+import {getFormattedDate} from "../helpers/dateFormat";
 import {getLekDetails} from "../../axios/LekAxiosCalls";
 import axios from "axios";
 

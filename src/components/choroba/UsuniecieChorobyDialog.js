@@ -6,7 +6,7 @@ import {deleteChoroba, getChorobaDetails} from "../../axios/ChorobaAxiosCalls";
 import axios from "axios";
 let CancelToken
 let source
-class UsuniecieChoroby extends React.Component {
+class UsuniecieChorobyDialog extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdChoroba = this.props.params.IdChoroba
@@ -81,4 +81,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(UsuniecieChoroby)));
+export default withTranslation()(withRouter(withNavigate(UsuniecieChorobyDialog)));

@@ -7,11 +7,10 @@ import {getKlientList} from "../../axios/KlientAxiosCalls";
 import axios from "axios";
 let CancelToken
 let source
+
 class FormularzPacjenta extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props)
-
         const paramsIdPacjent = this.props.params.idPacjent
         const currentFormMode = paramsIdPacjent ? formMode.EDIT : formMode.NEW
         this.state = {
@@ -26,10 +25,8 @@ class FormularzPacjenta extends React.Component {
 
     fetchKlientList = async () => {
         try {
-
             await getKlientList(source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         klienci: res.data
@@ -40,13 +37,14 @@ class FormularzPacjenta extends React.Component {
             console.log(error)
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
-    componentDidMount() {
 
+    componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         this.fetchKlientList()
@@ -80,7 +78,6 @@ class FormularzPacjenta extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

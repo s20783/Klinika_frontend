@@ -2,13 +2,13 @@ import React from "react";
 import {useParams} from "react-router";
 import dayjs from 'dayjs';
 import {withTranslation} from "react-i18next";
-import {getFormattedDate, getFormattedDateWithHour} from "../other/dateFormat";
+import {getFormattedDate, getFormattedDateWithHour} from "../helpers/dateFormat";
 import {Link} from "react-router-dom";
 import {getPacjentDetails} from "../../axios/PacjentAxiosCalls";
 import {getPacjentWizytaList} from "../../axios/WizytaAxiosCalls";
 import {getSzczepienieList} from "../../axios/SzczepienieAxionCalls";
 import {getUslugiPacjenta} from "../../axios/UslugaAxiosCalls";
-import {getId, isWeterynarz} from "../other/authHelper";
+import {getId, isWeterynarz} from "../helpers/authHelper";
 import axios from "axios";
 import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 

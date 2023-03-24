@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {checkNumberRange} from "../helpers/CheckNRange";
-import {getFormattedDate} from "../other/dateFormat";
+import {getFormattedDate} from "../helpers/dateFormat";
 import axios from "axios";
 import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken

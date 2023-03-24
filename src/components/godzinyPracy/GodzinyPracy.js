@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getFormattedHour} from "../other/dateFormat";
+import {getFormattedHour} from "../helpers/dateFormat";
 import {
     addGodzinyPracy,
     editGodzinyPracy,

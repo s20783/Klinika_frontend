@@ -1,9 +1,9 @@
 import {Link, useLocation} from "react-router-dom";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {isKlient} from "../other/authHelper";
+import {isKlient} from "../helpers/authHelper";
 
-function PotwierdzenieUmowieniaWizyty() {
+function AfterCreateWizyta() {
     const {t} = useTranslation();
     const location = useLocation();
     const wybranaData = location.state.Data
@@ -34,4 +34,4 @@ function PotwierdzenieUmowieniaWizyty() {
     )
 }
 
-export default PotwierdzenieUmowieniaWizyty
+export default AfterCreateWizyta

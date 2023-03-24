@@ -409,7 +409,7 @@
     "title": "Szczepionki",
     "addNewVaccine": "Dodanie nowej szczepionki",
     "editVaccine": "Edycja szczepionki",
-    "deletingVaccine": "Czy na pewno chcesz usunąc szczepionke?",
+    "deletingVaccine": "Czy na pewno chcesz usunąć szczepionke?",
     "deleteVaccine": "Usuń szczepionke",
     "addApplication": "Dodaj zastosowanie . . .",
     "selectVaccine": "Wybierz szczepionke",
@@ -418,8 +418,8 @@
     },
     "fields": {
       "name": "Nazwa",
-      "mandatory": "Czy obowiazkowa",
-      "periodOfValidity": "Okres waznosci",
+      "mandatory": "Czy obowiązkowa",
+      "periodOfValidity": "Okres ważnosci",
       "application": "Zastosowanie",
       "manufacturer": "Producent"
     }

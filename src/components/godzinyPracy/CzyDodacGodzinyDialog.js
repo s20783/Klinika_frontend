@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
-class CzyDodacGodziny extends React.Component {
+class CzyDodacGodzinyDialog extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdWeterynarz = this.props.params.IdOsoba
@@ -57,4 +57,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(CzyDodacGodziny)));
+export default withTranslation()(withRouter(withNavigate(CzyDodacGodzinyDialog)));

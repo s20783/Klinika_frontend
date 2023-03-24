@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import React from "react";
-import {getFormattedDate1} from "../other/dateFormat"
+import {getFormattedDate1} from "../helpers/dateFormat"
 import {Link} from "react-router-dom";
 
 function Harmonogram(props) {

@@ -1,4 +1,4 @@
-import api from "./Api";
+import api from "./AuthApi";
 import axios from "axios";
 
 export function getWeterynarzSpecjalizacjaList(Id,source) {

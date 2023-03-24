@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getFormattedDateWithHour} from "../other/dateFormat";
+import {getFormattedDateWithHour} from "../helpers/dateFormat";
 import {getWizytaDetails} from "../../axios/WizytaAxiosCalls";
 import {getReceptaDetails, getReceptaLeki} from "../../axios/ReceptaAxiosCalls";
 import {getUslugaWizytaList} from "../../axios/UslugaAxiosCalls";

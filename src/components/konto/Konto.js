@@ -4,7 +4,7 @@ import {getKontoData} from "../../axios/AuthAxiosCalls";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
-import {isKlient} from "../other/authHelper";
+import {isKlient} from "../helpers/authHelper";
 
 let CancelToken
 let source

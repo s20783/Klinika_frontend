@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 
-class PoDodaniuAktualizacjiHarmonogramu extends React.Component {
+class AfterAktualizacjiHarmonogramu extends React.Component {
     constructor(props) {
         super(props);
         const paramsAkcja = this.props.params.akcja
@@ -58,4 +58,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(PoDodaniuAktualizacjiHarmonogramu)));
+export default withTranslation()(withRouter(withNavigate(AfterAktualizacjiHarmonogramu)));

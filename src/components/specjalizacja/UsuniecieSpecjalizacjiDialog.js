@@ -1,41 +1,45 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {deleteRecepta} from "../../axios/ReceptaAxiosCalls";
+import {deleteSpecjalizacja} from "../../axios/SpecjalizacjaAxiosCalls";
 import axios from "axios";
 let CancelToken
 let source
-class UsuniecieRecepty extends React.Component {
+class UsuniecieSpecjalizacjiDialog extends React.Component {
     constructor(props) {
         super(props);
-        const paramsIdRecepta = this.props.params.IdRecepta
+        const paramsIdSpecjalizacja = this.props.params.idSpecjalizacja
         this.state = {
-            idRecepta: paramsIdRecepta,
+            idSpecjalizacja: paramsIdSpecjalizacja,
             error: '',
             isLoaded: false
         }
     }
+
     async componentDidMount() {
 
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
-    removeRecepta = async () => {
+
+    removeSpecjalizacja = async (idSpecjalizacja) => {
         const {navigate} = this.props;
         try {
-            await deleteRecepta(this.state.idRecepta, source)
-            await navigate(-1, {replace: true});
+            await deleteSpecjalizacja(idSpecjalizacja, source)
+            await navigate("/specjalizacje", {replace: true});
         } catch (error) {
             console.log(error)
         }
     }
 
     render() {
+        const {idSpecjalizacja} = this.state
         const {t, navigate} = this.props;
 
         return (
@@ -43,14 +47,14 @@ class UsuniecieRecepty extends React.Component {
                 <div
                     class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-2xl z-50 overflow-y-auto">
                     <div class="modal-content py-9 px-5">
-                        <p class="text-4xl mb-2 text-center font-bold">{t('recepta.deletingPrescription')}</p>
+                        <p class="text-4xl mb-2 text-center font-bold">{t('specjalizacja.deletingSpecialization')}</p>
                         <img src="/images/znakZapytaniaPies.png" alt={"ZnakZapytaniaPies"}/>
 
                         <div class="flex justify-end pt-2">
                             <button onClick={() => navigate(-1)}
                                     class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
-                            <button onClick={() => this.removeRecepta()}
-                                    class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('recepta.deletePrescription')}</button>
+                            <button onClick={() => this.removeSpecjalizacja(idSpecjalizacja)}
+                                    class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('specjalizacja.deleteSpecialization')}</button>
                         </div>
                     </div>
                 </div>
@@ -75,4 +79,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(UsuniecieRecepty)));
+export default withTranslation()(withRouter(withNavigate(UsuniecieSpecjalizacjiDialog)));

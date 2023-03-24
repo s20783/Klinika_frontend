@@ -6,78 +6,77 @@ import React from 'react';
 import Kontakt from "./components/other/Kontakt";
 import Login from "./components/other/Login";
 import Register from "./components/other/Register";
-import AfterRegister from "./components/other/AfterRegister";
-import {getCurrentUser} from "./components/other/authHelper";
+import AfterRegister from "./components/klient/AfterRegister";
+import {getCurrentUser} from "./components/helpers/authHelper";
 import Konto from "./components/konto/Konto";
 import LekList from "./components/lek/LekList";
 import LekDetailsList from "./components/lek/LekDetailsList";
 import FormularzLeku from "./components/lek/FormularzLeku";
-import UsuniecieLeku from "./components/lek/UsuniecieLeku";
+import UsuniecieLeku from "./components/lek/UsuniecieLekuDialog";
 import FormularzLekMagazyn from "./components/lek/FormularzLekMagazyn";
 import PacjentList from "./components/pacjent/PacjentList";
 import FormularzPacjenta from "./components/pacjent/FormularzPacjenta";
 import SzczegolyPacjent from "./components/pacjent/SzczegolyPacjent";
-import UsunieciePacjenta from "./components/pacjent/UsunieciePacjenta";
+import UsunieciePacjenta from "./components/pacjent/UsunieciePacjentaDialog";
 import KlientList from "./components/klient/KlientList";
 import SzczegolyKlienta from "./components/klient/SzczegolyKlienta";
 import SpecjalizacjaList from "./components/specjalizacja/SpecjalizacjaList";
 import FormularzSpecjalizacji from "./components/specjalizacja/FormularzSpecjalizacji";
-import UsuniecieSpecjalizacji from "./components/specjalizacja/UsuniecieSpecjalizacji";
+import UsuniecieSpecjalizacji from "./components/specjalizacja/UsuniecieSpecjalizacjiDialog";
 import ChorobaList from "./components/choroba/ChorobaList";
 import FormularzChoroby from "./components/choroba/FormularzChoroby";
-import UsuniecieChoroby from "./components/choroba/UsuniecieChoroby";
+import UsuniecieChoroby from "./components/choroba/UsuniecieChorobyDialog";
 import UslugaList from "./components/usluga/UslugaList";
 import FormularzUslugi from "./components/usluga/FormularzUslugi";
-import UsuniecieUslugi from "./components/usluga/UsuniecieUslugi";
+import UsuniecieUslugi from "./components/usluga/UsuniecieUslugiDialog";
 import KontoWizyty from "./components/konto/KontoWizyty";
 import ZmianaHasla from "./components/konto/ZmianaHasla";
 import ZmianaDanychKonta from "./components/konto/ZmianaDanychKonta";
 import UmowienieWizyty from "./components/wizyta/UmowienieWizyty";
 import WizytaList from "./components/wizyta/WizytaList";
 import SzczegolyWizyty from "./components/wizyta/SzczegolyWizyty";
-import PotwierdzenieUmowieniaWizyty from "./components/wizyta/PotwierdzenieUmowieniaWizyty";
+import AfterCreateWizyta from "./components/wizyta/AfterCreateWizyta";
 import WeterynarzList from "./components/weterynarz/WeterynarzList";
 import FormularzWeterynarz from "./components/weterynarz/FormularzWeterynarz";
 import SzczegolyWeterynarza from "./components/weterynarz/SzczegolyWeterynarza";
-import UsuniecieWeterynarza from "./components/weterynarz/UsuniecieWeterynarza";
+import UsuniecieWeterynarza from "./components/weterynarz/UsuniecieWeterynarzaDialog";
 import KontoPacjenci from "./components/konto/KontoPacjenci";
 import Regulamin from "./components/other/Regulamin";
 import PolitykaPrywatnosci from "./components/other/PolitykaPrywatnosci";
-import UsuniecieLekuMagazyn from "./components/lek/UsuniecieLekuMagazyn";
+import UsuniecieLekuMagazyn from "./components/lek/UsuniecieLekuMagazynDialog";
 import HarmonogramForm from "./components/harmonogram/HarmonogramForm";
 import KontoHarmonogram from "./components/konto/KontoHarmonogram";
 import GodzinyPracy from "./components/godzinyPracy/GodzinyPracy";
 import UsuniecieGodzinPracy from "./components/godzinyPracy/UsuniecieGodzinPracy";
 import KontoGodzinyPracy from "./components/konto/KontoGodzinyPracy";
-import UsuniecieUrlopu from "./components/urlop/UsuniecieUrlopu";
+import UsuniecieUrlopu from "./components/urlop/UsuniecieUrlopuDialog";
 import GodzinyPracyWeterynarz from "./components/weterynarz/GodzinyPracyWeterynarz";
 import FormularzUrlop from "./components/urlop/FormularzUrlop";
-import CzyDodacGodziny from "./components/godzinyPracy/CzyDodacGodziny";
+import CzyDodacGodziny from "./components/godzinyPracy/CzyDodacGodzinyDialog";
 import SzczepionkaList from "./components/szczepionka/SzczepionkaList";
 import FormularzSzczepionki from "./components/szczepionka/FormularzSzczepionki";
-import UsuniecieSzczepionki from "./components/szczepionka/UsuniecieSzczepionki";
+import UsuniecieSzczepionki from "./components/szczepionka/UsuniecieSzczepionkiDialog";
 import FormularzSzczepienia from "./components/szczepienie/FormularzSzczepienia";
-import UsuniecieSzczepienia from "./components/szczepienie/UsuniecieSzczepienia";
+import UsuniecieSzczepienia from "./components/szczepienie/UsuniecieSzczepieniaDialog";
 import FormularzRecepty from "./components/recepta/FormularzRecepty";
 import KontoRecepty from "./components/konto/KontoRecepty";
 import SzczegolyRecepta from "./components/recepta/SzczegolyRecepta";
-import UsuniecieRecepty from "./components/recepta/UsuniecieRecepty";
+import UsuniecieRecepty from "./components/recepta/UsuniecieReceptyDialog";
 import Info from "./components/wizyta/FormularzWizyty/Info";
 import LekiChoroby from "./components/wizyta/FormularzWizyty/LekiChoroby";
 import Uslugi from "./components/wizyta/FormularzWizyty/Uslugi";
 import Recepta from "./components/wizyta/FormularzWizyty/Recepta";
 import OdwolanieWizyty from "./components/wizyta/OdwolanieWizyty";
 import FormularzKlient from "./components/klient/FormularzKlient";
-import PoDodaniuAktualizacjiHarmonogramu from "./components/harmonogram/PoDodaniuAktualizacjiHarmonogramu";
-import UsuniecieKonta from "./components/konto/UsuniecieKonta";
-import UsuniecieKlienta from "./components/klient/UsuniecieKlienta";
+import PoDodaniuAktualizacjiHarmonogramu from "./components/harmonogram/AfterAktualizacjiHarmonogramu";
+import UsuniecieKonta from "./components/konto/UsuniecieKontaDialog";
+import UsuniecieKlienta from "./components/klient/UsuniecieKlientaDialog";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: undefined,
-            prevPath: ''
+            user: undefined
         }
     }
 
@@ -165,7 +164,7 @@ class App extends React.Component {
                     <Route path="/umowWizyte/:IdKlient" element={<UmowienieWizyty/>}/>
                     <Route path="/przelozWizyte/:IdWizyta" element={<UmowienieWizyty/>}/>
                     <Route path="/przelozWizyte/:IdWizyta/:IdKlient" element={<UmowienieWizyty/>}/>
-                    <Route path="/potwierdzenieWizyty" element={<PotwierdzenieUmowieniaWizyty/>}/>
+                    <Route path="/potwierdzenieWizyty" element={<AfterCreateWizyta/>}/>
                     <Route path="/wizyty" element={<WizytaList/>}/>
                     <Route path="/wizyty/:IdWizyta" element={<SzczegolyWizyty/>}/>
                     <Route path="/wizyty/editInfo/:IdWizyta" element={<Info/>}/>

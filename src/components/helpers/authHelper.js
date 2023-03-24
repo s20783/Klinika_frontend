@@ -1,5 +1,4 @@
 export function getCurrentUser() {
-    //console.log(localStorage.getItem('user'))
     return JSON.parse(localStorage.getItem('user'));
 }
 
@@ -20,16 +19,6 @@ export function getId() {
         return undefined
     }
 }
-
-//
-// export function getNazwisko(){
-//     const user = getCurrentUser()
-//     if(user){
-//         return user.Nazwisko
-//     } else {
-//         return undefined
-//     }
-// }
 
 export function isAuthenticated() {
     const user = getCurrentUser()
@@ -55,17 +44,6 @@ export function isWeterynarz() {
         return false
     }
 }
-
-// export function isAuthenticated2(id) {
-//     const user = getCurrentUser()
-//     if(!user) {
-//         return false
-//     }else if(user.Rola === 'Admin'){
-//         return true
-//     } else if(user.id == id) {
-//         return true
-//     }
-// }
 
 export function isAdmin() {
     const user = getCurrentUser()

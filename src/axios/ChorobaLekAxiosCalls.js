@@ -1,4 +1,4 @@
-import api from "./Api";
+import api from "./AuthApi";
 import axios from "axios";
 
 export async function addChorobaLek(IdChoroba, IdLek, source) {

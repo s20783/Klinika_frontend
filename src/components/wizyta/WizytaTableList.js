@@ -1,21 +1,18 @@
 import {Link} from "react-router-dom";
-import {getCurrentUser, isKlient, isWeterynarz} from "../other/authHelper";
-import {getFormattedDateWithHour} from "../other/dateFormat";
+import {isWeterynarz} from "../helpers/authHelper";
+import {getFormattedDateWithHour} from "../helpers/dateFormat";
 import {useTranslation} from "react-i18next";
 
 function WizytaTableList(props) {
     const {t} = useTranslation();
     const list = props.wizyty
-    var idVet = props.idVet
-
+    const idVet = props.idVet;
 
     return (
         <div>
             <div className="relative overflow-x-auto shadow-xl sm:rounded-lg mb-6">
-                {list.length !== 0 &&
                     <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
-                        <thead
-                            className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                        <thead className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.startDate")}</th>
                             <th scope="col" className="text-center px-6 py-3">{t("wizyta.table.patient")}</th>
@@ -29,15 +26,12 @@ function WizytaTableList(props) {
                         {list.map(x => (
                             <tr className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                 key={x.IdWizyta}>
-
                                 <td className="text-center px-6 py-4">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
                                 <td className="text-center px-6 py-2">{x.Pacjent != null ? x.Pacjent : "-"}</td>
                                 <td className="text-center px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-"} </td>
                                 <td className="text-center px-6 py-2">{t("wizyta.status." + x.Status)}</td>
                                 <td className="text-center px-6 py-2">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
-
                                 <td className="px-6 py-1">
-                                    <div className="list-actions">
                                         <div className=" flex">
                                             <Link to={`/wizyty/${x.IdWizyta}`}
                                                   className="list-actions-button-details flex-1">
@@ -82,18 +76,14 @@ function WizytaTableList(props) {
                                                     </svg>
                                                 </Link>
                                             }
-
                                         </div>
-                                    </div>
                                 </td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
-                }
             </div>
         </div>
-
     )
 }
 

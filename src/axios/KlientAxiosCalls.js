@@ -1,9 +1,9 @@
-import api from "./Api";
+import authApi from "./AuthApi";
 import axios from "axios";
-
+import api from "./Api";
 
 export function getKlientList(source) {
-    return api.get('/Klient', {
+    return authApi.get('/Klient', {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -15,7 +15,7 @@ export function getKlientList(source) {
 }
 
 export function getKlientDetails(Id, source) {
-    return api.get(`/Klient/${Id}`,{
+    return authApi.get(`/Klient/${Id}`,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -25,9 +25,10 @@ export function getKlientDetails(Id, source) {
         }
     });
 }
+
 export async function addKlient(klient,source) {
     const klientString = JSON.stringify(klient)
-    await api.post('/Klient/Klinika', klientString,{
+    await authApi.post('/Klient/Klinika', klientString,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -40,14 +41,7 @@ export async function addKlient(klient,source) {
 
 export async function registerCall(user,source) {
     const userString = JSON.stringify(user)
-    const axiosInstance = axios.create({
-        baseURL: 'https://petmedapi.azurewebsites.net/api',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-
-    await axiosInstance.post('/Klient', userString, {
+    await api.post('/Klient', userString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -60,8 +54,9 @@ export async function registerCall(user,source) {
         }
     })
 }
+
 export function deleteKlientKonto(source) {
-    return api.delete(`/Klient`,{
+    return authApi.delete(`/Klient`,{
         cancelToken: source.token
     }).then((response) => {
         console.log(response)
@@ -75,8 +70,9 @@ export function deleteKlientKonto(source) {
         }
     });
 }
+
 export function deleteKlientKontoByAdmin(id,source){
-    return api.delete(`/Klient/admin/${id}`,{
+    return authApi.delete(`/Klient/admin/${id}`,{
         cancelToken: source.token
     }).then((response) => {
         console.log(response)

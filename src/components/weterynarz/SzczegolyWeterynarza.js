@@ -8,7 +8,7 @@ import {
 } from "../../axios/WeterynarzSpecjalizajcaAziosCalls";
 
 import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
-import {getFormattedDate} from "../other/dateFormat";
+import {getFormattedDate} from "../helpers/dateFormat";
 import {Link} from "react-router-dom";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
 import {getWeterynarzSpecjalizacjaList} from "../../axios/WeterynarzSpecjalizajcaAziosCalls";

@@ -3,7 +3,7 @@ import WizytaTableList from "../wizyta/WizytaTableList";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getKlientWizytaList} from "../../axios/WizytaAxiosCalls";
-import {getCurrentUser} from "../other/authHelper";
+import {getCurrentUser} from "../helpers/authHelper";
 import axios from "axios";
 let CancelToken
 let source

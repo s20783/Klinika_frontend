@@ -1,16 +1,10 @@
+import authApi from "./AuthApi";
 import api from "./Api";
 import axios from "axios";
 
 export async function loginCall(user,source) {
     const userString = JSON.stringify(user)
-    const axiosInstance = axios.create({
-        baseURL: 'https://petmedapi.azurewebsites.net/api',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-
-    return axiosInstance.post('/Konto/login', userString,{
+    return api.post('/Konto/login', userString,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -24,7 +18,7 @@ export async function loginCall(user,source) {
 }
 
 export function getKontoData(source) {
-    return api.get('/Konto',{
+    return authApi.get('/Konto',{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -37,7 +31,7 @@ export function getKontoData(source) {
 
 export async function changePassword(user,source) {
     const userString = JSON.stringify(user)
-    await api.put('/Konto/password', userString,{
+    await authApi.put('/Konto/password', userString,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -52,7 +46,7 @@ export async function changePassword(user,source) {
 
 export async function changeDaneKonta(user, source) {
     const userString = JSON.stringify(user)
-    return await api.put('/Konto', userString,{
+    return await authApi.put('/Konto', userString,{
         cancelToken: source.token
     }).then((response) => {
         return response

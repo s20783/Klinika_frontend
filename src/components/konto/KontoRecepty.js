@@ -22,9 +22,7 @@ class KontoRecepty extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        const {navigate} = this.props;
         try {
-
             await getMojeRecepty(source).then((res) => {
                 if (res) {
                     console.log(res.data)
@@ -38,11 +36,13 @@ class KontoRecepty extends React.Component {
             console.log(error)
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     render() {
         const {error, isLoaded, recepty} = this.state
         let content;
@@ -67,7 +67,7 @@ class KontoRecepty extends React.Component {
                                 <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"/>
                             </div>
                             <div className="flex flex-wrap">
-                                <div className="w-full p-6">
+                                <div className="w-full">
                                     <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
                                         {t("recepta.title1")}
                                     </h3>
