@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getLekList(source) {
-    return api.get('/Lek', {
+export function getLekList(searchWord, page, source) {
+    return api.get(`/Lek?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -12,6 +12,7 @@ export function getLekList(source) {
         }
     })
 }
+
 export function getOnlyLekList(source) {
     return api.get(`/Lek/lekOnly`, {
         cancelToken: source.token
@@ -23,6 +24,7 @@ export function getOnlyLekList(source) {
         }
     })
 }
+
 export function getLekDetails(Id,source) {
     return api.get(`/Lek/${Id}`, {
         cancelToken: source.token
@@ -60,6 +62,7 @@ export async function updateLek(lek, Id,source) {
         }
     })
 }
+
 export async function deleteLek(Id,source) {
     await api.delete(`/Lek/${Id}`, {
         cancelToken: source.token

@@ -12,6 +12,7 @@ export function getReceptaDetails(Id,source) {
         }
     })
 }
+
 export async function addRecepta(Id, zalecenia,source) {
     await api.post(`/Recepta?ID_Wizyta=${Id}&Zalecenia=${zalecenia}`, {
         cancelToken: source.token
@@ -35,6 +36,7 @@ export async function updateRecepta(Id, zalecenia,source) {
         }
     })
 }
+
 export async function deleteRecepta(Id,source) {
     await api.delete(`/Recepta/${Id}`, {
         cancelToken: source.token
@@ -59,6 +61,7 @@ export function getReceptaLeki(Id,source) {
         }
     })
 }
+
 export async function addReceptaLek(idRecepta, idLek, ilosc,source) {
     await api.post(`/ReceptaLek?ID_Recepta=${idRecepta}&ID_Lek=${idLek}&Ilosc=${ilosc}`, {
         cancelToken: source.token
@@ -70,6 +73,7 @@ export async function addReceptaLek(idRecepta, idLek, ilosc,source) {
         }
     })
 }
+
 export async function deleteReceptaLek(idRecepta, idLek,source) {
     await api.delete(`/ReceptaLek/${idRecepta}/${idLek}`, {
         cancelToken: source.token

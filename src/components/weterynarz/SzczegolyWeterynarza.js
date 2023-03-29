@@ -6,14 +6,12 @@ import {
     addWeterynarzSpecjalizacja,
     deleteWeterynarzSpecjalizacja,
 } from "../../axios/WeterynarzSpecjalizajcaAziosCalls";
-
 import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
 import {getFormattedDate} from "../helpers/dateFormat";
 import {Link} from "react-router-dom";
 import SzczegolyVetMenu from "../fragments/SzczegolyVetMenu";
 import {getWeterynarzSpecjalizacjaList} from "../../axios/WeterynarzSpecjalizajcaAziosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 class SzczegolyWeterynarza extends React.Component {
@@ -34,9 +32,7 @@ class SzczegolyWeterynarza extends React.Component {
             idWeterynarz: paramsIdWeterynarz,
             error: '',
             isLoaded: false,
-            notice: '',
             urlopy: []
-
         }
     }
 
@@ -47,7 +43,6 @@ class SzczegolyWeterynarza extends React.Component {
         try {
             await getWeterynarzDetails(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         data: res.data
@@ -56,7 +51,6 @@ class SzczegolyWeterynarza extends React.Component {
             })
             await getWeterynarzSpecjalizacjaList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         specjalizacje: res.data
@@ -75,13 +69,11 @@ class SzczegolyWeterynarza extends React.Component {
     async showSelect() {
         if (this.state.specjalizacje1.length === 0) {
             try {
-
-                await getSpecjalizacjaList(source).then((res) => {
+                await getSpecjalizacjaList("", 1, source).then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
-                            specjalizacje1: res.data
+                            specjalizacje1: res.data.Items
                         });
                     }
                 })
@@ -113,11 +105,9 @@ class SzczegolyWeterynarza extends React.Component {
                 errors1: errors,
             })
         }
-
     }
 
     deleteSpec = async (idSpec) => {
-
         const {navigate} = this.props;
         try {
             await deleteWeterynarzSpecjalizacja(idSpec, this.state.idWeterynarz, source)
@@ -173,7 +163,6 @@ class SzczegolyWeterynarza extends React.Component {
         const isValid = this.validateForm()
 
         if (isValid) {
-
             try {
                 await addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz,source)
                 await navigate(0, {replace: true});
@@ -209,77 +198,77 @@ class SzczegolyWeterynarza extends React.Component {
         const {data, idWeterynarz, specjalizacje, specjalizacje1, data1, errors1} = this.state
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                 <div className="w-full lg:w-1/6 xs:px-6 text-xl text-gray-800 leading-normal">
                     <SzczegolyVetMenu idVet={idWeterynarz}/>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.firstName')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 disabled name="Imie" id="Imie" type="text" value={data.Imie} placeholder=""/>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.lastName')}
                             </label>
                             <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
                                 disabled placeholder=""/>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.phoneNumber')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
                                 disabled value={data.NumerTelefonu} placeholder=""/>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.email')}
                             </label>
                             <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 disabled name="Email" id="Email" type="text" value={data.Email} placeholder=""/>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.birthDate')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
                                 disabled value={getFormattedDate(data.DataUrodzenia)} placeholder=""/>
 
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.salary')}
                             </label>
                             <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 disabled name="Pensja" id="Pensja" type="number" value={data.Pensja} placeholder=""/>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6  ">
-                        <div class="w-full md:w-1/3 px-3 mb-6  md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                    <div className="flex flex-wrap -mx-3 mb-6  ">
+                        <div className="w-full md:w-1/3 px-3 mb-6  md:mb-0">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('weterynarz.fields.employmentDate')}
                             </label>
                             <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataZatrudnienia" id="DataZatrudnienia" type="text"
                                 disabled value={getFormattedDate(data.DataZatrudnienia)} placeholder=""/>
                         </div>
@@ -357,7 +346,7 @@ class SzczegolyWeterynarza extends React.Component {
                         </div>
                     }
                     <div className="flex flex-wrap mb-6 mt-4  ">
-                        <div class="w-full">
+                        <div className="w-full">
                             <select name="IdSpecjalizacja" id="spec-content" onChange={this.handleChange}
                                     className="form-select hidden block w-full focus:bg-white">
                                 <option value="" >{t('specjalizacja.selectSpecialization')}</option>

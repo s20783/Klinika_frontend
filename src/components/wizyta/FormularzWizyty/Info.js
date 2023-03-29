@@ -157,10 +157,9 @@ class Info extends React.Component {
         const {t} = this.props;
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <FormularzWizytaMenu idWizyta={idWizyta}/>
-
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -189,71 +188,71 @@ class Info extends React.Component {
                             </div>
                         </section>
 
-                        <div class="flex flex-wrap -mx-3 mb-4 border-b">
-                            <div class="w-full px-3">
-                                <label class="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                        <div className="flex flex-wrap -mx-3 mb-4 border-b">
+                            <div className="w-full px-3">
+                                <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
                                     {t('wizyta.table.vet')}
                                 </label>
                                 <input
-                                    class=" shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200  text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
+                                    className=" shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200  text-gray-700 border border-gray-200 rounded py-1 px-4 mb-6 leading-tight focus:outline-none focus:bg-white "
                                     name="Nazwa" id="Nazwa" type="text" value={wizyta.Weterynarz}
                                     disabled placeholder=""/>
                             </div>
                         </div>
 
-                        <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                            <div class="w-full md:w-2/6 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2">
+                        <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2">
                                     {t('wizyta.table.startDate')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
+                                    className="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
                                     name="DataRozpoczecia" id="DataRozpoczecia" type="text"
                                     value={wizyta.DataRozpoczecia != null ? getFormattedDateWithHour(wizyta.DataRozpoczecia) : "-"}
                                     placeholder="" disabled/>
                             </div>
-                            <div class="w-full md:w-2/6 px-3 ml-8">
-                                <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2"
+                            <div className="w-full md:w-2/6 px-3 ml-8">
+                                <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2"
                                        form="grid-last-name">
                                     {t('wizyta.table.endDate')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="DataZakonczenia" id="DataZakonczenia" type="text"
                                     value={wizyta.DataZakonczenia != null ? getFormattedDateWithHour(wizyta.DataZakonczenia) : "-"}
                                     placeholder="" disabled/>
                             </div>
                         </div>
-                        <div class=" mb-6 border-b">
-                            <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
+                        <div className=" mb-6 border-b">
+                            <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
                                 {t("wizyta.table.description")}
                             </label>
-                            <div class="md:w-3/4 mt-5">
-                          <textarea class="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Opis"
+                            <div className="md:w-3/4 mt-5">
+                          <textarea className="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Opis"
                                     name="Opis"
                                     value={data.Opis} rows="5" onChange={this.handleChange}/>
                             </div>
                             <span className="errors-text2 my-6">{errors.Opis}</span>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                            <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                        <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('wizyta.table.clientNote')}
                                 </label>
-                                <textarea class="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Notatka"
+                                <textarea className="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Notatka"
                                           name="Notatka"
                                           value={wizyta.NotatkaKlient} rows="5"
                                           disabled/>
                             </div>
-                            <div class="w-full md:w-1/3 px-3 mb-6 mt-6 ml-14 md:mb-0">
+                            <div className="w-full md:w-1/3 px-3 mb-6 mt-6 ml-14 md:mb-0">
                                 <div className=" mb-6">
-                                    <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                    <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                            form="grid-city">
                                         {t('wizyta.table.isPaid')}
                                     </label>
                                     {wizyta.CzyOplacona === true &&
-                                        <svg class="h-8 w-8 text-black mb-5 shadow-xl " width="24" height="24"
+                                        <svg className="h-8 w-8 text-black mb-5 shadow-xl " width="24" height="24"
                                              viewBox="0 0 24 24"
                                              stroke="currentColor" fill="none" stroke-linecap="round"
                                              strokeLinejoin="round">
@@ -261,7 +260,7 @@ class Info extends React.Component {
                                             <path d="M5 12l5 5l10 -10"/>
                                         </svg>}
                                     {wizyta.CzyOplacona === false &&
-                                        <svg class="h-8 w-8 text-black mb-5 shadow-xl" fill="none" viewBox="0 0 24 24"
+                                        <svg className="h-8 w-8 text-black mb-5 shadow-xl" fill="none" viewBox="0 0 24 24"
                                              stroke="currentColor">
                                             <path stroke-linecap="round" strokeLinejoin="round"
                                                   d="M6 18L18 6M6 6l12 12"/>
@@ -270,14 +269,14 @@ class Info extends React.Component {
                             </div>
                         </div>
 
-                        <div class="flex flex-wrap  mb-6 ">
-                            <div class="w-full md:w-2/6 px-3 ">
-                                <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2"
+                        <div className="flex flex-wrap  mb-6 ">
+                            <div className="w-full md:w-2/6 px-3 ">
+                                <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2"
                                        form="grid-last-name">
                                     {t('wizyta.table.status')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Status" id="Status" type="text"
                                     value={t('wizyta.status.' + wizyta.Status)} placeholder=""
                                     disabled/>
@@ -300,15 +299,15 @@ class Info extends React.Component {
                                 </div>
                             }
                         </div>
-                    <div className=" md:flex mb-6 mt-8 ">
+                    <div className="md:flex mb-6 mt-8">
                         <div className="flex pb-3">
                             <button
-                                className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                 type="button">
                                 {t("button.back")}
                             </button>
                             <button onClick={() => this.updateWizyta()}
-                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="ml-4 shadow-lg bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 {t("button.confirm")}
                             </button>
                         </div>
@@ -321,7 +320,6 @@ class Info extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

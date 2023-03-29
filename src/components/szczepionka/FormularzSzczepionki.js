@@ -235,7 +235,7 @@ class FormularzSzczepionki extends React.Component {
                                     {t('szczepionka.fields.periodOfValidity')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="OkresWaznosci" id="OkresWaznosci" type="number" value={data.OkresWaznosci}
                                     onChange={this.handleChange} placeholder=""/>
                                 <span id="errorOkresWaznosci" className="errors-text2 mb-4 ">{errors.OkresWaznosci}</span>
@@ -246,7 +246,7 @@ class FormularzSzczepionki extends React.Component {
                                     {t('szczepionka.fields.manufacturer')}
                                 </label>
                                 <input
-                                    className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Producent" id="Producent" type="text" value={data.Producent} placeholder=""
                                     onChange={this.handleChange}/>
                                 <span id="errorProducent" className="errors-text2 mb-4 ">{errors.Producent}</span>

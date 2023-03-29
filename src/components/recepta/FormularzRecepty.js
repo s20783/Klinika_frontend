@@ -17,13 +17,10 @@ let source
 class FormularzRecepty extends React.Component {
     constructor(props) {
         super(props);
-
         const paramsIdRecepta = this.props.params.IdRecepta
         const paramsTyp = this.props.params.typ
         const currentFormMode = paramsTyp === 'edit' ? formMode.EDIT : formMode.NEW
         const currentReceptaForm = paramsTyp !== 'add'
-
-        console.log(currentFormMode)
 
         this.state = {
             data: {
@@ -43,7 +40,6 @@ class FormularzRecepty extends React.Component {
             leki: [],
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode,
             czyDodana: currentReceptaForm
         }
@@ -83,12 +79,12 @@ class FormularzRecepty extends React.Component {
             console.log(error)
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
-
 
     validateForm = () => {
         const data = this.state.data
@@ -137,7 +133,6 @@ class FormularzRecepty extends React.Component {
     deleteReceptaLek = async (id) => {
         const {navigate} = this.props;
         const dane = {...this.state}
-
         try {
             await deleteReceptaLek(dane.idRecepta, id, source)
             navigate(0, {replace: true});
@@ -150,10 +145,8 @@ class FormularzRecepty extends React.Component {
     async showSelect() {
         if (this.state.leki.length === 0) {
             try {
-
                 await getOnlyLekList(source).then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             leki: res.data
@@ -173,15 +166,12 @@ class FormularzRecepty extends React.Component {
             helpDiv.classList.remove("hidden");
             helpDiv1.classList.remove("hidden");
             helpDiv2.classList.remove("hidden");
-
-
         } else {
             helpDiv.classList.add("hidden");
             helpDiv1.classList.add("hidden");
             helpDiv2.classList.add("hidden");
 
             const data = {...this.state.data}
-            console.log(data)
             data['Lek'] = ''
             data['Ilosc'] = ''
             this.setState({
@@ -189,14 +179,12 @@ class FormularzRecepty extends React.Component {
             })
 
             const errors = {...this.state.errors}
-            console.log(errors)
             errors['Lek'] = ''
             errors['Ilosc'] = ''
             this.setState({
                 errors: errors
             })
         }
-
     }
 
     handleChange = (event) => {
@@ -244,7 +232,6 @@ class FormularzRecepty extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -264,7 +251,6 @@ class FormularzRecepty extends React.Component {
             } catch (error) {
                 console.log(error)
             }
-
         }
         else {
             this.setState({
@@ -288,9 +274,9 @@ class FormularzRecepty extends React.Component {
         const {navigate} = this.props
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('recepta.writingPrescription')}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('recepta.writingPrescription')}</p>
                 </div>
                 <div
                     className=" lg:w-5/6 w-full p-8 mt-6 mb-8 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -301,7 +287,6 @@ class FormularzRecepty extends React.Component {
 
                     <div
                         className="border-4 border-blue-200 h-fit ml-3 shadow-2xl rounded-md md:mr-20 mb-12">
-
                         <div className="w-full relative ">
                             <h2 className=" w-full  my-12 mb-5 md:ml-4 text-lg font-bold leading-tight text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
@@ -372,11 +357,8 @@ class FormularzRecepty extends React.Component {
                                 </table>
                             </div>
                         }
-
-
                         <div className="flex flex-wrap -mx-3 mb-6 ">
                             <div className="w-full md:w-4/6 px-3 mb-6 mt-6 md:mb-0">
-
                                 <select name="Lek" id="spec-content" onChange={this.handleChange}
                                         className="shadow-xl form-select ml-3 md:w-full w-2/3 focus:bg-white hidden">
                                     <option value="">Wybierz lek</option>
@@ -390,9 +372,7 @@ class FormularzRecepty extends React.Component {
                                 </select>
                                 <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.Lek}</span>
                             </div>
-
                             <div className="w-1/3 md:w-1/6 px-3 mb-6 mt-6 md:mb-0 ml-12">
-
                                 <input
                                     className="shadow-xl hidden form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:border-blue-600 "
                                     name="Ilosc" id="spec-content1" type="number" value={data.Ilosc} placeholder="Ilosc"
@@ -422,7 +402,6 @@ class FormularzRecepty extends React.Component {
                                   value={data.Zalecenia} rows="6"
                         />
                         <span id="errorZalecenia" className="errors-text2 mb-4 ">{errors.Zalecenia}</span>
-
                     </div>
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">

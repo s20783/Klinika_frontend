@@ -2,9 +2,8 @@ import React from "react";
 import KontoMenu from "../fragments/KontoMenu";
 import {withTranslation} from "react-i18next";
 import {getMojeRecepty} from "../../axios/ReceptaAxiosCalls";
-import ReceptaTableList from "../recepta/ReceptaTableList";
+import ReceptaListTable from "../recepta/ReceptaListTable";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 let CancelToken
 let source
 class KontoRecepty extends React.Component {
@@ -13,7 +12,6 @@ class KontoRecepty extends React.Component {
         this.state = {
             isLoaded: false,
             error: '',
-            message: '',
             user: '',
             recepty: []
         }
@@ -53,16 +51,16 @@ class KontoRecepty extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <ReceptaTableList recepty={recepty}/>
+            content = <ReceptaListTable recepty={recepty}/>
         }
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3 mb-3">
+            <div className="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3 mb-3">
                 <KontoMenu/>
                 <div
-                    class="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                    <section class="bg-white-100 border-b">
-                        <div class="container max-w-5xl mx-auto m-0">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    <section className="bg-white-100 border-b">
+                        <div className="container max-w-5xl mx-auto m-0">
                             <div className="w-full mb-4">
                                 <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"/>
                             </div>
@@ -82,15 +80,5 @@ class KontoRecepty extends React.Component {
         )
     }
 }
-
-// const withRouter = WrappedComponent => props => {
-//     const params = useParams();
-//     return (
-//         <WrappedComponent
-//             {...props}
-//             params={params}
-//         />
-//     );
-// };
 
 export default withTranslation()(KontoRecepty);

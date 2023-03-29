@@ -44,14 +44,12 @@
     "weight": "To pole musi być liczbą z przedziału od 0 do 10 000",
     "quantity": "To pole musi być liczbą z przedziału od 0 do 1000",
     "quantity1": "To pole musi być liczbą z przedziału od 0 do 500"
-
   },
   "errors": {
     "Incorrect": "Niepoprawne hasło lub login",
     "Not unique": "Ta nazwa jest już zajęta",
     "Incorrect password": "Niepoprawne hasło",
     "Account blocked": "Konto jest zablokowane"
-
   },
   "button": {
     "next": "Dalej",
@@ -149,7 +147,7 @@
     "forgotPassword": "Nie pamiętasz hasła?",
     "changeData": "Zmiana danych konta",
     "login": "Nazwa użytkownika",
-    "deletingAccont": "Czy na pewno chcesz usunąc konto?",
+    "deletingAccont": "Czy na pewno chcesz usunąć konto?",
     "deleteAccont": "Usuń konto",
     "button": {
       "changeContactData": "Zmień dane kontaktowe",
@@ -210,7 +208,7 @@
     "editPatient": "Edycja pacjenta",
     "detailsPatient": "Szczegóły pacjenta",
     "selectOwner": "Wybierz właściciela",
-    "deletingPatient": "Czy na pewno chcesz usunąc pacjenta?",
+    "deletingPatient": "Czy na pewno chcesz usunąć pacjenta?",
     "deletePatient": "Usuń pacjenta",
     "button": {
       "addPatient": "Dodaj pacjenta"
@@ -258,7 +256,7 @@
     "title": "Klienci",
     "addNewClient": "Dodanie nowego klienta",
     "detailsClient": "Szczegóły klienta",
-    "deletingClient": "Czy na pewno chcesz usunąc konto klienta?",
+    "deletingClient": "Czy na pewno chcesz usunąć konto klienta?",
     "deleteClient": "Usuń konto klienta",
     "button": {
       "addClient": "Dodaj klienta"
@@ -278,7 +276,7 @@
     "editSpecialization": "Edycja specjalizacji",
     "deletingSpecialization": "Czy na pewno chcesz usunąc specjalizacje?",
     "deleteSpecialization": "Usuń specjalizacje",
-    "addDescription": "Dodaj opis . . .",
+    "addDescription": "Dodaj opis",
     "selectSpecialization": "Wybierz specjalizacje",
     "button": {
       "addSpecialization": "Dodaj specjalizacje"
@@ -290,14 +288,14 @@
   },
   "usluga": {
     "title": "Usługi",
-    "addNewService": "Dodanie nowej uslugi",
-    "editService": "Edycja uslugi",
-    "deletingService": "Czy na pewno chcesz usunąc usluge?",
-    "deleteService": "Usuń usluge",
-    "selectService": "Wyberz usluge",
-    "addDescription": "Dodaj opis . . .",
+    "addNewService": "Dodanie nowej usługi",
+    "editService": "Edycja usługi",
+    "deletingService": "Czy na pewno chcesz usunąć usługę?",
+    "deleteService": "Usuń usługę",
+    "selectService": "Wybierz usługę",
+    "addDescription": "Dodaj opis",
     "button": {
-      "addService": "Dodaj usluge"
+      "addService": "Dodaj usługę"
     },
     "fields": {
       "name": "Nazwa",
@@ -317,9 +315,9 @@
     "title": "Choroby",
     "addNewDisease": "Dodanie nowej choroby",
     "editDisease": "Edycja choroby",
-    "deletingDisease": "Czy na pewno chcesz usunąc chorobe?",
+    "deletingDisease": "Czy na pewno chcesz usunąć chorobe?",
     "deleteDisease": "Usuń chorobe",
-    "addDescription": "Dodaj opis . . .",
+    "addDescription": "Dodaj opis",
     "selectDisease": "Wybierz chorobe",
     "button": {
       "addDisease": "Dodaj chorobe"
@@ -338,8 +336,8 @@
     "editMedicine": "Edycja leku",
     "editMedicineWarehouse": "Edycja leku w magazynie",
     "selectMedicine": "Wybierz lek",
-    "deletingMedicine": "Czy na pewno chcesz usunąc lek?",
-    "deletingMedicineWarehouse": "Czy na pewno chcesz usunąc lek z magazynu?",
+    "deletingMedicine": "Czy na pewno chcesz usunąć lek?",
+    "deletingMedicineWarehouse": "Czy na pewno chcesz usunąć lek z magazynu?",
     "deleteMedicine": "Usuń lek",
     "button": {
       "addMedicine": "Dodaj lek",
@@ -362,9 +360,9 @@
       "addDefault": " Dodaj domyślne",
       "change": "Zmień"
     },
-    "deletingWorkingHour": "Czy na pewno chcesz usunąc godzine pracy?",
-    "deleteWorkingHour": "Usuń godzine pracy",
-    "addingWorkingHour": "Czy chcesz dodać godizny pracy dla weterynarza?",
+    "deletingWorkingHour": "Czy na pewno chcesz usunąć godziny pracy?",
+    "deleteWorkingHour": "Usuń godziny pracy",
+    "addingWorkingHour": "Czy chcesz dodać godziny pracy dla weterynarza?",
     "addWorkingHour": "Dodaj godziny pracy"
   },
 
@@ -399,7 +397,7 @@
     "button": {
       "addDefault": " Dodaj domyślne"
     },
-    "deletingVacation": "Czy na pewno chcesz usunąc urlop?",
+    "deletingVacation": "Czy na pewno chcesz usunąć urlop?",
     "deleteVacation": "Usuń urlop",
     "fields": {
       "date": "Data"
@@ -409,12 +407,12 @@
     "title": "Szczepionki",
     "addNewVaccine": "Dodanie nowej szczepionki",
     "editVaccine": "Edycja szczepionki",
-    "deletingVaccine": "Czy na pewno chcesz usunąć szczepionke?",
+    "deletingVaccine": "Czy na pewno chcesz usunąć szczepionkę?",
     "deleteVaccine": "Usuń szczepionke",
-    "addApplication": "Dodaj zastosowanie . . .",
+    "addApplication": "Dodaj zastosowanie ",
     "selectVaccine": "Wybierz szczepionke",
     "button": {
-      "addVaccine": "Dodaj szczepionke"
+      "addVaccine": "Dodaj szczepionkę"
     },
     "fields": {
       "name": "Nazwa",
@@ -428,8 +426,8 @@
     "title": "Szczepienia",
     "addVaccination": "Dodanie szczepienia",
     "editVaccination": "Edycja szczepienia",
-    "selectVaccine": "Wybierz szczepionke",
-    "deletingVaccination": "Czy na pewno chcesz usunąc szczepienie?",
+    "selectVaccine": "Wybierz szczepionkę",
+    "deletingVaccination": "Czy na pewno chcesz usunąć szczepienie?",
     "deleteVaccination": "Usuń szczepienie",
     "button": {
       "addVaccination": "Dodaj szczepienie"
@@ -439,7 +437,7 @@
       "vaccine": "Szczepionka",
       "application": "Zastosowanie",
       "date": "Data",
-      "periodOfValidity": "Okres waznosci",
+      "periodOfValidity": "Okres ważnosci",
       "dose": "Dawka"
     }
   },
@@ -448,16 +446,14 @@
     "title1": "Recepty",
     "prescriptionDetails": "Szczegóły recepty",
     "writingPrescription": "Wypisanie recepty",
-    "deletingPrescription": "Czy na pewno chcesz usunąc recepte?",
-    "deletePrescription": "Usuń recepte",
+    "deletingPrescription": "Czy na pewno chcesz usunąć recepte?",
+    "deletePrescription": "Usuń receptę",
     "fields": {
       "recommendations": "Zalecenia",
       "medicines": "Leki",
       "patient": "Pacjent",
       "date":"Data wypisania",
       "vet": "Weterynarz"
-
     }
   }
-
 }

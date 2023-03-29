@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getPacjentList(source) {
-    return api.get('/Pacjent', {
+export function getPacjentList(searchWord, page, source) {
+    return api.get(`/Pacjent?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -10,10 +10,6 @@ export function getPacjentList(source) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
         }
-        else {
-            console.log(thrown)
-        }
-
     })
 }
 

@@ -5,7 +5,6 @@ import KontoMenu from "../fragments/KontoMenu";
 import axios from "axios";
 import {withTranslation} from "react-i18next";
 
-
 let CancelToken
 let source
 
@@ -17,8 +16,7 @@ class KontoPacjenci extends React.Component {
             error: '',
             message: '',
             user: '',
-            pacjenci: [],
-            notice: ''
+            pacjenci: []
         }
     }
 
@@ -30,7 +28,6 @@ class KontoPacjenci extends React.Component {
             await getKlientPacjentList2(source)
                 .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             pacjenci: res.data
@@ -41,11 +38,13 @@ class KontoPacjenci extends React.Component {
             console.log(error)
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     render() {
         const {error, isLoaded, pacjenci} = this.state
         let content;
@@ -58,7 +57,6 @@ class KontoPacjenci extends React.Component {
         } else {
             content = <PacjentKlientListTable pacjenci={pacjenci}/>
         }
-
 
         return (
             <div className="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3 mb-3">
@@ -86,15 +84,5 @@ class KontoPacjenci extends React.Component {
         )
     }
 }
-
-// const withRouter = WrappedComponent => props => {
-//     const params = useParams();
-//     return (
-//         <WrappedComponent
-//             {...props}
-//             params={params}
-//         />
-//     );
-// };
 
 export default withTranslation()(KontoPacjenci);

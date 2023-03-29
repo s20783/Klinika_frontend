@@ -27,11 +27,9 @@ class KontoGodzinyPracy extends React.Component {
         source = CancelToken.source();
         const {navigate} = this.props;
         try {
-
             await getKontoGodzinyPracyList(source)
                 .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             godzinyPracy: res.data
                         });
@@ -40,7 +38,6 @@ class KontoGodzinyPracy extends React.Component {
             await getKontoUrlopList(source)
                 .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             urlopy: res.data
@@ -62,11 +59,10 @@ class KontoGodzinyPracy extends React.Component {
         const {t} = this.props;
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3">
+            <div className="container w-full flex flex-wrap mx-auto px-2  lg:pt-3 mt-3">
                 <KontoMenu/>
                 <div
-                    class="w-full  lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-
+                    className="w-full  lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <div className="flex justify-between mt-8">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('godzinyPracy.title')}</h2>
@@ -187,7 +183,6 @@ class KontoGodzinyPracy extends React.Component {
                                     <tr className="relative bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                         key={x.IdUrlop}>
                                         <td className=" px-6 py-2">• {getFormattedDate(x.Dzien)}</td>
-
                                     </tr>
                                 ))}
                                 </tbody>
@@ -200,15 +195,5 @@ class KontoGodzinyPracy extends React.Component {
         )
     }
 }
-
-// const withRouter = WrappedComponent => props => {
-//     const params = useParams();
-//     return (
-//         <WrappedComponent
-//             {...props}
-//             params={params}
-//         />
-//     );
-// };
 
 export default withTranslation()(KontoGodzinyPracy);

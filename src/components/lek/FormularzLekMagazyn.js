@@ -6,15 +6,13 @@ import {checkNumberRange} from "../helpers/CheckNRange";
 import {addLekMagazyn, getLekMagazyn, updateLekMagazyn} from "../../axios/LekWMagazynieAxiosCalls";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
-import {getLekDetails} from "../../axios/LekAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
 let CancelToken
 let source
 class FormularzLekMagazyn extends React.Component {
     constructor(props) {
         super(props);
-
         const paramsIdStanLeku = this.props.params.IdStanLeku
         const paramsIdLek = this.props.params.IdLek
         const currentFormMode = paramsIdStanLeku ? formMode.EDIT : formMode.NEW
@@ -34,7 +32,6 @@ class FormularzLekMagazyn extends React.Component {
             date: new Date(),
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode
         }
     }
@@ -46,11 +43,9 @@ class FormularzLekMagazyn extends React.Component {
 
         if (this.state.formMode === formMode.EDIT) {
             try {
-
                 await getLekMagazyn(this.state.idStanLeku, source)
                     .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             data: res.data
@@ -86,7 +81,6 @@ class FormularzLekMagazyn extends React.Component {
 
     onChange = (date) => {
         const data = {...this.state.data}
-        console.log(dayjs(date).format())
         data['DataWaznosci'] = dayjs(date).format()
 
         const errorMessage = this.validateField('DataWaznosci', date)
@@ -181,14 +175,13 @@ class FormularzLekMagazyn extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('lek.addNewMedicineWarehouse') : t('lek.editMedicineWarehouse')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>
-
                         <div className="flex flex-wrap -mx-3 mb-6 border-b">
                             <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
                                 <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2">
@@ -213,7 +206,6 @@ class FormularzLekMagazyn extends React.Component {
                                 <Calendar className="mb-7 calendarForm"
                                           value={date}
                                           onClickDay={this.onChange}
-                                    //locale={language}
                                 />
                                 <span id="" className="">
                                  {data.DataWaznosci === '' || errors.DataWaznosci !== '' ?
@@ -224,15 +216,15 @@ class FormularzLekMagazyn extends React.Component {
                             </div>
                         </div>
 
-                        <div className=" md:flex mb-6 mt-8 ">
+                        <div className="md:flex mb-6 mt-8">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className="shadow-lg ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("button.confirm")}
                                 </button>
                             </div>
@@ -246,7 +238,6 @@ class FormularzLekMagazyn extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

@@ -12,12 +12,10 @@ class UsuniecieGodzinPracy extends React.Component {
         super(props);
         const paramsIdWeterynarz = this.props.params.IdOsoba
         const dzien = this.props.params.Dzien
-        console.log(paramsIdWeterynarz)
         this.state = {
             idWeterynarz: paramsIdWeterynarz,
             dzien: dzien,
-            error: '',
-            isLoaded: false,
+            isLoaded: false
         }
     }
 
@@ -53,12 +51,11 @@ class UsuniecieGodzinPracy extends React.Component {
                     <div className="modal-content py-9 px-5">
                         <p className="text-4xl mb-2 text-center font-bold">{t('godzinyPracy.deletingWorkingHour')}</p>
                         <img src="/images/znakZapytaniaPies.png" alt={"znakZapytaniaPies"}/>
-
                         <div className="flex justify-end pt-2">
                             <button onClick={() => navigate(-1)}
-                                    className="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
+                                    className="shadow-lg px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
                             <button onClick={() => this.removeGodzinyPracy(idWeterynarz, dzien)}
-                                    className="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('godzinyPracy.deleteWorkingHour')}</button>
+                                    className="shadow-lg px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('godzinyPracy.deleteWorkingHour')}</button>
                         </div>
                     </div>
                 </div>

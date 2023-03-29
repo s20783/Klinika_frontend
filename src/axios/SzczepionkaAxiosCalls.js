@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getSzczepionkaList(source) {
-    return api.get('/Szczepionka', {
+export function getSzczepionkaList(searchWord, page, source) {
+    return api.get(`/Szczepionka?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

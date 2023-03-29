@@ -12,19 +12,31 @@ class UslugaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            uslugi: []
+            data: [],
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
+        await this.getData("", 1);
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
+    getData = async (searchWord, page) => {
         try {
-            await getUslugaList(source).then((res) => {
+            await getUslugaList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
-                        uslugi: res.data
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount
                     });
                 }
             })
@@ -32,13 +44,9 @@ class UslugaList extends React.Component {
             console.log(error)
         }
     }
-    componentWillUnmount() {
-        if (source) {
-            source.cancel('Operation canceled by the user.');
-        }
-    }
+
     render() {
-        const {error, isLoaded, uslugi} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         const {t} = this.props;
         let content;
 
@@ -47,12 +55,12 @@ class UslugaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <UslugaListTable uslugi={uslugi}/>
+            content = <UslugaListTable uslugi={data} getData={this.getData} pageCount={pageCount} />
         }
 
         return (
             <main>
-                <section className="bg-gray-100 border-b  ">
+                <section className="bg-gray-100 border-b">
                     <div className="container w-full max-w-7xl  mx-auto px-1 py-8">
                         <div className="px-0.5 md:px-8 py-4 md:py-8 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">

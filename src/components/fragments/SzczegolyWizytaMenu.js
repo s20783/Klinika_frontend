@@ -8,13 +8,13 @@ function SzczegolyWizytaMenu(props) {
     const idKlient=props.idKlient
 
     return (
-        <div className="">
+        <>
             <div id="menu-content"
-                 class="w-full inset-0 mt-0 z-20">
+                 className="w-full inset-0 mt-0 z-20">
                 <Link to={ idKlient !== undefined ? `/przelozWizyte/${idWizyta}/${idKlient}` : `/przelozWizyte/${idWizyta}`}>
                     <button
                         className='shadow-xl ml-2 column-1 mb-2 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'>
-                        <div class="relative h-9 w-24  xl:w-36 ">
+                        <div className="relative h-9 w-24  xl:w-36 ">
                             <span className="absolute bottom-0 left-0  text-ml ">{t('userMenu.postpone')}
                             </span>
 
@@ -48,7 +48,7 @@ function SzczegolyWizytaMenu(props) {
                     </button>
                 </Link>
             </div>
-        </div>
+        </>
     );
 }
 

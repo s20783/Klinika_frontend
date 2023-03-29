@@ -11,9 +11,10 @@ import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {checkNumberRange} from "../helpers/CheckNRange";
 import {getFormattedDate} from "../helpers/dateFormat";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
 let CancelToken
 let source
+
 class FormularzWeterynarz extends React.Component {
     constructor(props) {
         super(props);
@@ -44,7 +45,6 @@ class FormularzWeterynarz extends React.Component {
             idWeterynarz: paramsIdWeterynarz,
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode
         }
     }
@@ -53,12 +53,9 @@ class FormularzWeterynarz extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
-
-
             try {
                 await getWeterynarzDetails(this.state.idWeterynarz, source).then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             data: res.data
@@ -76,6 +73,7 @@ class FormularzWeterynarz extends React.Component {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -176,7 +174,6 @@ class FormularzWeterynarz extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        //console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -216,9 +213,6 @@ class FormularzWeterynarz extends React.Component {
         const {navigate} = this.props;
         const dane = {...this.state}
         const isValid = this.validateForm()
-
-        console.log(dane.data)
-
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
@@ -237,156 +231,156 @@ class FormularzWeterynarz extends React.Component {
                 }
             }
         }
-
     }
 
     render() {
-        const {data, errors, date, dataUroZatr} = this.state
+        const {data, errors, dataUroZatr} = this.state
         const {t} = this.props;
         const {navigate} = this.props
         const {i18n} = this.props;
         let language = i18n.language
         const pageTitle = this.state.formMode === formMode.NEW ? t('weterynarz.addNewVet') : t('weterynarz.editVet')
 
-        return (<div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-            <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
-            </div>
-            <div
-                className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                <form onSubmit={this.handleSubmit}>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.firstName')}
-                            </label>
-                            <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Imie" id="Imie" type="text" value={data.Imie}
-                                onChange={this.handleChange} placeholder=""/>
-                            <span id="errorImie" className="errors-text2 mb-4 ">{errors.Imie}</span>
-
-                        </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.lastName')}
-                            </label>
-                            <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
-                                placeholder="" onChange={this.handleChange}/>
-                            <span id="errorNazwisko"
-                                  className="errors-text2 mb-4 ">{errors.Nazwisko}</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.phoneNumber')}
-                            </label>
-                            <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="NumerTelefonu" id="NumerTelefonu" type="text"
-                                value={data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
-                            <span id="errorNumerTelefonu"
-                                  className="errors-text2 mb-4 ">{errors.NumerTelefonu}</span>
-                        </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.email')}
-                            </label>
-                            <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Email" id="Email" type="text" value={data.Email} placeholder=""
-                                onChange={this.handleChange}/>
-                            <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Email}</span>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 ">
-                        <div class="w-full md:w-2/4  mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                            </label>
-                            <Calendar className="mb-7 calendarForm"
-                                      //value={date}
-                                      onClickDay={this.onChange}
-                                      locale={language}
-                            />
-                        </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 mt-6 md:mb-0">
-                            <div className="border-b mb-6">
+        return (
+            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+                </div>
+                <div className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    <form onSubmit={this.handleSubmit}>
+                        <div class="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                 <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
-                                    {t('weterynarz.fields.employmentDate')}
+                                    {t('weterynarz.fields.firstName')}
                                 </label>
-                                <input type="radio" class="form-radio mb-4" name="Data"
-                                       checked={dataUroZatr.Data1 === true} onChange={this.onChange1}/>
-                                <span id="" className="ml-4">
+                                <input
+                                    class="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="Imie" id="Imie" type="text" value={data.Imie}
+                                    onChange={this.handleChange} placeholder=""/>
+                                <span id="errorImie" className="errors-text2 mb-4 ">{errors.Imie}</span>
+
+                            </div>
+                            <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.lastName')}
+                                </label>
+                                <input
+                                    class="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
+                                    placeholder="" onChange={this.handleChange}/>
+                                <span id="errorNazwisko"
+                                      className="errors-text2 mb-4 ">{errors.Nazwisko}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.phoneNumber')}
+                                </label>
+                                <input
+                                    class="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="NumerTelefonu" id="NumerTelefonu" type="text"
+                                    value={data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
+                                <span id="errorNumerTelefonu"
+                                      className="errors-text2 mb-4 ">{errors.NumerTelefonu}</span>
+                            </div>
+                            <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.email')}
+                                </label>
+                                <input
+                                    class="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="Email" id="Email" type="text" value={data.Email} placeholder=""
+                                    onChange={this.handleChange}/>
+                                <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Email}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-6 ">
+                            <div class="w-full md:w-2/4  mb-6 md:mb-0">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                </label>
+                                <Calendar className="mb-7 calendarForm"
+                                          onClickDay={this.onChange}
+                                          locale={language}
+                                />
+                            </div>
+                            <div class="w-full md:w-1/3 px-3 mb-6 mt-6 md:mb-0">
+                                <div className="border-b mb-6">
+                                    <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                           form="grid-city">
+                                        {t('weterynarz.fields.employmentDate')}
+                                    </label>
+                                    <input type="radio" class="form-radio mb-4" name="Data"
+                                           checked={dataUroZatr.Data1 === true} onChange={this.onChange1}/>
+                                    <span id="" className="ml-4">
 
                                 {data.DataZatrudnienia === '' || errors.DataZatrudnienia !== '' ? '' : t('other.selectedDate') + getFormattedDate(data.DataZatrudnienia)}
                                     </span>
-                                <span id="errorData" className="errors-text2 mb-4">
+                                    <span id="errorData" className="errors-text2 mb-4">
                                     {errors.DataZatrudnienia}
                                 </span>
-                            </div>
-                            <div className="border-b mb-6 ">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                       form="grid-city">
-                                    {t('weterynarz.fields.birthDate')}
-                                </label>
-                                <input type="radio" class="form-radio mb-4" name="Data1"
-                                       checked={dataUroZatr.Data1 === false} onChange={this.onChange1}/>
-                                <span id="" className="ml-4">
+                                </div>
+                                <div className="border-b mb-6 ">
+                                    <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                           form="grid-city">
+                                        {t('weterynarz.fields.birthDate')}
+                                    </label>
+                                    <input type="radio" class="form-radio mb-4" name="Data1"
+                                           checked={dataUroZatr.Data1 === false} onChange={this.onChange1}/>
+                                    <span id="" className="ml-4">
                                 {data.DataUrodzenia === '' || errors.DataUrodzenia !== '' ? '' : t('other.selectedDate') + getFormattedDate(data.DataUrodzenia)}</span>
-                                <span id="errorData" className="errors-text2 mb-4">
+                                    <span id="errorData" className="errors-text2 mb-4">
                                     {errors.DataUrodzenia}
                                 </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 ">
-                        <div class="w-full md:w-1/3 px-3 mb-6  md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
-                                {t('weterynarz.fields.salary')}
-                            </label>
-                            <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Pensja" id="Pensja" type="number" value={data.Pensja}
-                                placeholder="" onChange={this.handleChange}/>
-                            <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Pensja}</span>
+                        <div class="flex flex-wrap -mx-3 mb-6 ">
+                            <div class="w-full md:w-1/3 px-3 mb-6  md:mb-0">
+                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.salary')}
+                                </label>
+                                <input
+                                    class="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="Pensja" id="Pensja" type="number" value={data.Pensja}
+                                    placeholder="" onChange={this.handleChange}/>
+                                <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Pensja}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className=" md:flex mb-6 mt-8 ">
-                        <div className="flex pb-3">
-                            <button onClick={() => navigate(-1)}
-                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                    type="button">
-                                {t("button.back")}
-                            </button>
-                            <button type="submit"
-                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                {t("button.confirm")}
-                            </button>
+                        <div className=" md:flex mb-6 mt-8 ">
+                            <div className="flex pb-3">
+                                <button onClick={() => navigate(-1)}
+                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        type="button">
+                                    {t("button.back")}
+                                </button>
+                                <button type="submit"
+                                        className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    {t("button.confirm")}
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>)
+        )
     }
 }
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (<WrappedComponent
         {...props}
         params={params}
     />);
 };
+
 const withNavigate = Component => props => {
     const navigate = useNavigate();
     return <Component {...props} navigate={navigate}/>;

@@ -65,7 +65,6 @@ class GodzinyPracy extends React.Component {
                 if (res) {
                     console.log(res.data)
                     res.data.map((x) => {
-                        console.log()
                         if (x.DzienTygodnia === 1) {
                             this.setState({
                                 pon: x
@@ -222,7 +221,7 @@ class GodzinyPracy extends React.Component {
         const {navigate} = this.props;
         if (this.state.idWeterynarz !== null) {
             try {
-                await addDomyslneGodzinyPracy(this.state.idWeterynarz,source)
+                await addDomyslneGodzinyPracy(this.state.idWeterynarz, source)
                 navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -243,8 +242,7 @@ class GodzinyPracy extends React.Component {
                 } catch (error) {
                     console.log(error)
                 }
-            }
-            else {
+            } else {
                 try {
                     await addGodzinyPracy(this.state.idWeterynarz, dane.data, source)
                     navigate(-1, {replace: true});
@@ -262,13 +260,12 @@ class GodzinyPracy extends React.Component {
         const {data, godzinyPracy, errors, idWeterynarz, czyEdycja, pon, wt, sr, czw, pt, sob} = this.state
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py- text-xl lg:pb-6 text-gray-700">{t('godzinyPracy.changingWorkingHour')} </p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py- text-xl lg:pb-6 text-gray-700">{t('godzinyPracy.changingWorkingHour')} </p>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-10 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-
                     <div className="flex justify-between mt-5">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('godzinyPracy.title')}</h2>
@@ -339,9 +336,9 @@ class GodzinyPracy extends React.Component {
                             </th>
                             <td className="text-center w-full flex flex-wrap my-2 mb-10">
                                 <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(wt.GodzinaRozpoczecia)} - {getFormattedHour(wt.GodzinaZakonczenia)}
-                                            </span>
+                                    <span className=' text-s '>
+                                        {getFormattedHour(wt.GodzinaRozpoczecia)} - {getFormattedHour(wt.GodzinaZakonczenia)}
+                                    </span>
                                 </div>
                             </td>
                         </tr>
@@ -364,12 +361,11 @@ class GodzinyPracy extends React.Component {
                                 }}> +
                                 </button>
                             </th>
-
                             <td className="text-center w-full flex flex-wrap my-2 mb-10">
                                 <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(sr.GodzinaRozpoczecia)} - {getFormattedHour(sr.GodzinaZakonczenia)}
-                                            </span>
+                                    <span className=' text-s '>
+                                        {getFormattedHour(sr.GodzinaRozpoczecia)} - {getFormattedHour(sr.GodzinaZakonczenia)}
+                                    </span>
                                 </div>
                             </td>
 
@@ -395,9 +391,9 @@ class GodzinyPracy extends React.Component {
                             </th>
                             <td className="text-center w-full flex flex-wrap my-2 mb-10">
                                 <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(czw.GodzinaRozpoczecia)} - {getFormattedHour(czw.GodzinaZakonczenia)}
-                                            </span>
+                                    <span className=' text-s '>
+                                        {getFormattedHour(czw.GodzinaRozpoczecia)} - {getFormattedHour(czw.GodzinaZakonczenia)}
+                                    </span>
                                 </div>
                             </td>
                         </tr>
@@ -422,9 +418,9 @@ class GodzinyPracy extends React.Component {
                             </th>
                             <td className="text-center w-full flex flex-wrap my-2 mb-10">
                                 <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(pt.GodzinaRozpoczecia)} - {getFormattedHour(pt.GodzinaZakonczenia)}
-                                            </span>
+                                    <span className=' text-s '>
+                                        {getFormattedHour(pt.GodzinaRozpoczecia)} - {getFormattedHour(pt.GodzinaZakonczenia)}
+                                    </span>
                                 </div>
                             </td>
                         </tr>
@@ -449,24 +445,21 @@ class GodzinyPracy extends React.Component {
                             </th>
                             <td className="text-center w-full flex flex-wrap my-2 mb-10">
                                 <div className="w-full">
-                                        <span className=' text-s '>
-                                                {getFormattedHour(sob.GodzinaRozpoczecia)} - {getFormattedHour(sob.GodzinaZakonczenia)}
-                                        </span>
+                                    <span className=' text-s '>
+                                        {getFormattedHour(sob.GodzinaRozpoczecia)} - {getFormattedHour(sob.GodzinaZakonczenia)}
+                                    </span>
                                 </div>
                             </td>
                         </tr>
                     </table>
 
-
                     <div className=" md:flex mb-6 mt-4  ">
                         <div className="md:w-full ">
-
                             <div className="flex flex-wrap -mx-3 mb-6 mt-4  ">
                                 <span id="spec-content5"
                                       className="hidden mt-3 ml-6 mr-4 font-bold text-l  uppercase underline">
                                     {t('harmonogram.weekdays.' + data.DzienTygodnia)} </span>
                                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-
                                     <input id="spec-content2"
                                            className="hidden form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                            name="GodzinaRozpoczecia" type="time"
@@ -495,7 +488,6 @@ class GodzinyPracy extends React.Component {
                                         <span className="text-l font-bold "> + {t('button.add')}</span>
                                         : <span className="text-l font-bold ">+ Edytuj</span>
                                     }
-
                                 </button>
                             </div>
                         </div>
@@ -504,11 +496,11 @@ class GodzinyPracy extends React.Component {
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <Link to={`/godzinyPracyWeterynarz/${idWeterynarz}`}>
-                            <button
-                                    className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                <button
+                                    className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
-                                {t("button.back")}
-                            </button>
+                                    {t("button.back")}
+                                </button>
                             </Link>
                         </div>
                     </div>
@@ -520,7 +512,6 @@ class GodzinyPracy extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

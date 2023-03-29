@@ -6,12 +6,13 @@ import {ValidateEmail} from "../helpers/ValidateEmail";
 import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {addKlient} from "../../axios/KlientAxiosCalls";
 import axios from "axios";
+
 let CancelToken
 let source
+
 class FormularzKlient extends React.Component {
     constructor(props) {
         super(props);
-
         const paramsIdKlient = this.props.params.IdOsoba
 
         this.state = {
@@ -29,8 +30,6 @@ class FormularzKlient extends React.Component {
             idKlient: paramsIdKlient,
             error: '',
             isLoaded: false,
-            notice: '',
-
         }
     }
 
@@ -106,7 +105,6 @@ class FormularzKlient extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        //console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -138,14 +136,10 @@ class FormularzKlient extends React.Component {
         const dane = {...this.state}
         const isValid = this.validateForm()
 
-        console.log(dane.data)
-
         if (isValid) {
-
             try {
                 await addKlient(dane.data, source)
                 await navigate(-1, {replace: true});
-
             } catch (error) {
                 console.log(error)
             }
@@ -157,88 +151,86 @@ class FormularzKlient extends React.Component {
         const {t} = this.props;
         const {navigate} = this.props
 
-        return (<div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-            <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('klient.addNewClient') }</p>
-            </div>
-            <div
-                className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-                <form onSubmit={this.handleSubmit}>
-                    <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.firstName')}
-                            </label>
-                            <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Imie" id="Imie" type="text" value={data.Imie}
-                                onChange={this.handleChange} placeholder=""/>
-                            <span id="errorImie" className="errors-text2 mb-4 ">{errors.Imie}</span>
+        return (
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('klient.addNewClient')}</p>
+                </div>
+                <div
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.firstName')}
+                                </label>
+                                <input
+                                    className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="Imie" id="Imie" type="text" value={data.Imie}
+                                    onChange={this.handleChange} placeholder=""/>
+                                <span id="errorImie" className="errors-text2 mb-4 ">{errors.Imie}</span>
 
+                            </div>
+                            <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                                <label className="block tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.lastName')}
+                                </label>
+                                <input
+                                    className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
+                                    placeholder="" onChange={this.handleChange}/>
+                                <span id="errorNazwisko"
+                                      className="errors-text2 mb-4 ">{errors.Nazwisko}</span>
+                            </div>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.lastName')}
-                            </label>
-                            <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
-                                placeholder="" onChange={this.handleChange}/>
-                            <span id="errorNazwisko"
-                                  className="errors-text2 mb-4 ">{errors.Nazwisko}</span>
+                        <div className="flex flex-wrap -mx-3 mb-6 ">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.phoneNumber')}
+                                </label>
+                                <input
+                                    className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="NumerTelefonu" id="NumerTelefonu" type="text"
+                                    value={data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
+                                <span id="errorNumerTelefonu"
+                                      className="errors-text2 mb-4 ">{errors.NumerTelefonu}</span>
+                            </div>
+                            <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                       form="grid-city">
+                                    {t('weterynarz.fields.email')}
+                                </label>
+                                <input
+                                    className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    name="Email" id="Email" type="text" value={data.Email} placeholder=""
+                                    onChange={this.handleChange}/>
+                                <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Email}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6 ">
-                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.phoneNumber')}
-                            </label>
-                            <input
-                                class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="NumerTelefonu" id="NumerTelefonu" type="text"
-                                value={data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
-                            <span id="errorNumerTelefonu"
-                                  className="errors-text2 mb-4 ">{errors.NumerTelefonu}</span>
+                        <div className=" md:flex mb-6 mt-8 ">
+                            <div className="flex pb-3">
+                                <button onClick={() => navigate(-1)}
+                                        className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        type="button">
+                                    {t("button.back")}
+                                </button>
+                                <button type="submit"
+                                        className=" ml-4 shadow-lg bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    {t("button.confirm")}
+                                </button>
+                            </div>
                         </div>
-                        <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
-                                   form="grid-city">
-                                {t('weterynarz.fields.email')}
-                            </label>
-                            <input
-                                class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                name="Email" id="Email" type="text" value={data.Email} placeholder=""
-                                onChange={this.handleChange}/>
-                            <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Email}</span>
-                        </div>
-                    </div>
-
-
-                    <div className=" md:flex mb-6 mt-8 ">
-                        <div className="flex pb-3">
-                            <button onClick={() => navigate(-1)}
-                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                    type="button">
-                                {t("button.back")}
-                            </button>
-                            <button type="submit"
-                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                {t("button.confirm")}
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>)
+                    </form>
+                </div>
+            </div>)
     }
 }
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (<WrappedComponent
         {...props}
         params={params}

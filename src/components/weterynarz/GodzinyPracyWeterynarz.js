@@ -20,20 +20,16 @@ class GodzinyPracyWeterynarz extends React.Component {
             error: '',
             isLoaded: false,
             urlopy: [],
-            data:'',
-            dataError:''
+            data: ''
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
         try {
-
             await getGodzinyPracyList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         godzinyPracy: res.data
@@ -41,10 +37,8 @@ class GodzinyPracyWeterynarz extends React.Component {
                 }
             })
 
-
             await getUrlopList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         urlopy: res.data
@@ -67,13 +61,12 @@ class GodzinyPracyWeterynarz extends React.Component {
         const { idWeterynarz, godzinyPracy, urlopy } = this.state
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
                 <div className="w-full lg:w-1/6 xs:px-6 text-xl text-gray-800 leading-normal">
                     <SzczegolyVetMenu idVet={idWeterynarz}/>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-
                     <div className="flex justify-between mt-5">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('godzinyPracy.title')}</h2>
@@ -95,8 +88,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                     {(godzinyPracy.length !== 0) &&
                         <table
                             className="w-full text-center flex flex-wrap text-gray-700 dark:text-gray-400">
-                            <tr></tr>
-                            <tr className="shadow-xl">
+                            <tr className="shadow-lg">
                                 <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.1")}</span>
@@ -112,7 +104,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="shadow-xl border-b-2 border-t-2">
+                            <tr className="shadow-lg">
                                 <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.2")}</span>
@@ -128,7 +120,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="shadow-xl">
+                            <tr className="shadow-lg">
                                 <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.3")}</span>
@@ -144,7 +136,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="shadow-xl border-b-2 border-t-2">
+                            <tr className="shadow-lg">
                                 <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.4")}</span>
@@ -160,7 +152,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="shadow-xl">
+                            <tr className="shadow-lg">
                                 <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.5")}</span>
@@ -176,7 +168,7 @@ class GodzinyPracyWeterynarz extends React.Component {
                                     </td>
                                 ))}
                             </tr>
-                            <tr className="border-2 shadow-xl">
+                            <tr className="shadow-lg">
                                 <th className="shadow-xl mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                                 <span
                                     className="absolute inset-0 uppercase underline">{t("harmonogram.weekdays.6")}</span>
@@ -216,8 +208,8 @@ class GodzinyPracyWeterynarz extends React.Component {
                                 {urlopy.map(x => (
                                     <tr className="relative bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                         key={x.IdUrlop}>
-                                        <td className=" px-6 py-2">• {getFormattedDate(x.Dzien)}</td>
-                                        <td className=" list-actions ">
+                                        <td className="px-6 py-2">• {getFormattedDate(x.Dzien)}</td>
+                                        <td>
                                             <div className="relative h-6 w-4/6">
                                                 <Link to={`/urlop/${idWeterynarz}/${x.IdUrlop}`}
                                                       className=" absolute inset-y-1 right-8  flex-1">
@@ -280,12 +272,11 @@ class GodzinyPracyWeterynarz extends React.Component {
                             </table>
                         </div>
                     }
-
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <Link to={`/weterynarze`}>
                                 <button
-                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                     {t("button.back")}
                                 </button>

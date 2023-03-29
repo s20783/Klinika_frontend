@@ -2,8 +2,8 @@ import authApi from "./AuthApi";
 import axios from "axios";
 import api from "./Api";
 
-export function getKlientList(source) {
-    return authApi.get('/Klient', {
+export function getKlientList(searchWord, page, source) {
+    return authApi.get(`/Klient?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

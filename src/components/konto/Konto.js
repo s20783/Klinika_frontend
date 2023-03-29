@@ -15,7 +15,6 @@ class Konto extends React.Component {
         this.state = {
             isLoaded: false,
             error: '',
-            message: '',
             user: ''
         }
     }
@@ -23,11 +22,9 @@ class Konto extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
         try {
             await getKontoData(source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         user: res.data
@@ -61,7 +58,7 @@ class Konto extends React.Component {
                                 <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"/>
                             </div>
                             <div className="flex items-center border-b">
-                                <img className="h-32 fill-current text-gray-600 hover:shadow   rounded"
+                                <img className="h-32 fill-current text-gray-600 hover:shadow rounded"
                                      src="/images/avatar_photo.jpg"
                                      alt="avatar_logo"
                                      loading="lazy"
@@ -83,7 +80,7 @@ class Konto extends React.Component {
                                         </svg>
                                         <p> {user.NumerTelefonu}</p>
                                     </label>
-                                    <label className="inline-flex items-center ml-12">
+                                    <label className="inline-flex items-center md:ml-12">
                                         <svg className="h-8 w-8 text-black mr-6" viewBox="0 0 24 24" fill="none"
                                              stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                                              strokeLinejoin="round">

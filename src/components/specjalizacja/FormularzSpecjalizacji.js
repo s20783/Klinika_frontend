@@ -5,7 +5,7 @@ import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {getSpecjalizacjaDetails, addSpecjalizacja, updateSpecjalizacja} from "../../axios/SpecjalizacjaAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
 let CancelToken
 let source
 class FormularzSpecjalizacji extends React.Component {
@@ -27,7 +27,6 @@ class FormularzSpecjalizacji extends React.Component {
             idSpecjalizacja: paramsIdSpecjalizacja,
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode
         }
     }
@@ -37,11 +36,9 @@ class FormularzSpecjalizacji extends React.Component {
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-
                 await getSpecjalizacjaDetails(this.state.idSpecjalizacja, source).
                 then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             data: res.data
@@ -94,7 +91,6 @@ class FormularzSpecjalizacji extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -150,22 +146,22 @@ class FormularzSpecjalizacji extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('specjalizacja.addNewSpecialization') : t('specjalizacja.editSpecialization')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>
-                        <section class="bg-white-100 border-b  mb-7">
-                            <div class=" flex flex-wrap md:flex mb-6 mt-4">
+                        <section className="bg-white-100 border-b  mb-7">
+                            <div className="flex flex-wrap md:flex mb-6 mt-4">
                                 <label className="block text-gray-600 font-bold md:text-left mb-3 mt-2 md:mb-0 pr-7"
                                        htmlFor="Nazwa">
                                     {t('specjalizacja.fields.name')}
                                 </label>
-                                <div class="md:w-3/5">
+                                <div className="md:w-3/5">
                                     <input
-                                        class="shadow-xl form-textarea block w-full focus:bg-white"
+                                        className="shadow-xl form-textarea block w-full focus:bg-white"
                                         name="Nazwa" id="Nazwa" type="text" value={data.Nazwa}
                                         onChange={this.handleChange} placeholder=""/>
                                 </div>
@@ -173,11 +169,11 @@ class FormularzSpecjalizacji extends React.Component {
                                     {errors.Nazwa}</span>
                             </div>
                         </section>
-                        <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
+                        <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
                             {t('specjalizacja.fields.description')}
                         </label>
-                        <div class="md:w-3/4 mt-5">
-                        <textarea class="shadow-xl form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
+                        <div className="md:w-3/4 mt-5">
+                        <textarea className="shadow-xl form-textarea block w-full focus:bg-white " id="Opis" name="Opis"
                                   placeholder={t('specjalizacja.addDescription')}
                                   rows="5" value={data.Opis} onChange={this.handleChange}/>
                         </div>

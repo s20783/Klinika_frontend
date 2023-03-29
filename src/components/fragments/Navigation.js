@@ -11,7 +11,6 @@ class Navigation extends React.Component {
         const loginLogoutButton = isAuthenticated() ?
             <div className="pr-0 flex justify-end">
                 <div className="flex relative inline-block float-right">
-
                     <div className="relative text-sm">
                         <DropdownMenu logout={this.props.handleLogout}/>
                     </div>
@@ -35,73 +34,72 @@ class Navigation extends React.Component {
                 </div>
             </>
         return (
-            <div className="relative bg-white">
-                <div className="p-4 mt-  md:py-0">
-                    <div
-                        className="flex justify-between items-center border-b-2 border-gray-400 py-6  lg:justify-start lg:space-x-5">
-                        <div className=" flex justify-start xl:flex-auto">
-                            <Link to="/">
-                                <img
-                                    className="shadow-xl"
-                                    src="/images/logo.png"
-                                    alt="logo"
-                                />
-                            </Link>
-                        </div>
-                        <nav className="flex flex-wrap  flex justify-center flex-auto ">
-                            <NavLink to="/" className="text-base pr-5  font-medium text-gray-500 hover:text-blue-400">
-                                {t('navigation.mainPage')}</NavLink>
-                            <NavLink to="/kontakt"
-                                     className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                {t('navigation.contact')}</NavLink>
-                            {isKlient() &&
-                                <NavLink to="/umowWizyte"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.appointment')}</NavLink>}
-                            {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/klienci"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.clients')}</NavLink>}
-                            {isAdmin() &&
-                                <NavLink to="/weterynarze"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.vets')}</NavLink>}
-                            {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/pacjenci"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.patients')}</NavLink>}
-                            {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/wizyty"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.visits')}</NavLink>}
-                            {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/uslugi"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.services')}</NavLink>}
-                            {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/choroby"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.disease')}</NavLink>}
-                            {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/leki"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.medicines')}</NavLink>}
-                            {(isAdmin() || isWeterynarz()) &&
-                                <NavLink to="/szczepionki"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.vaccinations')}</NavLink>}
-                            {isAdmin() &&
-                                <NavLink to="/harmonogram"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.schedule')}</NavLink>}
-                            {isAdmin() &&
-                                <NavLink to="/specjalizacje"
-                                         className="text-base px-5 font-medium text-gray-500 hover:text-blue-400">
-                                    {t('navigation.specializations')}</NavLink>}
-                        </nav>
-                        <div className=" items-center justify-end flex-auto ">
-                            {loginLogoutButton}
-                        </div>
+            <div className="bg-white">
+                <div
+                    className="md:flex md:justify-between md:items-center border-b-2 border-gray-400 px-1 md:px-4 md:pb-6 md:pt-6 lg:justify-start lg:space-x-5">
+                    <div className="flex justify-center md:justify-start xl:flex-auto my-2">
+                        <Link to="/">
+                            <img
+                                className="md:shadow-xl"
+                                src="/images/logo.png"
+                                alt="logo"
+                            />
+                        </Link>
+                    </div>
+                    <nav className="flex flex-wrap flex justify-center flex-auto text-base text-gray-600 my-2">
+                        <NavLink to="/"
+                                 className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                            {t('navigation.mainPage')}</NavLink>
+                        <NavLink to="/kontakt"
+                                 className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                            {t('navigation.contact')}</NavLink>
+                        {isKlient() &&
+                            <NavLink to="/umowWizyte"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.appointment')}</NavLink>}
+                        {(isAdmin() || isWeterynarz()) &&
+                            <NavLink to="/klienci"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.clients')}</NavLink>}
+                        {isAdmin() &&
+                            <NavLink to="/weterynarze"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.vets')}</NavLink>}
+                        {(isAdmin() || isWeterynarz()) &&
+                            <NavLink to="/pacjenci"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.patients')}</NavLink>}
+                        {(isAdmin() || isWeterynarz()) &&
+                            <NavLink to="/wizyty"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.visits')}</NavLink>}
+                        {(isAdmin() || isWeterynarz()) &&
+                            <NavLink to="/uslugi"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.services')}</NavLink>}
+                        {(isAdmin() || isWeterynarz()) &&
+                            <NavLink to="/choroby"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.disease')}</NavLink>}
+                        {(isAdmin() || isWeterynarz()) &&
+                            <NavLink to="/leki"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.medicines')}</NavLink>}
+                        {(isAdmin() || isWeterynarz()) &&
+                            <NavLink to="/szczepionki"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.vaccinations')}</NavLink>}
+                        {isAdmin() &&
+                            <NavLink to="/harmonogram"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.schedule')}</NavLink>}
+                        {isAdmin() &&
+                            <NavLink to="/specjalizacje"
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                {t('navigation.specializations')}</NavLink>}
+                    </nav>
+                    <div className="items-center justify-end flex-auto my-2">
+                        {loginLogoutButton}
                     </div>
                 </div>
             </div>

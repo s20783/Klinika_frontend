@@ -18,18 +18,17 @@ class FormularzPacjenta extends React.Component {
             idPacjent: paramsIdPacjent,
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode
         }
     }
 
     fetchKlientList = async () => {
         try {
-            await getKlientList(source).then((res) => {
+            await getKlientList("", 1, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
-                        klienci: res.data
+                        klienci: res.data.Items
                     });
                 }
             })
@@ -66,9 +65,9 @@ class FormularzPacjenta extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('pacjent.addNewPatient') : t('pacjent.editPatient')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
                 {content}
             </div>

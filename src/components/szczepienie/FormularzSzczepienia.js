@@ -3,13 +3,11 @@ import formMode from "../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getSzczepionkaList} from "../../axios/SzczepionkaAxiosCalls";
-import {CheckTextRange} from "../helpers/CheckTextRange";
 import dayjs from "dayjs";
 import Calendar from "react-calendar";
 import {addSzczepienie, getSzczepienieDetails, updateSzczepienie} from "../../axios/SzczepienieAxionCalls";
-import {getPacjentDetails} from "../../axios/PacjentAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
 let CancelToken
 let source
 class FormularzSzczepienia extends React.Component {
@@ -37,7 +35,6 @@ class FormularzSzczepienia extends React.Component {
             idPacjent: paramsIdPacjent,
             error: '',
             isLoaded: false,
-            notice: '',
             formMode: currentFormMode
         }
     }
@@ -46,7 +43,6 @@ class FormularzSzczepienia extends React.Component {
         try {
             await getSzczepionkaList(source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         szczepionki: res.data
@@ -62,26 +58,24 @@ class FormularzSzczepienia extends React.Component {
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
-         this.fetchSzczepionkiList()
+        this.fetchSzczepionkiList()
 
         if (this.state.idSzczepienie) {
              this.fetchSzczepienieDetails();
         }
-
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     fetchSzczepienieDetails = async () => {
         try{
-
-            await getSzczepienieDetails(this.state.idSzczepienie,source)
+            await getSzczepienieDetails(this.state.idSzczepienie, source)
                 .then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         data: res.data
@@ -102,16 +96,14 @@ class FormularzSzczepienia extends React.Component {
         const errors = {...this.state.errors}
         errors[name] = errorMessage
 
-        console.log(errors)
-
         this.setState({
             data: data,
             errors: errors
         })
     }
+
     onChange = (date) => {
         const data = {...this.state.data}
-        console.log(dayjs(date).format())
         data['Data'] = dayjs(date).format()
 
         const errorMessage = this.validateField('Data', date)
@@ -134,10 +126,9 @@ class FormularzSzczepienia extends React.Component {
             }
         }
         if (fieldName === 'Dawka') {
-           /* if (fieldValue < 0 || fieldValue > 999) {
+            /*if (fieldValue < 0 || fieldValue > 999) {
                 errorMessage = `Pole powinno być liczbą z przedziału od 0 do 1000.`
             }*/
-
             if (!fieldValue) {
                 errorMessage = t('validation.required')
             }
@@ -208,22 +199,16 @@ class FormularzSzczepienia extends React.Component {
         const {t, navigate} = this.props;
         const {i18n} = this.props;
         let language = i18n.language
-
         const pageTitle = this.state.formMode === formMode.NEW ? t('szczepienie.addVaccination') : t('szczepienie.editVaccination')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
-
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit} className="w-full max-w">
-
-
-
-
                         <div className="flex flex-wrap -mx-3 mb-6 border-b">
                             <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
                                 <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2">
@@ -252,10 +237,6 @@ class FormularzSzczepienia extends React.Component {
                                 <span id="errorDawka" className="errors-text2 mb-4 ">{errors.Dawka}</span>
                             </div>
                         </div>
-
-
-
-
                         <div className="flex flex-wrap -mx-3 mb-6 ">
                             <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
                                 <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
@@ -273,16 +254,15 @@ class FormularzSzczepienia extends React.Component {
                                 <span id="errorData" className="errors-text2 mb-4">{errors.Data}</span>
                             </div>
                         </div>
-
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t('button.back')}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" ml-4 shadow-lg bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t('button.confirm')}
                                 </button>
                             </div>
@@ -293,6 +273,7 @@ class FormularzSzczepienia extends React.Component {
         )
     }
 }
+
 const withNavigate = Component => props => {
     const navigate = useNavigate();
     return <Component {...props} navigate={navigate}/>;
@@ -300,7 +281,6 @@ const withNavigate = Component => props => {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

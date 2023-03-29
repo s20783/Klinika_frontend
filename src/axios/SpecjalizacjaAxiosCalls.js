@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getSpecjalizacjaList(source) {
-    return api.get('/Specjalizacja', {
+export function getSpecjalizacjaList(searchWord, page, source) {
+    return api.get(`/Specjalizacja?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

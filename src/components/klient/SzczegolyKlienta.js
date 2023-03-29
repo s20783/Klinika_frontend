@@ -29,19 +29,20 @@ class SzczegolyKlienta extends React.Component {
             wizyty: [],
             idKlient: paramsIdKlient,
             error: '',
-            idVet: ''
-            //isLoaded: false,
+            idVet: '',
+            isLoaded: false
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
         try {
             const userId = await getId()
             this.setState({
@@ -50,17 +51,14 @@ class SzczegolyKlienta extends React.Component {
             await getKlientDetails(this.state.idKlient, source)
                 .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             data: res.data
                         });
                     }
                 })
-
             await getKlientPacjentList(this.state.idKlient, source)
                 .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             pacjenci: res.data
                         });
@@ -69,14 +67,12 @@ class SzczegolyKlienta extends React.Component {
             await getKlientWizytaListForDetails(this.state.idKlient, source)
                 .then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             wizyty: res.data
                         });
                     }
                 })
-
         } catch (error) {
             console.log(error)
         }
@@ -110,7 +106,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.firstName')}
                             </label>
                             <input
-                                className="shadow-xl  form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl  form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Imie" id="Imie" type="text" value={this.state.data.Imie} disabled/>
 
                         </div>
@@ -119,7 +115,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.lastName')}
                             </label>
                             <input
-                                className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Nazwisko" id="Nazwisko" type="text" value={this.state.data.Nazwisko}
                                 disabled/>
                         </div>
@@ -130,7 +126,7 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.phoneNumber')}
                             </label>
                             <input
-                                className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="NumerTelefonu" id="NumerTelefonu" type="text"
                                 value={this.state.data.NumerTelefonu} disabled/>
 
@@ -140,18 +136,17 @@ class SzczegolyKlienta extends React.Component {
                                 {t('klient.fields.email')}
                             </label>
                             <input
-                                className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="Email" id="Email" type="text" value={this.state.data.Email} disabled/>
                         </div>
                     </div>
-
-                    <div className="flex flex-wrap -mx-3 mb-6 ">
+                    <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('klient.fields.birthDate')}
                             </label>
                             <input
-                                className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 name="DataUrodzenia" id="DataUrodzenia" type="text"
                                 value={dayjs(this.state.data.DataUrodzenia).format('YYYY-MM-DD')} disabled/>
                         </div>
@@ -159,7 +154,6 @@ class SzczegolyKlienta extends React.Component {
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t("pacjent.title")}</h2>
-
                         <div className="relative  w-1/3 ">
                            <Link to={'/dodajPacjenta'} ><button id="menu-toggle"
                                     className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
@@ -196,8 +190,8 @@ class SzczegolyKlienta extends React.Component {
                                         <td className="px-6 py-2 text-center">{x.Rasa}</td>
                                         <td className="px-6 py-2 text-center">{x.Plec}</td>
                                         <td className="px-6 py-2 text-center">{x.Agresywne === true ? "Tak" : "Nie"}</td>
-                                        <div className="list-actions py-2">
-                                            <div className=" flex">
+                                        <div className="py-2">
+                                            <div className="flex">
                                                 <Link to={`/pacjenci/details/${x.IdPacjent}`}
                                                       className="list-actions-button-details flex-1">
                                                     <svg className="list-actions-button-details flex-1"
@@ -279,7 +273,7 @@ class SzczegolyKlienta extends React.Component {
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t("wizyta.title")}</h2>
-                        <div className="relative  w-1/3 ">
+                        <div className="relative w-1/3">
                             <Link to={`/umowWizyte/${idKlient}`} >
                                 <button
                                     className="shadow-xl absolute  top-0 right-0  h-12 w-46  shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">

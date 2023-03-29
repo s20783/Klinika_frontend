@@ -2,8 +2,8 @@ import {getCurrentUser} from "../components/helpers/authHelper";
 import axios from "axios";
 
 const instance = axios.create({
-    //baseURL: 'https://petmedapi.azurewebsites.net/api'
-    baseURL: 'http://localhost:36989/api'
+    baseURL: 'https://klinika-petmedapi.azurewebsites.net/api'
+    //baseURL: 'http://localhost:36989/api'
 });
 
 instance.interceptors.request.use(

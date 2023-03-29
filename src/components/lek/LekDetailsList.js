@@ -119,7 +119,6 @@ class LekDetailsList extends React.Component {
             } catch (error) {
                 console.log(error)
             }
-
         }
     }
 
@@ -192,7 +191,6 @@ class LekDetailsList extends React.Component {
                                                 className="text-center px-6 py-3">{t('lek.fields.quantity')}</th>
                                             <th scope="col"
                                                 className="text-center px-6 py-3">{t('lek.fields.expirationDate')}</th>
-                                            {/*<th scope="col" className="px-6 py-3">Choroby</th>*/}
                                             <th scope="col" className="text-center px-6 py-3"/>
                                         </tr>
                                         </thead>
@@ -204,13 +202,11 @@ class LekDetailsList extends React.Component {
                                                 <td
                                                     className="text-center px-6 py-2">{lek.DataWaznosci ? getFormattedDate(lek.DataWaznosci) : "-"}
                                                 </td>
-
                                                 <td className=" text-center  py-1">
-
                                                     <div className="flex">
                                                         <Link to={`/leki/magazyn/edit/${lek.IdStanLeku}`}
                                                               className="mr-3">
-                                                            <svg className="list-actions-button-edit flex-1"
+                                                            <svg className="flex-1"
                                                                  xmlns="http://www.w3.org/2000/svg"
                                                                  width="20" height="20" fill="#000000"
                                                                  viewBox="0 0 256 256">
@@ -236,8 +232,8 @@ class LekDetailsList extends React.Component {
                                                             </svg>
                                                         </Link>
                                                         <Link to={`/leki/magazyn/delete/${lek.IdStanLeku}`}
-                                                              className="list-actions-button-details flex-1">
-                                                            <svg className="list-actions-button-delete flex-1"
+                                                              className="flex-1">
+                                                            <svg className="flex-1"
                                                                  xmlns="http://www.w3.org/2000/svg" width="20"
                                                                  height="20"
                                                                  fill="#000000" viewBox="0 0 256 256">
@@ -279,7 +275,6 @@ class LekDetailsList extends React.Component {
                                     </table>
                                 </div>
                             </div>
-
                             <div className="flex justify-between mt-12">
                                 <h2 className=" w-1/3 my-2 mb-6 text-l font-black leading-tight text-gray-600">
                                     {t('choroba.title')}</h2>
@@ -306,12 +301,12 @@ class LekDetailsList extends React.Component {
                                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                                             key={x.IdChoroba}>
                                             <td className=" px-8 py-2 ">• {x.Nazwa}</td>
-                                            <div className="text-center list-actions py-2">
+                                            <div className="text-center py-2">
                                                 <div className=" flex">
                                                     <button onClick={() => {
                                                         this.deleteChoroba(x.IdChoroba)
-                                                    }} className="list-actions-button-details flex-1">
-                                                        <svg className="list-actions-button-delete flex-1"
+                                                    }} className=" flex-1">
+                                                        <svg className=" flex-1"
                                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                              fill="#000000" viewBox="0 0 256 256">
                                                             <rect width="256" height="256" fill="none"></rect>
@@ -348,7 +343,7 @@ class LekDetailsList extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className=" md:flex mb-6 mt-4 hidden ">
+                            <div className=" md:flex mb-6 mt-4 hidden">
                                 <div className="md:w-full">
                                     <select name="IdChoroba" id="spec-content" onChange={this.handleChange}
                                             className="form-select hidden block w-full focus:bg-white">
@@ -362,7 +357,7 @@ class LekDetailsList extends React.Component {
                                     </select>
                                     <span id="errorIdChoroba"
                                           className="errors-text2 mt-4">{errors.IdChoroba}</span>
-                                    <div className="relative  w-full ">
+                                    <div className="relative w-full">
                                         <button id="spec-content1" onClick={() => {
                                             this.addChoroba()
                                         }}
@@ -372,10 +367,9 @@ class LekDetailsList extends React.Component {
                                     </div>
                                 </div>
                             </div>
-
                             <div className=" md:flex mb-6 mt-8 ">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>

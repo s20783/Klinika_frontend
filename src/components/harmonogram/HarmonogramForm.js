@@ -29,25 +29,21 @@ class HarmonogramForm extends React.Component {
             error: '',
             weterynarze: [],
             isLoaded: false,
-            notice: '',
             harmonogram: [],
             start: '',
             end: ''
         }
     }
 
-
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
         try {
-            await getWeterynarzList(source).then((res) => {
+            await getWeterynarzList("", 1, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
-                        weterynarze: res.data
+                        weterynarze: res.data.Items
                     });
                 }
             })
@@ -79,7 +75,6 @@ class HarmonogramForm extends React.Component {
 
     onChange = (date) => {
         const data = {...this.state.data}
-        console.log(dayjs(date).format("MM-DD-YYYY"))
         data['Data'] = dayjs(date).format("MM-DD-YYYY")
 
         const errorMessage = this.validateField('Data', date)
@@ -160,7 +155,6 @@ class HarmonogramForm extends React.Component {
                     await getHarmonogramVet(dane.data.Weterynarz, dane.data.Data, source)
                         .then((res) => {
                             if (res) {
-                                console.log(res.data)
                                 this.setState({
                                     isLoaded: true,
                                     harmonogram: res.data.harmonogramy,
@@ -243,12 +237,12 @@ class HarmonogramForm extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className="shadow-xl ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className="shadow-lg ml-4 shadow bg-blue-400 hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("harmonogram.button.check")}
                                 </button>
                             </div>

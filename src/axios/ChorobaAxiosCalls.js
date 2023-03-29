@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getChorobaList(source) {
-    return api.get('/Choroba', {
+export function getChorobaList(searchWord, page, source) {
+    return api.get(`/Choroba?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -36,10 +36,7 @@ export async function addChoroba(choroba,source) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
         }
-
     })
-
-
 }
 
 export async function updateChoroba(choroba, Id, source) {
@@ -53,7 +50,6 @@ export async function updateChoroba(choroba, Id, source) {
             console.log('Request canceled', thrown.message);
         }
     })
-
 }
 
 export async function deleteChoroba(Id,source) {
@@ -66,5 +62,4 @@ export async function deleteChoroba(Id,source) {
             console.log('Request canceled', thrown.message);
         }
     })
-
 }

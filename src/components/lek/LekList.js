@@ -3,9 +3,8 @@ import {getLekList} from "../../axios/LekAxiosCalls";
 import LekListTable from "./LekListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getSpecjalizacjaList} from "../../axios/SpecjalizacjaAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
 let CancelToken
 let source
 class LekList extends React.Component {
@@ -14,20 +13,31 @@ class LekList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            leki: [],
-            notice: ''
+            data: [],
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
+        await this.getData("", 0)
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
+    getData = async (searchWord, page) => {
         try {
-            await getLekList(source).then((res) => {
+            await getLekList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
-                        leki: res.data
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount
                     });
                 }
             })
@@ -35,13 +45,9 @@ class LekList extends React.Component {
             console.log(error)
         }
     }
-    componentWillUnmount() {
-        if (source) {
-            source.cancel('Operation canceled by the user.');
-        }
-    }
+
     render() {
-        const {error, isLoaded, leki} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         let content;
         const {t} = this.props;
 
@@ -50,7 +56,7 @@ class LekList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <LekListTable leki={leki}/>
+            content = <LekListTable leki={data} getData={this.getData} pageCount={pageCount}/>
         }
 
         return (

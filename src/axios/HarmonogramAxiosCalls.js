@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getHarmonogramWizyta(Date,source) {
+export function getHarmonogramWizyta(Date, source) {
     return api.get(`/Harmonogram?date=${Date}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,7 +13,7 @@ export function getHarmonogramWizyta(Date,source) {
     })
 }
 
-export function getHarmonogramVet(idVet, Date,source) {
+export function getHarmonogramVet(idVet, Date, source) {
     return api.get(`/Harmonogram/klinika/${idVet}?Date=${Date}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -50,7 +50,7 @@ export async function addHarmonogram(source) {
 }
 
 export async function updateHarmonogram(source) {
-   await api.put(`/Harmonogram/auto` , {
+    await api.put(`/Harmonogram/auto`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -59,5 +59,4 @@ export async function updateHarmonogram(source) {
             console.log('Request canceled', thrown.message);
         }
     })
-
 }

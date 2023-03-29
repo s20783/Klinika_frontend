@@ -25,8 +25,7 @@ class FormularzUrlop extends React.Component {
             idUrlop: paramsIdUrlop,
             idVet: IdVet,
             date: new Date(),
-            formMode: currentFormMode,
-            message: ''
+            formMode: currentFormMode
         }
     }
 
@@ -35,10 +34,8 @@ class FormularzUrlop extends React.Component {
         source = CancelToken.source();
         if (this.state.idUrlop) {
             try {
-
                 await getUrlopDetails(this.state.idUrlop, source).then((res) => {
                     if (res) {
-                        console.log(res.data)
                         this.setState({
                             isLoaded: true,
                             data: res.data
@@ -50,11 +47,13 @@ class FormularzUrlop extends React.Component {
             }
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -159,9 +158,9 @@ class FormularzUrlop extends React.Component {
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit} className="w-full max-w">
-                        <div class="flex flex-wrap -mx-3 mb-6 ">
-                            <div class="w-full md:w-2/4 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                        <div className="flex flex-wrap -mx-3 mb-6 ">
+                            <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                     Data urlopu
                                 </label>
                                 <Calendar className="mb-7 calendarForm"
@@ -177,16 +176,15 @@ class FormularzUrlop extends React.Component {
                             </span>
                             </div>
                         </div>
-
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-lg bg-red-500 hover:bg-white hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t('button.back')}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" ml-4 shadow-lg bg-blue-400 hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t('button.confirm')}
                                 </button>
                             </div>

@@ -48,6 +48,20 @@ class DodaniePacjentaForm extends React.Component {
         }
     }
 
+    componentDidMount() {
+        CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+        if (this.state.formMode === formMode.EDIT) {
+            this.fetchPatientDetails();
+        }
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
     fetchPatientDetails = async () => {
         try{
             await getPacjentDetails(this.state.idPacjent, source)
@@ -59,24 +73,11 @@ class DodaniePacjentaForm extends React.Component {
                     });
                 }
             })
-
         } catch (error){
             console.log(error)
         }
     }
 
-    componentDidMount() {
-        CancelToken = axios.CancelToken;
-        source = CancelToken.source();
-        if (this.state.formMode === formMode.EDIT) {
-            this.fetchPatientDetails();
-        }
-    }
-    componentWillUnmount() {
-        if (source) {
-            source.cancel('Operation canceled by the user.');
-        }
-    }
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -267,7 +268,7 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.name')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4  leading-tight focus:outline-none focus:bg-white "
+                                class="shadow-xl form-textarea appearance-none block w-full md:w-4/6  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-blue-600"
                                 name="Nazwa" id="Nazwa" type="text" value={data.Nazwa}
                                 onChange={this.handleChange} placeholder=""/>
                         </div>
@@ -279,18 +280,18 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.species')}
                             </label>
                             <input
-                                className="shadow-xl form-textarea appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
+                                className="shadow-xl form-textarea appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600"
                                 name="Gatunek" id="Gatunek" type="text" value={data.Gatunek} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.Gatunek}</span>
                         </div>
-                        <div className="w-full md:w-2/6 px-3 ml-8">
+                        <div className="w-full md:w-2/6 px-3 md:ml-8">
                             <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2"
                                    form="grid-last-name">
                                 {t('pacjent.fields.breed')}
                             </label>
                             <input
-                                className="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight leading-tight focus:border-blue-600 "
                                 name="Rasa" id="Rasa" type="text" value={data.Rasa} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorRasa" className="errors-text2 mb-4 ">{errors.Rasa}</span>
@@ -303,17 +304,17 @@ class DodaniePacjentaForm extends React.Component {
                                 {t('pacjent.fields.weight')}
                             </label>
                             <input
-                                className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:border-blue-600 "
                                 name="Waga" id="Waga" step="0.01" type="number" value={data.Waga}
                                 onChange={this.handleChange} placeholder=""/>
                             <span id="errorWaga" className="errors-text2 mb-4 ">{errors.Waga}</span>
                         </div>
-                        <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                        <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
                             <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('pacjent.fields.color')}
                             </label>
                             <input
-                                className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="shadow-xl form-textarea appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight leading-tight focus:border-blue-600 "
                                 name="Masc" id="Masc" type="text" value={data.Masc} placeholder=""
                                 onChange={this.handleChange}/>
                             <span id="errorMasc" className="errors-text2 mb-4 ">{errors.Masc}</span>
@@ -356,21 +357,21 @@ class DodaniePacjentaForm extends React.Component {
                                 <span id="errorPlec" className="errors-text2 mb-3 ">{errors.Plec}</span>
                             </div>
                             <div className="border-b mb-6">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                                <label class="block tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                     {t('pacjent.fields.infertile')}
                                 </label>
                                 <input type="checkbox" name="Ubezplodnienie"
                                        checked={data.Ubezplodnienie === true}
-                                       className=" form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
+                                       className="form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
                             </div>
                             <div className="border-b mb-6">
-                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                <label className="block tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('pacjent.fields.aggressive')}
                                 </label>
                                 <input type="checkbox" value="1" name="Agresywne"
                                        checked={data.Agresywne === true}
-                                       className="form-checkbox  mb-8  text-blue-600" onChange={this.onChange1}/>
+                                       className="form-checkbox mb-4 w-8 h-8 text-blue-600" onChange={this.onChange1}/>
                             </div>
                         </div>
                     </div>
@@ -398,14 +399,5 @@ const withNavigate = Component => props => {
     return <Component {...props} navigate={navigate}/>;
 };
 
-// const withRouter = WrappedComponent => props => {
-//     const params = useParams();
-//     return (
-//         <WrappedComponent
-//             {...props}
-//             params={params}
-//         />
-//     );
-// };
 
 export default withTranslation()(withNavigate(DodaniePacjentaForm));

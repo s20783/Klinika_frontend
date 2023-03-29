@@ -55,7 +55,6 @@ class UmowienieWizyty extends React.Component {
 
         if (this.state.formMode === formMode.EDIT) {
             try {
-
                 await getWizytaDetails(this.state.idWizyta ,source).then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -74,9 +73,9 @@ class UmowienieWizyty extends React.Component {
                 console.log(error)
             }
         }
+
         if (isKlient()) {
             try {
-
                 await getKlientPacjentList2(source).then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -225,7 +224,6 @@ class UmowienieWizyty extends React.Component {
 
         if (date > new Date()) {
             try {
-
                 await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'), source).then((res) => {
                     if (res) {
                         console.log(res.data)

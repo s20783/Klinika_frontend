@@ -70,7 +70,6 @@ class Register extends React.Component {
         const isValid = this.validateForm()
         if (isValid) {
             const user = this.state.user
-            console.log(user)
             this.setState({
                 isLoading: true
             })
@@ -86,11 +85,13 @@ class Register extends React.Component {
             }
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
@@ -196,10 +197,7 @@ class Register extends React.Component {
         const {t} = this.props;
         if (redirect) {
             return (
-                <Navigate to=
-                              {'/afterRegister'}
-                          state={"gg"}
-                />
+                <Navigate to={'/afterRegister'} state={""}/>
             )
         }
 
@@ -215,7 +213,6 @@ class Register extends React.Component {
                                     <label htmlFor="Rejestracja"
                                            className="text-lg font-bold text-3xl">{t('register.signUp')}</label>
                                 </div>
-
 
                                 <div className="my-3 pt-3  rounded bg-gray-200">
                                     <input type="text" name="Imie" id="Imie"
@@ -302,7 +299,6 @@ class Register extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

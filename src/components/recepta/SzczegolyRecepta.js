@@ -6,7 +6,6 @@ import {
     getReceptaLeki
 } from "../../axios/ReceptaAxiosCalls";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
 
 let CancelToken
 let source
@@ -14,9 +13,7 @@ let source
 class SzczegolyRecepta extends React.Component {
     constructor(props) {
         super(props);
-
         const paramsIdRecepta = this.props.params.IdRecepta
-        console.log(paramsIdRecepta)
 
         this.state = {
             data: {
@@ -35,7 +32,6 @@ class SzczegolyRecepta extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-
             await getReceptaDetails(this.state.idRecepta, source)
                 .then((res) => {
                     if (res) {
@@ -74,9 +70,9 @@ class SzczegolyRecepta extends React.Component {
         const {navigate} = this.props
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('recepta.prescriptionDetails')}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('recepta.prescriptionDetails')}</p>
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 mb-8 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -126,7 +122,7 @@ class SzczegolyRecepta extends React.Component {
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <button onClick={() => navigate(-1)}
-                                    className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="button">
                                 {t("button.back")}
                             </button>

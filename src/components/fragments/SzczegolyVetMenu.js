@@ -9,7 +9,6 @@ function SzczegolyVetMenu(props) {
 
     const showMenu = () => {
         var helpMenuDiv = document.getElementById("menu-content");
-
         if (helpMenuDiv.classList.contains("hidden")) {
             helpMenuDiv.classList.remove("hidden");
         } else {

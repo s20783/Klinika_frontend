@@ -202,7 +202,7 @@ class FormularzLeku extends React.Component {
                                     {t('lek.fields.manufacturer')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Producent" id="Producent" type="text" value={data.Producent} placeholder=""
                                     onChange={this.handleChange}/>
                                 <span id="errorProducent" className="errors-text2 mb-4 ">{errors.Producent}</span>

@@ -13,25 +13,15 @@ class WeterynarzList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            weterynarze: []
+            data: [],
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        try {
-            await getWeterynarzList(source).then((res) => {
-                if (res) {
-                    this.setState({
-                        isLoaded: true,
-                        weterynarze: res.data
-                    });
-                }
-            })
-        } catch (e) {
-            console.log(e)
-        }
+        await this.getData("", 1)
     }
 
     componentWillUnmount() {
@@ -40,8 +30,24 @@ class WeterynarzList extends React.Component {
         }
     }
 
+    getData = async (searchWord, page) => {
+        try {
+            await getWeterynarzList(searchWord, page, source).then((res) => {
+                if (res) {
+                    this.setState({
+                        isLoaded: true,
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount
+                    });
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     render() {
-        const {error, isLoaded, weterynarze} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         let content;
         const {t} = this.props;
 
@@ -50,7 +56,7 @@ class WeterynarzList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <WeterynarzListTable weterynarze={weterynarze}/>
+            content = <WeterynarzListTable weterynarze={data} getData={this.getData} pageCount={pageCount} />
         }
 
         return (

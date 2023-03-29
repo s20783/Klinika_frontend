@@ -4,7 +4,7 @@ import SpecjalizacjaListTable from "./SpecjalizacjaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
-import {getChorobaList} from "../../axios/ChorobaAxiosCalls";
+
 let CancelToken
 let source
 class SpecjalizacjaList extends React.Component {
@@ -13,21 +13,31 @@ class SpecjalizacjaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            specjalizacje: [],
+            data: [],
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
+        await this.getData("", 1)
+    }
 
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
+    getData = async (searchWord, page) => {
         try {
-            await getSpecjalizacjaList(source).then((res) => {
+            await getSpecjalizacjaList(searchWord, page, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
-                        specjalizacje: res.data
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount
                     });
                 }
             })
@@ -35,13 +45,9 @@ class SpecjalizacjaList extends React.Component {
             console.log(error)
         }
     }
-    componentWillUnmount() {
-        if (source) {
-            source.cancel('Operation canceled by the user.');
-        }
-    }
+
     render() {
-        const {error, isLoaded, specjalizacje} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         const {t} = this.props;
         let content;
 
@@ -50,7 +56,7 @@ class SpecjalizacjaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <SpecjalizacjaListTable specjalizacje={specjalizacje}/>
+            content = <SpecjalizacjaListTable specjalizacje={data} getData={this.getData} pageCount={pageCount}/>
         }
 
         return (

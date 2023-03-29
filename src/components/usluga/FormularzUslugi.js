@@ -211,7 +211,7 @@ class FormularzUslugi extends React.Component {
                                     {t('usluga.fields.price')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Cena" id="Cena" step="0.01" type="number" value={data.Cena}
                                     onChange={this.handleChange} placeholder=""/>
                                 <span id="errorCena" className="errors-text2 mb-6 ">{errors.Cena}</span>

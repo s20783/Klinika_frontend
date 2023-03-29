@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getWeterynarzList(source) {
-    return api.get('/Weterynarz', {
+export function getWeterynarzList(searchWord, page, source) {
+    return api.get(`/Weterynarz?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

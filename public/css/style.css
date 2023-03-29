@@ -36,11 +36,11 @@ footer {
 }
 
 tr:nth-child(even) {
-    background-color: rgb(219 234 254);
+    background-color: #E8F2FF;
 }
 
 tr:nth-child(od) {
-    background-color: #fff;
+    background-color: #f9f9f9;
 }
 
 

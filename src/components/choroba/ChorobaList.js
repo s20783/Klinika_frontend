@@ -4,6 +4,7 @@ import ChorobaListTable from "./ChorobaListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
+
 let CancelToken
 let source
 
@@ -13,26 +14,15 @@ class ChorobaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            choroby: [],
+            data: [],
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        try {
-            await getChorobaList(source).then((res) => {
-                if (res) {
-                    this.setState({
-                        isLoaded: true,
-                        choroby: res.data
-                    });
-                }
-            })
-        } catch (e) {
-            console.log(e)
-        }
-
+        await this.getData("",1)
     }
 
     componentWillUnmount() {
@@ -41,8 +31,24 @@ class ChorobaList extends React.Component {
         }
     }
 
+    getData = async (searchWord, page) => {
+        try {
+            await getChorobaList(searchWord, page, source).then((res) => {
+                if (res) {
+                    this.setState({
+                        isLoaded: true,
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount
+                    });
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     render() {
-        const {error, isLoaded, choroby} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         const {t} = this.props;
         let content;
 
@@ -51,7 +57,7 @@ class ChorobaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <ChorobaListTable choroby={choroby}/>
+            content = <ChorobaListTable choroby={data} getData={this.getData} pageCount={pageCount}/>
         }
 
         return (

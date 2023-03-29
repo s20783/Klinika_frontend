@@ -26,13 +26,11 @@ class KontoHarmonogram extends React.Component {
             date: new Date(),
             error: '',
             isLoaded: false,
-            notice: '',
             harmonogram: [],
             start:'',
             end:''
         }
     }
-
 
     componentDidMount() {
         CancelToken = axios.CancelToken;
@@ -44,6 +42,7 @@ class KontoHarmonogram extends React.Component {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     handleChange = (event) => {
         const {name, value} = event.target
         const data = {...this.state.data}
@@ -61,7 +60,6 @@ class KontoHarmonogram extends React.Component {
 
     onChange = (date) => {
         const data = {...this.state.data}
-        console.log(dayjs(date).format("MM-DD-YYYY"))
         data['Data'] = dayjs(date).format("MM-DD-YYYY")
 
         const errorMessage = this.validateField('Data', date)
@@ -88,7 +86,6 @@ class KontoHarmonogram extends React.Component {
 
     hasErrors = () => {
         const errors = this.state.errors
-        console.log(errors)
         for (const errorField in this.state.errors) {
             if (errors[errorField].length > 0) {
                 return true
@@ -115,7 +112,6 @@ class KontoHarmonogram extends React.Component {
     handleSubmit = async (event) => {
         event.preventDefault();
         const dane = {...this.state}
-        console.log(dane.data)
         const isValid = this.validateForm()
 
         if (isValid) {
@@ -123,7 +119,6 @@ class KontoHarmonogram extends React.Component {
                 await getHarmonogram(dane.data.Data, source)
                     .then((res) => {
                         if (res) {
-                            console.log(res.data)
                             this.setState({
                                 isLoaded: true,
                                 harmonogram: res.data.harmonogramy,
@@ -147,7 +142,6 @@ class KontoHarmonogram extends React.Component {
         let language = i18n.language;
         let content;
 
-
         if (harmonogram.length !== 0) {
             content = <Harmonogram harmonogram={harmonogram} start={start} end={end} weterynarz={null}/>
         } else {
@@ -155,7 +149,7 @@ class KontoHarmonogram extends React.Component {
         }
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
                     <KontoMenu/>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -183,12 +177,12 @@ class KontoHarmonogram extends React.Component {
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
-                                        className="shadow-xl bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                        className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                         type="button">
                                     {t("button.back")}
                                 </button>
                                 <button type="submit"
-                                        className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        className=" ml-4 shadow-lg bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     {t("harmonogram.button.check")}
                                 </button>
                             </div>

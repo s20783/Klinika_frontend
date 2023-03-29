@@ -13,19 +13,31 @@ class SzczepionkaList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            szczepionki: [],
+            data: [],
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
+        await this.getData("", 1)
+    }
+
+    componentWillUnmount() {
+        if (source) {
+            source.cancel('Operation canceled by the user.');
+        }
+    }
+
+    getData = async (searchWord, page) => {
         try {
-            await getSzczepionkaList(source).then((res) => {
+            await getSzczepionkaList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
-                        szczepionki: res.data
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount
                     });
                 }
             })
@@ -33,13 +45,9 @@ class SzczepionkaList extends React.Component {
             console.log(error)
         }
     }
-    componentWillUnmount() {
-        if (source) {
-            source.cancel('Operation canceled by the user.');
-        }
-    }
+
     render() {
-        const {error, isLoaded, szczepionki} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         const {t} = this.props;
         let content;
 
@@ -48,7 +56,7 @@ class SzczepionkaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <SzczepionkaListTable szczepionki={szczepionki}/>
+            content = <SzczepionkaListTable szczepionki={data} getData={this.getData} pageCount={pageCount}/>
         }
 
         return (

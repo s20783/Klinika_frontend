@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getWizytaList(source) {
-    return api.get(`/Wizyta`, {
+export function getWizytaList(searchWord, page, source) {
+    return api.get(`/Wizyta?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

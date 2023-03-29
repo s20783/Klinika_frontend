@@ -25,7 +25,6 @@ class Login extends React.Component {
             error: '',
             message: '',
             isLoading: false
-
         }
     }
 
@@ -139,12 +138,10 @@ class Login extends React.Component {
                         <div className="mx-10">
                             <p className="text-center text-4xl">{t('login.title')}</p>
                             <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
-
                                 <div className=" py-1">
                                     <label htmlFor="logowanie"
                                            className="text-lg font-bold text-3xl">{t('login.signIn')}</label>
                                 </div>
-
                                 <div className="my-3 pt-3  rounded bg-gray-200">
                                     <input type="text" id="NazwaUzytkownika" name="NazwaUzytkownika"
                                            placeholder={t('login.fields.nazwaUzytkownika')} onChange={this.handleChange}
@@ -161,7 +158,6 @@ class Login extends React.Component {
                                                : 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-400 transition duration-500 py-2 px-3'}/>
                                 </div>
                                 <span id="errorHaslo" className="errors-text">{this.state.errors.Haslo}</span>
-
                                 {this.state.message !== '' && <span id="error"
                                                                     className="errors-text2">{t('errors.' + this.state.message)}</span>}
                                 <input type="submit" value={t('login.signIn')}
@@ -169,8 +165,8 @@ class Login extends React.Component {
                             </form>
 
                             <div className="text-center pt-12 pb-12">
-                                <p>{t('login.text')} <Link to="/register"
-                                                           className="underline font-semibold">{t('login.register')}.</Link>
+                                <p>{t('login.text')}
+                                    <Link to="/register" className="underline font-semibold">{t('login.register')}.</Link>
                                 </p>
                             </div>
                             {isLoading &&

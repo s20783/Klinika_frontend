@@ -1,13 +1,14 @@
-import {Link} from "react-router-dom";
-import React, {useState} from 'react';
+import {isWeterynarz} from "../helpers/authHelper";
+import {getFormattedDateWithHour} from "../helpers/dateFormat";
 import {useTranslation} from "react-i18next";
-import TableItemEdit from "../fragments/TableItemEdit";
-import TableItemDelete from "../fragments/TableItemDelete";
+import React, {useState} from "react";
 import TableItemDetails from "../fragments/TableItemDetails";
+import TableItemEdit from "../fragments/TableItemEdit";
 
-function LekListTable(props) {
+function WizytaListTable(props) {
     const {t} = useTranslation();
-    const list = props.leki
+    const list = props.wizyty
+    const idVet = props.idVet;
     const [wordEntered, setWordEntered] = useState("");
     const [currentPage, setPage] = useState(1);
     const pageCount = props.pageCount;
@@ -51,36 +52,34 @@ function LekListTable(props) {
                         value={wordEntered}
                     />
                 </div>
-                <Link to="/dodajLek"
-                      className="bg-blue-400 shadow-lg text-white py-2 px-4 font-bold rounded h-10 md:h-auto flex items-center hover:bg-gray-100 hover:text-blue-400">
-                    <span className="hidden sm:inline">+ {t('lek.button.addMedicine')}</span>
-                    <span className="sm:hidden text-2xl">+</span>
-                </Link>
             </div>
             <div className="overflow-x-auto shadow-lg sm:rounded-lg">
                 <table className="w-full text-xs sm:text-sm md:text-base text-left text-gray-700 dark:text-gray-400">
                     <thead className="text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t('lek.fields.name')}</th>
-                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t('lek.fields.quantity')}</th>
-                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t('lek.fields.unitOfMeasure')}</th>
-                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t('lek.fields.manufacturer')}</th>
+                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t("wizyta.table.startDate")}</th>
+                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t("wizyta.table.patient")}</th>
+                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t("wizyta.table.vet")}</th>
+                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t("wizyta.table.status")}</th>
+                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t("wizyta.table.isPaid")}</th>
                         <th scope="col" className="text-center px-1 md:px-6 py-3"/>
                     </tr>
                     </thead>
                     <tbody>
-                    {list.map(lek => (
-                        <tr key={lek.IdLek}
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
-                            <td className="text-center px-1 md:px-6 py-2">{lek.Nazwa}</td>
-                            <td className="text-center px-1 md:px-6 py-2">{lek.Ilosc}</td>
-                            <td className="text-center px-1 md:px-6 py-2">{lek.JednostkaMiary}</td>
-                            <td className="text-center px-1 md:px-6 py-2">{lek.Producent ? lek.Producent : "-"}</td>
-                            <td className="text-center px-1 md:px-6 py-2">
+                    {list.map(x => (
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600 text-center"
+                            key={x.IdWizyta}>
+                            <td className="px-1 md:px-6 py-2">{x.Data != null ? getFormattedDateWithHour(x.Data) : "-"}</td>
+                            <td className="px-1 md:px-6 py-2">{x.Pacjent != null ? x.Pacjent : "-"}</td>
+                            <td className="px-1 md:px-6 py-2">{x.Weterynarz != null ? x.Weterynarz : "-"} </td>
+                            <td className="px-1 md:px-6 py-2">{t("wizyta.status." + x.Status)}</td>
+                            <td className="px-1 md:px-6 py-2">{x.CzyOplacona ? t("other.yes") : t("other.no")}</td>
+                            <td className="px-1 md:px-6 py-2">
                                 <div className="flex justify-center">
-                                    <TableItemDetails link={`/leki/${lek.IdLek}`}/>
-                                    <TableItemEdit link={`/leki/edit/${lek.IdLek}`}/>
-                                    <TableItemDelete link={`/leki/delete/${lek.IdLek}`}/>
+                                    <TableItemDetails link={`/wizyty/${x.IdWizyta}`}/>
+                                    {(isWeterynarz() && idVet === x.IdWeterynarz) &&
+                                        <TableItemEdit link={`/wizyty/editInfo/${x.IdWizyta}`}/>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -113,4 +112,4 @@ function LekListTable(props) {
     )
 }
 
-export default LekListTable
+export default WizytaListTable

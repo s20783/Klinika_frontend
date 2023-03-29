@@ -7,40 +7,48 @@ import axios from "axios";
 
 let CancelToken
 let source
+
 class PacjentList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             error: '',
             isLoaded: false,
-            pacjenci: [],
-            notice: ''
+            data: [],
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
+        await this.getData("", 1);
+    }
+
+    getData = async (searchWord, page) => {
         try {
-            await getPacjentList(source).then((res) => {
+            await getPacjentList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
-                        pacjenci: res.data
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount
                     });
                 }
             })
-        } catch (e) {
-            console.log(e)
+        } catch (error) {
+            console.log(error)
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     render() {
-        const {error, isLoaded, pacjenci} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         const {t} = this.props;
         let content;
 
@@ -49,7 +57,7 @@ class PacjentList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <PacjentListTable pacjenci={pacjenci}/>
+            content = <PacjentListTable pacjenci={data} getData={this.getData} pageCount={pageCount}/>
         }
 
         return (
@@ -58,8 +66,8 @@ class PacjentList extends React.Component {
                     <div className="container w-full max-w-7xl mx-auto px-1 py-8">
                         <div className="px-0.5 md:px-8 py-4 md:py-8 rounded shadow bg-white">
                             <h2 className="mt-6 w-full my-2 mb-6 text-5xl font-black leading-tight text-center text-gray-800">
-                            {t('pacjent.title')}</h2>
-                        {content}
+                                {t('pacjent.title')}</h2>
+                            {content}
                         </div>
                     </div>
                 </section>

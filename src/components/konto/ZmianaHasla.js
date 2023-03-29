@@ -143,7 +143,6 @@ class ZmianaHasla extends React.Component {
                             <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
                                 <div className="my-3 pt-3  rounded bg-gray-200">
                                     <p className=" pl-2 text-sm text-gray-600 font-bold">{t("konto.field.currentPassword")}</p>
-
                                     <input type="text" id="currentHaslo" name="currentHaslo"
                                            onChange={this.handleChange}
                                            className={this.state.errors.currentHaslo ? 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-red-500 focus:border-red-400 transition duration-500 py-2 px-3'
@@ -169,7 +168,7 @@ class ZmianaHasla extends React.Component {
                                 </div>
                                 <span id="errornewHaslo2" className="errors-text">{this.state.errors.newHaslo2}</span>
                                 <span id="error" className="errors-text2">{this.state.message !== '' ? t('errors.' + this.state.message) : ''}</span>
-                                <div class="flex justify-between">
+                                <div className="flex justify-between">
                                     <p className=" text-black hover:text-red-400 p-2 mt-6">
                                         <button className="font-bold  text-lg" onClick={() => navigate(-1)}>{t("button.back")}</button>
                                     </p>
@@ -177,11 +176,6 @@ class ZmianaHasla extends React.Component {
                                            className="bg-blue-400 text-white font-bold rounded-lg text-xl hover:bg-black py-3 px-8 mt-6 "/>
                                 </div>
                             </form>
-                            {/*<div className="text-center pt-3">
-                                <p><Link to="#"
-                                         className="underline font-semibold hover:text-blue-400">{t("konto.forgotPassword")}</Link>
-                                </p>
-                            </div>*/}
                         </div>
                     </div>
                 </div>

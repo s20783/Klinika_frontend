@@ -7,7 +7,6 @@ import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
 import {CheckTextRange} from "../helpers/CheckTextRange";
 import {getKontoData} from "../../axios/AuthAxiosCalls";
 import axios from "axios";
-import {getKlientList} from "../../axios/KlientAxiosCalls";
 
 let CancelToken
 let source
@@ -29,7 +28,6 @@ class ZmianaDanychKonta extends React.Component {
             },
             error: '',
             isLoaded: false,
-            notice: '',
             message: ''
         }
     }
@@ -130,6 +128,7 @@ class ZmianaDanychKonta extends React.Component {
             }
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
@@ -159,21 +158,21 @@ class ZmianaDanychKonta extends React.Component {
         const {navigate} = this.props
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('konto.changeData')}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('konto.changeData')}</p>
 
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit} className="w-full max-w">
-                        <div class="flex flex-wrap -mx-3 mb-4 ">
-                            <div class="w-full px-3">
-                                <label class="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                        <div className="flex flex-wrap -mx-3 mb-4 ">
+                            <div className="w-full px-3">
+                                <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
                                     {t('konto.login')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
+                                    className="shadow-xl form-textarea appearance-none block w-4/6 bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mb-1 leading-tight focus:outline-none focus:bg-white "
                                     name="NazwaUzytkownika" id="NazwaUzytkownika" type="text"
                                     value={this.state.data.NazwaUzytkownika} onChange={this.handleChange}
                                     placeholder=""/>
@@ -181,40 +180,40 @@ class ZmianaDanychKonta extends React.Component {
                             <span id="errorNazwa"
                                   className="errors-text2 mb-4 ml-4">{this.state.errors.NazwaUzytkownika}</span>
                         </div>
-                        <div class="flex flex-wrap -mx-3 border-b">
-                            <div class="w-full md:w-1/3 px-3  md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                        <div className="flex flex-wrap -mx-3 border-b">
+                            <div className="w-full md:w-1/3 px-3  md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('klient.fields.phoneNumber')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="NumerTelefonu" id="NumerTelefonu" type="text"
                                     value={this.state.data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
                                 <span id="errorNumerTelefonu" className="errors-text2 mb-4 ml-4">
                                     {this.state.errors.NumerTelefonu}</span>
                             </div>
-                            <div class="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                            <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('klient.fields.email')}
                                 </label>
                                 <input
-                                    class="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Email" id="Email" type="text" value={this.state.data.Email} placeholder=""
                                     onChange={this.handleChange}/>
                                 <span id="errorEmail" className="errors-text2 mb-4 ml-4">
                                     {this.state.errors.Email}</span>
                             </div>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-10 mt-16">
-                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                        <div className="flex flex-wrap -mx-3 mb-10 mt-16">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('konto.field.typePassword')} *
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Haslo" id="Haslo" type="password" value={this.state.data.Haslo} placeholder=""
                                     onChange={this.handleChange}/>
                             </div>
@@ -246,7 +245,6 @@ class ZmianaDanychKonta extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

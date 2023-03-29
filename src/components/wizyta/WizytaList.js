@@ -1,10 +1,11 @@
 import React from "react";
 import {useNavigate} from "react-router";
-import WizytaTableList from "./WizytaTableList";
+import WizytaListTable from "./WizytaListTable";
 import {withTranslation} from "react-i18next";
 import {getWizytaList} from "../../axios/WizytaAxiosCalls";
 import { getId} from "../helpers/authHelper";
 import axios from "axios";
+
 let CancelToken
 let source
 
@@ -15,35 +16,15 @@ class WizytaList extends React.Component {
             error: '',
             isLoaded: false,
             wizyty: [],
-            idVet:''
+            idVet:'',
+            pageCount: 0
         }
     }
 
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        try {
-            await getWizytaList(source).then((res) => {
-                if (res) {
-                    console.log(res.data)
-                    this.setState({
-                        isLoaded: true,
-                        wizyty: res.data
-                    });
-                }
-            })
-        } catch (error) {
-            console.log(error)
-        }
-
-        try {
-            const userId = await getId()
-            this.setState({
-                idVet: userId
-            });
-        } catch (error) {
-            console.log(error)
-        }
+        await this.getData("", 1);
     }
 
     componentWillUnmount() {
@@ -52,8 +33,26 @@ class WizytaList extends React.Component {
         }
     }
 
+    getData = async (searchWord, page) => {
+        try {
+            await getWizytaList(searchWord, page, source).then((res) => {
+                if (res) {
+                    const userId = getId()
+                    this.setState({
+                        isLoaded: true,
+                        data: res.data.Items,
+                        pageCount: res.data.PageCount,
+                        idVet: userId
+                    });
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     render() {
-        const {error, isLoaded, wizyty, idVet} = this.state
+        const {error, isLoaded, wizyty, pageCount, idVet} = this.state
         let content;
         const {t} = this.props;
 
@@ -62,7 +61,7 @@ class WizytaList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <WizytaTableList wizyty={wizyty} idVet={idVet}/>
+            content = <WizytaListTable wizyty={wizyty} idVet={idVet} getData={this.getData} pageCount={pageCount}/>
         }
 
         return (

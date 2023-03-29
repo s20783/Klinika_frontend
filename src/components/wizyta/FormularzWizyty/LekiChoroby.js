@@ -39,7 +39,6 @@ class LekiChoroby extends React.Component {
         try {
             await getChorobaWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         chorobyWizyta: res.data
@@ -55,7 +54,6 @@ class LekiChoroby extends React.Component {
         try {
             await getLekWizytaList(this.state.idWizyta, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         lekiWizyta: res.data
@@ -86,7 +84,6 @@ class LekiChoroby extends React.Component {
                 try {
                     await getChorobaList(source).then((res) => {
                         if (res) {
-                            console.log(res.data)
                             this.setState({
                                 isLoaded: true,
                                 choroby: res.data
@@ -204,7 +201,6 @@ class LekiChoroby extends React.Component {
                 console.log(error)
             }
         }
-
     }
 
 
@@ -237,17 +233,16 @@ class LekiChoroby extends React.Component {
             }
         }
         if (fieldName === 'Ilosc') {
-            console.log(this.state.data.Ilosc +" "+checkNumberRange(this.state.data.Ilosc,1,99))
             if (!checkNumberRange(this.state.data.Ilosc,0,999) ) {
                 errorMessage =  t('validation.quantity')
             }
             if (!fieldValue) {
                 errorMessage = `${t('validation.required')}`
             }
-
         }
         return errorMessage;
     }
+
     hasErrors = () => {
         const errors = this.state.errors
         for (const errorField in this.state.errors) {
@@ -257,6 +252,7 @@ class LekiChoroby extends React.Component {
         }
         return false
     }
+
     checkIfExistChoroba = (chorobaArray, chorobaID) => {
         for (let i = 0; i < chorobaArray.length; i++) {
             if (chorobaArray[i].ID_Choroba === chorobaID) {
@@ -280,14 +276,12 @@ class LekiChoroby extends React.Component {
         const {t} = this.props;
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
                     <FormularzWizytaMenu idWizyta={idWizyta}/>
-
                 </div>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white   ">
-
                     <div className="flex justify-between mt-6">
                         <h2 className=" w-1/3 my-2  mb-6 text-xl font-black leading-tight text-gray-600">
                             {t('choroba.title')}</h2>
@@ -402,7 +396,6 @@ class LekiChoroby extends React.Component {
                                     <th className=" text-center px-6 uppercase py-3">{t('lek.fields.quantity')}</th>
                                     <th className=" text-center px-6 uppercase py-3">{t('lek.fields.unitOfMeasure')}</th>
                                     <th className=" text-center px-6 uppercase py-3"></th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -412,13 +405,12 @@ class LekiChoroby extends React.Component {
                                         <td className=" px-8 py-2 text-center">{x.Nazwa} </td>
                                         <td className=" px-8 py-2 text-center">{x.Ilosc}</td>
                                         <td className=" px-8 py-2 text-center">{x.JednostkaMiary}</td>
-
-                                        <div className="text-center list-actions py-2">
+                                        <div className="text-center py-2">
                                             <div className=" flex">
                                                 <button onClick={() => {
                                                     this.deleteLek(x.IdLek)
-                                                }} className="list-actions-button-details flex-1">
-                                                    <svg className="list-actions-button-delete flex-1"
+                                                }} className="flex-1">
+                                                    <svg className="flex-1"
                                                          xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                          fill="#000000" viewBox="0 0 256 256">
                                                         <rect width="256" height="256" fill="none"></rect>
@@ -456,10 +448,8 @@ class LekiChoroby extends React.Component {
                             </table>
                         </div>
                     }
-
                     <div className="flex flex-wrap -mx-3 mb-6 mt-6 ">
                         <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
-
                             <select name="IdLek" id="spec-content2" onChange={this.handleChange}
                                     className="shadow-xl form-select hidden w-full focus:bg-white">
                                 <option value="">{t('lek.selectMedicine')}</option>
@@ -483,7 +473,6 @@ class LekiChoroby extends React.Component {
                         </div>
                     </div>
 
-
                     <div className="relative w-full pb-4 ">
                         <button id="spec-content4" onClick={() => {
                             this.addLek()
@@ -491,10 +480,7 @@ class LekiChoroby extends React.Component {
                                 className=" absolute hidden bottom-12 right-2  h-12 w-46  shadow-lg bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                             <span className="text-l font-bold ">+ {t('button.add')}</span>
                         </button>
-
                     </div>
-
-
                 </div>
             </div>
         )
@@ -503,7 +489,6 @@ class LekiChoroby extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}

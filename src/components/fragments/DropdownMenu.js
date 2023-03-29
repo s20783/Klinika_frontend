@@ -1,57 +1,38 @@
 import React, {useEffect, useRef, useState} from "react";
-import {getImie} from "../helpers/authHelper";
-import Dropdown from "./Dropdown";
+import {getImie, isAdmin, isKlient, isWeterynarz} from "../helpers/authHelper";
+import {adminMenuValues, userMenuValues, vetMenuValues} from "../../values/UserMenuValues";
+import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router";
 
 function DropdownMenu(props) {
-    const [dropdown, setDropdown] = useState(false);
-    let ref = useRef();
+    const [isOpen, setIsOpen] = useState(false);
+    const {t} = useTranslation();
+    let navigate = useNavigate();
 
-    useEffect(() => {
-        const handler = (event) => {
-            if (dropdown && ref.current && !ref.current.contains(event.target)) {
-                setDropdown(false);
-            }
-        };
-        document.addEventListener("mousedown", handler);
-        document.addEventListener("touchstart", handler);
-        return () => {
-            document.removeEventListener("mousedown", handler);
-            document.removeEventListener("touchstart", handler);
-        };
-    }, [dropdown]);
-
-    const onMouseEnter = () => {
-        window.innerWidth > 960 && setDropdown(true);
+    const openMenu = () => {
+        setIsOpen(true);
     };
 
-    const onMouseLeave = () => {
-        window.innerWidth > 960 && setDropdown(false);
+    const closeMenu = () => {
+        setIsOpen(false);
     };
 
     return (
-        <div onMouseEnter={onMouseEnter}
-             onMouseLeave={onMouseLeave}>
-            <button id="userMenu"
-                    className="flex items-center shadow-xl bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-sm md:text-base font-bold py-2 px-4 rounded"
-                    aria-expanded={dropdown ? "true" : "false"}
-                    onClick={() => {
-                        setDropdown((prev) => !prev)
-                    }}>
-                <div className="flex items-center text-sm">
-                    <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                        <img
-                            className="object-cover w-full h-full rounded-full"
-                            src="/images/avatar_photo.jpg"
-                            alt="avatar_logo"
-                            loading="lazy"
-                        />
-                        <div className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"/>
-                    </div>
-                    <div>
-                        <p className="font-semibold">{getImie()}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400"/>
-                    </div>
+        <div className="relative">
+            <button
+                className="flex items-center shadow-xl bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-base font-bold py-2 px-4 rounded"
+                onMouseEnter={openMenu}
+                onMouseLeave={closeMenu}>
+                <div className="relative w-8 h-8 mr-3 rounded-full block">
+                    <img
+                        className="object-cover w-full h-full rounded-full"
+                        src="/images/avatar_photo.jpg"
+                        alt="avatar_logo"
+                        loading="lazy"/>
+                    <div className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"/>
                 </div>
+                <span className="font-semibold">{getImie()}</span>
                 <svg className="pl-3 h-3 fill-current text-white" version="1.1"
                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
                      xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -62,9 +43,49 @@ function DropdownMenu(props) {
                     </g>
                 </svg>
             </button>
-            {
-                dropdown && <Dropdown logout={props.logout}/>
-            }
+            {isOpen && (
+                <ul className="bg-white rounded shadow-2xl absolute right-0 min-w-full overflow-auto z-30"
+                    onMouseEnter={openMenu}
+                    onMouseLeave={closeMenu}>
+                    {(isKlient()) && userMenuValues.map((item) => (
+                        <li key={item.title}>
+                            <Link to={item.url}
+                                  className="px-4 py-2 block hover:bg-gray-400">
+                                {t('userMenu.' + item.title)}
+                            </Link>
+                        </li>
+                    ))}
+                    {(isWeterynarz()) && vetMenuValues.map((item) => (
+                        <li key={item.title}>
+                            <Link to={item.url}
+                                  className="px-4 py-2 block hover:bg-gray-400">
+                                {t('userMenu.' + item.title)}
+                            </Link>
+                        </li>
+                    ))}
+                    {isAdmin() && adminMenuValues.map((item) => (
+                        <li key={item.title}>
+                            <Link to={item.url}
+                                  className="px-4 py-2 block hover:bg-gray-400 hover:text-white text-gray-600 font-semibold">
+                                {t('userMenu.' + item.title)}
+                            </Link>
+                        </li>
+                    ))}
+                    <li>
+                        <hr className="border-t mx-2 border-gray-400"/>
+                    </li>
+                    <li key="logout">
+                        <button
+                            onClick={() => {
+                            props.logout();
+                            navigate("/", {replace: true});
+                        }}
+                                className="px-4 py-2 block text-red-500 font-bold hover:bg-red-500 hover:text-white no-underline hover:no-underline w-full text-left">
+                            {t('userMenu.logout')}
+                        </button>
+                    </li>
+                </ul>
+            )}
         </div>
     );
 }

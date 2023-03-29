@@ -11,9 +11,6 @@ export async function addChorobaLek(IdChoroba, IdLek, source) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
         }
-        else {
-            console.log(thrown.message)
-        }
     })
 }
 
@@ -26,9 +23,6 @@ export async function deleteChorobaLek(IdChoroba, IdLek,source) {
     }).catch(function (thrown) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
-        }
-        else {
-            console.log(thrown.message)
         }
     })
 }

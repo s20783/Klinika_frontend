@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router";
 import KlientListTable from "./KlientListTable";
 import {withTranslation} from "react-i18next";
-import { getKlientList} from "../../axios/KlientAxiosCalls";
+import {getKlientList} from "../../axios/KlientAxiosCalls";
 import axios from "axios";
 
 let CancelToken
@@ -14,7 +14,8 @@ class KlientList extends React.Component {
         this.state = {
             error: '',
             isLoaded: false,
-            klienci: [],
+            data: [],
+            pageCount: 0,
             x: false
         }
     }
@@ -22,18 +23,7 @@ class KlientList extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        try {
-            await getKlientList(source).then((res) => {
-                if (res) {
-                    this.setState({
-                        isLoaded: true,
-                        klienci: res.data
-                    });
-                }
-            })
-        } catch (e) {
-            console.log(e)
-        }
+        await this.getData("",1)
     }
 
     componentWillUnmount() {
@@ -42,8 +32,23 @@ class KlientList extends React.Component {
         }
     }
 
+    getData = async (searchWord, page) => {
+        try {
+            const res = await getKlientList(searchWord, page, source)
+            if(res){
+                this.setState({
+                    isLoaded: true,
+                    data: res.data.Items,
+                    pageCount: res.data.PageCount
+                });
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     render() {
-        const {error, isLoaded, klienci} = this.state
+        const {error, isLoaded, data, pageCount} = this.state
         let content;
         const {t} = this.props;
 
@@ -52,7 +57,7 @@ class KlientList extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <KlientListTable klienci={klienci}/>
+            content = <KlientListTable klienci={data} getData={this.getData} pageCount={pageCount} />
         }
 
         return (
