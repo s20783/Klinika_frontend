@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router";
 import React from "react";
 import {Link} from "react-router-dom";
-import {loginCall} from "../../axios/AuthAxiosCalls";
+import {loginCall} from "../../axios/AuthApiCalls";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
 import Lottie from "react-lottie";
@@ -137,7 +137,7 @@ class Login extends React.Component {
                     <div className="bg-white max-w-lg mx-auto p-6 md:p-8 my-10 rounded-lg shadow-2xl">
                         <div className="mx-10">
                             <p className="text-center text-4xl">{t('login.title')}</p>
-                            <form className="flex flex-col pt-5 md:pt-6" onSubmit={this.handleSubmit}>
+                            <form className="flex flex-col pt-4 md:pt-5 lg:pt-8" onSubmit={this.handleSubmit}>
                                 <div className=" py-1">
                                     <label htmlFor="logowanie"
                                            className="text-lg font-bold text-3xl">{t('login.signIn')}</label>
@@ -161,12 +161,12 @@ class Login extends React.Component {
                                 {this.state.message !== '' && <span id="error"
                                                                     className="errors-text2">{t('errors.' + this.state.message)}</span>}
                                 <input type="submit" value={t('login.signIn')}
-                                       className="bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
+                                       className="bg-blue-500 text-white font-bold rounded text-lg hover:bg-blue-300 p-2 mt-6"/>
                             </form>
 
                             <div className="text-center pt-12 pb-12">
-                                <p>{t('login.text')}
-                                    <Link to="/register" className="underline font-semibold">{t('login.register')}.</Link>
+                                <p>
+                                    {t('login.text')} <Link to="/register" className="underline font-semibold hover:text-blue-500">{t('login.register')}.</Link>
                                 </p>
                             </div>
                             {isLoading &&

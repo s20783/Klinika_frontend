@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
-import {getImie, isAdmin, isKlient, isWeterynarz} from "../helpers/authHelper";
+import React, {useState} from "react";
+import {getImie, isAdmin, isKlient, isWeterynarz} from "../../helpers/authHelper";
 import {adminMenuValues, userMenuValues, vetMenuValues} from "../../values/UserMenuValues";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -21,7 +21,7 @@ function DropdownMenu(props) {
     return (
         <div className="relative">
             <button
-                className="flex items-center shadow-xl bg-blue-400 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white text-base font-bold py-2 px-4 rounded"
+                className="flex items-center shadow-lg bg-blue-400 hover:bg-blue-300 text-white text-base font-bold py-2 px-4 rounded"
                 onMouseEnter={openMenu}
                 onMouseLeave={closeMenu}>
                 <div className="relative w-8 h-8 mr-3 rounded-full block">
@@ -44,13 +44,13 @@ function DropdownMenu(props) {
                 </svg>
             </button>
             {isOpen && (
-                <ul className="bg-white rounded shadow-2xl absolute right-0 min-w-full overflow-auto z-30"
+                <ul className="bg-white rounded shadow-2xl absolute right-0 min-w-full overflow-auto z-30 text-gray-600"
                     onMouseEnter={openMenu}
                     onMouseLeave={closeMenu}>
                     {(isKlient()) && userMenuValues.map((item) => (
                         <li key={item.title}>
                             <Link to={item.url}
-                                  className="px-4 py-2 block hover:bg-gray-400">
+                                  className="px-4 py-2 block hover:bg-gray-400 hover:text-white font-semibold">
                                 {t('userMenu.' + item.title)}
                             </Link>
                         </li>
@@ -58,7 +58,7 @@ function DropdownMenu(props) {
                     {(isWeterynarz()) && vetMenuValues.map((item) => (
                         <li key={item.title}>
                             <Link to={item.url}
-                                  className="px-4 py-2 block hover:bg-gray-400">
+                                  className="px-4 py-2 block hover:bg-gray-400 hover:text-white font-semibold">
                                 {t('userMenu.' + item.title)}
                             </Link>
                         </li>
@@ -66,7 +66,7 @@ function DropdownMenu(props) {
                     {isAdmin() && adminMenuValues.map((item) => (
                         <li key={item.title}>
                             <Link to={item.url}
-                                  className="px-4 py-2 block hover:bg-gray-400 hover:text-white text-gray-600 font-semibold">
+                                  className="px-4 py-2 block hover:bg-gray-400 hover:text-white font-semibold">
                                 {t('userMenu.' + item.title)}
                             </Link>
                         </li>

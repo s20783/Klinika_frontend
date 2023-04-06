@@ -1,11 +1,11 @@
 import React from "react";
 import {Navigate, useNavigate, useParams} from "react-router";
-import {registerCall} from "../../axios/KlientAxiosCalls";
-import {ValidateEmail} from "../helpers/ValidateEmail";
+import {registerCall} from "../../axios/ClientApiCalls";
+import {ValidateEmail} from "../../helpers/ValidateEmail";
 import {withTranslation} from "react-i18next";
-import {ValidateNumerTelefonu} from "../helpers/ValidateNumerTelefonu";
-import {ValidateHaslo} from "../helpers/ValidateHaslo";
-import {CheckTextRange} from "../helpers/CheckTextRange";
+import {ValidatePhoneNumber} from "../../helpers/ValidatePhoneNumber";
+import {ValidatePassword} from "../../helpers/ValidatePassword";
+import {CheckTextRange} from "../../helpers/CheckTextRange";
 import axios from "axios";
 import Lottie from 'react-lottie';
 import * as loading from '../../Loading.json';
@@ -136,7 +136,7 @@ class Register extends React.Component {
             }
         }
         if (fieldName === 'NumerTelefonu') {
-            if (!ValidateNumerTelefonu(fieldValue)) {
+            if (!ValidatePhoneNumber(fieldValue)) {
                 errorMessage = `${t('validation.format')}`
             }
             if (!fieldValue) {
@@ -147,7 +147,7 @@ class Register extends React.Component {
             if (!CheckTextRange(fieldValue, 5, 30)) {
                 errorMessage = `${t('validation.from5to30')}`
             }
-            if (!ValidateHaslo(fieldValue)) {
+            if (!ValidatePassword(fieldValue)) {
                 errorMessage = `${t('validation.password')}`
             }
 
@@ -159,7 +159,7 @@ class Register extends React.Component {
             if (!CheckTextRange(fieldValue, 5, 30)) {
                 errorMessage = `${t('validation.from5to30')}`
             }
-            if (!ValidateHaslo(fieldValue)) {
+            if (!ValidatePassword(fieldValue)) {
                 errorMessage = `${t('validation.password')}`
             }
             if (!fieldValue) {
@@ -207,9 +207,8 @@ class Register extends React.Component {
                     <div className="bg-white max-w-lg mx-auto p-6 md:p-8 my-10 rounded-lg shadow-2xl">
                         <div className="mx-10">
                             <p className="text-center text-4xl">{t('register.title')}</p>
-
-                            <form className="flex flex-col pt-5 md:pt-4" onSubmit={this.handleSubmit}>
-                                <div className=" py-2">
+                            <form className="flex flex-col pt-4 md:pt-5 lg:pt-8" onSubmit={this.handleSubmit}>
+                                <div className="py-2">
                                     <label htmlFor="Rejestracja"
                                            className="text-lg font-bold text-3xl">{t('register.signUp')}</label>
                                 </div>
@@ -284,7 +283,7 @@ class Register extends React.Component {
                                 {this.state.message !== '' && <span id="error"
                                                                     className="errors-text2">{t('errors.' + this.state.message)}</span>}
                                 <input type="submit" value={t('register.signUpButton')}
-                                       className="modal-open bg-black text-white font-bold rounded-lg text-lg hover:bg-gray-700 p-2 mt-6"/>
+                                       className="bg-blue-500 text-white font-bold rounded text-lg hover:bg-blue-300 p-2 mt-6"/>
                                 {isLoading &&
                                     <Lottie options={this.defaultOptions} height={120} width={120}/>
                                 }

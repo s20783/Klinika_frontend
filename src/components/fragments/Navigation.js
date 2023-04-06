@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {isAdmin, isAuthenticated, isKlient, isWeterynarz} from "../helpers/authHelper";
+import {isAdmin, isAuthenticated, isKlient, isWeterynarz} from "../../helpers/authHelper";
 import {useNavigate, useParams} from "react-router";
 import DropdownMenu from "./DropdownMenu";
 import {withTranslation} from "react-i18next";
@@ -11,28 +11,24 @@ class Navigation extends React.Component {
         const loginLogoutButton = isAuthenticated() ?
             <div className="pr-0 flex justify-end">
                 <div className="flex relative inline-block float-right">
-                    <div className="relative text-sm">
-                        <DropdownMenu logout={this.props.handleLogout}/>
-                    </div>
+                    <DropdownMenu logout={this.props.handleLogout}/>
                 </div>
             </div>
             :
-            <>
-                <div className="pr-0 flex justify-end">
-                    <div className="flex relative inline-block float-right">
-                        <div className="relative text-sm">
-                            <Link to="/login"
-                                  className="whitespace-nowrap sm:ml-1 ml-8 text-base font-medium text-gray-500 hover:text-blue-400">
-                                {t('navigation.login')}
-                            </Link>
-                            <Link to="/register"
-                                  className="shadow-xl sm:ml-8 ml-1 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-400">
-                                {t('navigation.register')}
-                            </Link>
-                        </div>
+            <div className="pr-0 flex justify-end">
+                <div className="flex relative inline-block float-right">
+                    <div className="relative text-sm">
+                        <Link to="/login"
+                              className="sm:ml-1 ml-8 text-base font-medium text-gray-500 hover:text-blue-400">
+                            {t('navigation.login')}
+                        </Link>
+                        <Link to="/register"
+                              className="sm:ml-8 ml-1 px-4 py-2 border border-transparent rounded shadow-lg text-base font-medium text-white bg-blue-400 hover:bg-blue-300">
+                            {t('navigation.register')}
+                        </Link>
                     </div>
                 </div>
-            </>
+            </div>
         return (
             <div className="bg-white">
                 <div
@@ -48,54 +44,54 @@ class Navigation extends React.Component {
                     </div>
                     <nav className="flex flex-wrap flex justify-center flex-auto text-base text-gray-600 my-2">
                         <NavLink to="/"
-                                 className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                 className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                             {t('navigation.mainPage')}</NavLink>
                         <NavLink to="/kontakt"
-                                 className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                 className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                             {t('navigation.contact')}</NavLink>
                         {isKlient() &&
                             <NavLink to="/umowWizyte"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.appointment')}</NavLink>}
                         {(isAdmin() || isWeterynarz()) &&
                             <NavLink to="/klienci"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.clients')}</NavLink>}
                         {isAdmin() &&
                             <NavLink to="/weterynarze"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.vets')}</NavLink>}
                         {(isAdmin() || isWeterynarz()) &&
                             <NavLink to="/pacjenci"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.patients')}</NavLink>}
                         {(isAdmin() || isWeterynarz()) &&
                             <NavLink to="/wizyty"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.visits')}</NavLink>}
                         {(isAdmin() || isWeterynarz()) &&
                             <NavLink to="/uslugi"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.services')}</NavLink>}
                         {(isAdmin() || isWeterynarz()) &&
                             <NavLink to="/choroby"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.disease')}</NavLink>}
                         {(isAdmin() || isWeterynarz()) &&
                             <NavLink to="/leki"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.medicines')}</NavLink>}
                         {(isAdmin() || isWeterynarz()) &&
                             <NavLink to="/szczepionki"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.vaccinations')}</NavLink>}
                         {isAdmin() &&
                             <NavLink to="/harmonogram"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.schedule')}</NavLink>}
                         {isAdmin() &&
                             <NavLink to="/specjalizacje"
-                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-400">
+                                     className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.specializations')}</NavLink>}
                     </nav>
                     <div className="items-center justify-end flex-auto my-2">

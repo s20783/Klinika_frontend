@@ -168,12 +168,12 @@
     "visitDetails": "Szczegóły wizyty",
     "editingVisit": "Edycja wizyty",
     "thankYou": "Dziękujemy!",
-    "confirmation": "Potwierdzenie umówienia wizyty.",
+    "confirmation": "Potwierdzenie umówienia wizyty",
     "date": "Termin",
     "selectPatient": "Wybierz pacjenta",
     "selectedDate": "Wybrano termin: ",
     "cancelingVisit": "Czy na pewno chcesz odwołać wizyte?",
-    "cancelVisit": "Odwołaj wizyte",
+    "cancelVisit": "Odwołaj wizytę",
     "4hvisitNotification": "(Następnym razem prosimy o wcześniejsze odwołanie wizyty)",
     "other": "inny",
     "button": {
@@ -186,12 +186,12 @@
       "AnulowanaKlinika": "Anulowana"
     },
     "table": {
-      "startDate": "Data rozpoczecia",
-      "endDate": "Data zakonczenia",
+      "startDate": "Data rozpoczęcia",
+      "endDate": "Data zakończenia",
       "patient": "Pacjent",
       "vet": "Weterynarz",
       "status": "Status",
-      "isPaid": "Czy opłacone?",
+      "isPaid": "Czy opłacono?",
       "price": "Cena",
       "clientNote": "Notatka klienta",
       "description": "Opis"
@@ -235,7 +235,7 @@
     "addNewVet": "Dodanie nowego weterynarza",
     "editVet": "Edycja weterynarza",
     "detailsVet": "Szczegóły weterynarza",
-    "deletingVet": "Czy na pewno chcesz usunąc weterynarza?",
+    "deletingVet": "Czy na pewno chcesz usunąć weterynarza?",
     "deleteVet": "Usuń weterynarza",
     "button": {
       "addVet": "Dodaj weterynarza",
@@ -274,7 +274,7 @@
     "title": "Specjalizacje",
     "addNewSpecialization": "Dodanie nowej specjalizacji",
     "editSpecialization": "Edycja specjalizacji",
-    "deletingSpecialization": "Czy na pewno chcesz usunąc specjalizacje?",
+    "deletingSpecialization": "Czy na pewno chcesz usunąć specjalizacje?",
     "deleteSpecialization": "Usuń specjalizacje",
     "addDescription": "Dodaj opis",
     "selectSpecialization": "Wybierz specjalizacje",
@@ -316,11 +316,11 @@
     "addNewDisease": "Dodanie nowej choroby",
     "editDisease": "Edycja choroby",
     "deletingDisease": "Czy na pewno chcesz usunąć chorobe?",
-    "deleteDisease": "Usuń chorobe",
+    "deleteDisease": "Usuń chorobę",
     "addDescription": "Dodaj opis",
-    "selectDisease": "Wybierz chorobe",
+    "selectDisease": "Wybierz chorobę",
     "button": {
-      "addDisease": "Dodaj chorobe"
+      "addDisease": "Dodaj chorobę"
     },
     "fields": {
       "name": "Nazwa",
@@ -357,7 +357,7 @@
     "changingWorkingHour":"Zmiana godzin pracy weterynarza",
     "wrongTimeFormat": "Zły format czasu",
     "button": {
-      "addDefault": " Dodaj domyślne",
+      "addDefault": "Dodaj domyślne",
       "change": "Zmień"
     },
     "deletingWorkingHour": "Czy na pewno chcesz usunąć godziny pracy?",
