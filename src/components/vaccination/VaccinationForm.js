@@ -2,10 +2,10 @@ import React from "react";
 import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getSzczepionkaList} from "../../axios/VaccineApiCalls";
+import {getAllVaccines} from "../../axios/VaccineApiCalls";
 import dayjs from "dayjs";
 import Calendar from "react-calendar";
-import {addSzczepienie, getSzczepienieDetails, updateSzczepienie} from "../../axios/VaccinationApiCalls";
+import {addVaccination, getVaccinationDetails, updateVaccination} from "../../axios/VaccinationApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -13,14 +13,12 @@ let source
 class VaccinationForm extends React.Component {
     constructor(props) {
         super(props);
-        const paramsIdSzczepienie = this.props.params.idSzczepienie
-        const currentFormMode = paramsIdSzczepienie ? formMode.EDIT : formMode.NEW
-        const paramsIdPacjent = this.props.params.idPacjent
+        const currentFormMode = this.props.params.idSzczepienie ? formMode.EDIT : formMode.NEW
 
         this.state = {
             data:{
                 IdLek:'',
-                IdPacjent:paramsIdPacjent,
+                IdPacjent: this.props.params.idPacjent,
                 Dawka:'' ,
                 Data:''
             },
@@ -31,17 +29,17 @@ class VaccinationForm extends React.Component {
             },
             date: new Date(),
             szczepionki: [],
-            idSzczepienie:paramsIdSzczepienie,
-            idPacjent: paramsIdPacjent,
+            idSzczepienie: this.props.params.idSzczepienie,
+            idPacjent: this.props.params.idPacjent,
             error: '',
             isLoaded: false,
             formMode: currentFormMode
         }
     }
 
-    fetchSzczepionkiList = async () => {
+    fetchVaccinationList = async () => {
         try {
-            await getSzczepionkaList(source).then((res) => {
+            await getAllVaccines(source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -58,10 +56,10 @@ class VaccinationForm extends React.Component {
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        this.fetchSzczepionkiList()
+        this.fetchVaccinationList()
 
         if (this.state.idSzczepienie) {
-             this.fetchSzczepienieDetails();
+             this.fetchVaccinationDetails();
         }
     }
 
@@ -71,9 +69,9 @@ class VaccinationForm extends React.Component {
         }
     }
 
-    fetchSzczepienieDetails = async () => {
+    fetchVaccinationDetails = async () => {
         try{
-            await getSzczepienieDetails(this.state.idSzczepienie, source)
+            await getVaccinationDetails(this.state.idSzczepienie, source)
                 .then((res) => {
                 if (res) {
                     this.setState({
@@ -126,9 +124,6 @@ class VaccinationForm extends React.Component {
             }
         }
         if (fieldName === 'Dawka') {
-            /*if (fieldValue < 0 || fieldValue > 999) {
-                errorMessage = `Pole powinno być liczbą z przedziału od 0 do 1000.`
-            }*/
             if (!fieldValue) {
                 errorMessage = t('validation.required')
             }
@@ -167,14 +162,14 @@ class VaccinationForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addSzczepienie(dane.data, source);
+                    await addVaccination(dane.data, source);
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateSzczepienie(dane.data, dane.idSzczepienie, source)
+                    await updateVaccination(dane.data, dane.idSzczepienie, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

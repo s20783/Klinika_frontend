@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
-import {deleteKlientKonto} from "../../axios/ClientApiCalls";
+import {deleteClientAccount} from "../../axios/ClientApiCalls";
 
 let CancelToken
 let source
@@ -30,7 +30,7 @@ class DeleteAccountDialog extends React.Component {
     removeKonto = async () => {
         const {navigate} = this.props;
         try {
-            await deleteKlientKonto(source)
+            await deleteClientAccount(source)
             this.props.handleLogout()
             await navigate("/", {replace: true});
         } catch (error) {
@@ -57,9 +57,9 @@ class DeleteAccountDialog extends React.Component {
                     </span>
                         <div className="flex justify-end pt-2">
                             <button onClick={() => navigate(-1)}
-                                    class="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
+                                    className="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
                             <button onClick={() => this.removeKonto()}
-                                    class="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('konto.deleteAccont')}</button>
+                                    className="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('konto.deleteAccont')}</button>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import PacjentKlientListTable from "../patient/PatientClientListTable";
-import {getKlientPacjentList2} from "../../axios/PatientApiCalls";
+import PatientClientListTable from "../patient/PatientClientListTable";
+import {getPatientClientList2} from "../../axios/PatientApiCalls";
 import AccountMenu from "./AccountMenu";
 import axios from "axios";
 import {withTranslation} from "react-i18next";
@@ -25,7 +25,7 @@ class AccountPatients extends React.Component {
         source = CancelToken.source();
         try {
 
-            await getKlientPacjentList2(source)
+            await getPatientClientList2(source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -55,7 +55,7 @@ class AccountPatients extends React.Component {
         } else if (!isLoaded) {
             content = <p>Ładowanie...</p>
         } else {
-            content = <PacjentKlientListTable pacjenci={pacjenci}/>
+            content = <PatientClientListTable pacjenci={pacjenci}/>
         }
 
         return (

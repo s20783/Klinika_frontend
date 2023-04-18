@@ -1,9 +1,9 @@
 import React from "react";
 import AccountMenu from "./AccountMenu";
 import {withTranslation} from "react-i18next";
-import {getKontoGodzinyPracyList} from "../../axios/WorkingHoursApiCalls";
+import {getAccountWorkingHoursList} from "../../axios/WorkingHoursApiCalls";
 import {getFormattedDate, getFormattedHour} from "../../helpers/dateFormat";
-import {getKontoUrlopList} from "../../axios/VacationApiCalls";
+import {getAccountVacationList} from "../../axios/VacationApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -25,9 +25,9 @@ class AccountWorkingHours extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        const {navigate} = this.props;
+        // const {navigate} = this.props;
         try {
-            await getKontoGodzinyPracyList(source)
+            await getAccountWorkingHoursList(source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -35,7 +35,7 @@ class AccountWorkingHours extends React.Component {
                         });
                     }
                 })
-            await getKontoUrlopList(source)
+            await getAccountVacationList(source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -55,7 +55,7 @@ class AccountWorkingHours extends React.Component {
         }
     }
     render() {
-        const {error, urlopy, godzinyPracy} = this.state
+        const {urlopy, godzinyPracy} = this.state
         const {t} = this.props;
 
         return (

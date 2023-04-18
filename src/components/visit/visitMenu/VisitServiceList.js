@@ -1,9 +1,10 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getUslugaList, getUslugaWizytaList} from "../../../axios/ServiceApiCalls";
+import {getVisitServiceList} from "../../../axios/VisitServiceApiCalls";
+import {getAllServices} from "../../../axios/ServiceApiCalls";
 import VisitFormMenu from "../VisitFormMenu";
-import {addUslugaWizyta, deleteUslugaWizyta} from "../../../axios/VisitServiceApiCalls";
+import {addVisitService, deleteVisitService} from "../../../axios/VisitServiceApiCalls";
 import axios from "axios";
 import {getWizytaDetails} from "../../../axios/VisitApiCalls";
 
@@ -28,9 +29,9 @@ class VisitServiceList extends React.Component {
         }
     }
 
-    fetchUslugi = async () => {
+    fetchServices = async () => {
         try {
-            await getUslugaWizytaList(this.state.idWizyta, source).then((res) => {
+            await getVisitServiceList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -43,28 +44,32 @@ class VisitServiceList extends React.Component {
         }
     }
 
-    fetchWizyta = async () => {
-        await getWizytaDetails(this.state.idWizyta, source).then((res) => {
-            if (res) {
-                this.setState({
-                    isLoaded: true,
-                    czyZaakceptowanaCena: res.data.CzyZaakceptowanaCena
-                });
-            }
-        })
+    fetchVisit = async () => {
+        try {
+            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+                if (res) {
+                    this.setState({
+                        isLoaded: true,
+                        czyZaakceptowanaCena: res.data.CzyZaakceptowanaCena
+                    });
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        this.fetchUslugi()
-        this.fetchWizyta()
+        this.fetchServices()
+        this.fetchVisit()
     }
 
     async showSelect() {
         if (this.state.uslugi.length === 0) {
             try {
-                await getUslugaList(source).then((res) => {
+                await getAllServices(source).then((res) => {
                     if (res) {
                         this.setState({
                             isLoaded: true,
@@ -110,7 +115,7 @@ class VisitServiceList extends React.Component {
     deleteUsluga = async (idUsluga) => {
         const {navigate} = this.props;
         try {
-            await deleteUslugaWizyta(this.state.idWizyta, idUsluga, source)
+            await deleteVisitService(this.state.idWizyta, idUsluga, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -121,7 +126,7 @@ class VisitServiceList extends React.Component {
         const {navigate} = this.props;
         if (this.state.data.IdUsluga !== '') {
             try {
-                await addUslugaWizyta(this.state.idWizyta, this.state.data.IdUsluga, source)
+                await addVisitService(this.state.idWizyta, this.state.data.IdUsluga, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -174,7 +179,7 @@ class VisitServiceList extends React.Component {
                     <VisitFormMenu idWizyta={idWizyta}/>
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <div>
                         <div className="flex justify-between mt-6">
                             <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
@@ -224,26 +229,26 @@ class VisitServiceList extends React.Component {
                                                             <line className="details-icon-color" x1="215.99609" y1="56"
                                                                   x2="39.99609" y2="56.00005" fill="none"
                                                                   stroke="#000000"
-                                                                  stroke-linecap="round" strokeLinejoin="round"
+                                                                  strokeLinecap="round" strokeLinejoin="round"
                                                                   strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="104" y1="104"
                                                                   x2="104"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="152" y1="104"
                                                                   x2="152"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <path className="details-icon-color"
                                                                   d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                                   fill="none"
-                                                                  stroke="#000000" stroke-linecap="round"
+                                                                  stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                             <path className="details-icon-color"
                                                                   d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                         </svg>
                                                     </button>

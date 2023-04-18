@@ -1,12 +1,12 @@
 import {Link, useLocation} from "react-router-dom";
 import React from "react";
 import {useTranslation} from "react-i18next";
-import {isKlient} from "../../helpers/authHelper";
+import {isClient} from "../../helpers/authHelper";
 
 function AfterCreateVisit() {
     const {t} = useTranslation();
     const location = useLocation();
-    const wybranaData = location.state.Data
+    const date = location.state.Data
     return (
         <main>
             <div className="w-full flex flex-wrap ">
@@ -17,10 +17,10 @@ function AfterCreateVisit() {
                                 <p className="text-3xl font-bold text-blue-400 p-1">{t("wizyta.thankYou")}</p>
                             </div>
                             <p className="text-2xl">{t("wizyta.confirmation")}</p>
-                            <p className="text-2xl font-bold">{t("wizyta.date") + ": " + wybranaData.replaceAll("-", ".")}</p>
+                            <p className="text-2xl font-bold">{t("wizyta.date") + ": " + date.replaceAll("-", ".")}</p>
                             <img src="/images/gti.png" alt={"gti"}></img>
                             <div className="flex justify-end pt-2">
-                                <Link to={isKlient() ? "/mojeWizyty":"/wizyty" }>
+                                <Link to={isClient() ? "/mojeWizyty":"/wizyty" }>
                                     <button
                                         className="px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t("button.back")}
                                     </button>

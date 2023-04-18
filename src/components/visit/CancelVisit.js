@@ -1,8 +1,8 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getWizytaDetails, odwolajWizyte} from "../../axios/VisitApiCalls";
-import {isKlient} from "../../helpers/authHelper";
+import {getWizytaDetails, cancelVisit} from "../../axios/VisitApiCalls";
+import {isClient} from "../../helpers/authHelper";
 import axios from "axios";
 import dayjs from "dayjs";
 
@@ -47,8 +47,8 @@ class CancelVisit extends React.Component {
     removeWizyte = async () => {
         const {navigate} = this.props;
         try {
-            await odwolajWizyte(this.state.idWizyta, this.state.idKlient, source)
-            if (isKlient()) {
+            await cancelVisit(this.state.idWizyta, this.state.idKlient, source)
+            if (isClient()) {
                 await navigate(`/mojeWizyty`, {replace: true});
             } else {
                 await navigate(`/wizyty`, {replace: true});

@@ -3,7 +3,7 @@ import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
-import {addSzczepionka, getSzczepionkaDetails, updateSzczepionka} from "../../axios/VaccineApiCalls";
+import {addVaccine, getVaccineDetails, updateVaccine} from "../../axios/VaccineApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -43,7 +43,7 @@ class VaccineForm extends React.Component {
         if (this.state.formMode === formMode.EDIT) {
             try {
 
-                await getSzczepionkaDetails(this.state.idSzczepionka, source)
+                await getVaccineDetails(this.state.idSzczepionka, source)
                     .then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -154,14 +154,14 @@ class VaccineForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addSzczepionka(dane.data, source)
+                    await addVaccine(dane.data, source)
                     navigate("/szczepionki", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateSzczepionka(dane.data, dane.idSzczepionka, source)
+                    await updateVaccine(dane.data, dane.idSzczepionka, source)
                     navigate("/szczepionki", {replace: true});
                 } catch (error) {
                     console.log(error)

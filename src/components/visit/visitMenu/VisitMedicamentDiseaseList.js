@@ -1,11 +1,11 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {addChorobaWizyta, deleteChorobaWizyta, getChorobaWizytaList} from "../../../axios/VisitDiseaseApiCalls";
-import {getChorobaList} from "../../../axios/DiseaseApiCalls";
+import {addVisitDisease, deleteVisitDisease, getVisitDiseaseList} from "../../../axios/VisitDiseaseApiCalls";
+import {getAllDiseases} from "../../../axios/DiseaseApiCalls";
 import VisitFormMenu from "../VisitFormMenu";
-import { getOnlyLekList} from "../../../axios/MedicamentApiCalls";
-import {addLekWizyta, deleteLekWizyta, getLekWizytaList} from "../../../axios/VisitMedicamentApiCalls";
+import { getOnlyMedicamentList} from "../../../axios/MedicamentApiCalls";
+import {addVisitMedicament, deleteVisitMedicament, getVisitMedicamentList} from "../../../axios/VisitMedicamentApiCalls";
 import {checkNumberRange} from "../../../helpers/CheckNRange";
 import axios from "axios";
 let CancelToken
@@ -17,7 +17,6 @@ class VisitMedicamentDiseaseList extends React.Component {
         const paramsIdWizyta = this.props.params.IdWizyta
         this.state = {
             idWizyta: paramsIdWizyta,
-            message: '',
             choroby: [],
             chorobyWizyta: [],
             leki: [],
@@ -35,9 +34,9 @@ class VisitMedicamentDiseaseList extends React.Component {
         }
     }
 
-    fetchChoroby = async () => {
+    fetchDiseases = async () => {
         try {
-            await getChorobaWizytaList(this.state.idWizyta, source).then((res) => {
+            await getVisitDiseaseList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -50,9 +49,9 @@ class VisitMedicamentDiseaseList extends React.Component {
         }
     }
 
-    fetchLeki = async () => {
+    fetchMedicaments = async () => {
         try {
-            await getLekWizytaList(this.state.idWizyta, source).then((res) => {
+            await getVisitMedicamentList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -68,21 +67,23 @@ class VisitMedicamentDiseaseList extends React.Component {
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        this.fetchChoroby()
-        this.fetchLeki()
+        this.fetchDiseases()
+        this.fetchMedicaments()
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     async showSelect(x) {
         var helpDiv, helpDiv1, helpDiv2
         var name, name1
         if (x === 1) {
             if (this.state.choroby.length === 0) {
                 try {
-                    await getChorobaList(source).then((res) => {
+                    await getAllDiseases(source).then((res) => {
                         if (res) {
                             this.setState({
                                 isLoaded: true,
@@ -101,9 +102,8 @@ class VisitMedicamentDiseaseList extends React.Component {
         } else {
             if (this.state.leki.length === 0) {
                 try {
-                    await getOnlyLekList(source).then((res) => {
+                    await getOnlyMedicamentList(source).then((res) => {
                         if (res) {
-                            console.log(res.data)
                             this.setState({
                                 isLoaded: true,
                                 leki: res.data
@@ -126,12 +126,10 @@ class VisitMedicamentDiseaseList extends React.Component {
             helpDiv.classList.remove("hidden");
             helpDiv1.classList.remove("hidden");
             helpDiv2.classList.remove("hidden");
-
         } else {
             helpDiv.classList.add("hidden");
             helpDiv1.classList.add("hidden");
             helpDiv2.classList.add("hidden");
-
 
             const data = {...this.state.data}
             data[name] = ''
@@ -148,38 +146,39 @@ class VisitMedicamentDiseaseList extends React.Component {
         }
     }
 
-    deleteChoroba = async (idChoroba) => {
+    deleteDisease = async (idChoroba) => {
         const {navigate} = this.props;
         try {
-            await deleteChorobaWizyta(this.state.idWizyta, idChoroba, source)
+            await deleteVisitDisease(this.state.idWizyta, idChoroba, source)
             navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
         }
     }
 
-    addChoroba = async () => {
+    addDisease = async () => {
         const {navigate} = this.props;
         if (this.state.data.IdChoroba !== '') {
             try {
-                await addChorobaWizyta(this.state.idWizyta, this.state.data.IdChoroba, source)
+                await addVisitDisease(this.state.idWizyta, this.state.data.IdChoroba, source)
                 navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
             }
         }
     }
-    deleteLek = async (idLek) => {
+
+    deleteMedicament = async (idLek) => {
         const {navigate} = this.props;
         try {
-            await deleteLekWizyta(this.state.idWizyta, idLek, source)
+            await deleteVisitMedicament(this.state.idWizyta, idLek, source)
             navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
         }
     }
 
-    addLek = async () => {
+    addMedicament = async () => {
         const {t} = this.props;
         const {navigate} = this.props;
         const errors = {...this.state.errors}
@@ -195,14 +194,13 @@ class VisitMedicamentDiseaseList extends React.Component {
         })
         if (!this.hasErrors()) {
             try {
-                await addLekWizyta(this.state.idWizyta, this.state.data.IdLek, this.state.data.Ilosc, source)
+                await addVisitMedicament(this.state.idWizyta, this.state.data.IdLek, this.state.data.Ilosc, source)
                 navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
             }
         }
     }
-
 
     handleChange = (event) => {
         const {name, value} = event.target
@@ -217,8 +215,8 @@ class VisitMedicamentDiseaseList extends React.Component {
             data: data,
             errors: errors
         })
-
     }
+
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
         let errorMessage = '';
@@ -233,7 +231,7 @@ class VisitMedicamentDiseaseList extends React.Component {
             }
         }
         if (fieldName === 'Ilosc') {
-            if (!checkNumberRange(this.state.data.Ilosc,0,999) ) {
+            if (!checkNumberRange(fieldValue,0,999)) {
                 errorMessage =  t('validation.quantity')
             }
             if (!fieldValue) {
@@ -281,7 +279,7 @@ class VisitMedicamentDiseaseList extends React.Component {
                     <VisitFormMenu idWizyta={idWizyta}/>
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white   ">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <div className="flex justify-between mt-6">
                         <h2 className=" w-1/3 my-2  mb-6 text-xl font-black leading-tight text-gray-600">
                             {t('choroba.title')}</h2>
@@ -294,61 +292,69 @@ class VisitMedicamentDiseaseList extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className="relative overflow-x-auto  shadow-xl sm:rounded-lg ">
-                        <table className="w-full shadow-xl text-sm text-left text-gray-700 dark:text-gray-400">
-                            <thead
-                                className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {chorobyWizyta.map(x => (
-                                <tr className="bg-white dark:bg-gray-800 dark:hover:bg-gray-600"
-                                    key={x.ID_Choroba}>
-                                    <td className=" px-8 py-2 ">• {x.Nazwa}</td>
-                                    <div className="text-center list-actions py-2">
-                                        <div className=" flex">
-                                            <button onClick={() => {
-                                                this.deleteChoroba(x.ID_Choroba)
-                                            }} className="list-actions-button-details flex-1">
-                                                <svg className="list-actions-button-delete flex-1"
-                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <rect width="256" height="256" fill="none"></rect>
-                                                    <line className="details-icon-color" x1="215.99609" y1="56"
-                                                          x2="39.99609" y2="56.00005" fill="none"
-                                                          stroke="#000000"
-                                                          stroke-linecap="round" strokeLinejoin="round"
-                                                          strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="104" y1="104"
-                                                          x2="104"
-                                                          y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <line className="details-icon-color" x1="152" y1="104"
-                                                          x2="152"
-                                                          y2="168"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></line>
-                                                    <path className="details-icon-color"
-                                                          d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
-                                                          fill="none"
-                                                          stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                    <path className="details-icon-color"
-                                                          d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                          fill="none" stroke="#000000" stroke-linecap="round"
-                                                          strokeLinejoin="round" strokeWidth="16"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
+                    {(chorobyWizyta.length !== 0) &&
+                        <div className="overflow-x-auto shadow-lg sm:rounded-lg">
+                            <table
+                                className="w-full text-xs sm:text-sm md:text-base text-left text-gray-700 dark:text-gray-400">
+                                <thead
+                                    className="text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col"
+                                        className="text-center px-1 md:px-6 py-3">{t('choroba.fields.name')}</th>
+                                    <th scope="col"
+                                        className="text-center px-1 md:px-6 py-3">{t('choroba.fields.description')}</th>
+                                    <th scope="col" className="text-center px-1 md:px-6 py-3"/>
                                 </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                {chorobyWizyta.map(x => (
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600 text-center"
+                                        key={x.ID_Choroba}>
+                                        <td className="px-1 md:px-6 py-2">{x.Nazwa}</td>
+                                        <td className="px-1 md:px-6 py-2">{x.Opis}</td>
+                                        <td className="px-1 md:px-6 py-2">
+                                            <div className="flex justify-center">
+                                                <button onClick={() => {
+                                                    this.deleteDisease(x.ID_Choroba)
+                                                }} className="flex-1">
+                                                    <svg className="flex-1"
+                                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                         fill="#000000" viewBox="0 0 256 256">
+                                                        <rect width="256" height="256" fill="none"></rect>
+                                                        <line className="details-icon-color" x1="215.99609" y1="56"
+                                                              x2="39.99609" y2="56.00005" fill="none"
+                                                              stroke="#000000"
+                                                              strokeLinecap="round" strokeLinejoin="round"
+                                                              strokeWidth="16"></line>
+                                                        <line className="details-icon-color" x1="104" y1="104"
+                                                              x2="104"
+                                                              y2="168"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></line>
+                                                        <line className="details-icon-color" x1="152" y1="104"
+                                                              x2="152"
+                                                              y2="168"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></line>
+                                                        <path className="details-icon-color"
+                                                              d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
+                                                              fill="none"
+                                                              stroke="#000000" strokeLinecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></path>
+                                                        <path className="details-icon-color"
+                                                              d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
+                                                              strokeLinejoin="round" strokeWidth="16"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    }
                     <div className=" md:flex mb-6 mt-4 hidden ">
                         <div className="md:w-full">
                             <select name="IdChoroba" id="spec-content" onChange={this.handleChange}
@@ -365,7 +371,7 @@ class VisitMedicamentDiseaseList extends React.Component {
                                   className="errors-text2 mt-4">{errors.IdChoroba}</span>
                             <div className="relative  w-full pb-4 ">
                                 <button id="spec-content1" onClick={() => {
-                                    this.addChoroba()
+                                    this.addDisease()
                                 }}
                                         className=" absolute hidden top-0 right-0  h-12 w-46  shadow-lg bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                     <span className="text-l font-bold ">+ {t('button.add')}</span>
@@ -387,10 +393,9 @@ class VisitMedicamentDiseaseList extends React.Component {
                         </div>
                     </div>
                     {(lekiWizyta.length !== 0) &&
-                        <div className="relative overflow-x-auto  shadow-xl sm:rounded-lg ">
-                            <table className="w-full shadow-xl text-sm text-left text-gray-700 dark:text-gray-400">
-                                <thead
-                                    className="text-s text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                        <div className="overflow-x-auto shadow-lg sm:rounded-lg">
+                            <table className="w-full text-xs sm:text-sm md:text-base text-left text-gray-700 dark:text-gray-400">
+                                <thead className="text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th className=" text-center px-6 uppercase py-3">{t('lek.fields.name')}</th>
                                     <th className=" text-center px-6 uppercase py-3">{t('lek.fields.quantity')}</th>
@@ -408,7 +413,7 @@ class VisitMedicamentDiseaseList extends React.Component {
                                         <div className="text-center py-2">
                                             <div className=" flex">
                                                 <button onClick={() => {
-                                                    this.deleteLek(x.IdLek)
+                                                    this.deleteMedicament(x.IdLek)
                                                 }} className="flex-1">
                                                     <svg className="flex-1"
                                                          xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -417,26 +422,26 @@ class VisitMedicamentDiseaseList extends React.Component {
                                                         <line className="details-icon-color" x1="215.99609" y1="56"
                                                               x2="39.99609" y2="56.00005" fill="none"
                                                               stroke="#000000"
-                                                              stroke-linecap="round" strokeLinejoin="round"
+                                                              strokeLinecap="round" strokeLinejoin="round"
                                                               strokeWidth="16"></line>
                                                         <line className="details-icon-color" x1="104" y1="104"
                                                               x2="104"
                                                               y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></line>
                                                         <line className="details-icon-color" x1="152" y1="104"
                                                               x2="152"
                                                               y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></line>
                                                         <path className="details-icon-color"
                                                               d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                               fill="none"
-                                                              stroke="#000000" stroke-linecap="round"
+                                                              stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></path>
                                                         <path className="details-icon-color"
                                                               d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></path>
                                                     </svg>
                                                 </button>
@@ -475,7 +480,7 @@ class VisitMedicamentDiseaseList extends React.Component {
 
                     <div className="relative w-full pb-4 ">
                         <button id="spec-content4" onClick={() => {
-                            this.addLek()
+                            this.addMedicament()
                         }}
                                 className=" absolute hidden bottom-12 right-2  h-12 w-46  shadow-lg bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                             <span className="text-l font-bold ">+ {t('button.add')}</span>

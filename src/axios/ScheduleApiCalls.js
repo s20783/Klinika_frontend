@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getHarmonogramWizyta(Date, source) {
-    return api.get(`/Harmonogram?date=${Date}`, {
+export function getScheduleForVisit(date, source) {
+    return api.get(`/Harmonogram?date=${date}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -13,8 +13,8 @@ export function getHarmonogramWizyta(Date, source) {
     })
 }
 
-export function getHarmonogramVet(idVet, Date, source) {
-    return api.get(`/Harmonogram/klinika/${idVet}?Date=${Date}`, {
+export function getVetSchedule(idVet, date, source) {
+    return api.get(`/Harmonogram/klinika/${idVet}?date=${date}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -25,8 +25,8 @@ export function getHarmonogramVet(idVet, Date, source) {
     })
 }
 
-export function getHarmonogram(Date, source) {
-    return api.get(`/Harmonogram/klinika?date=${Date}`, {
+export function getSchedule(date, source) {
+    return api.get(`/Harmonogram/klinika?date=${date}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -37,7 +37,7 @@ export function getHarmonogram(Date, source) {
     })
 }
 
-export async function addHarmonogram(source) {
+export async function addSchedule(source) {
     await api.post(`/Harmonogram/auto`, {
         cancelToken: source.token
     }).then((response) => {
@@ -49,7 +49,7 @@ export async function addHarmonogram(source) {
     })
 }
 
-export async function updateHarmonogram(source) {
+export async function updateSchedule(source) {
     await api.put(`/Harmonogram/auto`, {
         cancelToken: source.token
     }).then((response) => {

@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getSpecjalizacjaList(searchWord, page, source) {
+export function getSpecializationList(searchWord, page, source) {
     return api.get(`/Specjalizacja?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,8 +13,8 @@ export function getSpecjalizacjaList(searchWord, page, source) {
     })
 }
 
-export function getSpecjalizacjaDetails(Id,source) {
-    return api.get(`/Specjalizacja/details/${Id}`, {
+export function getAllSpecializations(source) {
+    return api.get(`/Specjalizacja/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -25,9 +25,8 @@ export function getSpecjalizacjaDetails(Id,source) {
     })
 }
 
-export async function addSpecjalizacja(specjalizacja,source) {
-    const specjalizacjaString = JSON.stringify(specjalizacja)
-    await api.post(`/Specjalizacja`, specjalizacjaString, {
+export function getSpecializationDetails(id, source) {
+    return api.get(`/Specjalizacja/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,9 +37,9 @@ export async function addSpecjalizacja(specjalizacja,source) {
     })
 }
 
-export async function updateSpecjalizacja(specjalizacja, Id,source) {
-    const specjalizacjaString = JSON.stringify(specjalizacja)
-    await api.put(`/Specjalizacja/${Id}`, specjalizacjaString, {
+export async function addSpecialization(data, source) {
+    const specializationString = JSON.stringify(data)
+    await api.post(`/Specjalizacja`, specializationString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -51,8 +50,21 @@ export async function updateSpecjalizacja(specjalizacja, Id,source) {
     })
 }
 
-export async function deleteSpecjalizacja(Id,source) {
-    await api.delete(`/Specjalizacja/${Id}`, {
+export async function updateSpecialization(data, id, source) {
+    const specializationString = JSON.stringify(data)
+    await api.put(`/Specjalizacja/${id}`, specializationString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
+export async function deleteSpecialization(id, source) {
+    await api.delete(`/Specjalizacja/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

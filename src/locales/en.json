@@ -189,6 +189,7 @@
 		"table": {
 			"startDate": "Start Date",
 			"endDate": "End Date",
+			"client": "Client",
 			"patient": "Patient",
 			"vet": "Vet",
 			"status": "Status",
@@ -325,6 +326,7 @@
 		},
 		"fields": {
 			"name": "Name",
+			"latinName": "Latin name",
 			"description": "Description"
 		}
 	},

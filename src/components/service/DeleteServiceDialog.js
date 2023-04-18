@@ -1,5 +1,5 @@
 import React from "react";
-import {deleteUsluga} from "../../axios/ServiceApiCalls";
+import {deleteService} from "../../axios/ServiceApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
@@ -32,7 +32,7 @@ class DeleteServiceDialog extends React.Component {
     removeUsluga = async (idUsluga) => {
         const {navigate} = this.props;
         try {
-            await deleteUsluga(idUsluga, source);
+            await deleteService(idUsluga, source);
             await navigate("/uslugi", {replace: true});
         } catch (error) {
             console.log(error)

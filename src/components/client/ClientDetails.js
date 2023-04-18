@@ -1,13 +1,13 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getKlientDetails} from "../../axios/ClientApiCalls";
-import {getKlientPacjentList} from "../../axios/PatientApiCalls";
+import {getClientDetails} from "../../axios/ClientApiCalls";
+import {getPatientClientList} from "../../axios/PatientApiCalls";
 import dayjs from 'dayjs';
 import {Link} from "react-router-dom";
 import {getFormattedDateWithHour} from "../../helpers/dateFormat";
-import {getKlientWizytaListForDetails} from "../../axios/VisitApiCalls";
-import {getId, isWeterynarz} from "../../helpers/authHelper";
+import {getClientVisitListForDetails} from "../../axios/VisitApiCalls";
+import {getId, isVet} from "../../helpers/authHelper";
 import axios from "axios";
 
 let CancelToken
@@ -48,7 +48,7 @@ class ClientDetails extends React.Component {
             this.setState({
                 idVet: userId
             });
-            await getKlientDetails(this.state.idKlient, source)
+            await getClientDetails(this.state.idKlient, source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -56,7 +56,7 @@ class ClientDetails extends React.Component {
                         });
                     }
                 })
-            await getKlientPacjentList(this.state.idKlient, source)
+            await getPatientClientList(this.state.idKlient, source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -64,7 +64,7 @@ class ClientDetails extends React.Component {
                         });
                     }
                 })
-            await getKlientWizytaListForDetails(this.state.idKlient, source)
+            await getClientVisitListForDetails(this.state.idKlient, source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -91,7 +91,7 @@ class ClientDetails extends React.Component {
                     </p>
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <div className="flex flex-wrap -mx-3 mb-6 border-b">
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
@@ -321,7 +321,7 @@ class ClientDetails extends React.Component {
                                                                     r="12"></circle>
                                                         </svg>
                                                     </Link>
-                                                    {(isWeterynarz() && idVet === x.IdWeterynarz) &&
+                                                    {(isVet() && idVet === x.IdWeterynarz) &&
                                                         <Link to={`/wizyty/editInfo/${x.IdWizyta}`}
                                                               className="list-actions-button-details flex-1">
                                                             <svg className="list-actions-button-edit flex-1"

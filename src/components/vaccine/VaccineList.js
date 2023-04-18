@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getSzczepionkaList} from "../../axios/VaccineApiCalls";
+import {getVaccineList} from "../../axios/VaccineApiCalls";
 import VaccineListTable from "./VaccineListTable";
 import axios from "axios";
 
@@ -32,7 +32,7 @@ class VaccineList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getSzczepionkaList(searchWord, page, source).then((res) => {
+            await getVaccineList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

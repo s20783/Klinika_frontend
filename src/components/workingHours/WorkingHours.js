@@ -3,13 +3,13 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedHour} from "../../helpers/dateFormat";
 import {
-    addGodzinyPracy,
-    editGodzinyPracy,
-    addDomyslneGodzinyPracy
+    addWorkingHours,
+    editWorkingHours,
+    addDefaultWorkingHours
 } from "../../axios/WorkingHoursApiCalls";
 import {ValidateTime} from "../../helpers/ValidateTime";
 import {Link} from "react-router-dom";
-import {getGodzinyPracyList} from "../../axios/WorkingHoursApiCalls";
+import {getWorkingHoursList} from "../../axios/WorkingHoursApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -61,7 +61,7 @@ class WorkingHours extends React.Component {
         source = CancelToken.source();
 
         try {
-            await getGodzinyPracyList(this.state.idWeterynarz, source).then((res) => {
+            await getWorkingHoursList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
                     res.data.map((x) => {
                         if (x.DzienTygodnia === 1) {
@@ -220,7 +220,7 @@ class WorkingHours extends React.Component {
         const {navigate} = this.props;
         if (this.state.idWeterynarz !== null) {
             try {
-                await addDomyslneGodzinyPracy(this.state.idWeterynarz, source)
+                await addDefaultWorkingHours(this.state.idWeterynarz, source)
                 navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -236,14 +236,14 @@ class WorkingHours extends React.Component {
         if (isValid) {
             if (this.state.czyEdycja) {
                 try {
-                    await editGodzinyPracy(this.state.idWeterynarz, dane.data, source)
+                    await editWorkingHours(this.state.idWeterynarz, dane.data, source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else {
                 try {
-                    await addGodzinyPracy(this.state.idWeterynarz, dane.data, source)
+                    await addWorkingHours(this.state.idWeterynarz, dane.data, source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

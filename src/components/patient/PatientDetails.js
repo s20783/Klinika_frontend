@@ -4,11 +4,11 @@ import dayjs from 'dayjs';
 import {withTranslation} from "react-i18next";
 import {getFormattedDate, getFormattedDateWithHour} from "../../helpers/dateFormat";
 import {Link} from "react-router-dom";
-import {getPacjentDetails} from "../../axios/PatientApiCalls";
-import {getPacjentWizytaList} from "../../axios/VisitApiCalls";
-import {getSzczepienieList} from "../../axios/VaccinationApiCalls";
-import {getUslugiPacjenta} from "../../axios/ServiceApiCalls";
-import {getId, isWeterynarz} from "../../helpers/authHelper";
+import {getPatientDetails} from "../../axios/PatientApiCalls";
+import {getPatientVisitList} from "../../axios/VisitApiCalls";
+import {getVaccinationList} from "../../axios/VaccinationApiCalls";
+import {getPatientServices} from "../../axios/ServiceApiCalls";
+import {getId, isVet} from "../../helpers/authHelper";
 import axios from "axios";
 
 let CancelToken
@@ -42,7 +42,7 @@ class PatientDetails extends React.Component {
 
     fetchPatientDetails = async () => {
         try {
-            await getPacjentDetails(this.state.idPacjent, source)
+            await getPatientDetails(this.state.idPacjent, source)
                 .then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -59,7 +59,7 @@ class PatientDetails extends React.Component {
 
     fetchWizyty = async () => {
         try {
-            await getPacjentWizytaList(this.state.idPacjent, source)
+            await getPatientVisitList(this.state.idPacjent, source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -75,7 +75,7 @@ class PatientDetails extends React.Component {
 
     fetchSzczepienia = async () => {
         try {
-            await getSzczepienieList(this.state.idPacjent, source)
+            await getVaccinationList(this.state.idPacjent, source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -91,7 +91,7 @@ class PatientDetails extends React.Component {
 
     fetchUslugi = async () => {
         try {
-            await getUslugiPacjenta(this.state.idPacjent, source)
+            await getPatientServices(this.state.idPacjent, source)
                 .then((res) => {
                     if (res) {
                         this.setState({
@@ -139,7 +139,7 @@ class PatientDetails extends React.Component {
                     <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('pacjent.detailsPatient')}</p>
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <form onSubmit={this.handleSubmit} className="w-full max-w">
                         <div className="flex flex-wrap -mx-3 mb-4 border-b">
                             <div className="w-full px-3">
@@ -225,15 +225,17 @@ class PatientDetails extends React.Component {
                                     {t('pacjent.fields.infertile')}
                                 </label>
                                 {pacjent.Ubezplodnienie === true &&
-                                    <svg className="shadow-xl h-8 w-8 text-black " width="24" height="24"
+                                    <svg className="h-12 w-12 text-black"
                                          viewBox="0 0 24 24"
-                                         stroke="currentColor" fill="none" stroke-linecap="round"
-                                         strokeLinejoin="round">
+                                         stroke="currentColor"
+                                         fill="none">
                                         <path stroke="none" d="M0 0h24v24H0z"/>
                                         <path d="M5 12l5 5l10 -10"/>
                                     </svg>}
                                 {pacjent.Ubezplodnienie === false &&
-                                    <svg className="shadow-xl h-8 w-8 text-black " fill="none" viewBox="0 0 24 24"
+                                    <svg className="h-12 w-12 text-black"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
                                          stroke="currentColor">
                                         <path stroke-linecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
@@ -247,27 +249,32 @@ class PatientDetails extends React.Component {
                                     {t('pacjent.fields.gender')}
                                 </label>
                                 {pacjent.Plec === "M" &&
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                         font-weight="bold" className=" bi bi-gender-male" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         fill="currentColor"
+                                         font-weight="bold"
+                                         className="bi bi-gender-male h-12 w-12"
+                                         viewBox="0 0 16 16">
                                         <path fillRule="evenodd"
                                               d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"
                                               stroke="black" strokeWidth="0.5"/>
                                     </svg>}
                                 {pacjent.Plec === "F" &&
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                         className="bi bi-gender-female" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         fill="currentColor"
+                                         className="bi bi-gender-female h-12 w-12"
+                                         viewBox="0 0 16 16">
                                         <path fillRule="evenodd"
                                               d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"
                                               stroke="black" strokeWidth="0.5"/>
                                     </svg>}
                             </div>
-                            <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
                                 <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('pacjent.fields.aggressive')}
                                 </label>
                                 {pacjent.Agresywne === true &&
-                                    <svg className="shadow-xl h-8 w-8 text-black" width="24" height="24"
+                                    <svg className="h-12 w-12 text-black"
                                          viewBox="0 0 24 24"
                                          stroke="currentColor" fill="none" stroke-linecap="round"
                                          strokeLinejoin="round">
@@ -275,7 +282,8 @@ class PatientDetails extends React.Component {
                                         <path d="M5 12l5 5l10 -10"/>
                                     </svg>}
                                 {pacjent.Agresywne === false &&
-                                    <svg className="shadow-xl h-8 w-8 text-black " fill="none" viewBox="0 0 24 24"
+                                    <svg className="h-12 w-12 text-black"
+                                         fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                         <path stroke-linecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>}
@@ -321,7 +329,7 @@ class PatientDetails extends React.Component {
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('szczepienie.title')}</h2>
 
-                        {isWeterynarz() &&
+                        {isVet() &&
                             <div className="relative  w-1/3 ">
                                 <Link to={`/szczepienie/${idPacjent}`}>
                                     <button id="menu-toggle"
@@ -366,7 +374,7 @@ class PatientDetails extends React.Component {
                                         <td className="px-6 py-2 text-center">
                                             {x.Dawka} ml
                                         </td>
-                                        {isWeterynarz() &&
+                                        {isVet() &&
                                             <div className="list-actions text-center py-2">
                                                 <div className=" flex">
                                                     <Link to={`/szczepienie/edit/${idPacjent}/${x.IdSzczepienie}`}
@@ -486,7 +494,7 @@ class PatientDetails extends React.Component {
                                                                 r="12"></circle>
                                                     </svg>
                                                 </Link>
-                                                {(isWeterynarz() && idVet === x.IdWeterynarz) &&
+                                                {(isVet() && idVet === x.IdWeterynarz) &&
                                                     <Link to={`/wizyty/editInfo/${x.IdWizyta}`}
                                                           className="list-actions-button-details flex-1">
                                                         <svg className="list-actions-button-edit flex-1"

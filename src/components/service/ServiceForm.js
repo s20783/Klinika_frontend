@@ -3,7 +3,7 @@ import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
-import {addUsluga, getUslugaDetails, updateUsluga} from "../../axios/ServiceApiCalls";
+import {addService, getServiceDetails, updateService} from "../../axios/ServiceApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -12,7 +12,6 @@ class ServiceForm extends React.Component {
         super(props);
         const paramsIdUsluga = this.props.params.idUsluga
         const currentFormMode = paramsIdUsluga ? formMode.EDIT : formMode.NEW
-
         this.state = {
             data: {
                 NazwaUslugi: '',
@@ -40,7 +39,7 @@ class ServiceForm extends React.Component {
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                await getUslugaDetails(this.state.idUsluga, source).then((res) => {
+                await getServiceDetails(this.state.idUsluga, source).then((res) => {
                     if (res) {
                         console.log(res.data)
                         this.setState({
@@ -147,14 +146,14 @@ class ServiceForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addUsluga(dane.data, source);
+                    await addService(dane.data, source);
                     await navigate("/uslugi", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateUsluga(dane.data, this.state.idUsluga, source)
+                    await updateService(dane.data, this.state.idUsluga, source)
                     await navigate("/uslugi", {replace: true});
                 } catch (error) {
                     console.log(error)
@@ -195,7 +194,7 @@ class ServiceForm extends React.Component {
                             </div>
                         </section>
                         <div className="border-b">
-                            <label class="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
+                            <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
                                 {t('usluga.fields.description')}
                             </label>
                             <div className="md:w-3/4 mt-5">

@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {deleteSzczepienie} from "../../axios/VaccinationApiCalls";
+import {deleteVaccination} from "../../axios/VaccinationApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -29,7 +29,7 @@ class DeleteVaccinationDialog extends React.Component {
     removeSzczepienie = async (idSzczepienie) => {
         const {navigate} = this.props;
         try {
-            await deleteSzczepienie(idSzczepienie,source)
+            await deleteVaccination(idSzczepienie,source)
             await navigate(-1, {replace: true});
         } catch (error) {
             console.log(error)

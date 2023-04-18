@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {getImie, isAdmin, isKlient, isWeterynarz} from "../../helpers/authHelper";
+import {getImie, isAdmin, isClient, isVet} from "../../helpers/authHelper";
 import {adminMenuValues, userMenuValues, vetMenuValues} from "../../values/UserMenuValues";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -47,7 +47,7 @@ function DropdownMenu(props) {
                 <ul className="bg-white rounded shadow-2xl absolute right-0 min-w-full overflow-auto z-30 text-gray-600"
                     onMouseEnter={openMenu}
                     onMouseLeave={closeMenu}>
-                    {(isKlient()) && userMenuValues.map((item) => (
+                    {(isClient()) && userMenuValues.map((item) => (
                         <li key={item.title}>
                             <Link to={item.url}
                                   className="px-4 py-2 block hover:bg-gray-400 hover:text-white font-semibold">
@@ -55,7 +55,7 @@ function DropdownMenu(props) {
                             </Link>
                         </li>
                     ))}
-                    {(isWeterynarz()) && vetMenuValues.map((item) => (
+                    {(isVet()) && vetMenuValues.map((item) => (
                         <li key={item.title}>
                             <Link to={item.url}
                                   className="px-4 py-2 block hover:bg-gray-400 hover:text-white font-semibold">

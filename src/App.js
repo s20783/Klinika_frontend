@@ -6,7 +6,7 @@ import React from 'react';
 import Contact from "./components/other/Contact";
 import Login from "./components/other/Login";
 import Register from "./components/other/Register";
-import AfterRegister from "./components/client/AfterRegister";
+import AfterRegistration from "./components/client/AfterRegistration";
 import {getCurrentUser} from "./helpers/authHelper";
 import Konto from "./components/account/Account";
 import LekList from "./components/medicament/MedicamentList";
@@ -29,7 +29,7 @@ import UsuniecieChoroby from "./components/disease/DeleteDiseaseDialog";
 import UslugaList from "./components/service/ServiceList";
 import FormularzUslugi from "./components/service/ServiceForm";
 import UsuniecieUslugi from "./components/service/DeleteServiceDialog";
-import KontoWizyty from "./components/account/KontoWizyty";
+import KontoWizyty from "./components/account/AccountVisits";
 import ZmianaHasla from "./components/account/ChangePassword";
 import ZmianaDanychKonta from "./components/account/UpdateAccount";
 import UmowienieWizyty from "./components/visit/VisitForm";
@@ -108,7 +108,7 @@ class App extends React.Component {
 
                     <Route path="/login" element={<Login handleLogin={this.handleLogin}/>}/>
                     <Route path="/register" element={<Register/>}/>
-                    <Route path="/afterRegister" element={<AfterRegister/>}/>
+                    <Route path="/afterRegister" element={<AfterRegistration/>}/>
 
                     <Route element={<ProtectedRouter/>}>
                         <Route path="/klienci" element={<KlientList/>}/>

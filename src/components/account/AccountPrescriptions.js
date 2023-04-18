@@ -1,7 +1,7 @@
 import React from "react";
 import AccountMenu from "./AccountMenu";
 import {withTranslation} from "react-i18next";
-import {getMojeRecepty} from "../../axios/PrescriptionApiCalls";
+import {getClientPrescriptions} from "../../axios/PrescriptionApiCalls";
 import PrescriptionListTable from "../prescription/PrescriptionListTable";
 import axios from "axios";
 let CancelToken
@@ -21,7 +21,7 @@ class AccountPrescriptions extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getMojeRecepty(source).then((res) => {
+            await getClientPrescriptions(source).then((res) => {
                 if (res) {
                     console.log(res.data)
                     this.setState({

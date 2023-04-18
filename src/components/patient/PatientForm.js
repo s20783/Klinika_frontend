@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import {CheckTextRange} from "../../helpers/CheckTextRange";
 import formMode from "../../helpers/FormMode";
 import {withTranslation} from "react-i18next";
-import {addPacjent, getPacjentDetails, updatePacjent} from "../../axios/PatientApiCalls";
+import {addPatient, getPatientDetails, updatePatient} from "../../axios/PatientApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -64,7 +64,7 @@ class PatientForm extends React.Component {
 
     fetchPatientDetails = async () => {
         try{
-            await getPacjentDetails(this.state.idPacjent, source)
+            await getPatientDetails(this.state.idPacjent, source)
                 .then((res) => {
                 if (res) {
                     this.setState({
@@ -205,14 +205,14 @@ class PatientForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addPacjent(dane.data, source)
+                    await addPatient(dane.data, source)
                     await navigate("/pacjenci", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updatePacjent(dane.data, dane.idPacjent, source)
+                    await updatePatient(dane.data, dane.idPacjent, source)
                     await navigate("/pacjenci", {replace: true});
                 } catch (error) {
                     console.log(error)
@@ -248,7 +248,7 @@ class PatientForm extends React.Component {
                                    htmlFor="Wlasciciel">
                                 {t('pacjent.fields.owner')}
                             </label>
-                            <div class="md:w-3/5">
+                            <div className="md:w-3/5">
                                 <select name="IdOsoba" id="Wlasciciel" onChange={this.handleChange}
                                         className={errors.IdOsoba ? "shadow-xl form-select block w-full focus:bg-red" : "shadow-xl form-select block w-full focus:bg-white"}>
                                     <option value="">{t('pacjent.selectOwner')}</option>
@@ -268,7 +268,7 @@ class PatientForm extends React.Component {
                                 {t('pacjent.fields.name')}
                             </label>
                             <input
-                                class="shadow-xl form-textarea appearance-none block w-full md:w-4/6  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-blue-600"
+                                className="shadow-xl form-textarea appearance-none block w-full md:w-4/6  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-blue-600"
                                 name="Nazwa" id="Nazwa" type="text" value={data.Nazwa}
                                 onChange={this.handleChange} placeholder=""/>
                         </div>

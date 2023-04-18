@@ -3,11 +3,11 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../../helpers/dateFormat";
 import {getWizytaDetails} from "../../axios/VisitApiCalls";
-import {getReceptaDetails, getReceptaLeki} from "../../axios/PrescriptionApiCalls";
-import {getUslugaWizytaList} from "../../axios/ServiceApiCalls";
-import {getChorobaWizytaList} from "../../axios/VisitDiseaseApiCalls";
+import {getPrescriptionDetails, getPrescriptionMedicaments} from "../../axios/PrescriptionApiCalls";
+import {getVisitServiceList} from "../../axios/VisitServiceApiCalls";
+import {getVisitDiseaseList} from "../../axios/VisitDiseaseApiCalls";
 import VisitDetailsMenu from "./VisitDetailsMenu";
-import {getLekWizytaList} from "../../axios/VisitMedicamentApiCalls";
+import {getVisitMedicamentList} from "../../axios/VisitMedicamentApiCalls";
 import axios from "axios";
 import dayjs from "dayjs";
 
@@ -32,7 +32,6 @@ class VisitDetails extends React.Component {
                 IdKlient: ''
             },
             idWizyta: paramsIdWizyta,
-            message: '',
             uslugi: [],
             chorobyWizyta: [],
             recepta: '',
@@ -41,7 +40,7 @@ class VisitDetails extends React.Component {
         }
     }
 
-    fetchWizytaDetails = async () => {
+    fetchVisitDetails = async () => {
         try {
             await getWizytaDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
@@ -56,9 +55,9 @@ class VisitDetails extends React.Component {
         }
     }
 
-    fetchReceptaDetails = async () => {
+    fetchPrescriptionDetails = async () => {
         try {
-            await getReceptaDetails(this.state.idWizyta, source).then((res) => {
+            await getPrescriptionDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
                     this.setState({
@@ -67,7 +66,7 @@ class VisitDetails extends React.Component {
                     });
                 }
             })
-            await getReceptaLeki(this.state.idWizyta, source).then((res) => {
+            await getPrescriptionMedicaments(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
                     this.setState({
@@ -81,11 +80,10 @@ class VisitDetails extends React.Component {
         }
     }
 
-    fetchUslugi = async () => {
+    fetchServices = async () => {
         try {
-            await getUslugaWizytaList(this.state.idWizyta, source).then((res) => {
+            await getVisitServiceList(this.state.idWizyta, source).then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         uslugi: res.data
@@ -97,9 +95,9 @@ class VisitDetails extends React.Component {
         }
     }
 
-    fetchChoroby = async () => {
+    fetchDiseases = async () => {
         try {
-            await getChorobaWizytaList(this.state.idWizyta, source).then((res) => {
+            await getVisitDiseaseList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
                     this.setState({
@@ -113,9 +111,9 @@ class VisitDetails extends React.Component {
         }
     }
 
-    fetchLeki = async () => {
+    fetchMedicaments = async () => {
         try {
-            await getLekWizytaList(this.state.idWizyta, source).then((res) => {
+            await getVisitMedicamentList(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     console.log(res.data)
                     this.setState({
@@ -132,12 +130,11 @@ class VisitDetails extends React.Component {
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
-        this.fetchWizytaDetails()
-        this.fetchReceptaDetails()
-        this.fetchUslugi()
-        this.fetchChoroby()
-        this.fetchLeki()
+        this.fetchVisitDetails()
+        this.fetchPrescriptionDetails()
+        this.fetchServices()
+        this.fetchDiseases()
+        this.fetchMedicaments()
     }
 
     componentWillUnmount() {
@@ -159,120 +156,131 @@ class VisitDetails extends React.Component {
                     }
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 leading-normal bg-white border border-gray-400 rounded text-gray-700">
                     <form className="w-full max-w">
                         <div className="flex flex-wrap -mx-3 mb-4 border-b">
                             <div className="w-full px-3">
-                                <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                                <label className="block tracking-wide text-s font-bold mb-2">
                                     {t('wizyta.table.patient')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-50"
-                                    name="Wlasciciel" id="Wlasciciel" type="text"
+                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-100"
+                                    name="Pacjent" id="Pacjent" type="text"
                                     value={wizyta.Pacjent ? wizyta.Pacjent : "-"}
-                                    disabled placeholder=""/>
+                                    disabled/>
                             </div>
                         </div>
 
                         <div className="flex flex-wrap -mx-3 mb-4 border-b">
                             <div className="w-full px-3">
-                                <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                                <label className="block tracking-wide text-s font-bold mb-2">
                                     {t('wizyta.table.vet')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-50"
+                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-100"
                                     name="Nazwa" id="Nazwa" type="text" value={wizyta.Weterynarz}
                                     disabled placeholder=""/>
                             </div>
                         </div>
                         <div className="flex flex-wrap -mx-3 mb-6 border-b">
                             <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
-                                <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                                <label className="block tracking-wide text-s font-bold mb-2">
                                     {t('wizyta.table.startDate')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-50"
+                                    className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-100"
                                     name="DataRozpoczecia" id="DataRozpoczecia" type="text"
                                     value={wizyta.DataRozpoczecia != null ? getFormattedDateWithHour(wizyta.DataRozpoczecia) : "-"}
                                     placeholder="" disabled/>
                             </div>
                             <div className="w-full md:w-2/6 px-3 mb-6 md:ml-8">
-                                <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2"
+                                <label className="block tracking-wide text-s font-bold mb-2"
                                        form="grid-last-name">
                                     {t('wizyta.table.endDate')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight bg-gray-50"
+                                    className="shadow-xl form-textarea appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight bg-gray-100"
                                     name="DataZakonczenia" id="DataZakonczenia" type="text"
                                     value={wizyta.DataZakonczenia != null ? getFormattedDateWithHour(wizyta.DataZakonczenia) : "-"}
                                     placeholder="" disabled/>
                             </div>
                         </div>
                         <div className="mb-6 border-b">
-                            <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
+                            <label className="block mt-5 font-bold md:text-left mb-6 " id="Opis">
                                 {t("wizyta.table.description")}
                             </label>
                             <div className="md:w-3/4 mt-5">
-                          <textarea className="shadow-xl form-textarea block w-full focus:bg-white mb-6" id="Opis"
+                                <textarea
+                                    className="shadow-xl form-textarea block w-full mb-6 bg-gray-100"
+                                    id="Opis"
                                     name="Opis"
-                                    value={wizyta.Opis} rows="5" disabled/>
+                                    value={wizyta.Opis}
+                                    rows="5"
+                                    disabled/>
                             </div>
                         </div>
                         <div className="flex flex-wrap -mx-3 mb-6 border-b">
                             <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
-                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                <label className="block tracking-wide text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('wizyta.table.clientNote')}
                                 </label>
-                                <textarea className="shadow-xl form-textarea block w-full focus:bg-white mb-6"
-                                          id="Notatka"
-                                          name="Notatka"
-                                          value={wizyta.NotatkaKlient} rows="5"
-                                          disabled/>
+                                <textarea
+                                    className="shadow-xl form-textarea block w-full focus:bg-white mb-6 bg-gray-100"
+                                    id="Notatka"
+                                    name="Notatka"
+                                    value={wizyta.NotatkaKlient}
+                                    rows="5"
+                                    disabled/>
                             </div>
                             <div className="w-full md:w-1/3 px-3 mb-6 mt-6 md:ml-14 md:mb-0">
-                                <div className=" mb-6">
-                                    <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                <div className="mb-6">
+                                    <label className="block tracking-wide text-s font-bold mb-2"
                                            form="grid-city">
                                         {t('wizyta.table.isPaid')}
                                     </label>
                                     {wizyta.CzyOplacona === true &&
-                                        <svg className="h-8 w-8 text-black mb-5 shadow-xl " width="24" height="24"
+                                        <svg className="h-12 w-12 text-black mb-5"
                                              viewBox="0 0 24 24"
-                                             stroke="currentColor" fill="none" stroke-linecap="round"
-                                             strokeLinejoin="round">
+                                             stroke="currentColor"
+                                             fill="none">
                                             <path stroke="none" d="M0 0h24v24H0z"/>
                                             <path d="M5 12l5 5l10 -10"/>
-                                        </svg>}
+                                        </svg>
+                                    }
                                     {wizyta.CzyOplacona === false &&
-                                        <svg className="h-8 w-8 text-black mb-5 shadow-xl" fill="none"
+                                        <svg className="h-12 w-12 text-black mb-5"
+                                             fill="none"
                                              viewBox="0 0 24 24"
                                              stroke="currentColor">
-                                            <path stroke-linecap="round" strokeLinejoin="round"
+                                            <path strokeLinecap="round" strokeLinejoin="round"
                                                   d="M6 18L18 6M6 6l12 12"/>
-                                        </svg>}
+                                        </svg>
+                                    }
                                 </div>
                             </div>
                         </div>
 
                         <div className="flex flex-wrap mb-6">
                             <div className="w-full md:w-2/6">
-                                <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2"
+                                <label className="block tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-last-name">
                                     {t('wizyta.table.status')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-50"
-                                    name="Status" id="Status" type="text"
+                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-100"
+                                    name="Status"
+                                    id="Status"
+                                    type="text"
                                     value={t('wizyta.status.' + wizyta.Status)} placeholder=""
                                     disabled/>
                             </div>
                             <div className="w-full md:w-2/6 mb-6 md:mb-0 md:ml-8">
-                                <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2">
+                                <label className="block tracking-wide text-gray-700 text-s font-bold mb-2">
                                     {t('wizyta.table.price')}
                                 </label>
                                 <input
-                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-50"
+                                    className="shadow-xl form-textarea block w-full md:w-4/6 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight mb-6 bg-gray-100"
                                     name="Cena" id="Cena" type="text" value={wizyta.Cena} placeholder=""
                                     disabled/>
                             </div>
@@ -343,11 +351,10 @@ class VisitDetails extends React.Component {
                     {recepta !== '' &&
                         <div>
                             <div className="flex justify-between mt-14">
-                                <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
+                                <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                                     {t('recepta.title')}</h2>
                             </div>
                             <div className="border-4 border-blue-200  h-fit ml-3 shadow-xl rounded-md mx-20">
-
                                 <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                     {t('recepta.fields.medicines')}</h2>
                                 <div className="overflow-x-auto shadow-xl">
@@ -375,11 +382,13 @@ class VisitDetails extends React.Component {
                                 </div>
                                 <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                     {t('recepta.fields.recommendations')}</h2>
-                                <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4"
-                                          id="Notatka"
-                                          name="Notatka"
-                                          value={recepta.Zalecenia} rows="6"
-                                          disabled/>
+                                <textarea
+                                    className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4"
+                                    id="Notatka"
+                                    name="Notatka"
+                                    value={recepta.Zalecenia}
+                                    rows="6"
+                                    disabled/>
                             </div>
                         </div>
                     }

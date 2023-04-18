@@ -1,5 +1,5 @@
 import React from "react";
-import {deleteGodzinyPracy} from "../../axios/WorkingHoursApiCalls";
+import {deleteWorkingHours} from "../../axios/WorkingHoursApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
@@ -33,7 +33,7 @@ class DeleteWorkingHours extends React.Component {
     removeGodzinyPracy = async (idWeterynarz, dzien) => {
         const {navigate} = this.props;
         try {
-            await deleteGodzinyPracy(idWeterynarz, dzien, source)
+            await deleteWorkingHours(idWeterynarz, dzien, source)
             await navigate(-1, {replace: true});
         } catch (error) {
             console.log(error)

@@ -3,7 +3,7 @@ import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {checkNumberRange} from "../../helpers/CheckNRange";
-import {addLekMagazyn, getLekMagazyn, updateLekMagazyn} from "../../axios/MedicamentWarehouseApiCalls";
+import {addMedicamentWarehouse, getMedicamentWarehouse, updateMedicamentWarehouse} from "../../axios/MedicamentWarehouseApiCalls";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
 import axios from "axios";
@@ -43,7 +43,7 @@ class MedicamentWarehouseForm extends React.Component {
 
         if (this.state.formMode === formMode.EDIT) {
             try {
-                await getLekMagazyn(this.state.idStanLeku, source)
+                await getMedicamentWarehouse(this.state.idStanLeku, source)
                     .then((res) => {
                     if (res) {
                         this.setState({
@@ -151,14 +151,14 @@ class MedicamentWarehouseForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addLekMagazyn(dane.idLek, dane.data, source)
+                    await addMedicamentWarehouse(dane.idLek, dane.data, source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateLekMagazyn(dane.data, dane.idStanLeku, source)
+                    await updateMedicamentWarehouse(dane.data, dane.idStanLeku, source)
                     navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

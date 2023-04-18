@@ -1,8 +1,8 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getUslugaWizytaList(Id,source){
-    return api.get(`/WizytaUsluga/${Id}`, {
+export function getVisitServiceList(id, source) {
+    return api.get(`/WizytaUsluga/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -12,8 +12,9 @@ export function getUslugaWizytaList(Id,source){
         }
     })
 }
-export async function addUslugaWizyta(idWizyta, idUsluga,source){
-    await api.post(`/WizytaUsluga/${idWizyta}/${idUsluga}`, {
+
+export async function addVisitService(idVisit, idService, source) {
+    await api.post(`/WizytaUsluga/${idVisit}/${idService}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -23,8 +24,9 @@ export async function addUslugaWizyta(idWizyta, idUsluga,source){
         }
     })
 }
-export async function acceptUslugaWizyta(idWizyta,source){
-    await api.put(`/WizytaUsluga/accept/${idWizyta}`, {
+
+export async function acceptVisitServices(idVisit, source) {
+    await api.put(`/WizytaUsluga/accept/${idVisit}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -34,8 +36,9 @@ export async function acceptUslugaWizyta(idWizyta,source){
         }
     })
 }
-export async function deleteUslugaWizyta(idWizyta, idUsluga,source){
-    await api.delete(`/WizytaUsluga/${idWizyta}/${idUsluga}`, {
+
+export async function deleteVisitService(idVisit, idService, source) {
+    await api.delete(`/WizytaUsluga/${idVisit}/${idService}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

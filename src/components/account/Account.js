@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import React from "react";
-import {getKontoData} from "../../axios/AuthApiCalls";
+import {getAccountData} from "../../axios/AuthApiCalls";
 import AccountMenu from "./AccountMenu";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
@@ -22,7 +22,7 @@ class Account extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getKontoData(source).then((res) => {
+            await getAccountData(source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

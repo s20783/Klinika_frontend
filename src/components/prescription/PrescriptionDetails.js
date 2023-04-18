@@ -2,8 +2,8 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {
-    getReceptaDetails,
-    getReceptaLeki
+    getPrescriptionDetails,
+    getPrescriptionMedicaments
 } from "../../axios/PrescriptionApiCalls";
 import axios from "axios";
 
@@ -32,7 +32,7 @@ class PrescriptionDetails extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getReceptaDetails(this.state.idRecepta, source)
+            await getPrescriptionDetails(this.state.idRecepta, source)
                 .then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -43,7 +43,7 @@ class PrescriptionDetails extends React.Component {
                     }
                 })
 
-            await getReceptaLeki(this.state.idRecepta, source)
+            await getPrescriptionMedicaments(this.state.idRecepta, source)
                 .then((res) => {
                     if (res) {
                         console.log(res.data)

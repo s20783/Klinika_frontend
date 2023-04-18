@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getChorobaList(searchWord, page, source) {
+export function getDiseaseList(searchWord, page, source) {
     return api.get(`/Choroba?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,7 +13,19 @@ export function getChorobaList(searchWord, page, source) {
     })
 }
 
-export function getChorobaDetails(Id, source) {
+export function getAllDiseases(source) {
+    return api.get(`/Choroba/all`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
+export function getDiseaseDetails(Id, source) {
     return api.get(`/Choroba/${Id}`,{
         cancelToken: source.token
     }).then((response) => {
@@ -25,9 +37,9 @@ export function getChorobaDetails(Id, source) {
     })
 }
 
-export async function addChoroba(choroba,source) {
-    const chorobaString = JSON.stringify(choroba)
-    await api.post(`/Choroba`, chorobaString,{
+export async function addDisease(disease, source) {
+    const diseaseString = JSON.stringify(disease)
+    await api.post(`/Choroba`, diseaseString,{
         cancelToken: source.token
     }).then((response) => {
         console.log(response)
@@ -39,9 +51,9 @@ export async function addChoroba(choroba,source) {
     })
 }
 
-export async function updateChoroba(choroba, Id, source) {
-    const chorobaString = JSON.stringify(choroba)
-    await api.put(`/Choroba/${Id}`, chorobaString,{
+export async function updateDisease(disease, Id, source) {
+    const diseaseString = JSON.stringify(disease)
+    await api.put(`/Choroba/${Id}`, diseaseString,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -52,7 +64,7 @@ export async function updateChoroba(choroba, Id, source) {
     })
 }
 
-export async function deleteChoroba(Id,source) {
+export async function deleteDisease(Id, source) {
     await api.delete(`/Choroba/${Id}`,{
         cancelToken: source.token
     }).then((response) => {

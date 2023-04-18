@@ -61,6 +61,7 @@ function DiseaseListTable(props) {
                     <thead className="text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="text-center px-1 md:px-6 py-3">{t('choroba.fields.name')}</th>
+                        <th scope="col" className="text-center px-1 md:px-6 py-3">{t('choroba.fields.latinName')}</th>
                         <th scope="col" className="text-center px-1 md:px-6 py-3">{t('choroba.fields.description')}</th>
                         <th scope="col" className="text-center px-1 md:px-6 py-3"/>
                     </tr>
@@ -70,6 +71,7 @@ function DiseaseListTable(props) {
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                             key={x.ID_Choroba}>
                             <td className="text-center px-1 md:px-6 py-2">{x.Nazwa}</td>
+                            <td className="text-center px-1 md:px-6 py-2">{x.NazwaLacinska ? x.NazwaLacinska : "-"}</td>
                             <td className="text-center px-1 md:px-6 py-2">{x.Opis}</td>
                             <td className="text-center px-1 md:px-6 py-2">
                                 <div className="flex justify-center">

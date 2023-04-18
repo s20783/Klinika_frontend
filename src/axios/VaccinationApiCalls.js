@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getSzczepienieList(id,source) {
+export function getVaccinationList(id, source) {
     return api.get(`/Szczepienie/${id}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,8 +13,8 @@ export function getSzczepienieList(id,source) {
     })
 }
 
-export function getSzczepienieDetails(Id,source) {
-    return api.get(`/Szczepienie/details/${Id}`, {
+export function getVaccinationDetails(id, source) {
+    return api.get(`/Szczepienie/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -25,9 +25,9 @@ export function getSzczepienieDetails(Id,source) {
     })
 }
 
-export async function addSzczepienie(szczepienie,source) {
-    const szczepienieString = JSON.stringify(szczepienie)
-    await api.post(`/Szczepienie`, szczepienieString, {
+export async function addVaccination(data, source) {
+    const vaccinationString = JSON.stringify(data)
+    await api.post(`/Szczepienie`, vaccinationString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,9 +38,9 @@ export async function addSzczepienie(szczepienie,source) {
     })
 }
 
-export async function updateSzczepienie(szczepienie, id,source) {
-    const szczepienieString = JSON.stringify(szczepienie)
-    await api.put(`/Szczepienie/${id}`, szczepienieString, {
+export async function updateVaccination(data, id, source) {
+    const vaccinationString = JSON.stringify(data)
+    await api.put(`/Szczepienie/${id}`, vaccinationString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -51,8 +51,8 @@ export async function updateSzczepienie(szczepienie, id,source) {
     })
 }
 
-export async function deleteSzczepienie(Id,source) {
-    await api.delete(`/Szczepienie/${Id}`, {
+export async function deleteVaccination(id, source) {
+    await api.delete(`/Szczepienie/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

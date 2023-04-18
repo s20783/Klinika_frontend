@@ -2,7 +2,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 
-function AfterRegister() {
+function AfterRegistration() {
     const {t} = useTranslation();
 
     return (
@@ -32,4 +32,4 @@ function AfterRegister() {
     )
 }
 
-export default AfterRegister
+export default AfterRegistration

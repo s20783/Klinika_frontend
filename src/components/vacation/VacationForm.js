@@ -2,7 +2,7 @@ import React from 'react';
 import Calendar from 'react-calendar';
 import {useNavigate, useParams} from "react-router";
 import dayjs from 'dayjs';
-import {addUrlop, getUrlopDetails, editUrlop} from "../../axios/VacationApiCalls";
+import {addVacation, getVacationDetails, editVacation} from "../../axios/VacationApiCalls";
 import formMode from "../../helpers/FormMode";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
@@ -34,7 +34,7 @@ class VacationForm extends React.Component {
         source = CancelToken.source();
         if (this.state.idUrlop) {
             try {
-                await getUrlopDetails(this.state.idUrlop, source).then((res) => {
+                await getVacationDetails(this.state.idUrlop, source).then((res) => {
                     if (res) {
                         this.setState({
                             isLoaded: true,
@@ -116,14 +116,14 @@ class VacationForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addUrlop(dane.data, source)
+                    await addVacation(dane.data, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await editUrlop(dane.idUrlop, dane.data, source)
+                    await editVacation(dane.idUrlop, dane.data, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

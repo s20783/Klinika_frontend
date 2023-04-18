@@ -3,7 +3,7 @@ import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
-import {getSpecjalizacjaDetails, addSpecjalizacja, updateSpecjalizacja} from "../../axios/SpecializationApiCalls";
+import {getSpecializationDetails, addSpecialization, updateSpecialization} from "../../axios/SpecializationApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -36,8 +36,7 @@ class SpecializationForm extends React.Component {
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                await getSpecjalizacjaDetails(this.state.idSpecjalizacja, source)
-                then((res) => {
+                await getSpecializationDetails(this.state.idSpecjalizacja, source).then((res) => {
                     if (res) {
                         this.setState({
                             isLoaded: true,
@@ -123,14 +122,14 @@ class SpecializationForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    await addSpecjalizacja(dane.data, source)
+                    await addSpecialization(dane.data, source)
                     navigate("/specjalizacje", {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateSpecjalizacja(dane.data, dane.idSpecjalizacja, source)
+                    await updateSpecialization(dane.data, dane.idSpecjalizacja, source)
                     navigate("/specjalizacje", {replace: true});
                 } catch (error) {
                     console.log(error)

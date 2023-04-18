@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router";
 import VisitListTable from "./VisitListTable";
 import {withTranslation} from "react-i18next";
-import {getWizytaList} from "../../axios/VisitApiCalls";
+import {getVisitList} from "../../axios/VisitApiCalls";
 import { getId} from "../../helpers/authHelper";
 import axios from "axios";
 
@@ -35,7 +35,7 @@ class VisitList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getWizytaList(searchWord, page, source).then((res) => {
+            await getVisitList(searchWord, page, source).then((res) => {
                 if (res) {
                     const userId = getId()
                     this.setState({

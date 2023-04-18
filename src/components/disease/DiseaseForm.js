@@ -3,7 +3,7 @@ import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
-import {addChoroba, getChorobaDetails, updateChoroba} from "../../axios/DiseaseApiCalls";
+import {addDisease, getDiseaseDetails, updateDisease} from "../../axios/DiseaseApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -16,11 +16,13 @@ class DiseaseForm extends React.Component {
         this.state = {
             data: {
                 Nazwa: '',
-                Opis: ''
+                Opis: '',
+                NazwaLacinska: ''
             },
             errors: {
                 Nazwa: '',
                 Opis: '',
+                NazwaLacinska: ''
             },
             idChoroba: paramsIdChoroba,
             error: '',
@@ -34,7 +36,7 @@ class DiseaseForm extends React.Component {
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                await getChorobaDetails(this.state.idChoroba, source)
+                await getDiseaseDetails(this.state.idChoroba, source)
                     .then((res) => {
                     if (res) {
                         this.setState({
@@ -123,15 +125,14 @@ class DiseaseForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                     await addChoroba(dane.data, source)
+                     await addDisease(dane.data, source)
                      await navigate(-1, {replace: true});
                 } catch (e) {
                     console.log(e)
                 }
             } else if (dane.formMode === formMode.EDIT) {
-
                 try {
-                    await updateChoroba(dane.data, dane.idChoroba, source)
+                    await updateDisease(dane.data, dane.idChoroba, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)
@@ -159,7 +160,7 @@ class DiseaseForm extends React.Component {
                                        htmlFor="Nazwa">
                                     {t('choroba.fields.name')}
                                 </label>
-                                <div class="md:w-3/5">
+                                <div className="md:w-3/5">
                                     <input
                                         className= "shadow-xl form-textarea block w-full focus:bg-white"
                                         name="Nazwa" id="Nazwa" type="text" value={this.state.data.Nazwa}
@@ -170,6 +171,19 @@ class DiseaseForm extends React.Component {
                                       className="errors-text2 ml-24 mt-4">{this.state.errors.Nazwa}</span>
                             </div>
                         </section>
+                        <div className="flex flex-wrap -mx-3 mb-4 border-b">
+                            <div className="w-full px-3">
+                                <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                                    {t('choroba.fields.latinName')}
+                                </label>
+                                <input
+                                    className="shadow-xl form-textarea appearance-none block w-full md:w-4/6  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-blue-600"
+                                    name="NazwaLacinska" id="NazwaLacinska" type="text" value={this.state.data.NazwaLacinska}
+                                    onChange={this.handleChange}/>
+                            </div>
+                            <span id="errorNazwaLacinska" className="errors-text2 mb-4 ml-4">{this.state.errors.NazwaLacinska}</span>
+                        </div>
+
                         <label className="block mt-5 text-gray-600 font-bold md:text-left mb-6 " id="Opis">
                             {t('choroba.fields.description')}
                         </label>

@@ -1,5 +1,5 @@
 import React from "react";
-import {deleteWeterynarz} from "../../axios/VetApiCalls";
+import {deleteVet} from "../../axios/VetApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
@@ -32,7 +32,7 @@ class DeleteVetDialog extends React.Component {
     removeWeterynarza = async (idWeterynarz) => {
         const {navigate} = this.props;
         try {
-            await deleteWeterynarz(idWeterynarz, source)
+            await deleteVet(idWeterynarz, source)
             await navigate("/weterynarze", {replace: true});
         } catch (error) {
             console.log(error)

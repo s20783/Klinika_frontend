@@ -2,7 +2,7 @@ import React from "react";
 import PatientListTable from "./PatientListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getPacjentList} from "../../axios/PatientApiCalls";
+import {getPatientList} from "../../axios/PatientApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -27,7 +27,7 @@ class PatientList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getPacjentList(searchWord, page, source).then((res) => {
+            await getPatientList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getWeterynarzList(searchWord, page, source) {
+export function getVetList(searchWord, page, source) {
     return api.get(`/Weterynarz?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -12,8 +12,9 @@ export function getWeterynarzList(searchWord, page, source) {
         }
     })
 }
-export function getWeterynarzDetails(Id,source) {
-    return  api.get(`/Weterynarz/${Id}`, {
+
+export function getAllVets(source) {
+    return api.get(`/Weterynarz/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -23,8 +24,21 @@ export function getWeterynarzDetails(Id,source) {
         }
     })
 }
-export async function addWeterynarz(weterynarz,source) {
-    const weterynarzString = JSON.stringify(weterynarz)
+
+export function getVetDetails(id, source) {
+    return api.get(`/Weterynarz/${id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
+export async function addVet(data, source) {
+    const weterynarzString = JSON.stringify(data)
     return await api.post('/Weterynarz', weterynarzString, {
         cancelToken: source.token
     }).then((response) => {
@@ -36,9 +50,9 @@ export async function addWeterynarz(weterynarz,source) {
     })
 }
 
-export async function updateWeterynarz(weterynarz, idWeterynarz,source) {
-    const weterynarzString = JSON.stringify(weterynarz)
-    await api.put(`/Weterynarz/${idWeterynarz}`, weterynarzString, {
+export async function updateVet(data, idVet, source) {
+    const weterynarzString = JSON.stringify(data)
+    await api.put(`/Weterynarz/${idVet}`, weterynarzString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -49,8 +63,8 @@ export async function updateWeterynarz(weterynarz, idWeterynarz,source) {
     })
 }
 
-export async function deleteWeterynarz(idWeterynarz,source) {
-    await api.delete(`/Weterynarz/${idWeterynarz}`, {
+export async function deleteVet(idVet, source) {
+    await api.delete(`/Weterynarz/${idVet}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

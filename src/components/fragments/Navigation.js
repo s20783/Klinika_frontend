@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
-import {isAdmin, isAuthenticated, isKlient, isWeterynarz} from "../../helpers/authHelper";
+import {isAdmin, isAuthenticated, isClient, isVet} from "../../helpers/authHelper";
 import {useNavigate, useParams} from "react-router";
 import DropdownMenu from "./DropdownMenu";
 import {withTranslation} from "react-i18next";
@@ -49,11 +49,11 @@ class Navigation extends React.Component {
                         <NavLink to="/kontakt"
                                  className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                             {t('navigation.contact')}</NavLink>
-                        {isKlient() &&
+                        {isClient() &&
                             <NavLink to="/umowWizyte"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.appointment')}</NavLink>}
-                        {(isAdmin() || isWeterynarz()) &&
+                        {(isAdmin() || isVet()) &&
                             <NavLink to="/klienci"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.clients')}</NavLink>}
@@ -61,27 +61,27 @@ class Navigation extends React.Component {
                             <NavLink to="/weterynarze"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.vets')}</NavLink>}
-                        {(isAdmin() || isWeterynarz()) &&
+                        {(isAdmin() || isVet()) &&
                             <NavLink to="/pacjenci"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.patients')}</NavLink>}
-                        {(isAdmin() || isWeterynarz()) &&
+                        {(isAdmin() || isVet()) &&
                             <NavLink to="/wizyty"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.visits')}</NavLink>}
-                        {(isAdmin() || isWeterynarz()) &&
+                        {(isAdmin() || isVet()) &&
                             <NavLink to="/uslugi"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.services')}</NavLink>}
-                        {(isAdmin() || isWeterynarz()) &&
+                        {(isAdmin() || isVet()) &&
                             <NavLink to="/choroby"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.disease')}</NavLink>}
-                        {(isAdmin() || isWeterynarz()) &&
+                        {(isAdmin() || isVet()) &&
                             <NavLink to="/leki"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.medicines')}</NavLink>}
-                        {(isAdmin() || isWeterynarz()) &&
+                        {(isAdmin() || isVet()) &&
                             <NavLink to="/szczepionki"
                                      className="px-2 md:px-4 lg:px-5 font-medium hover:text-blue-500">
                                 {t('navigation.vaccinations')}</NavLink>}

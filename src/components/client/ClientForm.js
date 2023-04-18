@@ -4,7 +4,7 @@ import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
 import {ValidateEmail} from "../../helpers/ValidateEmail";
 import {ValidatePhoneNumber} from "../../helpers/ValidatePhoneNumber";
-import {addKlient} from "../../axios/ClientApiCalls";
+import {addClient} from "../../axios/ClientApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -138,7 +138,7 @@ class ClientForm extends React.Component {
 
         if (isValid) {
             try {
-                await addKlient(dane.data, source)
+                await addClient(dane.data, source)
                 await navigate(-1, {replace: true});
             } catch (error) {
                 console.log(error)

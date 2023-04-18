@@ -1,5 +1,5 @@
 import React from "react";
-import {getSpecjalizacjaList} from "../../axios/SpecializationApiCalls";
+import {getSpecializationList} from "../../axios/SpecializationApiCalls";
 import SpecializationListTable from "./SpecializationListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
@@ -32,7 +32,7 @@ class SpecializationList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getSpecjalizacjaList(searchWord, page, source).then((res) => {
+            await getSpecializationList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

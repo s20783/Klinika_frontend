@@ -1,19 +1,21 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import { getWeterynarzDetails} from "../../axios/VetApiCalls";
+import {getVetDetails} from "../../axios/VetApiCalls";
 import {
-    addWeterynarzSpecjalizacja,
-    deleteWeterynarzSpecjalizacja,
+    addVetSpecialization,
+    deleteVetSpecialization,
 } from "../../axios/VetSpecializationApiCalls";
-import {getSpecjalizacjaList} from "../../axios/SpecializationApiCalls";
+import {getAllSpecializations} from "../../axios/SpecializationApiCalls";
 import {getFormattedDate} from "../../helpers/dateFormat";
 import {Link} from "react-router-dom";
 import VetDetailsMenu from "./VetDetailsMenu";
-import {getWeterynarzSpecjalizacjaList} from "../../axios/VetSpecializationApiCalls";
+import {getVetSpecializationList} from "../../axios/VetSpecializationApiCalls";
 import axios from "axios";
+
 let CancelToken
 let source
+
 class VetDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +43,7 @@ class VetDetails extends React.Component {
         source = CancelToken.source();
 
         try {
-            await getWeterynarzDetails(this.state.idWeterynarz, source).then((res) => {
+            await getVetDetails(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -49,7 +51,12 @@ class VetDetails extends React.Component {
                     });
                 }
             })
-            await getWeterynarzSpecjalizacjaList(this.state.idWeterynarz, source).then((res) => {
+        } catch (e) {
+            console.log(e)
+        }
+
+        try {
+            await getVetSpecializationList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -61,19 +68,21 @@ class VetDetails extends React.Component {
             console.log(e)
         }
     }
+
     componentWillUnmount() {
         if (source) {
             source.cancel('Operation canceled by the user.');
         }
     }
+
     async showSelect() {
         if (this.state.specjalizacje1.length === 0) {
             try {
-                await getSpecjalizacjaList("", 1, source).then((res) => {
+                await getAllSpecializations(source).then((res) => {
                     if (res) {
                         this.setState({
                             isLoaded: true,
-                            specjalizacje1: res.data.Items
+                            specjalizacje1: res.data
                         });
                     }
                 })
@@ -110,7 +119,7 @@ class VetDetails extends React.Component {
     deleteSpec = async (idSpec) => {
         const {navigate} = this.props;
         try {
-            await deleteWeterynarzSpecjalizacja(idSpec, this.state.idWeterynarz, source)
+            await deleteVetSpecialization(idSpec, this.state.idWeterynarz, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -130,8 +139,8 @@ class VetDetails extends React.Component {
             data1: data,
             errors1: errors
         })
-
     }
+
     validateForm = () => {
         const data = this.state.data1
         const errors = this.state.errors1
@@ -164,7 +173,7 @@ class VetDetails extends React.Component {
 
         if (isValid) {
             try {
-                await addWeterynarzSpecjalizacja(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz,source)
+                await addVetSpecialization(this.state.data1.IdSpecjalizacja, this.state.idWeterynarz, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -203,10 +212,11 @@ class VetDetails extends React.Component {
                     <VetDetailsMenu idVet={idWeterynarz}/>
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <div className="flex flex-wrap -mx-3 mb-6 border-b">
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                   form="grid-city">
                                 {t('weterynarz.fields.firstName')}
                             </label>
                             <input
@@ -214,7 +224,8 @@ class VetDetails extends React.Component {
                                 disabled name="Imie" id="Imie" type="text" value={data.Imie} placeholder=""/>
                         </div>
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
-                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                   form="grid-city">
                                 {t('weterynarz.fields.lastName')}
                             </label>
                             <input
@@ -225,7 +236,8 @@ class VetDetails extends React.Component {
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6 border-b">
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                   form="grid-city">
                                 {t('weterynarz.fields.phoneNumber')}
                             </label>
                             <input
@@ -234,7 +246,8 @@ class VetDetails extends React.Component {
                                 disabled value={data.NumerTelefonu} placeholder=""/>
                         </div>
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
-                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                   form="grid-city">
                                 {t('weterynarz.fields.email')}
                             </label>
                             <input
@@ -244,7 +257,8 @@ class VetDetails extends React.Component {
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6 border-b">
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                   form="grid-city">
                                 {t('weterynarz.fields.birthDate')}
                             </label>
                             <input
@@ -254,7 +268,8 @@ class VetDetails extends React.Component {
 
                         </div>
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 md:ml-8">
-                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                   form="grid-city">
                                 {t('weterynarz.fields.salary')}
                             </label>
                             <input
@@ -264,7 +279,8 @@ class VetDetails extends React.Component {
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6  ">
                         <div className="w-full md:w-1/3 px-3 mb-6  md:mb-0">
-                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                   form="grid-city">
                                 {t('weterynarz.fields.employmentDate')}
                             </label>
                             <input
@@ -305,35 +321,35 @@ class VetDetails extends React.Component {
                                         key={x.IdSpecjalizacja}>
                                         <td className="text-center px-6 py-2">{x.Nazwa}</td>
                                         <td className="text-center px-6 py-2">{x.Opis}</td>
-                                        <div className="text-center list-actions py-2">
-                                            <div className=" flex">
+                                        <div className="text-center py-2">
+                                            <div className="flex">
                                                 <button onClick={() => {
                                                     this.deleteSpec(x.IdSpecjalizacja)
-                                                }} className="list-actions-button-details flex-1">
+                                                }} className="flex-1">
                                                     <svg className="list-actions-button-delete flex-1"
                                                          xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                          fill="#000000" viewBox="0 0 256 256">
                                                         <rect width="256" height="256" fill="none"></rect>
                                                         <line className="details-icon-color" x1="215.99609" y1="56"
                                                               x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                              stroke-linecap="round" strokeLinejoin="round"
+                                                              strokeLinecap="round" strokeLinejoin="round"
                                                               strokeWidth="16"></line>
                                                         <line className="details-icon-color" x1="104" y1="104" x2="104"
                                                               y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></line>
                                                         <line className="details-icon-color" x1="152" y1="104" x2="152"
                                                               y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></line>
                                                         <path className="details-icon-color"
                                                               d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                               fill="none"
-                                                              stroke="#000000" stroke-linecap="round"
+                                                              stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></path>
                                                         <path className="details-icon-color"
                                                               d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></path>
                                                     </svg>
                                                 </button>
@@ -349,7 +365,7 @@ class VetDetails extends React.Component {
                         <div className="w-full">
                             <select name="IdSpecjalizacja" id="spec-content" onChange={this.handleChange}
                                     className="form-select hidden block w-full focus:bg-white">
-                                <option value="" >{t('specjalizacja.selectSpecialization')}</option>
+                                <option value="">{t('specjalizacja.selectSpecialization')}</option>
                                 {
                                     specjalizacje1.map(spec => (
                                         <option

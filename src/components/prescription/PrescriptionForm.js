@@ -2,12 +2,12 @@ import React from "react";
 import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getOnlyLekList} from "../../axios/MedicamentApiCalls";
+import {getOnlyMedicamentList} from "../../axios/MedicamentApiCalls";
 import {
-    addRecepta,
-    addReceptaLek, deleteReceptaLek,
-    getReceptaDetails,
-    getReceptaLeki, updateRecepta,
+    addPrescription,
+    addPrescriptionMedicament, deletePrescriptionMedicament,
+    getPrescriptionDetails,
+    getPrescriptionMedicaments, updatePrescription,
 } from "../../axios/PrescriptionApiCalls";
 import {Link} from "react-router-dom";
 import {checkNumberRange} from "../../helpers/CheckNRange";
@@ -51,10 +51,8 @@ class PrescriptionForm extends React.Component {
         source = CancelToken.source();
         try {
             if (this.state.formMode === formMode.EDIT) {
-
-                await getReceptaDetails(this.state.idRecepta, source).then((res) => {
+                await getPrescriptionDetails(this.state.idRecepta, source).then((res) => {
                     if (res) {
-                        console.log(res.data)
                         const data1 = {...this.state.data}
                         data1['Zalecenia'] = res.data.Zalecenia
                         this.setState({
@@ -65,10 +63,9 @@ class PrescriptionForm extends React.Component {
                 })
             }
 
-            await getReceptaLeki(this.state.idRecepta, source)
+            await getPrescriptionMedicaments(this.state.idRecepta, source)
                 .then((res) => {
                 if (res) {
-                    console.log(res.data)
                     this.setState({
                         isLoaded: true,
                         lekiRecepta: res.data
@@ -110,7 +107,7 @@ class PrescriptionForm extends React.Component {
         if (isValid) {
             if (dane.czyDodana === false) {
                 try {
-                    await addRecepta(dane.idRecepta, dane.data.Zalecenia,source)
+                    await addPrescription(dane.idRecepta, dane.data.Zalecenia,source)
                     this.setState({
                         czyDodana: true
                     });
@@ -119,7 +116,7 @@ class PrescriptionForm extends React.Component {
                 }
             }
             try {
-                await addReceptaLek(dane.idRecepta, dane.data.Lek, dane.data.Ilosc,source)
+                await addPrescriptionMedicament(dane.idRecepta, dane.data.Lek, dane.data.Ilosc,source)
                 navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -134,18 +131,17 @@ class PrescriptionForm extends React.Component {
         const {navigate} = this.props;
         const dane = {...this.state}
         try {
-            await deleteReceptaLek(dane.idRecepta, id, source)
+            await deletePrescriptionMedicament(dane.idRecepta, id, source)
             navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
         }
     }
 
-
     async showSelect() {
         if (this.state.leki.length === 0) {
             try {
-                await getOnlyLekList(source).then((res) => {
+                await getOnlyMedicamentList(source).then((res) => {
                     if (res) {
                         this.setState({
                             isLoaded: true,
@@ -226,7 +222,6 @@ class PrescriptionForm extends React.Component {
                 }
             }
         }
-
         return errorMessage;
     }
 
@@ -243,10 +238,9 @@ class PrescriptionForm extends React.Component {
     confirmRecepta = async () => {
         const dane = this.state
         const {navigate} = this.props;
-
         if (dane.errors.Zalecenia === '' && dane.lekiRecepta.length !== 0) {
             try {
-                await updateRecepta(dane.idRecepta, dane.data.Zalecenia, source)
+                await updatePrescription(dane.idRecepta, dane.data.Zalecenia, source)
                 navigate(-1, {replace: true});
             } catch (error) {
                 console.log(error)
@@ -276,31 +270,31 @@ class PrescriptionForm extends React.Component {
         return (
             <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
                 <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{t('recepta.writingPrescription')}</p>
+                    <p className="text-base font-bold py-1 text-xl lg:pb-6 text-gray-700">{t('recepta.writingPrescription')}</p>
                 </div>
                 <div
-                    className=" lg:w-5/6 w-full p-8 mt-6 mb-8 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className=" lg:w-5/6 w-full p-2 md:p-8 mt-6 mb-8 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <div className="flex justify-between mt-2">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('recepta.title')}</h2>
                     </div>
 
                     <div
-                        className="border-4 border-blue-200 h-fit ml-3 shadow-2xl rounded-md md:mr-20 mb-12">
+                        className="border-4 border-blue-200 h-fit shadow-xl rounded-md md:mr-20 mb-12">
                         <div className="w-full relative ">
-                            <h2 className=" w-full  my-12 mb-5 md:ml-4 text-lg font-bold leading-tight text-gray-600">
+                            <h2 className="w-full my-12 mb-5 md:ml-4 text-lg font-bold leading-tight text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                             <button id="menu-toggle" onClick={() => {
                                 this.showSelect()
                             }}
-                                    className="absolute inset-y-0 right-0 mr-2  h-10 w-10 shadow bg-blue-300 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="absolute inset-y-0 right-0 mr-2  h-10 w-10 shadow-lg bg-blue-400 hover:bg-white hover:text-blue-400 text-white font-bold py-2 px-4 rounded">
                                 <span className="text-gl font-bold ">+</span>
                             </button>
                             <span id="errorLista" className="errors-text2 mb-3 mt-3">{errorListaLek} </span>
                         </div>
                         {lekiRecepta.length !== 0 &&
                             <div className="overflow-x-auto shadow-xl">
-                                <table className="w-full  text-sm text-left text-gray-700 dark:text-gray-400">
+                                <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                     <thead
                                         className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
@@ -313,7 +307,7 @@ class PrescriptionForm extends React.Component {
                                     </thead>
                                     <tbody>
                                     {lekiRecepta.map(x => (
-                                        <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
+                                        <tr className="bg-white dark:bg-gray-800  dark:hover:bg-gray-600"
                                             key={x.ID_Lek}>
                                             <td className="px-6 py-2 text-center">{x.Nazwa}</td>
                                             <td className="px-6 py-2 text-center">{x.Ilosc} {x.JednostkaMiary}</td>
@@ -321,36 +315,35 @@ class PrescriptionForm extends React.Component {
                                                 <button onClick={() => {
                                                     this.deleteReceptaLek(x.ID_Lek)
                                                 }}
-                                                        className="list-actions-button-details flex-1">
-                                                    <svg className="list-actions-button-delete flex-1"
+                                                        className="flex-1">
+                                                    <svg className="flex-1"
                                                          xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                          fill="#000000" viewBox="0 0 256 256">
                                                         <rect width="256" height="256" fill="none"></rect>
                                                         <line className="details-icon-color" x1="215.99609" y1="56"
                                                               x2="39.99609" y2="56.00005" fill="none" stroke="#000000"
-                                                              stroke-linecap="round" strokeLinejoin="round"
+                                                              strokeLinecap="round" strokeLinejoin="round"
                                                               strokeWidth="16"></line>
                                                         <line className="details-icon-color" x1="104" y1="104" x2="104"
                                                               y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></line>
                                                         <line className="details-icon-color" x1="152" y1="104" x2="152"
                                                               y2="168"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></line>
                                                         <path className="details-icon-color"
                                                               d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                               fill="none"
-                                                              stroke="#000000" stroke-linecap="round"
+                                                              stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></path>
                                                         <path className="details-icon-color"
                                                               d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                              fill="none" stroke="#000000" stroke-linecap="round"
+                                                              fill="none" stroke="#000000" strokeLinecap="round"
                                                               strokeLinejoin="round" strokeWidth="16"></path>
                                                     </svg>
                                                 </button>
                                             </td>
-
                                         </tr>
                                     ))}
                                     </tbody>
@@ -380,16 +373,10 @@ class PrescriptionForm extends React.Component {
                                 <span id="errorDawka" className="errors-text2 text-sm ">{errors.Ilosc}</span>
                             </div>
 
-                            <div className="relative  w-full mb-12 ">
-                                <button id="spec-content2" onClick={() => {
-                                    this.addLek()
-                                }}
-                                        className="shadow-xl absolute hidden md:top-0 bottom-0 right-6  h-12 w-46 mt-2 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
-                                    <span className="text-l font-bold ">+ {t('button.add')}</span>
-                                </button>
+                            <div className="w-full mb-12 ">
                                 <Link to={`/dodajLek`}>
                                     <button id="spec-content2"
-                                            className="shadow-xl absolute  top-0  left-6  h-12 w-46 mt-2 shadow bg-gray-200 hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
+                                            className="ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                         <span className="text-l font-bold ">{t('button.addToDataBase')} </span>
                                     </button>
                                 </Link>
@@ -413,7 +400,7 @@ class PrescriptionForm extends React.Component {
                             <button onClick={() => {
                                 this.confirmRecepta()
                             }}
-                                    className=" ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    className="ml-4 shadow-xl bg-blue-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 {t("button.confirm")}
                             </button>
                         </div>

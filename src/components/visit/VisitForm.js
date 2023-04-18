@@ -1,15 +1,15 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import {useNavigate, useParams} from "react-router";
-import WizytaTime from "./AvailableVisitDates";
+import AvailableVisitDates from "./AvailableVisitDates";
 import dayjs from 'dayjs';
-import {getHarmonogramWizyta} from "../../axios/ScheduleApiCalls";
+import {getScheduleForVisit} from "../../axios/ScheduleApiCalls";
 import {getFormattedDateWithHour} from "../../helpers/dateFormat";
 import {withTranslation} from "react-i18next";
-import {getWizytaDetails, przelozWizyte, umowWizyte} from "../../axios/VisitApiCalls";
+import {getWizytaDetails, rescheduleVisit, createVisit} from "../../axios/VisitApiCalls";
 import formMode from "../../helpers/FormMode";
-import {getKlientPacjentList, getKlientPacjentList2} from "../../axios/PatientApiCalls";
-import {isAdmin, isKlient, isWeterynarz} from "../../helpers/authHelper";
+import {getPatientClientList, getPatientClientList2} from "../../axios/PatientApiCalls";
+import {isAdmin, isClient, isVet} from "../../helpers/authHelper";
 import axios from "axios";
 
 let CancelToken
@@ -21,8 +21,6 @@ class VisitForm extends React.Component {
         const paramsIdWizyta = this.props.params.IdWizyta
         const currentFormMode = paramsIdWizyta ? formMode.EDIT : formMode.NEW
         const paramsIdKlient = this.props.params.IdKlient
-
-        console.log(this.props)
         this.state = {
             data: {
                 Pacjent: '',
@@ -53,12 +51,10 @@ class VisitForm extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-
         if (this.state.formMode === formMode.EDIT) {
             try {
                 await getWizytaDetails(this.state.idWizyta, source).then((res) => {
                     if (res) {
-                        console.log(res.data)
                         const data1 = {...this.state.data}
                         data1['Pacjent'] = res.data.IdPacjent
                         data1['Notatka'] = res.data.NotatkaKlient
@@ -69,15 +65,14 @@ class VisitForm extends React.Component {
                         });
                     }
                 })
-
             } catch (error) {
                 console.log(error)
             }
         }
 
-        if (isKlient()) {
+        if (isClient()) {
             try {
-                await getKlientPacjentList2(source).then((res) => {
+                await getPatientClientList2(source).then((res) => {
                     if (res) {
                         console.log(res.data)
                         this.setState({
@@ -91,8 +86,7 @@ class VisitForm extends React.Component {
             }
         } else {
             try {
-
-                await getKlientPacjentList(this.state.idKlient, source).then((res) => {
+                await getPatientClientList(this.state.idKlient, source).then((res) => {
                     if (res) {
                         console.log(res.data)
                         this.setState({
@@ -166,7 +160,7 @@ class VisitForm extends React.Component {
         const isValid = this.validateForm()
         if (isValid) {
             let newData
-            if (isWeterynarz() || isAdmin()) {
+            if (isVet() || isAdmin()) {
                 newData = {
                     ID_Harmonogram: data["Termin"],
                     ID_Pacjent: data["Pacjent"],
@@ -185,9 +179,9 @@ class VisitForm extends React.Component {
             console.log(newData)
             try {
                 if (this.state.formMode === formMode.NEW) {
-                    await umowWizyte(newData, source)
+                    await createVisit(newData, source)
                 } else {
-                    await przelozWizyte(this.state.idWizyta, newData, source)
+                    await rescheduleVisit(this.state.idWizyta, newData, source)
                 }
                 navigate(
                     "/potwierdzenieWizyty",
@@ -226,7 +220,7 @@ class VisitForm extends React.Component {
 
         if (date > new Date()) {
             try {
-                await getHarmonogramWizyta(dayjs(date).format('YYYY-MM-DD'), source).then((res) => {
+                await getScheduleForVisit(dayjs(date).format('YYYY-MM-DD'), source).then((res) => {
                     if (res) {
                         console.log(res.data)
                         this.setState({
@@ -323,7 +317,7 @@ class VisitForm extends React.Component {
                                   value={date}
                                   onClickDay={this.onChange}
                         />
-                        {<WizytaTime showTime={harmonogram.length} harmonogram={harmonogram}
+                        {<AvailableVisitDates showTime={harmonogram.length} harmonogram={harmonogram}
                                      timeChange={this.handleHarmonogramSelect}/>}
                         <span id="errorData" className="errors-text2 mb-4">{errors.Termin}</span>
                         <span id="" className="">{wizyta.Data === '' ? '' :

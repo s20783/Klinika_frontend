@@ -3,7 +3,7 @@ import formMode from "../../helpers/FormMode";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
-import {addWeterynarz, getWeterynarzDetails, updateWeterynarz} from "../../axios/VetApiCalls";
+import {addVet, getVetDetails, updateVet} from "../../axios/VetApiCalls";
 import Calendar from 'react-calendar';
 import dayjs from 'dayjs';
 import {ValidateEmail} from "../../helpers/ValidateEmail";
@@ -54,7 +54,7 @@ class VetForm extends React.Component {
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                await getWeterynarzDetails(this.state.idWeterynarz, source).then((res) => {
+                await getVetDetails(this.state.idWeterynarz, source).then((res) => {
                     if (res) {
                         this.setState({
                             isLoaded: true,
@@ -216,15 +216,14 @@ class VetForm extends React.Component {
         if (isValid) {
             if (dane.formMode === formMode.NEW) {
                 try {
-                    const response = await addWeterynarz(dane.data, source)
-                    console.log(response.data.ID)
+                    const response = await addVet(dane.data, source)
                     await navigate(`/czyDodacGodziny/${response.data.ID}`, {replace: true});
                 } catch (error) {
                     console.log(error)
                 }
             } else if (dane.formMode === formMode.EDIT) {
                 try {
-                    await updateWeterynarz(dane.data, this.state.idWeterynarz, source)
+                    await updateVet(dane.data, this.state.idWeterynarz, source)
                     await navigate(-1, {replace: true});
                 } catch (error) {
                     console.log(error)

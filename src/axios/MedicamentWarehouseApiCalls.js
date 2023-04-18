@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getLekMagazyn(Id,source) {
+export function getMedicamentWarehouse(Id, source) {
     return api.get(`/LekWMagazynie/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,9 +13,9 @@ export function getLekMagazyn(Id,source) {
     })
 }
 
-export async function addLekMagazyn(IdLek, lek,source) {
-    const lekString = JSON.stringify(lek)
-    await api.post(`/LekWMagazynie/${IdLek}`, lekString, {
+export async function addMedicamentWarehouse(IdLek, data, source) {
+    const dataString = JSON.stringify(data)
+    await api.post(`/LekWMagazynie/${IdLek}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,9 +26,9 @@ export async function addLekMagazyn(IdLek, lek,source) {
     })
 }
 
-export async function updateLekMagazyn(lek, Id,source) {
-    const lekString = JSON.stringify(lek)
-    await api.put(`/LekWMagazynie/${Id}`, lekString, {
+export async function updateMedicamentWarehouse(data, Id, source) {
+    const dataString = JSON.stringify(data)
+    await api.put(`/LekWMagazynie/${Id}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -39,7 +39,7 @@ export async function updateLekMagazyn(lek, Id,source) {
     })
 }
 
-export async function deleteLekMagazyn(Id,source) {
+export async function deleteMedicamentWarehouse(Id, source) {
     await api.delete(`/LekWMagazynie/${Id}`, {
         cancelToken: source.token
     }).then((response) => {

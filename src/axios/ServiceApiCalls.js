@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getUslugaList(searchWord, page, source) {
+export function getServiceList(searchWord, page, source) {
     return api.get(`/Usluga?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -12,42 +12,9 @@ export function getUslugaList(searchWord, page, source) {
         }
     })
 }
-export function getUslugaWizytaList(id,source) {
-    return api.get(`/Usluga/${id}`, {
-        cancelToken: source.token
-    }).then((response) => {
-        return response
-    }).catch(function (thrown) {
-        if (axios.isCancel(thrown)) {
-            console.log('Request canceled', thrown.message);
-        }
-    })
-}
-export function getUslugaDetails(Id,source) {
-    return api.get(`/Usluga/details/${Id}`, {
-        cancelToken: source.token
-    }).then((response) => {
-        return response
-    }).catch(function (thrown) {
-        if (axios.isCancel(thrown)) {
-            console.log('Request canceled', thrown.message);
-        }
-    })
-}
-export function getUslugiPacjenta(Id,source) {
-    return api.get(`/Usluga/pacjent/${Id}`, {
-        cancelToken: source.token
-    }).then((response) => {
-        return response
-    }).catch(function (thrown) {
-        if (axios.isCancel(thrown)) {
-            console.log('Request canceled', thrown.message);
-        }
-    })
-}
-export async function addUsluga(usluga,source) {
-    const uslugaString = JSON.stringify(usluga)
-    await api.post('/Usluga', uslugaString, {
+
+export function getAllServices(source) {
+    return api.get(`/Usluga/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -58,9 +25,8 @@ export async function addUsluga(usluga,source) {
     })
 }
 
-export async function updateUsluga(usluga, Id,source) {
-    const uslugaString = JSON.stringify(usluga)
-    await api.put(`/Usluga/${Id}`, uslugaString, {
+export function getServiceDetails(id, source) {
+    return api.get(`/Usluga/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -71,8 +37,46 @@ export async function updateUsluga(usluga, Id,source) {
     })
 }
 
-export async function deleteUsluga(Id,source) {
-    await api.delete(`/Usluga/${Id}`, {
+export function getPatientServices(id, source) {
+    return api.get(`/Usluga/pacjent/${id}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
+export async function addService(data, source) {
+    const dataString = JSON.stringify(data)
+    await api.post('/Usluga', dataString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
+export async function updateService(data, id, source) {
+    const dataString = JSON.stringify(data)
+    await api.put(`/Usluga/${id}`, dataString, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
+export async function deleteService(id, source) {
+    await api.delete(`/Usluga/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

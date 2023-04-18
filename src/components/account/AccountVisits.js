@@ -2,14 +2,14 @@ import React from "react";
 import VisitListTable from "../visit/VisitListTable";
 import AccountMenu from "./AccountMenu";
 import {withTranslation} from "react-i18next";
-import {getKlientWizytaList} from "../../axios/VisitApiCalls";
+import {getClientVisitList} from "../../axios/VisitApiCalls";
 import {getCurrentUser} from "../../helpers/authHelper";
 import axios from "axios";
 
 let CancelToken
 let source
 
-class KontoWizyty extends React.Component {
+class AccountVisits extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +25,7 @@ class KontoWizyty extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getKlientWizytaList(source).then((res) => {
+            await getClientVisitList(source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -91,4 +91,4 @@ class KontoWizyty extends React.Component {
     }
 }
 
-export default withTranslation()(KontoWizyty);
+export default withTranslation()(AccountVisits);

@@ -3,8 +3,8 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
-import {getHarmonogramVet, getHarmonogram} from "../../axios/ScheduleApiCalls";
-import {getWeterynarzList} from "../../axios/VetApiCalls";
+import {getVetSchedule, getSchedule} from "../../axios/ScheduleApiCalls";
+import {getAllVets} from "../../axios/VetApiCalls";
 import Schedule from "./Schedule";
 import ScheduleMenu from "./ScheduleMenu";
 import axios from "axios";
@@ -14,7 +14,6 @@ let source
 class ScheduleForm extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             data: {
                 Weterynarz: '0',
@@ -38,11 +37,11 @@ class ScheduleForm extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getWeterynarzList("", 1, source).then((res) => {
+            await getAllVets(source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
-                        weterynarze: res.data.Items
+                        weterynarze: res.data
                     });
                 }
             })
@@ -131,11 +130,10 @@ class ScheduleForm extends React.Component {
         event.preventDefault();
         const dane = {...this.state}
         const isValid = this.validateForm()
-
         if (isValid) {
             if (dane.data.Weterynarz === '0') {
                 try {
-                    await getHarmonogram(dane.data.Data, source)
+                    await getSchedule(dane.data.Data, source)
                         .then((res) => {
                         if (res) {
                             this.setState({
@@ -151,7 +149,7 @@ class ScheduleForm extends React.Component {
                 }
             } else {
                 try {
-                    await getHarmonogramVet(dane.data.Weterynarz, dane.data.Data, source)
+                    await getVetSchedule(dane.data.Weterynarz, dane.data.Data, source)
                         .then((res) => {
                             if (res) {
                                 this.setState({
@@ -204,7 +202,7 @@ class ScheduleForm extends React.Component {
                                         <option value="0">{t('harmonogram.all')}</option>
                                         {
                                             weterynarze.map(vet => (
-                                                <option selected={data.IdOsoba === vet.IdOsoba}
+                                                <option key={vet.IdOsoba} selected={data.IdOsoba === vet.IdOsoba}
                                                         value={vet.IdOsoba}>{vet.Imie} {vet.Nazwisko}</option>
                                             ))}
                                     </select>
@@ -212,7 +210,6 @@ class ScheduleForm extends React.Component {
                                 <span id="errorWeterynarz" className="errors-text2 mt-4">{errors.Weterynarz}</span>
                             </div>
                         </section>
-
                         <div className="flex flex-wrap -mx-3 mb-6 ">
                             <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
                                 <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
@@ -232,7 +229,6 @@ class ScheduleForm extends React.Component {
                             </span>
                             </div>
                         </div>
-
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}

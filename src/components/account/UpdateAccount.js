@@ -1,11 +1,11 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {changeDaneKonta} from "../../axios/AuthApiCalls";
+import {changeAccountInfo} from "../../axios/AuthApiCalls";
 import {ValidateEmail} from "../../helpers/ValidateEmail";
 import {ValidatePhoneNumber} from "../../helpers/ValidatePhoneNumber";
 import {CheckTextRange} from "../../helpers/CheckTextRange";
-import {getKontoData} from "../../axios/AuthApiCalls";
+import {getAccountData} from "../../axios/AuthApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -118,7 +118,7 @@ class UpdateAccount extends React.Component {
         if (isValid) {
             const data = this.state.data
             try {
-                await changeDaneKonta(data, source)
+                await changeAccountInfo(data, source)
                 await navigate("/konto", {replace: true});
             } catch (error) {
                 console.log(error.message)
@@ -139,7 +139,7 @@ class UpdateAccount extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getKontoData(source).then((res) => {
+            await getAccountData(source).then((res) => {
                 if (res) {
                     console.log(res.data)
                     this.setState({

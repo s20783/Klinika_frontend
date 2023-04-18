@@ -1,5 +1,5 @@
 import React from "react";
-import {getUslugaList} from "../../axios/ServiceApiCalls";
+import {getServiceList} from "../../axios/ServiceApiCalls";
 import ServiceListTable from "./ServiceListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
@@ -31,7 +31,7 @@ class ServiceList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getUslugaList(searchWord, page, source).then((res) => {
+            await getServiceList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

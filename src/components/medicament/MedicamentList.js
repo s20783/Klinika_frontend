@@ -1,5 +1,5 @@
 import React from "react";
-import {getLekList} from "../../axios/MedicamentApiCalls";
+import {getMedicamentList} from "../../axios/MedicamentApiCalls";
 import MedicamentListTable from "./MedicamentListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
@@ -21,7 +21,7 @@ class MedicamentList extends React.Component {
     async componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        await this.getData("", 0)
+        await this.getData("", 1)
     }
 
     componentWillUnmount() {
@@ -32,7 +32,7 @@ class MedicamentList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getLekList(searchWord, page, source).then((res) => {
+            await getMedicamentList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

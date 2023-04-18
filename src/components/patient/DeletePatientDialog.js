@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {deletePacjent} from "../../axios/PatientApiCalls";
+import {deletePatient} from "../../axios/PatientApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -28,10 +28,10 @@ class DeletePatientDialog extends React.Component {
         }
     }
 
-    removePacjent = async (idPacjent) => {
+    removePatient = async (idPacjent) => {
         const {navigate} = this.props;
         try {
-            await deletePacjent(idPacjent, source)
+            await deletePatient(idPacjent, source)
             await navigate("/pacjenci", {replace: true});
         } catch (error) {
             console.log(error)
@@ -55,7 +55,7 @@ class DeletePatientDialog extends React.Component {
                                     className="px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">
                                 {t('button.back')}
                             </button>
-                            <button onClick={() => this.removePacjent(idPacjent)}
+                            <button onClick={() => this.removePatient(idPacjent)}
                                     className="shadow-xl px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">
                                 {t('pacjent.deletePatient')}
                             </button>

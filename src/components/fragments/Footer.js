@@ -15,7 +15,7 @@ class Footer extends React.Component {
     render() {
         const {t} = this.props;
         return (
-            <footer className="p-3 mt- bg-white shadow md:px-6 md:py-1 dark:bg-gray-800">
+            <footer className="p-3 bg-white shadow md:px-6 md:py-1 dark:bg-gray-800">
                 <div className="max-w-lg mx-auto flex justify-center text-black mt-3">
                     <button onClick={() => {
                         this.handleLanguageChange('pl')

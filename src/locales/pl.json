@@ -188,6 +188,7 @@
     "table": {
       "startDate": "Data rozpoczęcia",
       "endDate": "Data zakończenia",
+      "client": "Klient",
       "patient": "Pacjent",
       "vet": "Weterynarz",
       "status": "Status",
@@ -324,6 +325,7 @@
     },
     "fields": {
       "name": "Nazwa",
+      "latinName": "Nazwa Łacińska",
       "description": "Opis"
     }
   },

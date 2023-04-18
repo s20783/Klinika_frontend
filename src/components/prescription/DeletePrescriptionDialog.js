@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {deleteRecepta} from "../../axios/PrescriptionApiCalls";
+import {deletePrescription} from "../../axios/PrescriptionApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -30,7 +30,7 @@ class DeletePrescriptionDialog extends React.Component {
     removeRecepta = async () => {
         const {navigate} = this.props;
         try {
-            await deleteRecepta(this.state.idRecepta, source)
+            await deletePrescription(this.state.idRecepta, source)
             await navigate(-1, {replace: true});
         } catch (error) {
             console.log(error)

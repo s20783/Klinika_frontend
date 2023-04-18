@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {deleteUrlop} from "../../axios/VacationApiCalls";
+import {deleteVacation} from "../../axios/VacationApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -30,7 +30,7 @@ class DeleteVacationDialog extends React.Component {
     removeUrlop = async (idUrlop) => {
         const {navigate} = this.props;
         try {
-            await deleteUrlop(idUrlop,source)
+            await deleteVacation(idUrlop,source)
             await navigate(-1, {replace: true});
         } catch (error) {
             console.log(error)

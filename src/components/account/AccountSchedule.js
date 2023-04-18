@@ -3,13 +3,14 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
-import { getHarmonogram} from "../../axios/ScheduleApiCalls";
+import {getSchedule} from "../../axios/ScheduleApiCalls";
 import Schedule from "../schedule/Schedule";
 import AccountMenu from "./AccountMenu";
 import axios from "axios";
 
 let CancelToken
 let source
+
 class AccountSchedule extends React.Component {
     constructor(props) {
         super(props);
@@ -26,8 +27,8 @@ class AccountSchedule extends React.Component {
             error: '',
             isLoaded: false,
             harmonogram: [],
-            start:'',
-            end:''
+            start: '',
+            end: ''
         }
     }
 
@@ -115,14 +116,14 @@ class AccountSchedule extends React.Component {
 
         if (isValid) {
             try {
-                await getHarmonogram(dane.data.Data, source)
+                await getSchedule(dane.data.Data, source)
                     .then((res) => {
                         if (res) {
                             this.setState({
                                 isLoaded: true,
                                 harmonogram: res.data.harmonogramy,
-                                start:res.data.Start,
-                                end:res.data.End
+                                start: res.data.Start,
+                                end: res.data.End
                             });
                         }
                     })
@@ -149,7 +150,7 @@ class AccountSchedule extends React.Component {
 
         return (
             <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
-                    <AccountMenu/>
+                <AccountMenu/>
                 <div
                     className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>

@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router";
-import {getWeterynarzList} from "../../axios/VetApiCalls";
+import {getVetList} from "../../axios/VetApiCalls";
 import VetListTable from "./VetListTable";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
@@ -32,7 +32,7 @@ class VetList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getWeterynarzList(searchWord, page, source).then((res) => {
+            await getVetList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

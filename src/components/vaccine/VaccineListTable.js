@@ -74,7 +74,7 @@ function VaccineListTable(props) {
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600"
                             key={x.ID_lek}>
                             <td className="text-center px-1 md:px-6 py-2">{x.Nazwa}</td>
-                            <td className="text-center px-1 md:px-6 py-2">{x.Zastosowanie}</td>
+                            <td className="text-center px-1 md:px-6 py-2">{x.Zastosowanie ? x.Zastosowanie : "-"}</td>
                             <td className="text-center px-1 md:px-6 py-2">{x.CzyObowiazkowa ? t("other.yes") : t("other.no")}</td>
                             <td className="text-center px-1 md:px-6 py-2">{x.OkresWaznosci ? x.OkresWaznosci : "-"}</td>
                             <td className="text-center px-1 md:px-6 py-2">{x.Producent ? x.Producent : "-"}</td>

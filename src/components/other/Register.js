@@ -1,6 +1,6 @@
 import React from "react";
 import {Navigate, useNavigate, useParams} from "react-router";
-import {registerCall} from "../../axios/ClientApiCalls";
+import {registerClient} from "../../axios/ClientApiCalls";
 import {ValidateEmail} from "../../helpers/ValidateEmail";
 import {withTranslation} from "react-i18next";
 import {ValidatePhoneNumber} from "../../helpers/ValidatePhoneNumber";
@@ -74,7 +74,7 @@ class Register extends React.Component {
                 isLoading: true
             })
             try {
-                await registerCall(user, source);
+                await registerClient(user, source);
                 navigate("/afterRegister", {replace: true});
             } catch (error) {
                 console.log(error.message)

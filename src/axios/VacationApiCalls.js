@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getUrlopList(Id,source) {
+export function getVacationList(Id, source) {
     return api.get(`/Urlop/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,7 +13,7 @@ export function getUrlopList(Id,source) {
     })
 }
 
-export function getUrlopDetails(Id,source) {
+export function getVacationDetails(Id, source) {
     return api.get(`/Urlop/details/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -25,7 +25,7 @@ export function getUrlopDetails(Id,source) {
     })
 }
 
-export function getKontoUrlopList(source) {
+export function getAccountVacationList(source) {
     return api.get(`/Urlop/moje_urlopy`, {
         cancelToken: source.token
     }).then((response) => {
@@ -37,9 +37,9 @@ export function getKontoUrlopList(source) {
     })
 }
 
-export async function addUrlop(urlop,source) {
-    const urlopString = JSON.stringify(urlop)
-    await api.post(`/Urlop`, urlopString, {
+export async function addVacation(data, source) {
+    const dataString = JSON.stringify(data)
+    await api.post(`/Urlop`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -50,9 +50,9 @@ export async function addUrlop(urlop,source) {
     })
 }
 
-export async function editUrlop(urlop, Id,source) {
-    const urlopString = JSON.stringify(urlop)
-    await api.put(`/Urlop/${Id}`, urlopString, {
+export async function editVacation(data, id, source) {
+    const dataString = JSON.stringify(data)
+    await api.put(`/Urlop/${id}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -63,8 +63,8 @@ export async function editUrlop(urlop, Id,source) {
     })
 }
 
-export async function deleteUrlop(Id,source) {
-    await api.delete(`/Urlop/${Id}`, {
+export async function deleteVacation(id, source) {
+    await api.delete(`/Urlop/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

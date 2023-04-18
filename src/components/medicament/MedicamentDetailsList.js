@@ -1,11 +1,11 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getChorobaList} from "../../axios/DiseaseApiCalls";
-import {addChorobaLek, deleteChorobaLek} from "../../axios/DiseaseMedicamentApiCalls";
+import {getAllDiseases} from "../../axios/DiseaseApiCalls";
+import {addDiseaseMedicament, deleteDiseaseMedicament} from "../../axios/DiseaseMedicamentApiCalls";
 import {Link} from "react-router-dom";
 import {getFormattedDate} from "../../helpers/dateFormat";
-import {getLekDetails} from "../../axios/MedicamentApiCalls";
+import {getMedicamentDetails} from "../../axios/MedicamentApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -35,7 +35,7 @@ class MedicamentDetailsList extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getLekDetails(this.state.IdLek, source)
+            await getMedicamentDetails(this.state.IdLek, source)
                 .then((res) => {
                     if (res) {
                         console.log(res.data)
@@ -61,11 +61,11 @@ class MedicamentDetailsList extends React.Component {
     async showSelect() {
         if (this.state.choroby.length === 0) {
             try {
-                await getChorobaList("", 1, source).then((res) => {
+                await getAllDiseases(source).then((res) => {
                     if (res) {
                         this.setState({
                             isLoaded: true,
-                            choroby: res.data.Items
+                            choroby: res.data
                         });
                     }
                 })
@@ -102,7 +102,7 @@ class MedicamentDetailsList extends React.Component {
     deleteChoroba = async (idChoroba) => {
         const {navigate} = this.props;
         try {
-            await deleteChorobaLek(idChoroba, this.state.IdLek, source)
+            await deleteDiseaseMedicament(idChoroba, this.state.IdLek, source)
             await navigate(0, {replace: true});
         } catch (error) {
             console.log(error)
@@ -113,7 +113,7 @@ class MedicamentDetailsList extends React.Component {
         const {navigate} = this.props;
         if (this.state.data1.IdChoroba !== '') {
             try {
-                await addChorobaLek(this.state.data1.IdChoroba, this.state.IdLek, source)
+                await addDiseaseMedicament(this.state.data1.IdChoroba, this.state.IdLek, source)
                 await navigate(0, {replace: true});
             } catch (error) {
                 console.log(error)

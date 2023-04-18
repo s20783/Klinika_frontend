@@ -52,7 +52,7 @@ function ClientListTable(props) {
                     />
                 </div>
                 <Link to="/dodajKlienta"
-                      className="bg-blue-400 shadow-lg text-white py-2 px-4 font-bold rounded h-10 md:h-auto flex items-center hover:bg-gray-100 hover:text-blue-400">
+                      className="bg-blue-400 shadow-lg text-white py-2 px-4 font-bold rounded md:h-auto flex items-center hover:bg-gray-100 hover:text-blue-400">
                     <span className="hidden sm:inline">+ {t('klient.button.addClient')}</span>
                     <span className="sm:hidden text-2xl">+</span>
                 </Link>

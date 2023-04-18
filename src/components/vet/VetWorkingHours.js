@@ -2,9 +2,9 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDate, getFormattedHour} from "../../helpers/dateFormat";
-import {getGodzinyPracyList} from "../../axios/WorkingHoursApiCalls";
+import {getWorkingHoursList} from "../../axios/WorkingHoursApiCalls";
 import {Link} from "react-router-dom";
-import {getUrlopList} from "../../axios/VacationApiCalls";
+import {getVacationList} from "../../axios/VacationApiCalls";
 import VetDetailsMenu from "./VetDetailsMenu";
 import axios from "axios";
 let CancelToken
@@ -28,7 +28,7 @@ class VetWorkingHours extends React.Component {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
         try {
-            await getGodzinyPracyList(this.state.idWeterynarz, source).then((res) => {
+            await getWorkingHoursList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -37,7 +37,7 @@ class VetWorkingHours extends React.Component {
                 }
             })
 
-            await getUrlopList(this.state.idWeterynarz, source).then((res) => {
+            await getVacationList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

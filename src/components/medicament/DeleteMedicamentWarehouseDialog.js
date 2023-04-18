@@ -1,5 +1,5 @@
 import React from "react";
-import {deleteLekMagazyn} from "../../axios/MedicamentWarehouseApiCalls";
+import {deleteMedicamentWarehouse} from "../../axios/MedicamentWarehouseApiCalls";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
@@ -31,7 +31,7 @@ class DeleteMedicamentWarehouseDialog extends React.Component {
     removeLek = async (idStanLeku) => {
         const {navigate} = this.props;
         try {
-            await deleteLekMagazyn(idStanLeku, source)
+            await deleteMedicamentWarehouse(idStanLeku, source)
             await navigate(-1, {replace: true});
         } catch (error) {
             console.log(error)

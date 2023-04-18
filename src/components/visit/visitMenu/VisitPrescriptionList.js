@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {getReceptaDetails, getReceptaLeki} from "../../../axios/PrescriptionApiCalls";
+import {getPrescriptionDetails, getPrescriptionMedicaments} from "../../../axios/PrescriptionApiCalls";
 import VisitFormMenu from "../VisitFormMenu";
 import axios from "axios";
 
@@ -26,7 +26,6 @@ class VisitPrescriptionList extends React.Component {
                 Status: '',
             },
             idWizyta: paramsIdWizyta,
-            message: '',
             uslugi: [],
             choroby: [],
             chorobyWizyta: [],
@@ -43,7 +42,7 @@ class VisitPrescriptionList extends React.Component {
 
     fetchReceptaDetails = async () => {
         try {
-            await getReceptaDetails(this.state.idWizyta, source).then((res) => {
+            await getPrescriptionDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -51,7 +50,7 @@ class VisitPrescriptionList extends React.Component {
                     });
                 }
             })
-            await getReceptaLeki(this.state.idWizyta, source).then((res) => {
+            await getPrescriptionMedicaments(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -64,7 +63,6 @@ class VisitPrescriptionList extends React.Component {
             console.log(error)
         }
     }
-
 
     componentDidMount() {
         CancelToken = axios.CancelToken;
@@ -88,11 +86,11 @@ class VisitPrescriptionList extends React.Component {
                     <VisitFormMenu idWizyta={idWizyta}/>
                 </div>
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <div className="flex justify-between mt-6">
-                        <h2 className=" w-1/3 my-2 mb-6 text-2xl  font-black leading-tight text-gray-800">
+                        <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
                             {t('recepta.title')}</h2>
-                        <div className="relative  w-1/3 ">
+                        <div className="relative w-1/3 ">
                             {recepta !== '' &&
                                 <div>
                                     <Link to={`/recepta/edit/${idWizyta}`}>
@@ -126,27 +124,27 @@ class VisitPrescriptionList extends React.Component {
                                         <button id="menu-toggle"
                                                 className="shadow-xl absolute top-32 right-0 h-12 w-46 shadow bg-red-400 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                            <span className="text-2xl font-bold ">
-                                            <svg className="list-actions-button-delete flex-1"
+                                            <svg className="flex-1"
                                                  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                  fill="#FFFFFF" viewBox="0 0 256 256">
                                                 <rect width="256" height="256" fill="none"></rect>
                                                 <line className="details-icon-color" x1="215.99609" y1="56"
                                                       x2="39.99609" y2="56.00005" fill="none" stroke="#FFFFFF"
-                                                      stroke-linecap="round" strokeLinejoin="round"
+                                                      strokeLinecap="round" strokeLinejoin="round"
                                                       strokeWidth="16"></line>
                                                 <line className="details-icon-color" x1="104" y1="104" x2="104" y2="168"
-                                                      fill="none" stroke="#FFFFFF" stroke-linecap="round"
+                                                      fill="none" stroke="#FFFFFF" strokeLinecap="round"
                                                       strokeLinejoin="round" strokeWidth="16"></line>
                                                 <line className="details-icon-color" x1="152" y1="104" x2="152" y2="168"
-                                                      fill="none" stroke="#FFFFFF" stroke-linecap="round"
+                                                      fill="none" stroke="#FFFFFF" strokeLinecap="round"
                                                       strokeLinejoin="round" strokeWidth="16"></line>
                                                 <path className="details-icon-color"
                                                       d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none"
-                                                      stroke="#FFFFFF" stroke-linecap="round"
+                                                      stroke="#FFFFFF" strokeLinecap="round"
                                                       strokeLinejoin="round" strokeWidth="16"></path>
                                                 <path className="details-icon-color"
                                                       d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                      fill="none" stroke="#FFFFFF" stroke-linecap="round"
+                                                      fill="none" stroke="#FFFFFF" strokeLinecap="round"
                                                       strokeLinejoin="round" strokeWidth="16"></path>
                                             </svg>
                                             </span>
@@ -165,11 +163,11 @@ class VisitPrescriptionList extends React.Component {
                         </div>
                     </div>
                     {recepta !== '' &&
-                        <div className="border-4 border-blue-200  h-fit ml-3 shadow-xl rounded-md mx-20">
+                        <div className="border-4 border-blue-200 h-fit ml-3 shadow-xl rounded-md mx-20">
                             <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
                                 {t('recepta.fields.medicines')}</h2>
                             <div className="overflow-x-auto shadow-xl">
-                                <table className="w-full    text-sm text-left text-gray-700 dark:text-gray-400">
+                                <table className="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                                     <thead
                                         className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
@@ -182,7 +180,7 @@ class VisitPrescriptionList extends React.Component {
                                     </thead>
                                     <tbody>
                                     {lekiRecepta.map(x => (
-                                        <tr className="bg-white  dark:bg-gray-800  dark:hover:bg-gray-600"
+                                        <tr className="bg-white dark:bg-gray-800 dark:hover:bg-gray-600"
                                             key={x.ID_lek}>
                                             <td className="px-6 py-2 text-center">{x.Nazwa}</td>
                                             <td className="px-6 py-2 text-center">{x.Ilosc} ({x.JednostkaMiary})</td>
@@ -191,13 +189,15 @@ class VisitPrescriptionList extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight  text-gray-600">
+                            <h2 className=" w-1/3 my-8 mb-5 ml-4 text-lg font-bold leading-tight text-gray-600">
                                 {t('recepta.fields.recommendations')}</h2>
-                            <textarea className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4"
-                                      id="Notatka"
-                                      name="Notatka"
-                                      value={recepta.Zalecenia} rows="6"
-                                      disabled/>
+                            <textarea
+                                className="shadow-xl form-textarea block w-4/5 focus:bg-white mb-4 px-2 ml-4"
+                                id="Notatka"
+                                name="Notatka"
+                                value={recepta.Zalecenia}
+                                rows="6"
+                                disabled/>
                         </div>
                     }
                 </div>

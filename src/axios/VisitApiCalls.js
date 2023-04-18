@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getWizytaList(searchWord, page, source) {
+export function getVisitList(searchWord, page, source) {
     return api.get(`/Wizyta?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,8 +13,8 @@ export function getWizytaList(searchWord, page, source) {
     })
 }
 
-export function getKlientWizytaListForDetails(Id,source){
-    return api.get(`/Wizyta/${Id}`, {
+export function getClientVisitListForDetails(id, source) {
+    return api.get(`/Wizyta/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -25,8 +25,8 @@ export function getKlientWizytaListForDetails(Id,source){
     })
 }
 
-export function getPacjentWizytaList(Id,source) {
-    return api.get(`/Wizyta/pacjent/${Id}`, {
+export function getPatientVisitList(id, source) {
+    return api.get(`/Wizyta/pacjent/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -37,7 +37,7 @@ export function getPacjentWizytaList(Id,source) {
     })
 }
 
-export function getKlientWizytaList(source) {
+export function getClientVisitList(source) {
     return api.get(`/Wizyta/moje_wizyty`, {
         cancelToken: source.token
     }).then((response) => {
@@ -49,8 +49,8 @@ export function getKlientWizytaList(source) {
     })
 }
 
-export function getWizytaDetails(Id,source){
-    return api.get(`/Wizyta/details/${Id}`, {
+export function getWizytaDetails(id, source) {
+    return api.get(`/Wizyta/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -61,7 +61,7 @@ export function getWizytaDetails(Id,source){
     })
 }
 
-export async function umowWizyte(data,source){
+export async function createVisit(data, source) {
     const dataString = JSON.stringify(data)
     await api.post('/Wizyta/umowWizyte', dataString, {
         cancelToken: source.token
@@ -73,9 +73,10 @@ export async function umowWizyte(data,source){
         }
     })
 }
-export async function updateWizyta(idWizyta, data, source){
+
+export async function updateVisit(idVisit, data, source) {
     const dataString = JSON.stringify(data)
-    await api.put(`/Wizyta/${idWizyta}`, dataString, {
+    await api.put(`/Wizyta/${idVisit}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -85,23 +86,25 @@ export async function updateWizyta(idWizyta, data, source){
         }
     })
 }
-export async function przelozWizyte(idWizyta, data, source){
-   const dataString = JSON.stringify(data)
-    await api.put(`/Wizyta/przeloz/${idWizyta}`, dataString, {
+
+export async function rescheduleVisit(idVisit, data, source) {
+    const dataString = JSON.stringify(data)
+    await api.put(`/Wizyta/przeloz/${idVisit}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
     }).catch(function (thrown) {
         if (axios.isCancel(thrown)) {
             console.log('Request canceled', thrown.message);
-        }else {
+        } else {
             console.log(thrown)
             throw new Error(thrown)
         }
     })
 }
-export function odwolajWizyte(IdWizyta,idOsoba, source){
-    return api.delete(`/Wizyta/${IdWizyta}?ID_klient=${idOsoba}`, {
+
+export function cancelVisit(idVisit, idClient, source) {
+    return api.delete(`/Wizyta/${idVisit}?ID_klient=${idClient}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

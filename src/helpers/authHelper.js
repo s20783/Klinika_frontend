@@ -25,7 +25,7 @@ export function isAuthenticated() {
     return !!user;
 }
 
-export function isKlient() {
+export function isClient() {
     const user = getCurrentUser()
     if (user) {
         return user.Rola === 'user';
@@ -35,7 +35,7 @@ export function isKlient() {
     }
 }
 
-export function isWeterynarz() {
+export function isVet() {
     const user = getCurrentUser()
     if (user) {
         return user.Rola === 'weterynarz';

@@ -2,10 +2,11 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
-import { deleteKlientKontoByAdmin} from "../../axios/ClientApiCalls";
+import { deleteClientAccountByAdmin} from "../../axios/ClientApiCalls";
+
 let CancelToken
 let source
-class UsuniecieKonta extends React.Component {
+class DeleteClientDialog extends React.Component {
     constructor(props) {
         super(props);
         const paramsIdKlient = this.props.params.IdOsoba
@@ -28,13 +29,12 @@ class UsuniecieKonta extends React.Component {
         }
     }
 
-    removeKonto = async () => {
+    removeAccount = async () => {
         const {navigate} = this.props;
         try {
-            await deleteKlientKontoByAdmin(this.state.idKlient, source)
+            await deleteClientAccountByAdmin(this.state.idKlient, source)
             await navigate(-1, {replace: true});
         } catch (error) {
-            console.log(error.message)
             this.setState({
                 message: error.message
             })
@@ -57,7 +57,7 @@ class UsuniecieKonta extends React.Component {
                     <div className="flex justify-end pt-2">
                         <button onClick={() => navigate(-1)}
                                 className="shadow-lg px-4 bg-transparent p-3 rounded-lg text-blue-400 hover:bg-gray-100 hover:text-blue-400 mr-2">{t('button.back')}</button>
-                        <button onClick={() => this.removeKonto()}
+                        <button onClick={() => this.removeAccount()}
                                 className="shadow-lg px-4 bg-blue-400 p-3 rounded-lg text-white hover:bg-blue-400">{t('klient.deleteClient')}</button>
                     </div>
                 </div>
@@ -83,4 +83,4 @@ const withRouter = WrappedComponent => props => {
     );
 };
 
-export default withTranslation()(withRouter(withNavigate(UsuniecieKonta)));
+export default withTranslation()(withRouter(withNavigate(DeleteClientDialog)));

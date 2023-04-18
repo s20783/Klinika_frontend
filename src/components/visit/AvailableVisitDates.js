@@ -1,6 +1,6 @@
 import React from 'react'
 
-function WizytaTime(props) {
+function AvailableVisitDates(props) {
     function getHour(date) {
         const hour = date.toString().split('T');
         return hour[1].replace(':00', '');
@@ -27,4 +27,4 @@ function WizytaTime(props) {
     )
 }
 
-export default WizytaTime;
+export default AvailableVisitDates;

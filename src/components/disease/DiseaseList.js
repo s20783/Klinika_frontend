@@ -1,5 +1,5 @@
 import React from "react";
-import {getChorobaList} from "../../axios/DiseaseApiCalls";
+import {getDiseaseList} from "../../axios/DiseaseApiCalls";
 import DiseaseListTable from "./DiseaseListTable";
 import {useNavigate} from "react-router";
 import {withTranslation} from "react-i18next";
@@ -33,7 +33,7 @@ class DiseaseList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            await getChorobaList(searchWord, page, source).then((res) => {
+            await getDiseaseList(searchWord, page, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

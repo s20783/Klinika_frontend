@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import TableItemEdit from "../fragments/TableItemEdit";
 import TableItemDelete from "../fragments/TableItemDelete";
+import {isAdmin} from "../../helpers/authHelper";
 
 function ServiceListTable(props) {
     const {t} = useTranslation();
@@ -50,11 +51,13 @@ function ServiceListTable(props) {
                         value={wordEntered}
                     />
                 </div>
-                <Link to="/dodajUsluge"
-                      className="bg-blue-400 shadow-lg text-white py-2 px-4 font-bold rounded h-10 md:h-auto flex items-center hover:bg-gray-100 hover:text-blue-400">
-                    <span className="hidden sm:inline">+ {t('usluga.button.addService')}</span>
-                    <span className="sm:hidden text-2xl">+</span>
-                </Link>
+                {isAdmin() &&
+                    <Link to="/dodajUsluge"
+                          className="bg-blue-400 shadow-lg text-white py-2 px-4 font-bold rounded h-10 md:h-auto flex items-center hover:bg-gray-100 hover:text-blue-400">
+                        <span className="hidden sm:inline">+ {t('usluga.button.addService')}</span>
+                        <span className="sm:hidden text-2xl">+</span>
+                    </Link>
+                }
             </div>
             <div className="overflow-x-auto shadow-lg sm:rounded-lg">
                 <table className="w-full text-xs sm:text-sm md:text-base text-left text-gray-700 dark:text-gray-400">
@@ -65,7 +68,9 @@ function ServiceListTable(props) {
                         <th scope="col" className="text-center px-1 md:px-6 py-3">{t('usluga.fields.painScale')}</th>
                         <th scope="col" className="text-center px-1 md:px-6 py-3">{t('usluga.fields.narcosis')}</th>
                         <th scope="col" className="text-center px-1 md:px-6 py-3">{t('usluga.fields.price')}</th>
-                        <th scope="col" className="text-center px-1 md:px-6 py-3"/>
+                        {isAdmin() &&
+                            <th scope="col" className="text-center px-1 md:px-6 py-3"/>
+                        }
                     </tr>
                     </thead>
                     <tbody>
@@ -77,12 +82,14 @@ function ServiceListTable(props) {
                             <td className="px-1 md:px-6 py-2">{x.Dolegliwosc}</td>
                             <td className="px-1 md:px-6 py-2">{x.Narkoza ? t("other.yes") : t("other.no")}</td>
                             <td className="px-1 md:px-6 py-2">{x.Cena}</td>
-                            <td className="px-1 md:px-6 py-2">
-                                <div className="flex justify-center">
-                                    <TableItemEdit link={`/uslugi/edycjaUsluga/${x.ID_Usluga}`}/>
-                                    <TableItemDelete link={`/uslugi/delete/${x.ID_Usluga}`}/>
-                                </div>
-                            </td>
+                            {isAdmin() &&
+                                <td className="px-1 md:px-6 py-2">
+                                    <div className="flex justify-center">
+                                        <TableItemEdit link={`/uslugi/edycjaUsluga/${x.ID_Usluga}`}/>
+                                        <TableItemDelete link={`/uslugi/delete/${x.ID_Usluga}`}/>
+                                    </div>
+                                </td>
+                            }
                         </tr>
                     ))}
                     </tbody>
@@ -94,7 +101,7 @@ function ServiceListTable(props) {
                     className="bg-gray-100 text-gray-700 text-xs sm:text-sm md:text-base hover:bg-blue-400 hover:text-white px-4 py-2 md:mx-2 mx-1 rounded-r rounded-l-lg uppercase">
                     Prev
                 </button>
-                {Array.from({ length: pageCount }).map((x, i) => (
+                {Array.from({length: pageCount}).map((x, i) => (
                     <button
                         key={i + 1}
                         onClick={() => handlePageChange(i + 1)}

@@ -2,7 +2,7 @@ import React from "react";
 import formMode from "../../helpers/FormMode";
 import {useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getAllKlientList} from "../../axios/ClientApiCalls";
+import {getAllClients} from "../../axios/ClientApiCalls";
 import axios from "axios";
 import PatientForm from "./PatientForm";
 let CancelToken
@@ -22,9 +22,9 @@ class CreateEditPatient extends React.Component {
         }
     }
 
-    fetchKlientList = async () => {
+    fetchClientList = async () => {
         try {
-            await getAllKlientList(source).then((res) => {
+            await getAllClients(source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,
@@ -46,7 +46,7 @@ class CreateEditPatient extends React.Component {
     componentDidMount() {
         CancelToken = axios.CancelToken;
         source = CancelToken.source();
-        this.fetchKlientList();
+        this.fetchClientList();
     }
 
     render() {

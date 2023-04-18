@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {deleteSpecjalizacja} from "../../axios/SpecializationApiCalls";
+import {deleteSpecialization} from "../../axios/SpecializationApiCalls";
 import axios from "axios";
 let CancelToken
 let source
@@ -30,7 +30,7 @@ class DeleteSpecializationDialog extends React.Component {
     removeSpecjalizacja = async (idSpecjalizacja) => {
         const {navigate} = this.props;
         try {
-            await deleteSpecjalizacja(idSpecjalizacja, source)
+            await deleteSpecialization(idSpecjalizacja, source)
             await navigate("/specjalizacje", {replace: true});
         } catch (error) {
             console.log(error)

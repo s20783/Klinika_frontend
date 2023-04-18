@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router";
 import ClientListTable from "./ClientListTable";
 import {withTranslation} from "react-i18next";
-import {getKlientList} from "../../axios/ClientApiCalls";
+import {getClientList} from "../../axios/ClientApiCalls";
 import axios from "axios";
 
 let CancelToken
@@ -34,7 +34,7 @@ class ClientList extends React.Component {
 
     getData = async (searchWord, page) => {
         try {
-            const res = await getKlientList(searchWord, page, source)
+            const res = await getClientList(searchWord, page, source)
             if(res){
                 this.setState({
                     isLoaded: true,

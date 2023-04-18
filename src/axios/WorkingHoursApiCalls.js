@@ -1,7 +1,7 @@
 import api from "./AuthApi";
 import axios from "axios";
 
-export function getGodzinyPracyList(id,source) {
+export function getWorkingHoursList(id, source) {
     return api.get(`/GodzinyPracy/${id}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -13,7 +13,7 @@ export function getGodzinyPracyList(id,source) {
     })
 }
 
-export function getKontoGodzinyPracyList(source) {
+export function getAccountWorkingHoursList(source) {
     return api.get(`/GodzinyPracy/moje_godziny`, {
         cancelToken: source.token
     }).then((response) => {
@@ -25,9 +25,9 @@ export function getKontoGodzinyPracyList(source) {
     })
 }
 
-export async function addGodzinyPracy(idVet, dane,source) {
-    const patientString = JSON.stringify(dane)
-    await api.post(`/GodzinyPracy/${idVet}`, patientString, {
+export async function addWorkingHours(idVet, data, source) {
+    const dataString = JSON.stringify(data)
+    await api.post(`/GodzinyPracy/${idVet}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,7 +38,7 @@ export async function addGodzinyPracy(idVet, dane,source) {
     })
 }
 
-export async function addDomyslneGodzinyPracy(idVet, source) {
+export async function addDefaultWorkingHours(idVet, source) {
     await api.post(`/GodzinyPracy/default/${idVet}`, {
         cancelToken: source.token
     }).then((response) => {
@@ -50,9 +50,9 @@ export async function addDomyslneGodzinyPracy(idVet, source) {
     })
 }
 
-export async function editGodzinyPracy(idVet, dane,source) {
-    const patientString = JSON.stringify(dane)
-    await api.put(`/GodzinyPracy/${idVet}`, patientString, {
+export async function editWorkingHours(idVet, data, source) {
+    const dataString = JSON.stringify(data)
+    await api.put(`/GodzinyPracy/${idVet}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -63,8 +63,8 @@ export async function editGodzinyPracy(idVet, dane,source) {
     })
 }
 
-export async function deleteGodzinyPracy(id, dzien,source ) {
-    await api.delete(`/GodzinyPracy/${id}?dzien=${dzien}`, {
+export async function deleteWorkingHours(id, day, source) {
+    await api.delete(`/GodzinyPracy/${id}?day=${day}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
