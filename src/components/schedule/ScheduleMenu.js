@@ -7,7 +7,7 @@ function ScheduleMenu(props) {
     let navigate = props.navigate
     let source = props.source
 
-    const addSchedule = async () => {
+    const addAutoSchedule = async () => {
         try {
             await addSchedule(source)
             navigate('/harmonogram/d')
@@ -16,7 +16,7 @@ function ScheduleMenu(props) {
         }
     }
 
-    const updateSchedule = async () => {
+    const updateAutoSchedule = async () => {
         try {
             await updateSchedule(source)
             navigate('/harmonogram/a')
@@ -31,27 +31,35 @@ function ScheduleMenu(props) {
                 <button
                     className='shadow-lg column-1 mb-4 mr-2 md:mr-0 bg-blue-400 hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
                     onClick={() => {
-                        addSchedule()
+                        addAutoSchedule()
                     }}>
                     <div className="relative h-9 w-24  xl:w-36 ">
                             <span className="absolute bottom-0 left-0  text-ml ">{t('userMenu.add')}</span>
-                        <svg className="h-6 w-6 absolute bottom-0 right-0 xl:visible invisible " fill="none" viewBox="0 0 24 24"
+                        <svg className="h-6 w-6 absolute bottom-0 right-0 xl:visible invisible "
+                             fill="none"
+                             viewBox="0 0 24 24"
                              stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                  d="M12 4v16m8-8H4"/>
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M12 4v16m8-8H4"/>
                         </svg>
                     </div>
                 </button>
                 <button
                     className='shadow-lg column-1 mb-4 bg-blue-400 hover:bg-white hover:text-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded'
                     onClick={() => {
-                        updateSchedule()
+                        updateAutoSchedule()
                     }}>
                     <div className="relative h-9 w-24  xl:w-36">
                             <span className="absolute bottom-0 left-0 text-ml ">
                                 {t('userMenu.update')}</span>
                         <svg className="h-6 w-6 absolute bottom-0 right-0 xl:visible invisible" width="24" height="24"
-                             viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none"
+                             viewBox="0 0 24 24"
+                             strokeWidth="2"
+                             stroke="currentColor"
+                             fill="none"
                              strokeLinecap="round"
                              strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z"/>

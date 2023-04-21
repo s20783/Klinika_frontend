@@ -8,6 +8,7 @@ import {getAllVets} from "../../axios/VetApiCalls";
 import Schedule from "./Schedule";
 import ScheduleMenu from "./ScheduleMenu";
 import axios from "axios";
+
 let CancelToken
 let source
 
@@ -25,9 +26,10 @@ class ScheduleForm extends React.Component {
             },
             date: new Date(),
             error: '',
-            weterynarze: [],
+            vets: [],
             isLoaded: false,
-            harmonogram: [],
+            isScheduleLoaded: false,
+            schedules: [],
             start: '',
             end: ''
         }
@@ -41,7 +43,7 @@ class ScheduleForm extends React.Component {
                 if (res) {
                     this.setState({
                         isLoaded: true,
-                        weterynarze: res.data
+                        vets: res.data
                     });
                 }
             })
@@ -135,15 +137,15 @@ class ScheduleForm extends React.Component {
                 try {
                     await getSchedule(dane.data.Data, source)
                         .then((res) => {
-                        if (res) {
-                            this.setState({
-                                isLoaded: true,
-                                harmonogram: res.data.harmonogramy,
-                                start: res.data.Start,
-                                end: res.data.End
-                            });
-                        }
-                    })
+                            if (res) {
+                                this.setState({
+                                    isScheduleLoaded: true,
+                                    schedules: res.data.harmonogramy,
+                                    start: res.data.Start,
+                                    end: res.data.End
+                                });
+                            }
+                        })
                 } catch (e) {
                     console.log(e)
                 }
@@ -153,8 +155,8 @@ class ScheduleForm extends React.Component {
                         .then((res) => {
                             if (res) {
                                 this.setState({
-                                    isLoaded: true,
-                                    harmonogram: res.data.harmonogramy,
+                                    isScheduleLoaded: true,
+                                    schedules: res.data.harmonogramy,
                                     start: res.data.Start,
                                     end: res.data.End
                                 });
@@ -168,27 +170,16 @@ class ScheduleForm extends React.Component {
     }
 
     render() {
-        const {data, errors, date, weterynarze, harmonogram, start, end} = this.state
+        const {data, errors, isLoaded, isScheduleLoaded, date, vets, schedules, start, end} = this.state
         const {t} = this.props;
         const {navigate} = this.props
         const {i18n} = this.props;
         let language = i18n.language;
         let content;
-        if (harmonogram.length !== 0) {
-            content = <Schedule harmonogram={harmonogram} start={start} end={end} />
-        } else {
-            content = <></>
-        }
-
-        return (
-            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
-                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">
-                        {t('harmonogram.title')}</p>
-                    <ScheduleMenu navigate={navigate} source={source}/>
-                </div>
+        if (isLoaded) {
+            content =
                 <div
-                    className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
+                    className="w-full lg:w-5/6 p-2 md:p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 rounded">
                     <form onSubmit={this.handleSubmit}>
                         <section className="bg-white-100 border-b  mb-5">
                             <div className=" md:flex mb-6 mt-4">
@@ -198,10 +189,10 @@ class ScheduleForm extends React.Component {
                                 </label>
                                 <div className="md:w-3/5">
                                     <select name="Weterynarz" id="Weterynarz" onChange={this.handleChange}
-                                            className= "shadow-xl form-select block w-full focus:bg-white">
+                                            className="shadow-xl form-select block w-full focus:bg-white">
                                         <option value="0">{t('harmonogram.all')}</option>
                                         {
-                                            weterynarze.map(vet => (
+                                            vets.map(vet => (
                                                 <option key={vet.IdOsoba} selected={data.IdOsoba === vet.IdOsoba}
                                                         value={vet.IdOsoba}>{vet.Imie} {vet.Nazwisko}</option>
                                             ))}
@@ -229,7 +220,7 @@ class ScheduleForm extends React.Component {
                             </span>
                             </div>
                         </div>
-                        <div className=" md:flex mb-6 mt-8 ">
+                        <div className=" md:flex mb-8 md:mt-4">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
                                         className="shadow-lg bg-red-500 hover:bg-white  hover:text-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
@@ -243,8 +234,23 @@ class ScheduleForm extends React.Component {
                             </div>
                         </div>
                     </form>
-                    {content}
+                    {isScheduleLoaded &&
+                        <Schedule schedules={schedules} start={start} end={end}/>
+                    }
                 </div>
+        } else {
+            content = <p>Ładowanie...</p>
+        }
+
+
+        return (
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3 mb-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">
+                        {t('harmonogram.title')}</p>
+                    <ScheduleMenu navigate={navigate} source={source}/>
+                </div>
+                {content}
             </div>
         )
     }
@@ -252,7 +258,6 @@ class ScheduleForm extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}
@@ -260,6 +265,7 @@ const withRouter = WrappedComponent => props => {
         />
     );
 };
+
 const withNavigate = Component => props => {
     const navigate = useNavigate();
     return <Component {...props} navigate={navigate}/>;

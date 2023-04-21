@@ -264,7 +264,7 @@ class PatientForm extends React.Component {
                     </section>
                     <div className="flex flex-wrap -mx-3 mb-4 border-b">
                         <div className="w-full px-3">
-                            <label class="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                            <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
                                 {t('pacjent.fields.name')}
                             </label>
                             <input
@@ -276,7 +276,7 @@ class PatientForm extends React.Component {
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6 border-b">
                         <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2">
+                            <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2">
                                 {t('pacjent.fields.species')}
                             </label>
                             <input
@@ -286,7 +286,7 @@ class PatientForm extends React.Component {
                             <span id="errorGatunek" className="errors-text2 mb-4 ">{errors.Gatunek}</span>
                         </div>
                         <div className="w-full md:w-2/6 px-3 md:ml-8">
-                            <label class="block  tracking-wide text-gray-600 text-s font-bold mb-2"
+                            <label className="block  tracking-wide text-gray-600 text-s font-bold mb-2"
                                    form="grid-last-name">
                                 {t('pacjent.fields.breed')}
                             </label>
@@ -300,7 +300,7 @@ class PatientForm extends React.Component {
 
                     <div className="flex flex-wrap -mx-3 mb-6 border-b">
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('pacjent.fields.weight')}
                             </label>
                             <input
@@ -310,7 +310,7 @@ class PatientForm extends React.Component {
                             <span id="errorWaga" className="errors-text2 mb-4 ">{errors.Waga}</span>
                         </div>
                         <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
-                            <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                            <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                 {t('pacjent.fields.color')}
                             </label>
                             <input
@@ -346,18 +346,18 @@ class PatientForm extends React.Component {
                                     <input name="Plec" id="Plec" type="radio" checked={data.Plec === "M"}
                                            className="form-radio"
                                            value="M" onChange={this.handleChange}/>
-                                    <span class="ml-2">{t('pacjent.gender.male')}</span>
+                                    <span className="ml-2">{t('pacjent.gender.male')}</span>
                                 </label>
                                 <label className="inline-flex items-center  ml-4 mb-4">
                                     <input name="Plec" id="Plec" type="radio" className="form-radio"
                                            checked={data.Plec === "F"}
                                            value="F" onChange={this.handleChange}/>
-                                    <span class="ml-2">{t('pacjent.gender.female')}</span>
+                                    <span className="ml-2">{t('pacjent.gender.female')}</span>
                                 </label>
                                 <span id="errorPlec" className="errors-text2 mb-3 ">{errors.Plec}</span>
                             </div>
                             <div className="border-b mb-6">
-                                <label class="block tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
+                                <label className="block tracking-wide text-gray-700 text-s font-bold mb-2" form="grid-city">
                                     {t('pacjent.fields.infertile')}
                                 </label>
                                 <input type="checkbox" name="Ubezplodnienie"

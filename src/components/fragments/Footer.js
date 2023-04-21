@@ -19,18 +19,18 @@ class Footer extends React.Component {
                 <div className="max-w-lg mx-auto flex justify-center text-black mt-3">
                     <button onClick={() => {
                         this.handleLanguageChange('pl')
-                    }} className="hover:text-blue-400">PL
+                    }} className="hover:text-blue-500 hover:font-bold">PL
                     </button>
                     <span className="mx-3">•</span>
                     <button onClick={() => {
                         this.handleLanguageChange('en')
-                    }} className="hover:text-blue-400">EN
+                    }} className="hover:text-blue-500 hover:font-bold">EN
                     </button>
-                    <span className="mx-3 ">•</span>
+                    {/*<span className="mx-3">•</span>
                     <button onClick={() => {
                         this.handleLanguageChange('ua')
-                    }} className="hover:text-blue-400">UA
-                    </button>
+                    }} className="hover:text-blue-500 hover:font-bold">UA
+                    </button>*/}
                 </div>
                 <div className="sm:flex sm:items-end sm:justify-between mt-4 mb-2">
                     <ul className="flex flex-wrap items-center justify-center sm:justify-between mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">

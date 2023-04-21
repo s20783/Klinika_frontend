@@ -84,7 +84,8 @@ class VetForm extends React.Component {
         errors[name] = errorMessage
 
         this.setState({
-            data: data, errors: errors
+            data: data,
+            errors: errors
         })
     }
 
@@ -98,7 +99,6 @@ class VetForm extends React.Component {
         } else {
             dataUroLubZatr = 'DataUrodzenia'
         }
-        console.log(dayjs(date).format())
         data[dataUroLubZatr] = dayjs(date).format()
 
         const errorMessage = this.validateField(dataUroLubZatr, date)
@@ -182,7 +182,7 @@ class VetForm extends React.Component {
         return false
     }
 
-    onChange1 = (event) => {
+    onChange1 = () => {
         const data = {...this.state.dataUroZatr}
         data['Data1'] = !data['Data1']
 
@@ -241,66 +241,66 @@ class VetForm extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('weterynarz.addNewVet') : t('weterynarz.editVet')
 
         return (
-            <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
-                <div class="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
-                    <p class="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
+            <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-3 mt-3">
+                <div className="w-full lg:w-1/6 lg:px-6 text-gray-800 leading-normal">
+                    <p className="text-base font-bold py-2 text-xl lg:pb-6 text-gray-700">{pageTitle}</p>
                 </div>
                 <div className="w-full lg:w-5/6 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
                     <form onSubmit={this.handleSubmit}>
-                        <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                        <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('weterynarz.fields.firstName')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Imie" id="Imie" type="text" value={data.Imie}
                                     onChange={this.handleChange} placeholder=""/>
                                 <span id="errorImie" className="errors-text2 mb-4 ">{errors.Imie}</span>
 
                             </div>
-                            <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('weterynarz.fields.lastName')}
                                 </label>
                                 <input
-                                    class="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Nazwisko" id="Nazwisko" type="text" value={data.Nazwisko}
                                     placeholder="" onChange={this.handleChange}/>
                                 <span id="errorNazwisko"
                                       className="errors-text2 mb-4 ">{errors.Nazwisko}</span>
                             </div>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6 border-b">
-                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                        <div className="flex flex-wrap -mx-3 mb-6 border-b">
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('weterynarz.fields.phoneNumber')}
                                 </label>
                                 <input
-                                    class="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="NumerTelefonu" id="NumerTelefonu" type="text"
                                     value={data.NumerTelefonu} onChange={this.handleChange} placeholder=""/>
                                 <span id="errorNumerTelefonu"
                                       className="errors-text2 mb-4 ">{errors.NumerTelefonu}</span>
                             </div>
-                            <div class="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                            <div className="w-full md:w-1/3 px-3 mb-6 md:ml-8 md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('weterynarz.fields.email')}
                                 </label>
                                 <input
-                                    class="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-6 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Email" id="Email" type="text" value={data.Email} placeholder=""
                                     onChange={this.handleChange}/>
                                 <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Email}</span>
                             </div>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6 ">
-                            <div class="w-full md:w-2/4  mb-6 md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                        <div className="flex flex-wrap -mx-3 mb-6 ">
+                            <div className="w-full md:w-2/4  mb-6 md:mb-0">
+                                <label className="block tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                 </label>
                                 <Calendar className="mb-7 calendarForm"
@@ -308,13 +308,13 @@ class VetForm extends React.Component {
                                           locale={language}
                                 />
                             </div>
-                            <div class="w-full md:w-1/3 px-3 mb-6 mt-6 md:mb-0">
+                            <div className="w-full md:w-1/3 px-3 mb-6 mt-6 md:mb-0">
                                 <div className="border-b mb-6">
-                                    <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                    <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                            form="grid-city">
                                         {t('weterynarz.fields.employmentDate')}
                                     </label>
-                                    <input type="radio" class="form-radio mb-4" name="Data"
+                                    <input type="radio" className="form-radio mb-4" name="Data"
                                            checked={dataUroZatr.Data1 === true} onChange={this.onChange1}/>
                                     <span id="" className="ml-4">
 
@@ -325,11 +325,11 @@ class VetForm extends React.Component {
                                 </span>
                                 </div>
                                 <div className="border-b mb-6 ">
-                                    <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                                    <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                            form="grid-city">
                                         {t('weterynarz.fields.birthDate')}
                                     </label>
-                                    <input type="radio" class="form-radio mb-4" name="Data1"
+                                    <input type="radio" className="form-radio mb-4" name="Data1"
                                            checked={dataUroZatr.Data1 === false} onChange={this.onChange1}/>
                                     <span id="" className="ml-4">
                                 {data.DataUrodzenia === '' || errors.DataUrodzenia !== '' ? '' : t('other.selectedDate') + getFormattedDate(data.DataUrodzenia)}</span>
@@ -339,14 +339,14 @@ class VetForm extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-wrap -mx-3 mb-6 ">
-                            <div class="w-full md:w-1/3 px-3 mb-6  md:mb-0">
-                                <label class="block  tracking-wide text-gray-700 text-s font-bold mb-2"
+                        <div className="flex flex-wrap -mx-3 mb-6 ">
+                            <div className="w-full md:w-1/3 px-3 mb-6  md:mb-0">
+                                <label className="block  tracking-wide text-gray-700 text-s font-bold mb-2"
                                        form="grid-city">
                                     {t('weterynarz.fields.salary')}
                                 </label>
                                 <input
-                                    class="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    className="shadow-xl appearance-none form-textarea block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     name="Pensja" id="Pensja" type="number" value={data.Pensja}
                                     placeholder="" onChange={this.handleChange}/>
                                 <span id="errorEmail" className="errors-text2 mb-4 ">{errors.Pensja}</span>

@@ -367,7 +367,6 @@
     "addingWorkingHour": "Czy chcesz dodać godziny pracy dla weterynarza?",
     "addWorkingHour": "Dodaj godziny pracy"
   },
-
   "harmonogram": {
     "title": "Harmonogram",
     "checkingTheVetsSchedule": "Sprawdzenie harmonogramu",
@@ -385,7 +384,7 @@
     "weekdays": {
       "1": "pon",
       "2": "wt",
-      "3": "sr",
+      "3": "śr",
       "4": "czw",
       "5": "pt",
       "6": "sob"

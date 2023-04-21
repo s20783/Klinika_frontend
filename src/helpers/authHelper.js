@@ -10,6 +10,7 @@ export function getImie() {
         return undefined
     }
 }
+
 export function getId() {
     const user = getCurrentUser()
     let token = user.Token
@@ -38,7 +39,7 @@ export function isClient() {
 export function isVet() {
     const user = getCurrentUser()
     if (user) {
-        return user.Rola === 'weterynarz';
+        return user.Rola === 'Weterynarz';
 
     } else {
         return false
@@ -48,7 +49,7 @@ export function isVet() {
 export function isAdmin() {
     const user = getCurrentUser()
     if (user) {
-        return user.Rola === 'admin';
+        return user.Rola === 'Admin';
     } else {
         return false
     }

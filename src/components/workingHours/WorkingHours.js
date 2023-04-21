@@ -18,7 +18,6 @@ let source
 class WorkingHours extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.params)
         const paramsIdWeterynarz = this.props.params.IdOsoba
         this.state = {
             pon: {
@@ -63,39 +62,36 @@ class WorkingHours extends React.Component {
         try {
             await getWorkingHoursList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
-                    res.data.map((x) => {
-                        if (x.DzienTygodnia === 1) {
-                            this.setState({
-                                pon: x
-                            });
-                        } else if (x.DzienTygodnia === 2) {
-                            this.setState({
-                                wt: x
-                            });
-                        } else if (x.DzienTygodnia === 3) {
-                            this.setState({
-                                sr: x
-                            });
-                        } else if (x.DzienTygodnia === 4) {
-                            this.setState({
-                                czw: x
-                            });
-                        } else if (x.DzienTygodnia === 5) {
-                            this.setState({
-                                pt: x
-                            });
-                        } else if (x.DzienTygodnia === 6) {
-                            this.setState({
-                                sob: x
-                            });
-                        }
-                    })
-
-                    this.setState({
-                        isLoaded: true,
-                        godzinyPracy: res.data
-                    });
+                    if (res.data.DzienTygodnia === 1) {
+                        this.setState({
+                            pon: res.data
+                        });
+                    } else if (res.data.DzienTygodnia === 2) {
+                        this.setState({
+                            wt: res.data
+                        });
+                    } else if (res.data.DzienTygodnia === 3) {
+                        this.setState({
+                            sr: res.data
+                        });
+                    } else if (res.data.DzienTygodnia === 4) {
+                        this.setState({
+                            czw: res.data
+                        });
+                    } else if (res.data.DzienTygodnia === 5) {
+                        this.setState({
+                            pt: res.data
+                        });
+                    } else if (res.data.DzienTygodnia === 6) {
+                        this.setState({
+                            sob: res.data
+                        });
+                    }
                 }
+                this.setState({
+                    isLoaded: true,
+                    godzinyPracy: res.data
+                });
             })
         } catch (e) {
             console.log(e)
@@ -216,7 +212,7 @@ class WorkingHours extends React.Component {
         return errorMessage;
     }
 
-    dodajDomyslne = async () => {
+    addDefault = async () => {
         const {navigate} = this.props;
         if (this.state.idWeterynarz !== null) {
             try {
@@ -228,7 +224,7 @@ class WorkingHours extends React.Component {
         }
     }
 
-    changeGodzinyPracy = async () => {
+    changeWorkingHours = async () => {
         const {navigate} = this.props;
         const dane = {...this.state}
         const isValid = this.validateForm()
@@ -250,7 +246,6 @@ class WorkingHours extends React.Component {
                 }
             }
         }
-
     }
 
     render() {
@@ -271,7 +266,7 @@ class WorkingHours extends React.Component {
                         <div className="relative  w-1/3 ">
                             {(godzinyPracy.length === 0) &&
                                 <button onClick={() => {
-                                    this.dodajDomyslne()
+                                    this.addDefault()
                                 }}
                                         className="absolute top-0 right-0 h-12 w-46 shadow bg-gray-200 hover:bg-white  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-300 font-bold py-2 px-4 rounded">
                                     <span className="text-2xl font-bold ">+
@@ -304,15 +299,13 @@ class WorkingHours extends React.Component {
                                 }}> +
                                 </button>
                             </th>
-
                             <td className="text-center w-full flex flex-wrap my-2 mb-10">
                                 <div className="w-full">
-                                            <span className=' text-s '>
-                                                {getFormattedHour(pon.GodzinaRozpoczecia)} - {getFormattedHour(pon.GodzinaZakonczenia)}
-                                            </span>
+                                    <span className='text-s'>
+                                        {getFormattedHour(pon.GodzinaRozpoczecia)} - {getFormattedHour(pon.GodzinaZakonczenia)}
+                                    </span>
                                 </div>
                             </td>
-
                         </tr>
                         <tr className="border-b-2 border-t-2">
                             <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
@@ -367,7 +360,6 @@ class WorkingHours extends React.Component {
                                     </span>
                                 </div>
                             </td>
-
                         </tr>
                         <tr className="border-b-2 border-t-2">
                             <th className=" mb-6  flex flex-wrap relative h-10 w-48  text-gray-700 dark:bg-gray-700 dark:text-gray-400">
@@ -451,10 +443,9 @@ class WorkingHours extends React.Component {
                             </td>
                         </tr>
                     </table>
-
-                    <div className=" md:flex mb-6 mt-4  ">
+                    <div className=" md:flex mb-6 mt-4">
                         <div className="md:w-full ">
-                            <div className="flex flex-wrap -mx-3 mb-6 mt-4  ">
+                            <div className="flex flex-wrap -mx-3 mb-6 mt-4">
                                 <span id="spec-content5"
                                       className="hidden mt-3 ml-6 mr-4 font-bold text-l  uppercase underline">
                                     {t('harmonogram.weekdays.' + data.DzienTygodnia)} </span>
@@ -469,7 +460,6 @@ class WorkingHours extends React.Component {
                                 </div>
                                 <span id="spec-content6" className=" hidden md:visible invisible text-2xl ml-7">-</span>
                                 <div className="w-full md:w-1/3 px-3 mb-6 ml-8 md:mb-0">
-
                                     <input id="spec-content3"
                                            className="hidden mr-5 appearance-none form-textarea block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                            name="GodzinaZakonczenia" type="time"
@@ -480,7 +470,7 @@ class WorkingHours extends React.Component {
                                           className="errors-text2 mb-4 ">{errors.GodzinaZakonczenia} </span>
                                 </div>
                                 <button id="spec-content4" onClick={() => {
-                                    this.changeGodzinyPracy()
+                                    this.changeWorkingHours()
                                 }}
                                         className=" hidden flex justify-end mr-14 h-10 w-46 shadow bg-white hover:bg-gray-300  hover:text-blue-400 focus:shadow-outline focus:outline-none text-blue-400 font-bold py-2 px-4 rounded">
                                     {!(czyEdycja) ?
@@ -491,7 +481,6 @@ class WorkingHours extends React.Component {
                             </div>
                         </div>
                     </div>
-
                     <div className=" md:flex mb-6 mt-8 ">
                         <div className="flex pb-3">
                             <Link to={`/godzinyPracyWeterynarz/${idWeterynarz}`}>

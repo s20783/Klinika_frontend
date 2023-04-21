@@ -81,7 +81,7 @@ class SpecializationForm extends React.Component {
             }
         }
         if (fieldName === 'Opis') {
-            if (!CheckTextRange(fieldValue, 0, 300)) {
+            if (!CheckTextRange(fieldValue, 0, 500)) {
                 errorMessage = t('validation.max300nullable')
             }
         }

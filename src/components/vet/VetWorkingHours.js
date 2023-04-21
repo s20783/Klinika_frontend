@@ -184,7 +184,6 @@ class VetWorkingHours extends React.Component {
                                 </td>
                             </tr>
                         </table>
-
                     }
                     <div className="flex justify-between mt-14">
                         <h2 className=" w-1/3 my-2 mb-6 text-2xl font-black leading-tight text-gray-800">
@@ -213,7 +212,7 @@ class VetWorkingHours extends React.Component {
                                             <div className="relative h-6 w-4/6">
                                                 <Link to={`/urlop/${idWeterynarz}/${x.IdUrlop}`}
                                                       className=" absolute inset-y-1 right-8  flex-1">
-                                                    <svg className="list-actions-button-edit flex-1"
+                                                    <svg className="flex-1"
                                                          xmlns="http://www.w3.org/2000/svg"
                                                          width="20" height="20" fill="#000000" viewBox="0 0 256 256">
                                                         <rect className="details-icon-color" width="256" height="256"
@@ -232,34 +231,34 @@ class VetWorkingHours extends React.Component {
                                                     </svg>
                                                 </Link>
                                                 <Link to={`/urlop/delete/${x.IdUrlop}`}>
-                                                    <button className=" absolute inset-y-1 right-1 list-actions-button-details flex-1">
-                                                        <svg className="list-actions-button-delete flex-1"
+                                                    <button className="absolute inset-y-1 right-1 list-actions-button-details flex-1">
+                                                        <svg className="flex-1"
                                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                              fill="#000000" viewBox="0 0 256 256">
                                                             <rect width="256" height="256" fill="none"></rect>
                                                             <line className="details-icon-color" x1="215.99609" y1="56"
                                                                   x2="39.99609" y2="56.00005" fill="none"
                                                                   stroke="#000000"
-                                                                  stroke-linecap="round" strokeLinejoin="round"
+                                                                  strokeLinecap="round" strokeLinejoin="round"
                                                                   strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="104" y1="104"
                                                                   x2="104"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="152" y1="104"
                                                                   x2="152"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <path className="details-icon-color"
                                                                   d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                                   fill="none"
-                                                                  stroke="#000000" stroke-linecap="round"
+                                                                  stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                             <path className="details-icon-color"
                                                                   d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                         </svg>
                                                     </button>

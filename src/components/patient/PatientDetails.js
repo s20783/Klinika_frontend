@@ -143,7 +143,7 @@ class PatientDetails extends React.Component {
                     <form onSubmit={this.handleSubmit} className="w-full max-w">
                         <div className="flex flex-wrap -mx-3 mb-4 border-b">
                             <div className="w-full px-3">
-                                <label class="block tracking-wide text-gray-600 text-s font-bold mb-2">
+                                <label className="block tracking-wide text-gray-600 text-s font-bold mb-2">
                                     {t('pacjent.fields.owner')}
                                 </label>
                                 <input
@@ -237,7 +237,7 @@ class PatientDetails extends React.Component {
                                          fill="none"
                                          viewBox="0 0 24 24"
                                          stroke="currentColor">
-                                        <path stroke-linecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
                                 }
                             </div>
@@ -251,7 +251,7 @@ class PatientDetails extends React.Component {
                                 {pacjent.Plec === "M" &&
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          fill="currentColor"
-                                         font-weight="bold"
+                                         fontWeight="bold"
                                          className="bi bi-gender-male h-12 w-12"
                                          viewBox="0 0 16 16">
                                         <path fillRule="evenodd"
@@ -276,7 +276,7 @@ class PatientDetails extends React.Component {
                                 {pacjent.Agresywne === true &&
                                     <svg className="h-12 w-12 text-black"
                                          viewBox="0 0 24 24"
-                                         stroke="currentColor" fill="none" stroke-linecap="round"
+                                         stroke="currentColor" fill="none" strokeLinecap="round"
                                          strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z"/>
                                         <path d="M5 12l5 5l10 -10"/>
@@ -285,7 +285,7 @@ class PatientDetails extends React.Component {
                                     <svg className="h-12 w-12 text-black"
                                          fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
-                                        <path stroke-linecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>}
                             </div>
                         </div>
@@ -375,11 +375,11 @@ class PatientDetails extends React.Component {
                                             {x.Dawka} ml
                                         </td>
                                         {isVet() &&
-                                            <div className="list-actions text-center py-2">
+                                            <div className="text-center py-2">
                                                 <div className=" flex">
                                                     <Link to={`/szczepienie/edit/${idPacjent}/${x.IdSzczepienie}`}
-                                                          className="list-actions-button-details flex-1">
-                                                        <svg className="list-actions-button-edit flex-1"
+                                                          className="flex-1">
+                                                        <svg className="flex-1"
                                                              xmlns="http://www.w3.org/2000/svg"
                                                              width="20" height="20" fill="#000000"
                                                              viewBox="0 0 256 256">
@@ -403,34 +403,34 @@ class PatientDetails extends React.Component {
                                                         </svg>
                                                     </Link>
                                                     <Link to={`/szczepienie/delete/${x.IdSzczepienie}`}
-                                                          className="list-actions-button-details flex-1">
-                                                        <svg className="list-actions-button-delete flex-1"
+                                                          className="flex-1">
+                                                        <svg className="flex-1"
                                                              xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                              fill="#000000" viewBox="0 0 256 256">
                                                             <rect width="256" height="256" fill="none"></rect>
                                                             <line className="details-icon-color" x1="215.99609" y1="56"
                                                                   x2="39.99609" y2="56.00005" fill="none"
                                                                   stroke="#000000"
-                                                                  stroke-linecap="round" strokeLinejoin="round"
+                                                                  strokeLinecap="round" strokeLinejoin="round"
                                                                   strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="104" y1="104"
                                                                   x2="104"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <line className="details-icon-color" x1="152" y1="104"
                                                                   x2="152"
                                                                   y2="168"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></line>
                                                             <path className="details-icon-color"
                                                                   d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56"
                                                                   fill="none"
-                                                                  stroke="#000000" stroke-linecap="round"
+                                                                  stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                             <path className="details-icon-color"
                                                                   d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56"
-                                                                  fill="none" stroke="#000000" stroke-linecap="round"
+                                                                  fill="none" stroke="#000000" strokeLinecap="round"
                                                                   strokeLinejoin="round" strokeWidth="16"></path>
                                                         </svg>
                                                     </Link>

@@ -182,7 +182,7 @@ class ServiceForm extends React.Component {
                                        htmlFor="Nazwa">
                                     {t('usluga.fields.name')}
                                 </label>
-                                <div class="md:w-3/5">
+                                <div className="md:w-3/5">
                                     <input
                                         className="shadow-xl form-textarea block w-full focus:bg-white"
                                         name="NazwaUslugi" id="NazwaUslugi" type="text"

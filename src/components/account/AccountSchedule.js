@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
-import {getSchedule} from "../../axios/ScheduleApiCalls";
+import {getVetAccountSchedule} from "../../axios/ScheduleApiCalls";
 import Schedule from "../schedule/Schedule";
 import AccountMenu from "./AccountMenu";
 import axios from "axios";
@@ -14,7 +14,6 @@ let source
 class AccountSchedule extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             data: {
                 Data: '',
@@ -22,11 +21,10 @@ class AccountSchedule extends React.Component {
             errors: {
                 Data: '',
             },
-
             date: new Date(),
             error: '',
             isLoaded: false,
-            harmonogram: [],
+            schedules: [],
             start: '',
             end: ''
         }
@@ -75,7 +73,6 @@ class AccountSchedule extends React.Component {
     validateField = (fieldName, fieldValue) => {
         const {t} = this.props;
         let errorMessage = '';
-
         if (fieldName === 'Data') {
             if (!fieldValue) {
                 errorMessage = t('validation.required')
@@ -108,20 +105,18 @@ class AccountSchedule extends React.Component {
         return !this.hasErrors();
     }
 
-
     handleSubmit = async (event) => {
         event.preventDefault();
         const dane = {...this.state}
         const isValid = this.validateForm()
-
         if (isValid) {
             try {
-                await getSchedule(dane.data.Data, source)
+                await getVetAccountSchedule(dane.data.Data, source)
                     .then((res) => {
                         if (res) {
                             this.setState({
                                 isLoaded: true,
-                                harmonogram: res.data.harmonogramy,
+                                schedules: res.data.harmonogramy,
                                 start: res.data.Start,
                                 end: res.data.End
                             });
@@ -133,19 +128,18 @@ class AccountSchedule extends React.Component {
         }
     }
 
-
     render() {
-        const {data, errors, date, harmonogram, start, end} = this.state
+        const {data, errors, date, schedules, start, end} = this.state
         const {t} = this.props;
         const {navigate} = this.props
         const {i18n} = this.props;
         let language = i18n.language;
         let content;
 
-        if (harmonogram.length !== 0) {
-            content = <Schedule harmonogram={harmonogram} start={start} end={end} weterynarz={null}/>
+        if (schedules.length !== 0) {
+            content = <Schedule schedules={schedules} start={start} end={end}/>
         } else {
-            content = <div></div>
+            content = <></>
         }
 
         return (
@@ -173,7 +167,6 @@ class AccountSchedule extends React.Component {
                             </span>
                             </div>
                         </div>
-
                         <div className=" md:flex mb-6 mt-8 ">
                             <div className="flex pb-3">
                                 <button onClick={() => navigate(-1)}
@@ -197,7 +190,6 @@ class AccountSchedule extends React.Component {
 
 const withRouter = WrappedComponent => props => {
     const params = useParams();
-
     return (
         <WrappedComponent
             {...props}
@@ -205,6 +197,7 @@ const withRouter = WrappedComponent => props => {
         />
     );
 };
+
 const withNavigate = Component => props => {
     const navigate = useNavigate();
     return <Component {...props} navigate={navigate}/>;

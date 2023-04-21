@@ -10,12 +10,12 @@ function AfterCreateVisit() {
     return (
         <main>
             <div className="w-full flex flex-wrap ">
-                <div className="bg-white max-w-lg mx-auto p-6 md:p-8 my-10 rounded-lg shadow-2xl">
+                <div className="bg-white max-w-lg mx-auto p-4 md:p-8 my-10 rounded-lg shadow-2xl">
                     <div className="mx-10">
-                        <div className=" py-9 px-7 text-center px-5">
-                            <div className="flex justify-between items-center pb-3">
-                                <p className="text-3xl font-bold text-blue-400 p-1">{t("wizyta.thankYou")}</p>
-                            </div>
+                        <div className="py-10 px-8 text-center">
+                            {/*<div className="flex justify-between text-center pb-3">*/}
+                                <p className="text-3xl font-bold text-center text-blue-400 pb-4">{t("wizyta.thankYou")}</p>
+                            {/*</div>*/}
                             <p className="text-2xl">{t("wizyta.confirmation")}</p>
                             <p className="text-2xl font-bold">{t("wizyta.date") + ": " + date.replaceAll("-", ".")}</p>
                             <img src="/images/gti.png" alt={"gti"}></img>

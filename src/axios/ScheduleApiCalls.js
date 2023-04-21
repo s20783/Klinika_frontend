@@ -37,6 +37,18 @@ export function getSchedule(date, source) {
     })
 }
 
+export function getVetAccountSchedule(date, source) {
+    return api.get(`/Harmonogram/moj_harmonogram?date=${date}`, {
+        cancelToken: source.token
+    }).then((response) => {
+        return response
+    }).catch(function (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    })
+}
+
 export async function addSchedule(source) {
     await api.post(`/Harmonogram/auto`, {
         cancelToken: source.token

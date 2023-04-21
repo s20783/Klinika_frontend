@@ -54,7 +54,6 @@ class VetDetails extends React.Component {
         } catch (e) {
             console.log(e)
         }
-
         try {
             await getVetSpecializationList(this.state.idWeterynarz, source).then((res) => {
                 if (res) {
