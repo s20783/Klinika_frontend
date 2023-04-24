@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getMedicamentWarehouse(Id, source) {
-    return api.get(`/LekWMagazynie/${Id}`, {
+    return api.get(`/MedicamentWarehouse/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -15,7 +15,7 @@ export function getMedicamentWarehouse(Id, source) {
 
 export async function addMedicamentWarehouse(IdLek, data, source) {
     const dataString = JSON.stringify(data)
-    await api.post(`/LekWMagazynie/${IdLek}`, dataString, {
+    await api.post(`/MedicamentWarehouse/${IdLek}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -28,7 +28,7 @@ export async function addMedicamentWarehouse(IdLek, data, source) {
 
 export async function updateMedicamentWarehouse(data, Id, source) {
     const dataString = JSON.stringify(data)
-    await api.put(`/LekWMagazynie/${Id}`, dataString, {
+    await api.put(`/MedicamentWarehouse/${Id}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -40,7 +40,7 @@ export async function updateMedicamentWarehouse(data, Id, source) {
 }
 
 export async function deleteMedicamentWarehouse(Id, source) {
-    await api.delete(`/LekWMagazynie/${Id}`, {
+    await api.delete(`/MedicamentWarehouse/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

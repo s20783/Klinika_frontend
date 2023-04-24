@@ -3,7 +3,7 @@ import axios from "axios";
 import api from "./Api";
 
 export function getAllClients(source) {
-    return authApi.get(`/Klient/all`, {
+    return authApi.get(`/Client/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -15,7 +15,7 @@ export function getAllClients(source) {
 }
 
 export function getClientList(searchWord, page, source) {
-    return authApi.get(`/Klient?search=${searchWord}&page=${page}`, {
+    return authApi.get(`/Client?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -27,7 +27,7 @@ export function getClientList(searchWord, page, source) {
 }
 
 export function getClientDetails(Id, source) {
-    return authApi.get(`/Klient/${Id}`,{
+    return authApi.get(`/Client/${Id}`,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -40,7 +40,7 @@ export function getClientDetails(Id, source) {
 
 export async function addClient(klient, source) {
     const clientString = JSON.stringify(klient)
-    await authApi.post('/Klient/Klinika', clientString,{
+    await authApi.post('/Client/Klinika', clientString,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -53,7 +53,7 @@ export async function addClient(klient, source) {
 
 export async function registerClient(user, source) {
     const userString = JSON.stringify(user)
-    await api.post('/Klient', userString, {
+    await api.post('/Client', userString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -65,7 +65,7 @@ export async function registerClient(user, source) {
 }
 
 export function deleteClientAccount(source) {
-    return authApi.delete(`/Klient`,{
+    return authApi.delete(`/Client`,{
         cancelToken: source.token
     }).then((response) => {
         console.log(response)
@@ -78,7 +78,7 @@ export function deleteClientAccount(source) {
 }
 
 export function deleteClientAccountByAdmin(id, source){
-    return authApi.delete(`/Klient/admin/${id}`,{
+    return authApi.delete(`/Client/admin/${id}`,{
         cancelToken: source.token
     }).then((response) => {
         return response

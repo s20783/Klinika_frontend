@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getWorkingHoursList(id, source) {
-    return api.get(`/GodzinyPracy/${id}`, {
+    return api.get(`/WorkingHours/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getWorkingHoursList(id, source) {
 }
 
 export function getAccountWorkingHoursList(source) {
-    return api.get(`/GodzinyPracy/moje_godziny`, {
+    return api.get(`/WorkingHours/moje_godziny`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -27,7 +27,7 @@ export function getAccountWorkingHoursList(source) {
 
 export async function addWorkingHours(idVet, data, source) {
     const dataString = JSON.stringify(data)
-    await api.post(`/GodzinyPracy/${idVet}`, dataString, {
+    await api.post(`/WorkingHours/${idVet}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -39,7 +39,7 @@ export async function addWorkingHours(idVet, data, source) {
 }
 
 export async function addDefaultWorkingHours(idVet, source) {
-    await api.post(`/GodzinyPracy/default/${idVet}`, {
+    await api.post(`/WorkingHours/default/${idVet}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -52,7 +52,7 @@ export async function addDefaultWorkingHours(idVet, source) {
 
 export async function editWorkingHours(idVet, data, source) {
     const dataString = JSON.stringify(data)
-    await api.put(`/GodzinyPracy/${idVet}`, dataString, {
+    await api.put(`/WorkingHours/${idVet}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -64,7 +64,7 @@ export async function editWorkingHours(idVet, data, source) {
 }
 
 export async function deleteWorkingHours(id, day, source) {
-    await api.delete(`/GodzinyPracy/${id}?day=${day}`, {
+    await api.delete(`/WorkingHours/${id}?day=${day}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

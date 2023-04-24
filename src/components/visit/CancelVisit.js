@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
-import {getWizytaDetails, cancelVisit} from "../../axios/VisitApiCalls";
+import {getVisitDetails, cancelVisit} from "../../axios/VisitApiCalls";
 import {isClient} from "../../helpers/authHelper";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -32,7 +32,7 @@ class CancelVisit extends React.Component {
     getWizyta = async () => {
         const {t} = this.props;
         try {
-            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+            await getVisitDetails(this.state.idWizyta, source).then((res) => {
                 if (dayjs(res.data.DataRozpoczecia).diff(dayjs(new Date()), 'hour') <= 4) {
                     this.setState({
                         notice: t('wizyta.4hvisitNotification')

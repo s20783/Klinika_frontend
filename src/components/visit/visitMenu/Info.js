@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../../../helpers/dateFormat";
-import {getWizytaDetails, updateVisit} from "../../../axios/VisitApiCalls";
+import {getVisitDetails, updateVisit} from "../../../axios/VisitApiCalls";
 import VisitFormMenu from "../VisitFormMenu";
 import {CheckTextRange} from "../../../helpers/CheckTextRange";
 import {acceptVisitServices} from "../../../axios/VisitServiceApiCalls";
@@ -39,7 +39,7 @@ class Info extends React.Component {
         source = CancelToken.source();
         try {
             let klientId;
-            const res1 = await getWizytaDetails(this.state.idWizyta, source)
+            const res1 = await getVisitDetails(this.state.idWizyta, source)
             if (res1) {
                 klientId = res1.data.IdKlient
                 this.setState({

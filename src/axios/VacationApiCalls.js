@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getVacationList(Id, source) {
-    return api.get(`/Urlop/${Id}`, {
+    return api.get(`/Vacation/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getVacationList(Id, source) {
 }
 
 export function getVacationDetails(Id, source) {
-    return api.get(`/Urlop/details/${Id}`, {
+    return api.get(`/Vacation/details/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export function getVacationDetails(Id, source) {
 }
 
 export function getAccountVacationList(source) {
-    return api.get(`/Urlop/moje_urlopy`, {
+    return api.get(`/Vacation/moje_urlopy`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -39,7 +39,7 @@ export function getAccountVacationList(source) {
 
 export async function addVacation(data, source) {
     const dataString = JSON.stringify(data)
-    await api.post(`/Urlop`, dataString, {
+    await api.post(`/Vacation`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -52,7 +52,7 @@ export async function addVacation(data, source) {
 
 export async function editVacation(data, id, source) {
     const dataString = JSON.stringify(data)
-    await api.put(`/Urlop/${id}`, dataString, {
+    await api.put(`/Vacation/${id}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response

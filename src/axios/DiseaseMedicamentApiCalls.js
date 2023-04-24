@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export async function addDiseaseMedicament(IdChoroba, IdLek, source) {
-    await api.post(`/ChorobaLek/${IdChoroba}/${IdLek}`, {
+    await api.post(`/DiseaseMedicament/${IdChoroba}/${IdLek}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export async function addDiseaseMedicament(IdChoroba, IdLek, source) {
 }
 
 export async function deleteDiseaseMedicament(IdChoroba, IdLek, source) {
-    await api.delete(`/ChorobaLek/${IdChoroba}/${IdLek}`, {
+    await api.delete(`/DiseaseMedicament/${IdChoroba}/${IdLek}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

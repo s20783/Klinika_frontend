@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getServiceList(searchWord, page, source) {
-    return api.get(`/Usluga?search=${searchWord}&page=${page}`, {
+    return api.get(`/Service?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getServiceList(searchWord, page, source) {
 }
 
 export function getAllServices(source) {
-    return api.get(`/Usluga/all`, {
+    return api.get(`/Service/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export function getAllServices(source) {
 }
 
 export function getServiceDetails(id, source) {
-    return api.get(`/Usluga/details/${id}`, {
+    return api.get(`/Service/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,7 +38,7 @@ export function getServiceDetails(id, source) {
 }
 
 export function getPatientServices(id, source) {
-    return api.get(`/Usluga/pacjent/${id}`, {
+    return api.get(`/Service/pacjent/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -51,7 +51,7 @@ export function getPatientServices(id, source) {
 
 export async function addService(data, source) {
     const dataString = JSON.stringify(data)
-    await api.post('/Usluga', dataString, {
+    await api.post('/Service', dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -64,7 +64,7 @@ export async function addService(data, source) {
 
 export async function updateService(data, id, source) {
     const dataString = JSON.stringify(data)
-    await api.put(`/Usluga/${id}`, dataString, {
+    await api.put(`/Service/${id}`, dataString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -76,7 +76,7 @@ export async function updateService(data, id, source) {
 }
 
 export async function deleteService(id, source) {
-    await api.delete(`/Usluga/${id}`, {
+    await api.delete(`/Service/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

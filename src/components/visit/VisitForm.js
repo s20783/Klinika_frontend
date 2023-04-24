@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import {getScheduleForVisit} from "../../axios/ScheduleApiCalls";
 import {getFormattedDateWithHour} from "../../helpers/dateFormat";
 import {withTranslation} from "react-i18next";
-import {getWizytaDetails, rescheduleVisit, createVisit} from "../../axios/VisitApiCalls";
+import {getVisitDetails, rescheduleVisit, createVisit} from "../../axios/VisitApiCalls";
 import formMode from "../../helpers/FormMode";
 import {getPatientClientList, getPatientClientList2} from "../../axios/PatientApiCalls";
 import {isAdmin, isClient, isVet} from "../../helpers/authHelper";
@@ -53,7 +53,7 @@ class VisitForm extends React.Component {
         source = CancelToken.source();
         if (this.state.formMode === formMode.EDIT) {
             try {
-                await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+                await getVisitDetails(this.state.idWizyta, source).then((res) => {
                     if (res) {
                         const data1 = {...this.state.data}
                         data1['Pacjent'] = res.data.IdPacjent

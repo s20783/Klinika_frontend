@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getVaccineList(searchWord, page, source) {
-    return api.get(`/Szczepionka?search=${searchWord}&page=${page}`, {
+    return api.get(`/Vaccine?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getVaccineList(searchWord, page, source) {
 }
 
 export function getAllVaccines(source) {
-    return api.get(`/Szczepionka/all`, {
+    return api.get(`/Vaccine/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export function getAllVaccines(source) {
 }
 
 export function getVaccineDetails(id, source) {
-    return api.get(`/Szczepionka/details/${id}`, {
+    return api.get(`/Vaccine/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -39,7 +39,7 @@ export function getVaccineDetails(id, source) {
 
 export async function addVaccine(data, source) {
     const szczepionkaString = JSON.stringify(data)
-    await api.post(`/Szczepionka`, szczepionkaString, {
+    await api.post(`/Vaccine`, szczepionkaString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -52,7 +52,7 @@ export async function addVaccine(data, source) {
 
 export async function updateVaccine(data, id, source) {
     const szczepionkaString = JSON.stringify(data)
-    await api.put(`/Szczepionka/${id}`, szczepionkaString, {
+    await api.put(`/Vaccine/${id}`, szczepionkaString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -64,7 +64,7 @@ export async function updateVaccine(data, id, source) {
 }
 
 export async function deleteVaccine(id, source) {
-    await api.delete(`/Szczepionka/${id}`, {
+    await api.delete(`/Vaccine/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getPatientList(searchWord, page, source) {
-    return api.get(`/Pacjent?search=${searchWord}&page=${page}`, {
+    return api.get(`/Patient?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getPatientList(searchWord, page, source) {
 }
 
 export function getPatientDetails(id, source) {
-    return api.get(`/Pacjent/details/${id}`, {
+    return api.get(`/Patient/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export function getPatientDetails(id, source) {
 }
 
 export function getPatientClientList(id, source) {
-    return api.get(`/Pacjent/klient/${id}`, {
+    return api.get(`/Patient/klient/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,7 +38,7 @@ export function getPatientClientList(id, source) {
 }
 
 export function getPatientClientList2(source) {
-    return api.get(`/Pacjent/klient`, {
+    return api.get(`/Patient/klient`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -51,7 +51,7 @@ export function getPatientClientList2(source) {
 
 export async function addPatient(patient, source) {
     const patientString = JSON.stringify(patient)
-    await api.post('/Pacjent', patientString, {
+    await api.post('/Patient', patientString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -64,7 +64,7 @@ export async function addPatient(patient, source) {
 
 export async function updatePatient(patient, id, source) {
     const patientString = JSON.stringify(patient)
-    await api.put(`/Pacjent/${id}`, patientString, {
+    await api.put(`/Patient/${id}`, patientString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -76,7 +76,7 @@ export async function updatePatient(patient, id, source) {
 }
 
 export async function deletePatient(id, source) {
-    await api.delete(`/Pacjent/${id}`, {
+    await api.delete(`/Patient/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

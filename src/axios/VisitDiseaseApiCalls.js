@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getVisitDiseaseList(id, source){
-    return api.get(`/WizytaChoroba/${id}`, {
+    return api.get(`/VisitDisease/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -12,8 +12,9 @@ export function getVisitDiseaseList(id, source){
         }
     })
 }
+
 export async function addVisitDisease(idVisit, idDisease, source){
-    await api.post(`/WizytaChoroba/${idVisit}/${idDisease}`, {
+    await api.post(`/VisitDisease/${idVisit}/${idDisease}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -23,8 +24,9 @@ export async function addVisitDisease(idVisit, idDisease, source){
         }
     })
 }
+
 export async function deleteVisitDisease(idVisit, idDisease, source){
-    await api.delete(`/WizytaChoroba/${idVisit}/${idDisease}`, {
+    await api.delete(`/VisitDisease/${idVisit}/${idDisease}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

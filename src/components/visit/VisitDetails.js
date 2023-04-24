@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate, useParams} from "react-router";
 import {withTranslation} from "react-i18next";
 import {getFormattedDateWithHour} from "../../helpers/dateFormat";
-import {getWizytaDetails} from "../../axios/VisitApiCalls";
+import {getVisitDetails} from "../../axios/VisitApiCalls";
 import {getPrescriptionDetails, getPrescriptionMedicaments} from "../../axios/PrescriptionApiCalls";
 import {getVisitServiceList} from "../../axios/VisitServiceApiCalls";
 import {getVisitDiseaseList} from "../../axios/VisitDiseaseApiCalls";
@@ -42,7 +42,7 @@ class VisitDetails extends React.Component {
 
     fetchVisitDetails = async () => {
         try {
-            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+            await getVisitDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getSpecializationList(searchWord, page, source) {
-    return api.get(`/Specjalizacja?search=${searchWord}&page=${page}`, {
+    return api.get(`/Specialization?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getSpecializationList(searchWord, page, source) {
 }
 
 export function getAllSpecializations(source) {
-    return api.get(`/Specjalizacja/all`, {
+    return api.get(`/Specialization/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export function getAllSpecializations(source) {
 }
 
 export function getSpecializationDetails(id, source) {
-    return api.get(`/Specjalizacja/details/${id}`, {
+    return api.get(`/Specialization/details/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -39,7 +39,7 @@ export function getSpecializationDetails(id, source) {
 
 export async function addSpecialization(data, source) {
     const specializationString = JSON.stringify(data)
-    await api.post(`/Specjalizacja`, specializationString, {
+    await api.post(`/Specialization`, specializationString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -52,7 +52,7 @@ export async function addSpecialization(data, source) {
 
 export async function updateSpecialization(data, id, source) {
     const specializationString = JSON.stringify(data)
-    await api.put(`/Specjalizacja/${id}`, specializationString, {
+    await api.put(`/Specialization/${id}`, specializationString, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -64,7 +64,7 @@ export async function updateSpecialization(data, id, source) {
 }
 
 export async function deleteSpecialization(id, source) {
-    await api.delete(`/Specjalizacja/${id}`, {
+    await api.delete(`/Specialization/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

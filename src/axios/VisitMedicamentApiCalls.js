@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getVisitMedicamentList(id, source) {
-    return api.get(`/WizytaLek/${id}`, {
+    return api.get(`/VisitMedicament/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getVisitMedicamentList(id, source) {
 }
 
 export async function addVisitMedicament(idVisit, idMedicament, count, source) {
-    await api.post(`/WizytaLek/${idVisit}/${idMedicament}?Ilosc=${count}`, {
+    await api.post(`/VisitMedicament/${idVisit}/${idMedicament}?Ilosc=${count}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export async function addVisitMedicament(idVisit, idMedicament, count, source) {
 }
 
 export async function deleteVisitMedicament(idVisit, idMedicament, source) {
-    await api.delete(`/WizytaLek/${idVisit}/${idMedicament}`, {
+    await api.delete(`/VisitMedicament/${idVisit}/${idMedicament}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

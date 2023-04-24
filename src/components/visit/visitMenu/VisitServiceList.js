@@ -6,7 +6,7 @@ import {getAllServices} from "../../../axios/ServiceApiCalls";
 import VisitFormMenu from "../VisitFormMenu";
 import {addVisitService, deleteVisitService} from "../../../axios/VisitServiceApiCalls";
 import axios from "axios";
-import {getWizytaDetails} from "../../../axios/VisitApiCalls";
+import {getVisitDetails} from "../../../axios/VisitApiCalls";
 
 let CancelToken
 let source
@@ -46,7 +46,7 @@ class VisitServiceList extends React.Component {
 
     fetchVisit = async () => {
         try {
-            await getWizytaDetails(this.state.idWizyta, source).then((res) => {
+            await getVisitDetails(this.state.idWizyta, source).then((res) => {
                 if (res) {
                     this.setState({
                         isLoaded: true,

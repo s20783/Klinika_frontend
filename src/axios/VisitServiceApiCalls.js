@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getVisitServiceList(id, source) {
-    return api.get(`/WizytaUsluga/${id}`, {
+    return api.get(`/VisitService/${id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getVisitServiceList(id, source) {
 }
 
 export async function addVisitService(idVisit, idService, source) {
-    await api.post(`/WizytaUsluga/${idVisit}/${idService}`, {
+    await api.post(`/VisitService/${idVisit}/${idService}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export async function addVisitService(idVisit, idService, source) {
 }
 
 export async function acceptVisitServices(idVisit, source) {
-    await api.put(`/WizytaUsluga/accept/${idVisit}`, {
+    await api.put(`/VisitService/accept/${idVisit}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,7 +38,7 @@ export async function acceptVisitServices(idVisit, source) {
 }
 
 export async function deleteVisitService(idVisit, idService, source) {
-    await api.delete(`/WizytaUsluga/${idVisit}/${idService}`, {
+    await api.delete(`/VisitService/${idVisit}/${idService}`, {
         cancelToken: source.token
     }).then((response) => {
         return response

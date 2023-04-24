@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getDiseaseList(searchWord, page, source) {
-    return api.get(`/Choroba?search=${searchWord}&page=${page}`, {
+    return api.get(`/Disease?search=${searchWord}&page=${page}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getDiseaseList(searchWord, page, source) {
 }
 
 export function getAllDiseases(source) {
-    return api.get(`/Choroba/all`, {
+    return api.get(`/Disease/all`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export function getAllDiseases(source) {
 }
 
 export function getDiseaseDetails(Id, source) {
-    return api.get(`/Choroba/${Id}`,{
+    return api.get(`/Disease/${Id}`,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -39,7 +39,7 @@ export function getDiseaseDetails(Id, source) {
 
 export async function addDisease(disease, source) {
     const diseaseString = JSON.stringify(disease)
-    await api.post(`/Choroba`, diseaseString,{
+    await api.post(`/Disease`, diseaseString,{
         cancelToken: source.token
     }).then((response) => {
         console.log(response)
@@ -53,7 +53,7 @@ export async function addDisease(disease, source) {
 
 export async function updateDisease(disease, Id, source) {
     const diseaseString = JSON.stringify(disease)
-    await api.put(`/Choroba/${Id}`, diseaseString,{
+    await api.put(`/Disease/${Id}`, diseaseString,{
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -65,7 +65,7 @@ export async function updateDisease(disease, Id, source) {
 }
 
 export async function deleteDisease(Id, source) {
-    await api.delete(`/Choroba/${Id}`,{
+    await api.delete(`/Disease/${Id}`,{
         cancelToken: source.token
     }).then((response) => {
         return response

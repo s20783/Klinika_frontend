@@ -2,7 +2,7 @@ import api from "./AuthApi";
 import axios from "axios";
 
 export function getPrescriptionDetails(Id, source) {
-    return api.get(`/Recepta/details/${Id}`, {
+    return api.get(`/Prescription/details/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -14,7 +14,7 @@ export function getPrescriptionDetails(Id, source) {
 }
 
 export async function addPrescription(Id, zalecenia, source) {
-    await api.post(`/Recepta?ID_Wizyta=${Id}&Zalecenia=${zalecenia}`, {
+    await api.post(`/Prescription?ID_Wizyta=${Id}&Zalecenia=${zalecenia}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -26,7 +26,7 @@ export async function addPrescription(Id, zalecenia, source) {
 }
 
 export async function updatePrescription(Id, zalecenia, source) {
-    await api.put(`/Recepta/${Id}?Zalecenia=${zalecenia}`, {
+    await api.put(`/Prescription/${Id}?Zalecenia=${zalecenia}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -38,7 +38,7 @@ export async function updatePrescription(Id, zalecenia, source) {
 }
 
 export async function deletePrescription(Id, source) {
-    await api.delete(`/Recepta/${Id}`, {
+    await api.delete(`/Prescription/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -51,7 +51,7 @@ export async function deletePrescription(Id, source) {
 
 //ReceptaLeki
 export function getPrescriptionMedicaments(Id, source) {
-    return api.get(`/ReceptaLek/${Id}`, {
+    return api.get(`/PrescriptionMedicament/${Id}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -63,7 +63,7 @@ export function getPrescriptionMedicaments(Id, source) {
 }
 
 export async function addPrescriptionMedicament(idRecepta, idLek, ilosc, source) {
-    await api.post(`/ReceptaLek?ID_Recepta=${idRecepta}&ID_Lek=${idLek}&Ilosc=${ilosc}`, {
+    await api.post(`/PrescriptionMedicament?ID_Recepta=${idRecepta}&ID_Lek=${idLek}&Ilosc=${ilosc}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -75,7 +75,7 @@ export async function addPrescriptionMedicament(idRecepta, idLek, ilosc, source)
 }
 
 export async function deletePrescriptionMedicament(idRecepta, idLek, source) {
-    await api.delete(`/ReceptaLek/${idRecepta}/${idLek}`, {
+    await api.delete(`/PrescriptionMedicament/${idRecepta}/${idLek}`, {
         cancelToken: source.token
     }).then((response) => {
         return response
@@ -87,7 +87,7 @@ export async function deletePrescriptionMedicament(idRecepta, idLek, source) {
 }
 
 export function getClientPrescriptions(source) {
-    return api.get(`/Recepta/moje_recepty`, {
+    return api.get(`/Prescription/moje_recepty`, {
         cancelToken: source.token
     }).then((response) => {
         return response
